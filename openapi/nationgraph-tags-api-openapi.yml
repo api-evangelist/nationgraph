@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Tags API
+  version: 0.2.36
+tags:
+- name: Tags
+paths:
+  /api/v3/workspaces/{workspace_id}/institution/{institution_id}/tags:
+    post:
+      tags:
+      - Tags
+      summary: Create Tags
+      operationId: create_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagItem'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Tags
+      summary: Update Tags
+      operationId: update_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/tags:
+    post:
+      tags:
+      - Tags
+      summary: Persist New Tag
+      description: Persist a new tag for the user.
+      operationId: persist_new_tag_api_v3_tags_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagItem'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/workspaces/{workspace_id}/tags:
+    get:
+      tags:
+      - Tags
+      summary: Get Workspace Tags
+      description: Get saved tags for the user within a specific workspace.
+      operationId: get_workspace_tags_api_v3_workspaces__workspace_id__tags_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/tags/{tag_id}:
+    delete:
+      tags:
+      - Tags
+      summary: Delete Workspace Tag
+      description: 'Delete a saved tag by its ID within a specific workspace.
+
+        Only deletes tags owned by the current user.'
+      operationId: delete_workspace_tag_api_v3_workspaces__workspace_id__tags__tag_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tag Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateTagsRequest:
+      properties:
+        tags:
+          items:
+            $ref: '#/components/schemas/TagItem'
+          type: array
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: CreateTagsRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TagItem:
+      properties:
+        label:
+          type: string
+          title: Label
+        hexcode:
+          type: string
+          title: Hexcode
+      type: object
+      required:
+      - label
+      - hexcode
+      title: TagItem
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

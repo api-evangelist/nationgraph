@@ -1,0 +1,876 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM API
+  version: 0.2.36
+tags:
+- name: CRM
+paths:
+  /api/v3/crm/connect/hubspot:
+    get:
+      tags:
+      - CRM
+      summary: Initiate HubSpot OAuth
+      description: Get the authorization URL to initiate HubSpot OAuth flow. Requires admin role.
+      operationId: initiate_hubspot_auth_api_v3_crm_connect_hubspot_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CRMAuthResponse'
+      security:
+      - HTTPBearer: []
+  /api/v3/crm/connect/hubspot/redirect:
+    get:
+      tags:
+      - CRM
+      summary: Redirect to HubSpot OAuth
+      description: Directly redirect to HubSpot OAuth authorization page. Requires admin role.
+      operationId: redirect_to_hubspot_auth_api_v3_crm_connect_hubspot_redirect_get
+      responses:
+        '307':
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+  /api/v3/crm/callback/hubspot:
+    get:
+      tags:
+      - CRM
+      summary: HubSpot OAuth Callback
+      description: Handle the OAuth callback from HubSpot after user authorization.
+      operationId: hubspot_oauth_callback_api_v3_crm_callback_hubspot_get
+      parameters:
+      - name: code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Authorization code from HubSpot
+          title: Code
+        description: Authorization code from HubSpot
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: State parameter for verification
+          title: State
+        description: State parameter for verification
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Error code if authorization failed
+          title: Error
+        description: Error code if authorization failed
+      - name: error_description
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Error description
+          title: Error Description
+        description: Error description
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/connect/salesforce:
+    get:
+      tags:
+      - CRM
+      summary: Initiate Salesforce OAuth
+      description: Get the authorization URL to initiate Salesforce OAuth flow. Requires admin role.
+      operationId: initiate_salesforce_auth_api_v3_crm_connect_salesforce_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CRMAuthResponse'
+      security:
+      - HTTPBearer: []
+  /api/v3/crm/connect/salesforce/redirect:
+    get:
+      tags:
+      - CRM
+      summary: Redirect to Salesforce OAuth
+      description: Directly redirect to Salesforce OAuth authorization page. Requires admin role.
+      operationId: redirect_to_salesforce_auth_api_v3_crm_connect_salesforce_redirect_get
+      responses:
+        '307':
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+  /api/v3/crm/callback/salesforce:
+    get:
+      tags:
+      - CRM
+      summary: Salesforce OAuth Callback
+      description: Handle the OAuth callback from Salesforce after user authorization.
+      operationId: salesforce_oauth_callback_api_v3_crm_callback_salesforce_get
+      parameters:
+      - name: code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Authorization code from Salesforce
+          title: Code
+        description: Authorization code from Salesforce
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: State parameter for verification
+          title: State
+        description: State parameter for verification
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Error code if authorization failed
+          title: Error
+        description: Error code if authorization failed
+      - name: error_description
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Error description
+          title: Error Description
+        description: Error description
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/connect/zapier:
+    post:
+      tags:
+      - CRM
+      summary: Connect Zapier Integration
+      description: Create a Zapier integration for the organization. Requires admin role.
+      operationId: connect_zapier_api_v3_crm_connect_zapier_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZapierConnectResponse'
+      security:
+      - HTTPBearer: []
+  /api/v3/crm/{integration_id}/status:
+    get:
+      tags:
+      - CRM
+      summary: Get CRM Integration Status
+      description: Check the status of a specific CRM integration.
+      operationId: get_crm_integration_status_api_v3_crm__integration_id__status_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CRMIntegrationStatus'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}:
+    delete:
+      tags:
+      - CRM
+      summary: Disconnect CRM Integration
+      description: Revoke and disconnect a CRM integration. Requires admin role.
+      operationId: disconnect_crm_integration_api_v3_crm__integration_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CRMDisconnectResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/token:
+    get:
+      tags:
+      - CRM
+      summary: Get Valid CRM Access Token
+      description: Get a valid access token for making CRM API calls.
+      operationId: get_crm_access_token_api_v3_crm__integration_id__token_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Crm Access Token Api V3 Crm  Integration Id  Token Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/signals/{signal_id}:
+    post:
+      tags:
+      - CRM
+      summary: Push Signal to CRM
+      description: "Push a signal to HubSpot CRM as either a **note** or a **task**.\n\n**Action Types:**\n\n- **`note`**: Records the signal as a note on the HubSpot company. Use this to\n  document the signal for future reference.\n\n- **`task`**: Creates a follow-up task on the HubSpot company. Use this when\n  the signal requires action. Tasks include due dates, priority levels, and\n  can be assigned to team members.\n\n**Requirements:**\n- Active HubSpot integration\n- CRM mapping between the signal's institution and a HubSpot company\n  (create via `/api/v3/crm/{integration_id}/mappings`)"
+      operationId: push_signal_to_crm_api_v3_crm__integration_id__signals__signal_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: signal_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The signal ID to push
+          title: Signal Id
+        description: The signal ID to push
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CRMActionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CRMActionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/signals/{signal_id}/contacts/{contact_id}:
+    post:
+      tags:
+      - CRM
+      summary: Push Contact to CRM
+      description: 'Push a signal''s contact to HubSpot and associate them with the mapped company.
+
+
+        **What this does:**
+
+        1. Creates the contact in HubSpot (or finds existing by email)
+
+        2. Associates the contact with the HubSpot company linked to this signal''s institution
+
+
+        **Requirements:**
+
+        - Active HubSpot integration
+
+        - CRM mapping between the signal''s institution and a HubSpot company'
+      operationId: push_contact_to_crm_api_v3_crm__integration_id__signals__signal_id__contacts__contact_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: signal_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The signal ID
+          title: Signal Id
+        description: The signal ID
+      - name: contact_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The contact ID to push
+          title: Contact Id
+        description: The contact ID to push
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactPushRequest'
+              default: {}
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactPushResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/deliveries:
+    post:
+      tags:
+      - CRM
+      summary: Deliver payload to a workflow subscription
+      description: Deliver a frontend-assembled payload to a chosen workflow (e.g. Zapier) subscription via webhook-manager. Used for automation-context pushes (ranked results, vendor contracts, outreach sequences, institutions) that have no CRM analog.
+      operationId: create_integration_delivery_api_v3_crm__integration_id__deliveries_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The integration ID
+          title: Integration Id
+        description: The integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookDeliveryRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Create Integration Delivery Api V3 Crm  Integration Id  Deliveries Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/subscriptions:
+    get:
+      tags:
+      - CRM
+      summary: List workflow subscriptions
+      description: List active workflow (e.g. Zapier) webhook subscriptions for the integration, optionally filtered by event type. Used to populate the push target picker.
+      operationId: list_integration_subscriptions_api_v3_crm__integration_id__subscriptions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The integration ID
+          title: Integration Id
+        description: The integration ID
+      - name: event_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by event type, e.g. 'signals.push'
+          title: Event Type
+        description: Filter by event type, e.g. 'signals.push'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+                title: Response List Integration Subscriptions Api V3 Crm  Integration Id  Subscriptions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CRMDisconnectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - message
+      title: CRMDisconnectResponse
+      description: Response model for CRM disconnect.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TaskOptions:
+      properties:
+        subject:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subject
+          description: Custom task subject/title. Defaults to signal title with institution name.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom task body/description. Defaults to signal summary and reason.
+        due_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Due Date
+          description: Due date as ISO string or Unix timestamp in ms. Defaults to tomorrow.
+        priority:
+          anyOf:
+          - $ref: '#/components/schemas/TaskPriority'
+          - type: 'null'
+          description: Task priority. Defaults based on signal significance.
+        owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner Id
+          description: CRM owner ID to assign the task to.
+      type: object
+      title: TaskOptions
+      description: Options for creating a task in CRM.
+    CRMAuthResponse:
+      properties:
+        authorization_url:
+          type: string
+          title: Authorization Url
+      type: object
+      required:
+      - authorization_url
+      title: CRMAuthResponse
+      description: Response model for CRM auth initiation.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ContactPushResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        contact_id:
+          type: string
+          title: Contact Id
+          description: The CRM contact ID
+        company_id:
+          type: string
+          title: Company Id
+          description: The CRM company/account ID
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - contact_id
+      - company_id
+      - message
+      title: ContactPushResponse
+      description: Response from pushing a contact to CRM.
+    TaskPriority:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      title: TaskPriority
+      description: CRM task priority levels.
+    LeadOptions:
+      properties:
+        last_name:
+          type: string
+          title: Last Name
+          description: Lead's last name (required).
+        company:
+          type: string
+          title: Company
+          description: Company name (required).
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: Lead's first name.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: Lead email.
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+          description: Lead phone number.
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Lead job title.
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: Lead status.
+        rating:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rating
+          description: Lead rating.
+        lead_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lead Source
+          description: Lead source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Lead description.
+        owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner Id
+          description: CRM owner ID for the lead.
+      type: object
+      required:
+      - last_name
+      - company
+      title: LeadOptions
+      description: Options for creating a lead in CRM. Currently Salesforce-only.
+    CRMActionResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        action_type:
+          $ref: '#/components/schemas/CRMActionType'
+        crm_id:
+          type: string
+          title: Crm Id
+          description: The created CRM object ID (note, task, post, or lead)
+        company_id:
+          type: string
+          title: Company Id
+          description: The CRM company/account ID. Empty string for lead pushes since leads are not tied to a company.
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - action_type
+      - crm_id
+      - company_id
+      - message
+      title: CRMActionResponse
+      description: Response from a CRM action.
+    WebhookDeliveryRequest:
+      properties:
+        subscription_id:
+          type: string
+          title: Subscription Id
+          description: Target workflow subscription (Zap) to deliver to
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          description: The assembled payload to deliver
+      type: object
+      required:
+      - subscription_id
+      - payload
+      title: WebhookDeliveryRequest
+      description: Deliver a frontend-assembled payload to a chosen workflow subscription.
+    CRMIntegrationStatus:
+      properties:
+        integration_id:
+          type: string
+          format: uuid
+          title: Integration Id
+          description: The integration ID
+        provider:
+          type: string
+          title: Provider
+          description: The CRM provider (e.g., 'hubspot')
+        connected:
+          type: boolean
+          title: Connected
+        external_team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Id
+        external_team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Name
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+      type: object
+      required:
+      - integration_id
+      - provider
+      - connected
+      title: CRMIntegrationStatus
+      description: 'Response model for CRM integration status.
+
+
+        Field names match the generic `Integration` model storage layer so the
+
+        shape is uniform across CRM providers. For HubSpot, `external_team_id`
+
+        holds `hub_id` and `external_team_name` holds `hub_domain`; for Salesforce
+
+        they hold the org id and instance URL respectively.'
+    CRMActionType:
+      type: string
+      enum:
+      - note
+      - task
+      - post
+      - lead
+      title: CRMActionType
+      description: Type of CRM action to perform on a signal.
+    ContactPushRequest:
+      properties:
+        subscription_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subscription Id
+          description: Target workflow subscription (Zap) chosen by the user. Only used for workflow providers like Zapier.
+      type: object
+      title: ContactPushRequest
+      description: Request to push a contact to CRM/workflow.
+    CRMActionRequest:
+      properties:
+        action_type:
+          $ref: '#/components/schemas/CRMActionType'
+          description: 'Type of CRM action: ''note'' (record signal), ''task'' (create follow-up), ''post'' (share to feed), or ''lead'' (create prospect)'
+        task_options:
+          anyOf:
+          - $ref: '#/components/schemas/TaskOptions'
+          - type: 'null'
+          description: Options for task creation. Only used when action_type is 'task'.
+        post_options:
+          anyOf:
+          - $ref: '#/components/schemas/PostOptions'
+          - type: 'null'
+          description: Options for post creation. Only used when action_type is 'post'.
+        lead_options:
+          anyOf:
+          - $ref: '#/components/schemas/LeadOptions'
+          - type: 'null'
+          description: Options for lead creation. Required when action_type is 'lead'.
+        subscription_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subscription Id
+          description: Target workflow subscription (Zap) chosen by the user. Only used for workflow providers like Zapier.
+      type: object
+      required:
+      - action_type
+      title: CRMActionRequest
+      description: Request to push a signal to CRM.
+    PostOptions:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Custom post title. Defaults to institution name with signal title.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom post body/content. Defaults to formatted signal with emojis.
+      type: object
+      title: PostOptions
+      description: Options for creating a post in CRM.
+    ZapierConnectResponse:
+      properties:
+        integration_id:
+          type: string
+          format: uuid
+          title: Integration Id
+          description: The created integration ID
+        provider:
+          type: string
+          title: Provider
+          default: zapier
+      type: object
+      required:
+      - integration_id
+      title: ZapierConnectResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

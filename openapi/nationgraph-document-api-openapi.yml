@@ -1,0 +1,102 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Document API
+  version: 0.2.36
+tags:
+- name: Document
+paths:
+  /api/v3/documents/presign/batch:
+    post:
+      tags:
+      - Document
+      summary: Presign Batch
+      operationId: presign_batch_api_v3_documents_presign_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/PresignItem'
+              type: array
+              title: Items
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PresignItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        method:
+          type: string
+          enum:
+          - put_object
+          - get_object
+          title: Method
+          default: put_object
+        content_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+        expires_in:
+          type: integer
+          title: Expires In
+          default: 60
+      type: object
+      required:
+      - key
+      title: PresignItem
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

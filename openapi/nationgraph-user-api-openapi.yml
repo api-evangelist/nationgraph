@@ -1,0 +1,548 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts User API
+  version: 0.2.36
+tags:
+- name: User
+paths:
+  /api/v3/users:
+    post:
+      tags:
+      - User
+      summary: Bootstrap User
+      description: 'Idempotent user bootstrap — call on every login and JWT refresh.
+
+
+        Resolves or creates the org row from the JWT BetterAuth org UUID, then
+
+        upserts UserProfile. Returns the current profile including integer org PK.'
+      operationId: bootstrap_user_api_v3_users_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /api/v3/users/onboarding:
+    get:
+      tags:
+      - User
+      summary: Get User Onboarding Progress
+      description: Setup-checklist progress for the authenticated user's active org.
+      operationId: get_user_onboarding_progress_api_v3_users_onboarding_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardingProgressResponse'
+      security:
+      - HTTPBearer: []
+  /api/v3/users/{user_id}/subscriptions:
+    get:
+      tags:
+      - User
+      summary: Get Subscriptions For User
+      operationId: get_subscriptions_for_user_api_v3_users__user_id__subscriptions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/users/{user_id}/integrations:
+    get:
+      tags:
+      - User
+      summary: Get User Integrations
+      operationId: get_user_integrations_api_v3_users__user_id__integrations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: provider
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIntegrationsGroupedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/users/{user_id}/subscriptions/{subscription_type}:
+    get:
+      tags:
+      - User
+      summary: Get Subscriptions By Type
+      operationId: get_subscriptions_by_type_api_v3_users__user_id__subscriptions__subscription_type__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: subscription_type
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SubscriptionType'
+      - name: delivery_method
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/DeliveryMethod'
+          - type: 'null'
+          title: Delivery Method
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/users/{user_id}/documents/{document_id}:
+    put:
+      tags:
+      - User
+      summary: Add User Document
+      operationId: add_user_document_api_v3_users__user_id__documents__document_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Document Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/users/{user_id}/documents:
+    put:
+      tags:
+      - User
+      summary: Replace User Documents
+      operationId: replace_user_documents_api_v3_users__user_id__documents_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserDocumentsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - User
+      summary: Get User Documents
+      operationId: get_user_documents_api_v3_users__user_id__documents_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ProviderCapabilities:
+      properties:
+        push:
+          type: boolean
+          title: Push
+          default: false
+        pull:
+          type: boolean
+          title: Pull
+          default: false
+        link:
+          type: boolean
+          title: Link
+          default: false
+        requires:
+          items:
+            type: string
+          type: array
+          title: Requires
+          default: []
+        signal_actions:
+          items:
+            type: string
+            enum:
+            - note
+            - task
+            - post
+            - lead
+          type: array
+          title: Signal Actions
+          default: []
+      type: object
+      title: ProviderCapabilities
+    ProviderStatConfig:
+      properties:
+        key:
+          type: string
+          title: Key
+        label:
+          type: string
+          title: Label
+        type:
+          type: string
+          enum:
+          - text
+          - number
+          - link
+          title: Type
+      type: object
+      required:
+      - key
+      - label
+      - type
+      title: ProviderStatConfig
+    ReplaceUserDocumentsRequest:
+      properties:
+        document_ids:
+          items:
+            type: integer
+          type: array
+          title: Document Ids
+      type: object
+      required:
+      - document_ids
+      title: ReplaceUserDocumentsRequest
+    OrganizationIntegrationGroup:
+      properties:
+        org_id:
+          type: string
+          title: Org Id
+        org_name:
+          type: string
+          title: Org Name
+        integrations:
+          items:
+            $ref: '#/components/schemas/ProviderIntegration'
+          type: array
+          title: Integrations
+        is_admin:
+          type: boolean
+          title: Is Admin
+          default: false
+      type: object
+      required:
+      - org_id
+      - org_name
+      - integrations
+      title: OrganizationIntegrationGroup
+    SubscriptionType:
+      type: string
+      enum:
+      - signals_digest
+      title: SubscriptionType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IntegrationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        subject_type:
+          type: string
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
+        provider:
+          type: string
+          title: Provider
+        external_team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Id
+        external_team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Name
+        external_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External User Id
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+        status:
+          type: string
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
+      type: object
+      required:
+      - id
+      - subject_type
+      - subject_id
+      - provider
+      - external_team_id
+      - external_team_name
+      - external_user_id
+      - scopes
+      - status
+      - created_at
+      title: IntegrationResponse
+    OnboardingProgressResponse:
+      properties:
+        completed_steps:
+          $ref: '#/components/schemas/OnboardingCompletedSteps'
+        completed_count:
+          type: integer
+          title: Completed Count
+        total_count:
+          type: integer
+          title: Total Count
+        all_done:
+          type: boolean
+          title: All Done
+      type: object
+      required:
+      - completed_steps
+      - completed_count
+      - total_count
+      - all_done
+      title: OnboardingProgressResponse
+    OnboardingCompletedSteps:
+      properties:
+        business_context:
+          type: boolean
+          title: Business Context
+        crm:
+          type: boolean
+          title: Crm
+        territory:
+          type: boolean
+          title: Territory
+        templates:
+          type: boolean
+          title: Templates
+        automation:
+          type: boolean
+          title: Automation
+        invite:
+          type: boolean
+          title: Invite
+      type: object
+      required:
+      - business_context
+      - crm
+      - territory
+      - templates
+      - automation
+      - invite
+      title: OnboardingCompletedSteps
+    UserIntegrationsGroupedResponse:
+      properties:
+        personal:
+          items:
+            $ref: '#/components/schemas/IntegrationResponse'
+          type: array
+          title: Personal
+        organization:
+          items:
+            $ref: '#/components/schemas/OrganizationIntegrationGroup'
+          type: array
+          title: Organization
+      type: object
+      required:
+      - personal
+      - organization
+      title: UserIntegrationsGroupedResponse
+    ProviderIntegration:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        category:
+          type: string
+          title: Category
+        enabled:
+          type: boolean
+          title: Enabled
+        capabilities:
+          additionalProperties:
+            $ref: '#/components/schemas/ProviderCapabilities'
+          type: object
+          title: Capabilities
+        connected_stats:
+          items:
+            $ref: '#/components/schemas/ProviderStatConfig'
+          type: array
+          title: Connected Stats
+          default: []
+        terminology:
+          additionalProperties:
+            type: string
+          type: object
+          title: Terminology
+          default:
+            entity_name: Record
+            entity_name_plural: Records
+        connection:
+          anyOf:
+          - $ref: '#/components/schemas/IntegrationResponse'
+          - type: 'null'
+      type: object
+      required:
+      - provider
+      - category
+      - enabled
+      - capabilities
+      title: ProviderIntegration
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

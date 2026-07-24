@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM History API
+  version: 0.2.36
+tags:
+- name: CRM History
+paths:
+  /api/v3/crm/{integration_id}/activity:
+    get:
+      tags:
+      - CRM History
+      summary: Get Non-Automation CRM Activity for an Integration
+      description: 'Paginated history of non-automation CRM activity for this integration.
+
+
+        Returns every row in `crm_actions` for the integration''s organization and
+
+        CRM provider — link/note/task/post/contact_push — joined with institution
+
+        names.  Ordered by `created_at` descending.'
+      operationId: get_integration_crm_activity_api_v3_crm__integration_id__activity_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_LinkingHistoryItem_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PaginatedResponse_LinkingHistoryItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/LinkingHistoryItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[LinkingHistoryItem]
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LinkingHistoryItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        crm_type:
+          $ref: '#/components/schemas/CRMType'
+        crm_id:
+          type: string
+          title: Crm Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          type: string
+          title: Institution Name
+        action_type:
+          type: string
+          title: Action Type
+          default: link
+      type: object
+      required:
+      - id
+      - created_at
+      - crm_type
+      - crm_id
+      - institution_id
+      - institution_name
+      title: LinkingHistoryItem
+      description: A single CRM activity event (linking, note, task, post, or contact push).
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

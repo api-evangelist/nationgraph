@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Insights API
+  version: 0.2.36
+tags:
+- name: Insights
+paths:
+  /api/v3/insights/{id}:
+    patch:
+      tags:
+      - Insights
+      summary: Update Insight
+      description: 'Update and save an insight for an institution.
+
+        This endpoint updates either the ''content'' or ''prev_content'' field of a custom cell.'
+      operationId: update_insight_api_v3_insights__id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsightRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InsightRequest:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          title: Content
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - content
+      - id
+      title: InsightRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

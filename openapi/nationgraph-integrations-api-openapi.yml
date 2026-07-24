@@ -1,0 +1,326 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Integrations API
+  version: 0.2.36
+tags:
+- name: Integrations
+paths:
+  /api/v3/integrations:
+    post:
+      tags:
+      - Integrations
+      summary: Create Integration
+      operationId: create_integration_api_v3_integrations_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/integrations/{integration_id}:
+    patch:
+      tags:
+      - Integrations
+      summary: Update Integration
+      operationId: update_integration_api_v3_integrations__integration_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Integration Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationPatchRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Integrations
+      summary: Delete Integration
+      operationId: delete_integration_api_v3_integrations__integration_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Integration Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/integrations/{integration_id}/users/{user_id}:
+    get:
+      tags:
+      - Integrations
+      summary: Get External User Id
+      operationId: get_external_user_id_api_v3_integrations__integration_id__users__user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Integration Id
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Get External User Id Api V3 Integrations  Integration Id  Users  User Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/integrations/slack/authorize:
+    get:
+      tags:
+      - Integrations
+      summary: Slack Authorize
+      description: Redirect user to Slack OAuth to install bot in their workspace
+      operationId: slack_authorize_api_v3_integrations_slack_authorize_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /api/v3/integrations/slack/{integration_id}/channels:
+    get:
+      tags:
+      - Integrations
+      summary: List Channels
+      description: 'List all channels in user''s Slack workspace
+
+
+        Requires user to either:
+
+        - Have created the integration
+
+        - Be a member of the organization the integration belongs to'
+      operationId: list_channels_api_v3_integrations_slack__integration_id__channels_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Integration Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateIntegrationRequest:
+      properties:
+        provider:
+          type: string
+          const: slack
+          title: Provider
+        subject_type:
+          type: string
+          enum:
+          - user
+          - organization
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+        provider_data:
+          additionalProperties: true
+          type: object
+          title: Provider Data
+      type: object
+      required:
+      - provider
+      - subject_type
+      - subject_id
+      - provider_data
+      title: CreateIntegrationRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IntegrationPatchRequest:
+      properties:
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+      type: object
+      title: IntegrationPatchRequest
+    IntegrationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        subject_type:
+          type: string
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
+        provider:
+          type: string
+          title: Provider
+        external_team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Id
+        external_team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Name
+        external_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External User Id
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+        status:
+          type: string
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
+      type: object
+      required:
+      - id
+      - subject_type
+      - subject_id
+      - provider
+      - external_team_id
+      - external_team_name
+      - external_user_id
+      - scopes
+      - status
+      - created_at
+      title: IntegrationResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,2014 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Automations API
+  version: 0.2.36
+tags:
+- name: Automations
+paths:
+  /api/v3/automations:
+    post:
+      tags:
+      - Automations
+      summary: Create Automation
+      operationId: create_automation_api_v3_automations_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAutomationRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Automations
+      summary: Get Automations
+      operationId: get_automations_api_v3_automations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/AutomationType'
+          - type: 'null'
+          title: Types
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/AutomationStatus'
+          - type: 'null'
+          title: Statuses
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: user_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+      - name: live
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Live
+      - name: stopped
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stopped
+      - name: include_stats
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Include Stats
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/types:
+    get:
+      tags:
+      - Automations
+      summary: Get Automation Types
+      operationId: get_automation_types_api_v3_automations_types_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: scheduled
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Scheduled
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Get Automation Types Api V3 Automations Types Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}:
+    get:
+      tags:
+      - Automations
+      summary: Get Automation
+      operationId: get_automation_api_v3_automations__automation_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationWithStats'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Automations
+      summary: Update Automation
+      operationId: update_automation_api_v3_automations__automation_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationUpdates'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/refresh:
+    post:
+      tags:
+      - Automations
+      summary: Refresh
+      operationId: refresh_api_v3_automations__automation_id__refresh_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationRefreshResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs:
+    post:
+      tags:
+      - Automations
+      summary: Create And Run
+      operationId: create_and_run_api_v3_automations__automation_id__runs_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationRunDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Automations
+      summary: Get Automation Runs
+      operationId: get_automation_runs_api_v3_automations__automation_id__runs_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/AutomationExecutionStatus'
+          - type: 'null'
+          title: Statuses
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AutomationRunResponse'
+                title: Response Get Automation Runs Api V3 Automations  Automation Id  Runs Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}:
+    get:
+      tags:
+      - Automations
+      summary: Get Run Detail
+      operationId: get_run_detail_api_v3_automations__automation_id__runs__run_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationRunDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/status:
+    patch:
+      tags:
+      - Automations
+      summary: Update Run Status
+      operationId: update_run_status_api_v3_automations__automation_id__runs__run_id__status_patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunStatusUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationRunResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/cancel:
+    post:
+      tags:
+      - Automations
+      summary: Cancel Run
+      operationId: cancel_run_api_v3_automations__automation_id__runs__run_id__cancel_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationRunResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/results:
+    get:
+      tags:
+      - Automations
+      summary: Get Run Results
+      operationId: get_run_results_api_v3_automations__automation_id__runs__run_id__results_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: crm_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Crm Id
+      - name: sort
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultSortField'
+          - type: 'null'
+          title: Sort
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/AutomationExecutionStatus'
+          - type: 'null'
+          title: Statuses
+      - name: institution_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Institution Ids
+      - name: states
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: States
+      - name: crm_linked
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Crm Linked
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: crm_pushed
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Crm Pushed
+      - name: crm_pushed_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Crm Pushed After
+      - name: crm_pushed_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Crm Pushed Before
+      - name: vendors
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Vendors
+      - name: products
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Products
+      - name: start_date_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date After
+      - name: start_date_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date Before
+      - name: end_date_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: End Date After
+      - name: end_date_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: End Date Before
+      - name: signal_setting_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Signal Setting Ids
+      - name: data_sources
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/SignalSourceType'
+          - type: 'null'
+          title: Data Sources
+      - name: roles
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Roles
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_AutomationResultResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/export:
+    get:
+      tags:
+      - Automations
+      summary: Export Run Csv
+      operationId: export_run_csv_api_v3_automations__automation_id__runs__run_id__export_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: crm_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Crm Id
+      - name: sort
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultSortField'
+          - type: 'null'
+          title: Sort
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/AutomationExecutionStatus'
+          - type: 'null'
+          title: Statuses
+      - name: institution_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Institution Ids
+      - name: states
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: States
+      - name: crm_linked
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Crm Linked
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: crm_pushed
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Crm Pushed
+      - name: crm_pushed_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Crm Pushed After
+      - name: crm_pushed_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Crm Pushed Before
+      - name: vendors
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Vendors
+      - name: products
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Products
+      - name: start_date_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date After
+      - name: start_date_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date Before
+      - name: end_date_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: End Date After
+      - name: end_date_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: End Date Before
+      - name: signal_setting_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Signal Setting Ids
+      - name: data_sources
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/SignalSourceType'
+          - type: 'null'
+          title: Data Sources
+      - name: roles
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Roles
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/contacts:
+    get:
+      tags:
+      - Automations
+      summary: Get Run Contacts
+      operationId: get_run_contacts_api_v3_automations__automation_id__runs__run_id__contacts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: roles
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Roles
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_ContactRow_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/automations/{automation_id}/runs/{run_id}/results/{result_id}/files:
+    get:
+      tags:
+      - Automations
+      summary: Get Result Files
+      operationId: get_result_files_api_v3_automations__automation_id__runs__run_id__results__result_id__files_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: automation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Automation Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: result_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Result Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Get Result Files Api V3 Automations  Automation Id  Runs  Run Id  Results  Result Id  Files Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ContactsExportConfig:
+      properties:
+        version:
+          type: string
+          title: Version
+        filters:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Filters
+        role_types:
+          items:
+            type: string
+          type: array
+          title: Role Types
+          default: []
+        exclude_titles:
+          items:
+            type: string
+          type: array
+          title: Exclude Titles
+          default: []
+        hard_match:
+          type: boolean
+          title: Hard Match
+          default: false
+      type: object
+      required:
+      - version
+      - filters
+      title: ContactsExportConfig
+    AutomationRefreshResponse:
+      properties:
+        updated_institution_ids:
+          items:
+            type: string
+          type: array
+          title: Updated Institution Ids
+      type: object
+      required:
+      - updated_institution_ids
+      title: AutomationRefreshResponse
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    AutomationRunDetailResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        automation_id:
+          type: string
+          format: uuid
+          title: Automation Id
+        status:
+          $ref: '#/components/schemas/AutomationExecutionStatus'
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        result_status_counts:
+          additionalProperties:
+            type: integer
+          type: object
+          title: Result Status Counts
+        institution_count:
+          type: integer
+          title: Institution Count
+          default: 0
+      type: object
+      required:
+      - id
+      - automation_id
+      - status
+      - created_at
+      - result_status_counts
+      title: AutomationRunDetailResponse
+    EnrichedSignal:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        signal_setting_id:
+          type: string
+          format: uuid
+          title: Signal Setting Id
+        institution_id:
+          type: string
+          title: Institution Id
+        significance:
+          $ref: '#/components/schemas/SignalSignificance'
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+        query:
+          type: string
+          title: Query
+        institution:
+          $ref: '#/components/schemas/SignalInstitution'
+        status:
+          $ref: '#/components/schemas/SignalStatusEnum'
+        source_type:
+          $ref: '#/components/schemas/SignalSourceType'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        list_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: List Ids
+      type: object
+      required:
+      - id
+      - signal_setting_id
+      - institution_id
+      - significance
+      - reason
+      - summary
+      - title
+      - metadata_
+      - created_at
+      - query
+      - institution
+      - status
+      - source_type
+      title: EnrichedSignal
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    AutomationWithStats:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/AutomationType'
+        status:
+          $ref: '#/components/schemas/AutomationStatus'
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        stats:
+          $ref: '#/components/schemas/AutomationStats'
+        latest_run:
+          anyOf:
+          - $ref: '#/components/schemas/LatestRunSummary'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - status
+      - config
+      - created_at
+      - updated_at
+      - stats
+      title: AutomationWithStats
+    CRMPushStatus:
+      properties:
+        pushed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Pushed At
+      type: object
+      title: CRMPushStatus
+    AutomationStatItem:
+      properties:
+        label:
+          type: string
+          title: Label
+        value:
+          type: string
+          title: Value
+      type: object
+      required:
+      - label
+      - value
+      title: AutomationStatItem
+    AutomationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/AutomationType'
+        status:
+          $ref: '#/components/schemas/AutomationStatus'
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - status
+      - config
+      - created_at
+      - updated_at
+      title: AutomationResponse
+    AutomationResultResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        resource_type:
+          type: string
+          title: Resource Type
+        resource_id:
+          type: string
+          title: Resource Id
+        rank:
+          type: number
+          title: Rank
+        position:
+          type: integer
+          title: Position
+        status:
+          $ref: '#/components/schemas/AutomationExecutionStatus'
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+        crm_push_status_by_provider:
+          additionalProperties:
+            $ref: '#/components/schemas/CRMPushStatus'
+          propertyNames:
+            $ref: '#/components/schemas/CRMType'
+          type: object
+          title: Crm Push Status By Provider
+          default: {}
+        signals:
+          items:
+            $ref: '#/components/schemas/EnrichedSignal'
+          type: array
+          title: Signals
+          default: []
+      type: object
+      required:
+      - id
+      - resource_type
+      - resource_id
+      - rank
+      - position
+      - status
+      - data
+      title: AutomationResultResponse
+    RunStatusUpdate:
+      properties:
+        status:
+          $ref: '#/components/schemas/AutomationExecutionStatus'
+      type: object
+      required:
+      - status
+      title: RunStatusUpdate
+    RankedInstitutionsConfig:
+      properties:
+        version:
+          type: string
+          title: Version
+        filters:
+          $ref: '#/components/schemas/RankedInstitutionsFilters'
+        ranking:
+          $ref: '#/components/schemas/RankedRanking'
+      type: object
+      required:
+      - version
+      - filters
+      - ranking
+      title: RankedInstitutionsConfig
+    AutomationRunResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        automation_id:
+          type: string
+          format: uuid
+          title: Automation Id
+        status:
+          $ref: '#/components/schemas/AutomationExecutionStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+      type: object
+      required:
+      - id
+      - automation_id
+      - status
+      - created_at
+      title: AutomationRunResponse
+    InstitutionTypePayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+        population_min:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Min
+        population_max:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Max
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+      type: object
+      title: InstitutionTypePayload
+    AutomationExecutionStatus:
+      type: string
+      enum:
+      - pending
+      - executing
+      - completed
+      - failed
+      - cancelled
+      title: AutomationExecutionStatus
+    AutomationStatus:
+      type: string
+      enum:
+      - active
+      - archived
+      - deleted
+      title: AutomationStatus
+    DeepResearchQuery:
+      properties:
+        id:
+          type: string
+          title: Id
+        query:
+          type: string
+          title: Query
+        output_type:
+          type: string
+          title: Output Type
+        column_name:
+          type: string
+          title: Column Name
+        options:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Options
+      type: object
+      required:
+      - query
+      - output_type
+      - column_name
+      title: DeepResearchQuery
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
+    AutomationType:
+      type: string
+      enum:
+      - ranked_institutions
+      - vendor_contract_enrichment
+      - outreach_sequence
+      - deep_research
+      - contacts_export
+      title: AutomationType
+    OutreachSequenceFilters:
+      properties:
+        territories:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Territories
+          default: []
+        signal_setting_ids:
+          items:
+            type: string
+          type: array
+          title: Signal Setting Ids
+          default: []
+        data_sources:
+          items:
+            $ref: '#/components/schemas/SignalSourceType'
+          type: array
+          title: Data Sources
+          default: []
+        signal_start_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signal Start Date
+        signal_end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signal End Date
+      type: object
+      title: OutreachSequenceFilters
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
+    ContactRow:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          type: string
+          title: Institution Name
+        result_id:
+          type: string
+          title: Result Id
+          default: ''
+        contact_id:
+          type: string
+          title: Contact Id
+          default: ''
+        first_name:
+          type: string
+          title: First Name
+          default: ''
+        last_name:
+          type: string
+          title: Last Name
+          default: ''
+        title:
+          type: string
+          title: Title
+          default: ''
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+        match:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Match
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+        crm_push_status_by_provider:
+          additionalProperties:
+            $ref: '#/components/schemas/CRMPushStatus'
+          propertyNames:
+            $ref: '#/components/schemas/CRMType'
+          type: object
+          title: Crm Push Status By Provider
+          default: {}
+      type: object
+      required:
+      - institution_id
+      - institution_name
+      title: ContactRow
+      description: 'One flattened contact for the contacts_export contact-level results view.
+
+
+        Mirrors the CSV columns (plus match/contact_id) so the table and export
+
+        stay in sync.'
+    RankedRanking:
+      properties:
+        ng_score:
+          type: number
+          title: Ng Score
+          default: 0
+        population:
+          type: number
+          title: Population
+          default: 0
+        recency:
+          type: number
+          title: Recency
+          default: 0
+        signal_count:
+          type: number
+          title: Signal Count
+          default: 0
+      type: object
+      title: RankedRanking
+    PaginatedResponse_AutomationResultResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AutomationResultResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AutomationResultResponse]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeepResearchConfig:
+      properties:
+        version:
+          type: string
+          title: Version
+        filters:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Filters
+        queries:
+          items:
+            $ref: '#/components/schemas/DeepResearchQuery'
+          type: array
+          title: Queries
+        context:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context
+      type: object
+      required:
+      - version
+      - filters
+      - queries
+      title: DeepResearchConfig
+    VendorContractEnrichmentConfig:
+      properties:
+        version:
+          type: string
+          title: Version
+        filters:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Filters
+        vendors:
+          items:
+            $ref: '#/components/schemas/VendorWithProducts'
+          type: array
+          title: Vendors
+        start_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        workspace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Workspace Id
+      type: object
+      required:
+      - version
+      - filters
+      - vendors
+      title: VendorContractEnrichmentConfig
+    PaginatedResponse_ContactRow_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/ContactRow'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[ContactRow]
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
+    SignalSignificance:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      title: SignalSignificance
+    AutomationResultSortField:
+      type: string
+      enum:
+      - default
+      - completed
+      title: AutomationResultSortField
+    VendorWithProducts:
+      properties:
+        name:
+          type: string
+          title: Name
+        products:
+          items:
+            type: string
+          type: array
+          title: Products
+      type: object
+      required:
+      - name
+      - products
+      title: VendorWithProducts
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
+    LatestRunSummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        status:
+          $ref: '#/components/schemas/AutomationExecutionStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        result_status_counts:
+          additionalProperties:
+            type: integer
+          type: object
+          title: Result Status Counts
+      type: object
+      required:
+      - id
+      - status
+      - created_at
+      - result_status_counts
+      title: LatestRunSummary
+    SignalInstitution:
+      properties:
+        name:
+          type: string
+          title: Name
+        state:
+          type: string
+          title: State
+        type:
+          $ref: '#/components/schemas/InstitutionEnum'
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+      type: object
+      required:
+      - name
+      - state
+      - type
+      title: SignalInstitution
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    CreateAutomationRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/AutomationType'
+        status:
+          $ref: '#/components/schemas/AutomationStatus'
+          default: active
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/RankedInstitutionsConfig'
+          - $ref: '#/components/schemas/VendorContractEnrichmentConfig'
+          - $ref: '#/components/schemas/OutreachSequenceConfig'
+          - $ref: '#/components/schemas/DeepResearchConfig'
+          - $ref: '#/components/schemas/ContactsExportConfig'
+          title: Config
+      type: object
+      required:
+      - name
+      - type
+      - config
+      title: CreateAutomationRequest
+    AutomationStats:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AutomationStatItem'
+          type: array
+          title: Items
+      type: object
+      required:
+      - items
+      title: AutomationStats
+    AutomationUpdates:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationStatus'
+          - type: 'null'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/RankedInstitutionsConfig'
+          - $ref: '#/components/schemas/VendorContractEnrichmentConfig'
+          - $ref: '#/components/schemas/OutreachSequenceConfig'
+          - $ref: '#/components/schemas/DeepResearchConfig'
+          - $ref: '#/components/schemas/ContactsExportConfig'
+          - type: 'null'
+          title: Config
+      type: object
+      title: AutomationUpdates
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    RankedInstitutionsFilters:
+      properties:
+        signal_setting_ids:
+          items:
+            type: string
+          type: array
+          title: Signal Setting Ids
+          default: []
+        data_sources:
+          items:
+            $ref: '#/components/schemas/SignalSourceType'
+          type: array
+          title: Data Sources
+          default: []
+      type: object
+      title: RankedInstitutionsFilters
+    OutreachSequenceConfig:
+      properties:
+        version:
+          type: string
+          title: Version
+        filters:
+          $ref: '#/components/schemas/OutreachSequenceFilters'
+        contact_titles_include:
+          items:
+            type: string
+          type: array
+          title: Contact Titles Include
+          default: []
+        contact_titles_exclude:
+          items:
+            type: string
+          type: array
+          title: Contact Titles Exclude
+          default: []
+        email_sequence_id:
+          type: string
+          title: Email Sequence Id
+      type: object
+      required:
+      - version
+      - filters
+      - email_sequence_id
+      title: OutreachSequenceConfig
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

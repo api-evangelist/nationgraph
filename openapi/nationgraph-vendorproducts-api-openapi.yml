@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts VendorProducts API
+  version: 0.2.36
+tags:
+- name: VendorProducts
+paths:
+  /api/v3/vendor-products:
+    get:
+      tags:
+      - VendorProducts
+      summary: Get Vendor Products
+      operationId: get_vendor_products_api_v3_vendor_products_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VendorProductResponse'
+                type: array
+                title: Response Get Vendor Products Api V3 Vendor Products Get
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    VendorProductResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        vendor_name:
+          type: string
+          title: Vendor Name
+        products:
+          items:
+            type: string
+          type: array
+          title: Products
+      type: object
+      required:
+      - id
+      - vendor_name
+      - products
+      title: VendorProductResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

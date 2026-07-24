@@ -1,0 +1,1334 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM Companies API
+  version: 0.2.36
+tags:
+- name: CRM Companies
+paths:
+  /api/v3/crm/{integration_id}/companies:
+    get:
+      tags:
+      - CRM Companies
+      summary: List Companies
+      description: 'Get a paginated list of companies from the CRM.
+
+
+        ## Properties
+
+
+        Request specific properties (including custom properties) using the `properties` parameter:
+
+        ```
+
+        GET /crm/{integration_id}/companies?properties=name,domain,my_custom_property
+
+        ```
+
+
+        **Default properties returned:** name, domain, description, phone, address, city, state, zip,
+
+        country, website, industry, numberofemployees, annualrevenue, lifecyclestage, hs_lead_status,
+
+        hubspot_owner_id, createdate, hs_lastmodifieddate
+
+
+        ## Associations
+
+
+        Include associated objects using the `associations` parameter:
+
+        ```
+
+        GET /crm/{integration_id}/companies?associations=contacts,deals
+
+        ```
+
+
+        Valid association types: `contacts`, `deals`, `tickets`, `notes`, `tasks`, `meetings`, `calls`, `emails`
+
+
+        ## Pagination
+
+
+        - Max 100 results per page
+
+        - Use `next_cursor` from response in subsequent requests'
+      operationId: list_companies_api_v3_crm__integration_id__companies_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of results per page (max 100)
+          default: 10
+          title: Limit
+        description: Number of results per page (max 100)
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor from previous response
+          title: After
+        description: Pagination cursor from previous response
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return (e.g., 'name,domain,my_custom_prop')
+          title: Properties
+        description: Comma-separated list of properties to return (e.g., 'name,domain,my_custom_prop')
+      - name: associations
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of associated objects to include (e.g., 'contacts,deals')
+          title: Associations
+        description: Comma-separated list of associated objects to include (e.g., 'contacts,deals')
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - CRM Companies
+      summary: Create Company
+      description: Create a new company in the CRM.
+      operationId: create_company_api_v3_crm__integration_id__companies_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/companies/search:
+    get:
+      tags:
+      - CRM Companies
+      summary: Simple Search Companies
+      description: 'Simple search for companies using query parameters.
+
+
+        **For complex filtering with AND/OR logic, custom properties, or advanced operators,
+
+        use `POST /crm/{integration_id}/companies/search` instead.**
+
+
+        ## Available Filters
+
+
+        All filters are ANDed together (all must match):
+
+
+        - `query`: Full-text search across searchable properties
+
+        - `name`: Filter by company name (partial match with wildcards)
+
+        - `domain`: Filter by exact domain
+
+        - `industry`: Filter by industry
+
+        - `city`, `state`, `country`: Location filters
+
+        - `owner_id`: Filter by CRM owner
+
+
+        ## Custom Properties
+
+
+        Request custom properties using the `properties` parameter:
+
+        ```
+
+        GET /crm/{integration_id}/companies/search?name=acme&properties=name,domain,my_custom_property
+
+        ```
+
+
+        ## Rate Limit
+
+
+        5 requests/second/account'
+      operationId: search_companies_api_v3_crm__integration_id__companies_search_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Text search across searchable properties
+          title: Query
+        description: Text search across searchable properties
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by company name
+          title: Name
+        description: Filter by company name
+      - name: domain
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by domain
+          title: Domain
+        description: Filter by domain
+      - name: industry
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by industry
+          title: Industry
+        description: Filter by industry
+      - name: city
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by city
+          title: City
+        description: Filter by city
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by state
+          title: State
+        description: Filter by state
+      - name: country
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by country
+          title: Country
+        description: Filter by country
+      - name: owner_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by CRM owner ID
+          title: Owner Id
+        description: Filter by CRM owner ID
+      - name: nationgraph_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by NationGraph institution unique_id
+          title: Nationgraph Id
+        description: Filter by NationGraph institution unique_id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results
+          default: 10
+          title: Limit
+        description: Number of results
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor
+          title: After
+        description: Pagination cursor
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySearchResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - CRM Companies
+      summary: Advanced Search Companies
+      description: "Advanced search for companies with full CRM filter capabilities.\n\n## Filter Operators\n\n| Operator | Description | Example |\n|----------|-------------|---------|\n| `EQ` | Equals | `{\"propertyName\": \"state\", \"operator\": \"EQ\", \"value\": \"CA\"}` |\n| `NEQ` | Not equals | `{\"propertyName\": \"industry\", \"operator\": \"NEQ\", \"value\": \"TECHNOLOGY\"}` |\n| `LT` | Less than | `{\"propertyName\": \"numberofemployees\", \"operator\": \"LT\", \"value\": \"100\"}` |\n| `LTE` | Less than or equal | `{\"propertyName\": \"annualrevenue\", \"operator\": \"LTE\", \"value\": \"1000000\"}` |\n| `GT` | Greater than | `{\"propertyName\": \"createdate\", \"operator\": \"GT\", \"value\": \"2024-01-01\"}` |\n| `GTE` | Greater than or equal | `{\"propertyName\": \"numberofemployees\", \"operator\": \"GTE\", \"value\": \"50\"}` |\n| `CONTAINS_TOKEN` | Contains (supports `*` wildcard) | `{\"propertyName\": \"name\", \"operator\": \"CONTAINS_TOKEN\", \"value\": \"*school*\"}` |\n| `NOT_CONTAINS_TOKEN` | Does not contain | `{\"propertyName\": \"domain\", \"operator\": \"NOT_CONTAINS_TOKEN\", \"value\": \"test\"}` |\n| `HAS_PROPERTY` | Has any value | `{\"propertyName\": \"website\", \"operator\": \"HAS_PROPERTY\"}` |\n| `NOT_HAS_PROPERTY` | Has no value | `{\"propertyName\": \"phone\", \"operator\": \"NOT_HAS_PROPERTY\"}` |\n| `IN` | In list | `{\"propertyName\": \"state\", \"operator\": \"IN\", \"values\": [\"CA\", \"TX\", \"NY\"]}` |\n| `NOT_IN` | Not in list | `{\"propertyName\": \"lifecyclestage\", \"operator\": \"NOT_IN\", \"values\": [\"lead\"]}` |\n| `BETWEEN` | Between range | `{\"propertyName\": \"numberofemployees\", \"operator\": \"BETWEEN\", \"value\": \"10\", \"highValue\": \"100\"}` |\n\n## Filter Logic\n\n- **Within a filterGroup**: Filters are ANDed (all must match)\n- **Between filterGroups**: Groups are ORed (any group can match)\n\n## Custom Properties\n\nRequest any property by name, including custom properties:\n```json\n{\n  \"properties\": [\"name\", \"domain\", \"my_custom_property\", \"another_custom_field\"],\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\"propertyName\": \"my_custom_property\", \"operator\": \"EQ\", \"value\": \"some_value\"}\n      ]\n    }\n  ]\n}\n```\n\n## Limits\n\n- Max 5 filter groups\n- Max 6 filters per group\n- Max 18 total filters\n- Max 100 results per page\n- Max 10,000 total results per query\n- Rate limit: 5 requests/second/account"
+      operationId: advanced_search_companies_api_v3_crm__integration_id__companies_search_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvancedSearchRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySearchResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/companies/{company_id}:
+    get:
+      tags:
+      - CRM Companies
+      summary: Get Company
+      description: Get a single company by its CRM ID.
+      operationId: get_company_api_v3_crm__integration_id__companies__company_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The CRM company ID
+          title: Company Id
+        description: The CRM company ID
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      - name: associations
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated associated objects to include (e.g., contacts,deals)
+          title: Associations
+        description: Comma-separated associated objects to include (e.g., contacts,deals)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - CRM Companies
+      summary: Update Company
+      description: Update an existing company in the CRM.
+      operationId: update_company_api_v3_crm__integration_id__companies__company_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The CRM company ID
+          title: Company Id
+        description: The CRM company ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCompanyRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/companies/batch/read:
+    post:
+      tags:
+      - CRM Companies
+      summary: Batch Get Companies
+      description: Get multiple companies by their IDs.
+      operationId: batch_get_companies_api_v3_crm__integration_id__companies_batch_read_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_companies__BatchGetRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/companies/batch/create:
+    post:
+      tags:
+      - CRM Companies
+      summary: Batch Create Companies
+      description: Create multiple companies in a single request.
+      operationId: batch_create_companies_api_v3_crm__integration_id__companies_batch_create_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_companies__BatchCreateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/companies/batch/update:
+    post:
+      tags:
+      - CRM Companies
+      summary: Batch Update Companies
+      description: Update multiple companies in a single request.
+      operationId: batch_update_companies_api_v3_crm__integration_id__companies_batch_update_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_companies__BatchUpdateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/institutions/{institution_id}/company:
+    post:
+      tags:
+      - CRM Companies
+      summary: Push Institution to CRM
+      description: 'Push a NationGraph institution to CRM as a new company.
+
+
+        **Available fields to push:**
+
+
+        *From Institution:*
+
+        - `name` → CRM `name`
+
+        - `state` → CRM `state`
+
+        - `city` → CRM `city`
+
+        - `street` → CRM `address`
+
+        - `county` → Appended to CRM `description`
+
+        - `population` → CRM `numberofemployees`
+
+        - `label` → CRM `industry` (mapped to valid enum, e.g., "K12 District" → "PRIMARY_SECONDARY_EDUCATION")
+
+
+        *From Institution Metadata:*
+
+        - `website` → CRM `website` (from homepage_url)
+
+        - `description` → CRM `description` (from entity_understanding)
+
+        - `latitude` → Appended to CRM `description` (hs_latitude is read-only)
+
+        - `longitude` → Appended to CRM `description` (hs_longitude is read-only)
+
+
+        **Default fields (if not specified):** name, state, city, street, website, description
+
+
+        **Auto-mapping:** By default, this will also create a CRM-institution mapping so you can
+
+        reference this company in future operations. Set `create_mapping: false` to skip.
+
+
+        **Owner assignment:** Optionally assign the company to a CRM owner using `owner_id`.
+
+        Get available owners via `GET /crm/{integration_id}/owners`.
+
+
+        **Custom fields:** Optionally write literal values to existing CRM custom fields on the
+
+        new company using `custom_fields` (e.g. a "Source" field set to "Nationgraph"). Field
+
+        names must match the CRM''s API name (HubSpot property name or Salesforce field API name);
+
+        fields that don''t exist on the CRM org are silently skipped.'
+      operationId: push_institution_to_crm_api_v3_crm__integration_id__institutions__institution_id__company_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The NationGraph institution unique_id
+          title: Institution Id
+        description: The NationGraph institution unique_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushInstitutionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushInstitutionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PushInstitutionRequest:
+      properties:
+        fields:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InstitutionFieldSelection'
+            type: array
+          - type: 'null'
+          title: Fields
+          description: 'Fields to include. If not specified, defaults to: name, state, city, street, website, description'
+        create_mapping:
+          type: boolean
+          title: Create Mapping
+          description: Whether to automatically create a CRM-institution mapping after pushing
+          default: true
+        owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner Id
+          description: CRM owner ID to assign the company to (get available owners via /crm/{integration_id}/owners)
+        custom_fields:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CustomFieldValue'
+            type: array
+          - type: 'null'
+          title: Custom Fields
+          description: Optional literal values to write to existing CRM custom fields on the new company (e.g. a Source field set to 'Nationgraph'). Fields that don't exist on the CRM org are silently skipped.
+      type: object
+      title: PushInstitutionRequest
+      description: Request to push a NationGraph institution to CRM as a company.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AdvancedSearchRequest:
+      properties:
+        filterGroups:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AdvancedFilterGroupRequest'
+            type: array
+            maxItems: 5
+          - type: 'null'
+          title: Filtergroups
+          description: Filter groups (ORed together). Each group's filters are ANDed. Max 5 groups.
+        query:
+          anyOf:
+          - type: string
+            maxLength: 3000
+          - type: 'null'
+          title: Query
+          description: Full-text search query across searchable properties (name, domain, phone, etc.)
+        properties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Properties
+          description: Properties to return. Include custom property names here. If not specified, returns default properties.
+        sorts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AdvancedSortRequest'
+            type: array
+            maxItems: 1
+          - type: 'null'
+          title: Sorts
+          description: Sort configuration. Only one sort allowed per search.
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 1.0
+          title: Limit
+          description: Results per page (max 200)
+          default: 10
+        after:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: After
+          description: Pagination cursor from previous response
+      type: object
+      title: AdvancedSearchRequest
+      description: 'Request body for advanced company search.
+
+
+        Supports the full power of HubSpot''s search API including:
+
+        - Complex filter groups with AND/OR logic
+
+        - All 12 filter operators
+
+        - Custom property filtering
+
+        - Sorting
+
+        - Full-text query search
+
+
+        Limits:
+
+        - Max 5 filter groups
+
+        - Max 6 filters per group
+
+        - Max 18 total filters
+
+        - Max 100 results per page
+
+        - Max 10,000 total results per query'
+    FilterOperator:
+      type: string
+      enum:
+      - LT
+      - LTE
+      - GT
+      - GTE
+      - EQ
+      - NEQ
+      - BETWEEN
+      - IN
+      - NOT_IN
+      - HAS_PROPERTY
+      - NOT_HAS_PROPERTY
+      - CONTAINS_TOKEN
+      - NOT_CONTAINS_TOKEN
+      title: FilterOperator
+      description: HubSpot search filter operators.
+    CustomFieldValue:
+      properties:
+        crm_field_name:
+          type: string
+          title: Crm Field Name
+          description: Existing CRM field name to write to (HubSpot property name or Salesforce field API name). Discover via GET /crm/{integration_id}/company-fields.
+        value:
+          type: string
+          title: Value
+          description: String value to write to the field.
+      type: object
+      required:
+      - crm_field_name
+      - value
+      title: CustomFieldValue
+      description: A literal value to write to an existing CRM custom field.
+    SortDirection:
+      type: string
+      enum:
+      - ASCENDING
+      - DESCENDING
+      title: SortDirection
+      description: Sort direction for search results.
+    CompanyListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: CompanyListResponse
+      description: API response for listing companies.
+    app__routes__v3__crm_companies__BatchCreateRequest:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/CreateCompanyRequest'
+          type: array
+          title: Companies
+          description: List of companies to create
+      type: object
+      required:
+      - companies
+      title: BatchCreateRequest
+      description: Request for batch creating companies.
+    app__routes__v3__crm_companies__BatchUpdateItem:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Company ID to update
+        properties:
+          $ref: '#/components/schemas/UpdateCompanyRequest'
+          description: Properties to update
+      type: object
+      required:
+      - id
+      - properties
+      title: BatchUpdateItem
+      description: Single item in batch update request.
+    InstitutionFieldSelection:
+      type: string
+      enum:
+      - name
+      - state
+      - city
+      - county
+      - street
+      - population
+      - label
+      - website
+      - description
+      - latitude
+      - longitude
+      title: InstitutionFieldSelection
+      description: Available NationGraph institution fields that can be pushed to HubSpot.
+    CompanySearchResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        results:
+          items:
+            $ref: '#/components/schemas/CompanyResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - total
+      - results
+      title: CompanySearchResponse
+      description: API response for searching companies.
+    UpdateCompanyRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+        numberofemployees:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Numberofemployees
+        annualrevenue:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Annualrevenue
+        lifecyclestage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lifecyclestage
+        hubspot_owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hubspot Owner Id
+      type: object
+      title: UpdateCompanyRequest
+      description: Request to update a company in HubSpot.
+    AdvancedFilterRequest:
+      properties:
+        propertyName:
+          type: string
+          title: Propertyname
+          description: The internal name of the property to filter on (e.g., 'name', 'domain', 'my_custom_property')
+        operator:
+          $ref: '#/components/schemas/FilterOperator'
+          description: The comparison operator
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+          description: The value to compare against. Required for most operators.
+        values:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Values
+          description: List of values for IN/NOT_IN operators.
+        highValue:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Highvalue
+          description: Upper bound for BETWEEN operator.
+      type: object
+      required:
+      - propertyName
+      - operator
+      title: AdvancedFilterRequest
+      description: 'A single filter for advanced search.
+
+
+        Operators:
+
+        - EQ: Equal to value
+
+        - NEQ: Not equal to value
+
+        - LT: Less than value (for numbers/dates)
+
+        - LTE: Less than or equal to value
+
+        - GT: Greater than value
+
+        - GTE: Greater than or equal to value
+
+        - CONTAINS_TOKEN: Contains token (supports wildcards *)
+
+        - NOT_CONTAINS_TOKEN: Does not contain token
+
+        - HAS_PROPERTY: Property has any value
+
+        - NOT_HAS_PROPERTY: Property has no value
+
+        - IN: Value is in provided list (use `values`)
+
+        - NOT_IN: Value is not in provided list (use `values`)
+
+        - BETWEEN: Value is between `value` and `high_value`'
+    AdvancedSortRequest:
+      properties:
+        propertyName:
+          type: string
+          title: Propertyname
+          description: Property to sort by
+        direction:
+          $ref: '#/components/schemas/SortDirection'
+          description: 'Sort direction: ASCENDING or DESCENDING'
+          default: ASCENDING
+      type: object
+      required:
+      - propertyName
+      title: AdvancedSortRequest
+      description: Sort configuration for search results.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PushInstitutionResponse:
+      properties:
+        company_id:
+          type: string
+          title: Company Id
+          description: The created CRM company ID
+        institution_id:
+          type: string
+          title: Institution Id
+          description: The NationGraph institution ID
+        properties_pushed:
+          additionalProperties: true
+          type: object
+          title: Properties Pushed
+          description: Properties that were sent to CRM
+        mapping_created:
+          type: boolean
+          title: Mapping Created
+          description: Whether a CRM mapping was created
+      type: object
+      required:
+      - company_id
+      - institution_id
+      - properties_pushed
+      - mapping_created
+      title: PushInstitutionResponse
+      description: Response after pushing an institution to CRM.
+    app__routes__v3__crm_companies__BatchGetRequest:
+      properties:
+        ids:
+          items:
+            type: string
+          type: array
+          title: Ids
+          description: List of company IDs to retrieve
+        properties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Properties
+          description: Properties to return
+      type: object
+      required:
+      - ids
+      title: BatchGetRequest
+      description: Request for batch getting companies.
+    CreateCompanyRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+        numberofemployees:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Numberofemployees
+        annualrevenue:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Annualrevenue
+        lifecyclestage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lifecyclestage
+        hubspot_owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hubspot Owner Id
+      type: object
+      title: CreateCompanyRequest
+      description: Request to create a company in HubSpot.
+    app__routes__v3__crm_companies__BatchUpdateRequest:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_companies__BatchUpdateItem'
+          type: array
+          title: Companies
+          description: List of companies to update
+      type: object
+      required:
+      - companies
+      title: BatchUpdateRequest
+      description: Request for batch updating companies.
+    AdvancedFilterGroupRequest:
+      properties:
+        filters:
+          items:
+            $ref: '#/components/schemas/AdvancedFilterRequest'
+          type: array
+          maxItems: 6
+          title: Filters
+          description: Filters in this group (ANDed together). Max 6 per group.
+      type: object
+      required:
+      - filters
+      title: AdvancedFilterGroupRequest
+      description: 'A group of filters that are ANDed together.
+
+
+        Within a group, all filters must match (AND logic).
+
+        Multiple groups are ORed together.'
+    CompanyResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        properties:
+          additionalProperties: true
+          type: object
+          title: Properties
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - properties
+      title: CompanyResponse
+      description: API response for a single company.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

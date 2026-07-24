@@ -1,0 +1,284 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Email Templates API
+  version: 0.2.36
+tags:
+- name: Email Templates
+paths:
+  /api/v3/email-templates:
+    post:
+      tags:
+      - Email Templates
+      summary: Create Template
+      operationId: create_template_api_v3_email_templates_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmailTemplateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Email Templates
+      summary: Get Templates
+      operationId: get_templates_api_v3_email_templates_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailTemplateResponse'
+                title: Response Get Templates Api V3 Email Templates Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/email-templates/{template_id}:
+    get:
+      tags:
+      - Email Templates
+      summary: Get Template
+      operationId: get_template_api_v3_email_templates__template_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: template_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Template Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Email Templates
+      summary: Update Template
+      operationId: update_template_api_v3_email_templates__template_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: template_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Template Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailTemplateUpdates'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EmailResourceStatus:
+      type: string
+      enum:
+      - draft
+      - active
+      - archived
+      title: EmailResourceStatus
+    EmailTemplateUpdates:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        subject_raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subject Raw
+        body_raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body Raw
+        params:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Params
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/EmailResourceStatus'
+          - type: 'null'
+      type: object
+      title: EmailTemplateUpdates
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateEmailTemplateRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Params
+          default: []
+        status:
+          $ref: '#/components/schemas/EmailResourceStatus'
+          default: draft
+      type: object
+      required:
+      - name
+      - subject_raw
+      - body_raw
+      title: CreateEmailTemplateRequest
+    EmailTemplateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Params
+        status:
+          type: string
+          title: Status
+        created_by:
+          type: string
+          title: Created By
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - subject_raw
+      - body_raw
+      - params
+      - status
+      - created_by
+      - created_at
+      - updated_at
+      title: EmailTemplateResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Queue API
+  version: 0.2.36
+tags:
+- name: Queue
+paths:
+  /api/v3/queue/stats:
+    get:
+      tags:
+      - Queue
+      summary: Get Queue Stats
+      operationId: get_queue_stats_api_v3_queue_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

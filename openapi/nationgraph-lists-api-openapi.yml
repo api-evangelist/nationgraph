@@ -1,0 +1,319 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Lists API
+  version: 0.2.36
+tags:
+- name: Lists
+paths:
+  /api/v3/lists:
+    get:
+      tags:
+      - Lists
+      summary: Get Lists
+      description: Get all lists for the authenticated user.
+      operationId: get_lists_api_v3_lists_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    post:
+      tags:
+      - Lists
+      summary: Create List
+      description: Create a new list for the authenticated user.
+      operationId: create_list_api_v3_lists_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              title: List Name
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/lists/{list_id}:
+    patch:
+      tags:
+      - Lists
+      summary: Edit List
+      description: Edit a list name.
+      operationId: edit_list_api_v3_lists__list_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              title: List Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Lists
+      summary: Delete List
+      description: Delete a list and its signal associations. Does not delete OR archive the signals themselves.
+      operationId: delete_list_api_v3_lists__list_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/lists/{list_id}/signals/{signal_id}:
+    post:
+      tags:
+      - Lists
+      summary: Add Signal To List
+      description: Add a signal to a list.
+      operationId: add_signal_to_list_api_v3_lists__list_id__signals__signal_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      - name: signal_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Signal Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Lists
+      summary: Remove Signal From List
+      description: Remove a signal from a list.
+      operationId: remove_signal_from_list_api_v3_lists__list_id__signals__signal_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      - name: signal_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Signal Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/lists/{list_id}/signals:
+    post:
+      tags:
+      - Lists
+      summary: Batch Add Signals To List
+      description: Add multiple signals to a list.
+      operationId: batch_add_signals_to_list_api_v3_lists__list_id__signals_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              title: Signal Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Lists
+      summary: Batch Remove Signals From List
+      description: Remove multiple signals from a list.
+      operationId: batch_remove_signals_from_list_api_v3_lists__list_id__signals_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              title: Signal Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Lists
+      summary: Get Signals In List
+      description: Get all signals in a list.
+      operationId: get_signals_in_list_api_v3_lists__list_id__signals_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: List Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

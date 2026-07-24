@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Metadata API
+  version: 0.2.36
+tags:
+- name: Metadata
+paths:
+  /api/v3/metadata/{entity_id}:
+    get:
+      tags:
+      - Metadata
+      summary: Get Entity Metadata
+      description: "Get the metadata for an institution by its entity ID.\n\nArgs:\n    entity_id: The unique identifier for the institution\n\nReturns:\n    Dict containing:\n        - overview: Text description of the institution\n        - homepage_url: URL of the institution's homepage\n        - latitude: Latitude coordinate (float or None)\n        - longitude: Longitude coordinate (float or None)\n        - population: Population count (int or None)\n        - students: Number of students in the district (int or None)\n        - teachers: Number of teachers in the district (int or None)\n        - total_schools: Number of schools in the district (int or None)\n        - district_type: The type of school district we have (string or None)\n        - federal_grants: The amount of money the school district is granted yearly by the federal government\n        - state_grants: The amount of money the school district is granted yearly by the state government\n        - local_grants: The amount of money the school district is granted yearly by the local government\n        - interest_expenditure: The amount of money the school district spends yearly on paying interest\n        - operations_expenditure: The amount of money the school district spends yearly on its operations\n        - instructional_expenditure: The amount of money the school district spends yearly on its instructional costs\n        - administration_expenditure: The amount of money the school district spends yearly on administration\n        - phone_number: A phone number to contact the school district\n        - locale: A short description of the area that the school district is in (suburban, urban, rural, town, etc.)\n        - student_and_staff_support_expenditure: The amount of money the school district spends yearly on student and staff support and resources\n        - total_grants: The total amount of grant money the school district receives yearly\n        - total_expenditures: The total amount of money the school district spends yearly across all expenses\n\nRaises:\n    HTTPException: If there's an error retrieving the data"
+      operationId: get_entity_metadata_api_v3_metadata__entity_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: entity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Entity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: integer
+                  - type: 'null'
+                title: Response Get Entity Metadata Api V3 Metadata  Entity Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

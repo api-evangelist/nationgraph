@@ -1,0 +1,289 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM Owners API
+  version: 0.2.36
+tags:
+- name: CRM Owners
+paths:
+  /api/v3/crm/{integration_id}/owners:
+    get:
+      tags:
+      - CRM Owners
+      summary: List Owners
+      description: 'Get a paginated list of owners from the CRM.
+
+
+        Owners are users in your CRM account who can be assigned to CRM records
+
+        (contacts, companies, deals, tasks, etc.). Use this endpoint to populate
+
+        owner dropdowns in your UI for assignment purposes.
+
+
+        **Pagination:**
+
+        Use the `nextCursor` value in subsequent requests to fetch more results.
+
+
+        **Filtering:**
+
+        - Use `email` to find a specific owner by email address
+
+        - Use `archived` to include archived (deactivated) owners'
+      operationId: list_owners_api_v3_crm__integration_id__owners_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of results per page (max 100)
+          default: 100
+          title: Limit
+        description: Number of results per page (max 100)
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor
+          title: After
+        description: Pagination cursor
+      - name: email
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by email address (exact match)
+          title: Email
+        description: Filter by email address (exact match)
+      - name: archived
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Include archived owners
+          default: false
+          title: Archived
+        description: Include archived owners
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/owners/{owner_id}:
+    get:
+      tags:
+      - CRM Owners
+      summary: Get Owner
+      description: Get a single owner by their CRM ID.
+      operationId: get_owner_api_v3_crm__integration_id__owners__owner_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: owner_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The CRM owner ID
+          title: Owner Id
+        description: The CRM owner ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TeamResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        primary:
+          type: boolean
+          title: Primary
+          description: Whether this is the owner's primary team
+      type: object
+      required:
+      - id
+      - name
+      - primary
+      title: TeamResponse
+      description: A CRM team.
+    OwnerListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/OwnerResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          description: Whether there are more results to fetch
+          default: false
+        nextCursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nextcursor
+          description: Cursor for fetching next page
+        total:
+          type: integer
+          title: Total
+          description: Number of owners in this response
+      type: object
+      required:
+      - results
+      - total
+      title: OwnerListResponse
+      description: API response for listing owners.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OwnerResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The CRM owner ID
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: Owner's email address
+        firstName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+          description: Owner's first name
+        lastName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lastname
+          description: Owner's last name
+        full_name:
+          type: string
+          title: Full Name
+          description: Owner's full name (computed)
+        userId:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Userid
+          description: CRM user ID
+        createdAt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Createdat
+          description: When the owner was created
+        updatedAt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updatedat
+          description: When the owner was last updated
+        archived:
+          type: boolean
+          title: Archived
+          description: Whether the owner is archived
+          default: false
+        teams:
+          items:
+            $ref: '#/components/schemas/TeamResponse'
+          type: array
+          title: Teams
+          description: Teams the owner belongs to
+      type: object
+      required:
+      - id
+      - full_name
+      title: OwnerResponse
+      description: API response for a single owner.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

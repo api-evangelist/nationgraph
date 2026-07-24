@@ -1,0 +1,421 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Enrichments API
+  version: 0.2.36
+tags:
+- name: Enrichments
+paths:
+  /api/v3/enrichments:
+    get:
+      tags:
+      - Enrichments
+      summary: Get Enrichments
+      description: "Get a cursor-paginated list of enrichment records for the user across all workspaces.\nResults are ordered by (created_at DESC, id DESC). Pass the id of the last\nenrichment from the previous page as `after` to fetch the next page. Total\ncount is returned only on the first request (when `after` is omitted).\n\nFilters (all optional, combined with AND):\n- `institution_ids`: restrict to enrichments for these institutions.\n- `statuses`: restrict to these status values. Use `\"unknown\"` to match rows\n  where status IS NULL (mirrors the bucket key returned by /stats)."
+      operationId: get_enrichments_api_v3_enrichments_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Institution Ids
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Statuses
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Enrichment id to page after (the `next_cursor` from a previous response). Omit to fetch the first page.
+          title: After
+        description: Enrichment id to page after (the `next_cursor` from a previous response). Omit to fetch the first page.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllEnrichmentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Enrichments
+      summary: Create Enrichments
+      description: Create new enrichment records for multiple institutions.
+      operationId: create_enrichments_api_v3_enrichments_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrichmentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEnrichmentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/enrichments/stats:
+    get:
+      tags:
+      - Enrichments
+      summary: Get Enrichment Stats
+      description: 'Get status-bucketed counts of enrichments for the authenticated user.
+
+        Rows with NULL status are bucketed under `"unknown"`. Respects the same
+
+        `institution_ids` filter as GET /enrichments, so pill counts stay in sync
+
+        when an institution filter is active. Status is deliberately not a filter
+
+        here — stats is the source of the pill counts.'
+      operationId: get_enrichment_stats_api_v3_enrichments_stats_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Institution Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichmentStatsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateEnrichmentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/EnrichmentResponse'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: CreateEnrichmentsResponse
+    EnrichmentResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+        request_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Text
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+      type: object
+      required:
+      - id
+      - status
+      - type
+      - user_email
+      - request_text
+      - institution_id
+      - workspace_id
+      - created_at
+      - modified_at
+      title: EnrichmentResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EnrichmentInstitutionMetadata:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution City
+        institution_county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution County
+        institution_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Label
+      type: object
+      required:
+      - institution_id
+      - institution_name
+      - institution_state
+      - institution_city
+      - institution_county
+      - institution_label
+      title: EnrichmentInstitutionMetadata
+    EnrichmentWithInstitution:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        request_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Text
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        institution_metadata:
+          $ref: '#/components/schemas/EnrichmentInstitutionMetadata'
+      type: object
+      required:
+      - id
+      - user_email
+      - type
+      - status
+      - created_at
+      - modified_at
+      - request_text
+      - result
+      - institution_id
+      - workspace_id
+      - institution_metadata
+      title: EnrichmentWithInstitution
+    EnrichmentStatsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        by_status:
+          additionalProperties:
+            type: integer
+          type: object
+          title: By Status
+      type: object
+      required:
+      - total
+      - by_status
+      title: EnrichmentStatsResponse
+    EnrichmentRequest:
+      properties:
+        request_text:
+          type: string
+          title: Request Text
+        source_type:
+          type: string
+          title: Source Type
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      type: object
+      required:
+      - request_text
+      - source_type
+      - institution_ids
+      title: EnrichmentRequest
+    AllEnrichmentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/EnrichmentWithInstitution'
+          type: array
+          title: Data
+        limit:
+          type: integer
+          title: Limit
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+        total:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total
+      type: object
+      required:
+      - data
+      - limit
+      title: AllEnrichmentsResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

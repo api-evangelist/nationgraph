@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Classifiers API
+  version: 0.2.36
+tags:
+- name: Classifiers
+paths:
+  /api/v3/classifiers/institutions/match:
+    post:
+      tags:
+      - Classifiers
+      summary: Match Institutions
+      operationId: match_institutions_api_v3_classifiers_institutions_match_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyJobEnqueueResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    ClassifyRequest:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/ClassifyRow'
+          type: array
+          title: Rows
+        job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Job Id
+      type: object
+      required:
+      - rows
+      title: ClassifyRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ClassifyJobEnqueueResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        rows_to_process:
+          type: integer
+          title: Rows To Process
+        skipped_row_count:
+          type: integer
+          title: Skipped Row Count
+          default: 0
+      type: object
+      required:
+      - job_id
+      - rows_to_process
+      title: ClassifyJobEnqueueResponse
+    ClassifyRow:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Domain
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        states:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: States
+        institution_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Types
+        nationgraph_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationgraph Id
+        nces:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nces
+        fips:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fips
+        ipeds:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ipeds
+      type: object
+      title: ClassifyRow
+      description: A single row to classify against institutions.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

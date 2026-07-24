@@ -1,0 +1,25 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Webhooks API
+  version: 0.2.36
+tags:
+- name: Webhooks
+paths:
+  /api/v3/webhooks/clerk:
+    post:
+      tags:
+      - Webhooks
+      summary: Clerk Webhook
+      description: Webhook endpoint to process Clerk events.
+      operationId: webhook_clerk_api_v3_webhooks_clerk_post
+      responses:
+        '200':
+          description: Clerk webhook received
+          content:
+            application/json:
+              schema: {}
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

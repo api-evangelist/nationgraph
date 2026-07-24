@@ -1,0 +1,459 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Territories API
+  version: 0.2.36
+tags:
+- name: Territories
+paths:
+  /api/v3/territories/stats:
+    get:
+      tags:
+      - Territories
+      summary: Get Territory Stats
+      operationId: get_territory_stats_api_v3_territories_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /api/v3/territories:
+    get:
+      tags:
+      - Territories
+      summary: List Territories
+      description: List caller's territories with per-row counts; visibility intentionally not returned.
+      operationId: list_territories_api_v3_territories_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerritoryListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Territories
+      summary: Create Territory
+      description: Create one new territory; atomic JSONB + materialized write under user_profile row lock.
+      operationId: create_territory_api_v3_territories_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileInstitutionFilter'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerritoryListItem'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/territories/preview:
+    post:
+      tags:
+      - Territories
+      summary: Preview Territory
+      description: Stateless resolve → count + 25-row sample. No writes, auth-only.
+      operationId: preview_territory_api_v3_territories_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileInstitutionFilter'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerritoryPreviewResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/territories/{filter_id}:
+    put:
+      tags:
+      - Territories
+      summary: Update Territory
+      description: 'Overwrite one existing territory in place; re-resolves the rule and diffs
+
+        members under the user_profile row lock. Owner-bound; 404 if not owned.'
+      operationId: update_territory_api_v3_territories__filter_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: filter_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Filter Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileInstitutionFilter'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerritoryListItem'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Territories
+      summary: Delete Territory
+      description: Owner-bound delete; 404 indistinguishable from "doesn't exist" (don't leak existence).
+      operationId: delete_territory_api_v3_territories__filter_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: filter_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Filter Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TerritoryAccountItem:
+      properties:
+        unique_id:
+          type: string
+          title: Unique Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        source_table:
+          type: string
+          title: Source Table
+      type: object
+      required:
+      - unique_id
+      - name
+      - city
+      - state
+      - county
+      - population
+      - source_table
+      title: TerritoryAccountItem
+      description: One institution row in a territory preview sample.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    TerritoryPreviewResponse:
+      properties:
+        count:
+          type: integer
+          title: Count
+        sample:
+          items:
+            $ref: '#/components/schemas/TerritoryAccountItem'
+          type: array
+          title: Sample
+      type: object
+      required:
+      - count
+      - sample
+      title: TerritoryPreviewResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TerritoryListResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        items:
+          items:
+            $ref: '#/components/schemas/TerritoryListItem'
+          type: array
+          title: Items
+      type: object
+      required:
+      - total
+      - items
+      title: TerritoryListResponse
+    InstitutionTypePayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+        population_min:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Min
+        population_max:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Max
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+      type: object
+      title: InstitutionTypePayload
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
+    TerritoryListItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+        account_count:
+          type: integer
+          title: Account Count
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - payload
+      - account_count
+      - created_at
+      - updated_at
+      title: TerritoryListItem
+      description: 'One row in the `GET /territories` list response.
+
+
+        Visibility column lives in the DB but is intentionally not exposed here —
+
+        future-sprint feature per boss; the API stays visibility-blind for now.'
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

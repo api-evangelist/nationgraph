@@ -1,0 +1,721 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Institutions API
+  version: 0.2.36
+tags:
+- name: Institutions
+paths:
+  /api/v3/workspaces/institutions:
+    get:
+      tags:
+      - Institutions
+      summary: Get Institutions In Workspace
+      description: Get institutions from the 'all_institutions' view/table.
+      operationId: get_institutions_in_workspace_api_v3_workspaces_institutions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/institutions:
+    post:
+      tags:
+      - Institutions
+      summary: Add Institution To Workspace
+      operationId: add_institution_to_workspace_api_v3_workspaces__workspace_id__institutions_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInstitutionsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Institutions
+      summary: Delete Workspace Institutions
+      description: Delete institutions from a workspace.
+      operationId: delete_workspace_institutions_api_v3_workspaces__workspace_id__institutions_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstitutionsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Institutions
+      summary: Get Workspace Institutions
+      description: Get institutions linked to a specific workspace.
+      operationId: get_workspace_institutions_api_v3_workspaces__workspace_id__institutions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/institutions/count:
+    post:
+      tags:
+      - Institutions
+      summary: Get Institution Count
+      description: Get a single count of institutions matching the intersection of signal and territory filters.
+      operationId: get_institution_count_api_v3_institutions_count_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstitutionCountRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/institutions/metadata:
+    post:
+      tags:
+      - Institutions
+      summary: Get Institution Metadata
+      description: 'Get institution counts and metadata based on filters.
+
+
+        Request body should contain a list of filters, where each filter can specify:
+
+        - institution_type: Filter by type (k12_districts, cities, etc.)
+
+        - states: List of state codes (e.g., ["CA", "NY", "TX"])
+
+        - population_min: Minimum population filter
+
+        - population_max: Maximum population filter
+
+
+        If no filters provided, returns counts for all institution types.'
+      operationId: get_institution_metadata_api_v3_institutions_metadata_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstitutionCountsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/institutions:
+    get:
+      tags:
+      - Institutions
+      summary: Get Institutions
+      operationId: get_institutions_api_v3_institutions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          description: List of institution IDs to filter by
+          default: []
+          title: Ids
+        description: List of institution IDs to filter by
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Limit number of results returned
+          title: Limit
+        description: Limit number of results returned
+      - name: institution_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by institution type (e.g., k12_districts, cities)
+          title: Institution Type
+        description: Filter by institution type (e.g., k12_districts, cities)
+      - name: account_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Multi-select institution types — applied as source_table IN (...)
+          title: Account Types
+        description: Multi-select institution types — applied as source_table IN (...)
+      - name: states
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: List of state codes to filter by
+          title: States
+        description: List of state codes to filter by
+      - name: counties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: List of county names to filter by
+          title: Counties
+        description: List of county names to filter by
+      - name: cities
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: List of city names to filter by
+          title: Cities
+        description: List of city names to filter by
+      - name: population_min
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: Minimum population filter
+          title: Population Min
+        description: Minimum population filter
+      - name: population_max
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: Maximum population filter
+          title: Population Max
+        description: Maximum population filter
+      - name: search_query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Case-insensitive substring match on Institution.name
+          title: Search Query
+        description: Case-insensitive substring match on Institution.name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/institutions/{institution_id}:
+    get:
+      tags:
+      - Institutions
+      summary: Get Institution
+      operationId: get_institution_api_v3_institutions__institution_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    InstitutionFilter:
+      properties:
+        ids:
+          items:
+            type: string
+          type: array
+          title: Ids
+          description: List of institution IDs to filter by
+          default: []
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Limit number of results returned
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+          description: Filter by institution type (e.g., k12_districts, cities)
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+          description: Multi-select institution types — applied as source_table IN (...)
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+          description: List of state codes to filter by
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+          description: List of county names to filter by
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+          description: List of city names to filter by
+        population_min:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Population Min
+          description: Minimum population filter
+        population_max:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Population Max
+          description: Maximum population filter
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+          description: Case-insensitive substring match on Institution.name
+      type: object
+      title: InstitutionFilter
+      description: Query parameters for filtering institutions.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    InstitutionCountRequest:
+      properties:
+        institution_filters:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Institution Filters
+        signal_filters:
+          $ref: '#/components/schemas/InstitutionSignalFilters'
+      type: object
+      required:
+      - institution_filters
+      - signal_filters
+      title: InstitutionCountRequest
+      description: Request for the filtered institution count endpoint.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InstitutionTypePayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+        population_min:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Min
+        population_max:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Max
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+      type: object
+      title: InstitutionTypePayload
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    InstitutionsRequest:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        prepend:
+          type: boolean
+          title: Prepend
+          default: false
+      type: object
+      required:
+      - institution_ids
+      title: InstitutionsRequest
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
+    InstitutionSignalFilters:
+      properties:
+        signal_setting_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Signal Setting Ids
+        data_sources:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SignalSourceType'
+            type: array
+          - type: 'null'
+          title: Data Sources
+        created_after:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created After
+        created_before:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created Before
+      type: object
+      title: InstitutionSignalFilters
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
+    CreateInstitutionsRequest:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+      type: object
+      required:
+      - institution_ids
+      title: CreateInstitutionsRequest
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
+    InstitutionCountsRequest:
+      properties:
+        filters:
+          items:
+            $ref: '#/components/schemas/InstitutionFilter'
+          type: array
+          title: Filters
+          default:
+          - ids: []
+            institution_type: k12_districts
+            states: []
+          - ids: []
+            institution_type: cities
+            states: []
+          - ids: []
+            institution_type: counties
+            states: []
+          - ids: []
+            institution_type: higher_education
+            states: []
+          - ids: []
+            institution_type: federal_agencies
+            states: []
+          - ids: []
+            institution_type: federal_departments
+            states: []
+          - ids: []
+            institution_type: individual_units
+            states: []
+          - ids: []
+            institution_type: k12_schools
+            states: []
+          - ids: []
+            institution_type: police_agencies
+            states: []
+          - ids: []
+            institution_type: usfa_registry
+            states: []
+          - ids: []
+            institution_type: state_agencies
+            states: []
+          - ids: []
+            institution_type: states
+            states: []
+      type: object
+      title: InstitutionCountsRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

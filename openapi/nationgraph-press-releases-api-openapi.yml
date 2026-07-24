@@ -1,0 +1,389 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Press Releases API
+  version: 0.2.36
+tags:
+- name: Press Releases
+paths:
+  /api/internal/press-releases/search:
+    post:
+      tags:
+      - Press Releases
+      summary: Search Press Releases
+      description: 'Search press release chunks.
+
+
+        The ``query`` field is evaluated against the chunks'' ``search_vector`` via
+
+        ``websearch_to_tsquery(''english'', ...)`` — stemming on, websearch syntax
+
+        (quoted phrases, OR, leading - to exclude).
+
+
+        Pass ``group_by_document=true`` to collapse to one chunk per press release
+
+        (the highest-ranked when a query is supplied; the earliest chunk otherwise).
+
+        The response''s ``other_matching_chunks_in_document`` field shows how many
+
+        other chunks in that doc also matched — useful for deciding whether to
+
+        drill in.
+
+
+        At least one of ``institution_ids`` or ``query`` is required.'
+      operationId: search_press_releases_api_internal_press_releases_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PressReleaseSearchFilters'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_PressReleaseChunkResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/internal/press-releases/chunks/{id}:
+    get:
+      tags:
+      - Press Releases
+      summary: Get Press Release Chunk
+      operationId: get_press_release_chunk_api_internal_press_releases_chunks__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PressReleaseChunkResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/internal/press-releases/documents/{id}:
+    get:
+      tags:
+      - Press Releases
+      summary: Get Press Release Document
+      description: 'Fetch the full press release record by its UUID.
+
+
+        Returns the entire ``content`` field along with title, url, publication
+
+        date, and institution context. Use after ``/search`` returns chunks if you
+
+        need the whole article rather than the snippet.'
+      operationId: get_press_release_document_api_internal_press_releases_documents__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PressReleaseDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PressReleaseSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        date_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date After
+        date_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Before
+        group_by_document:
+          type: boolean
+          title: Group By Document
+          default: false
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 50
+      type: object
+      title: PressReleaseSearchFilters
+      description: 'Search filters for press release chunks.
+
+
+        The ``query`` field accepts a websearch-style query string evaluated against
+
+        the chunks'' ``search_vector`` column (english config — stemming enabled).
+
+        Same syntax as the other chunk-search endpoints.
+
+
+        At least one of ``institution_ids`` or ``query`` must be supplied — the
+
+        chunks table is large enough that fully unbounded scans are rejected.
+
+        Institution scoping alone (with no query) lists that institution''s chunks
+
+        in reverse-chronological order of the parent press release, useful for
+
+        surveying what we have.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PressReleaseDocumentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        date:
+          type: string
+          format: date-time
+          title: Date
+        content:
+          type: string
+          title: Content
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - institution_id
+      - title
+      - url
+      - date
+      - content
+      title: PressReleaseDocumentResponse
+      description: 'Full press release record — returned by GET /documents/{id}.
+
+
+        Use this when you need the entire press release content, not just chunks.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_PressReleaseChunkResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PressReleaseChunkResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[PressReleaseChunkResponse]
+    PressReleaseChunkResponse:
+      properties:
+        chunk_id:
+          type: integer
+          title: Chunk Id
+        document_id:
+          type: string
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        document_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Date
+        document_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Title
+        document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Url
+        document_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Created At
+        text:
+          type: string
+          title: Text
+        relevance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
+      type: object
+      required:
+      - chunk_id
+      - document_id
+      - text
+      title: PressReleaseChunkResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

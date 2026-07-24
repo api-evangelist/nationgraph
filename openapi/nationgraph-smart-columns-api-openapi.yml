@@ -1,0 +1,522 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Smart Columns API
+  version: 0.2.36
+tags:
+- name: Smart Columns
+paths:
+  /api/v3/workspaces/{workspace_id}/smart-columns:
+    post:
+      tags:
+      - Smart Columns
+      summary: Upsert Smart Column
+      description: Create or update a smart column for a workspace using SQLModel.
+      operationId: upsert_smart_column_api_v3_workspaces__workspace_id__smart_columns_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartColumnRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/smart-columns/{column_id}/rerun:
+    post:
+      tags:
+      - Smart Columns
+      summary: Rerun Smart Column
+      description: Rerun an existing smart column for a workspace using SQLModel.
+      operationId: rerun_smart_column_api_v3_workspaces__workspace_id__smart_columns__column_id__rerun_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: column_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Column Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RerunSmartColumnRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/smart-columns/{column_id}:
+    patch:
+      tags:
+      - Smart Columns
+      summary: Patch Smart Column Endpoint
+      operationId: patch_smart_column_endpoint_api_v3_workspaces__workspace_id__smart_columns__column_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: column_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Column Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartColumnPatchRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/institutions/{institution_id}/smart-columns:
+    post:
+      tags:
+      - Smart Columns
+      summary: Process Smart Columns For Institution
+      description: Process all smart columns for a newly added institution.
+      operationId: process_smart_columns_for_institution_api_v3_workspaces__workspace_id__institutions__institution_id__smart_columns_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/custom-column/{column_id}:
+    delete:
+      tags:
+      - Smart Columns
+      summary: Delete Custom Column
+      description: Delete a custom column and its associated data.
+      operationId: delete_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: column_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Column Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Smart Columns
+      summary: Get Custom Column
+      description: Retrieve a custom column record using SQLModel.
+      operationId: get_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: column_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Column Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/enrich-keywords:
+    post:
+      tags:
+      - Smart Columns
+      summary: Enrich Keywords
+      operationId: enrich_keywords_api_v3_enrich_keywords_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              title: Keywords
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/enrich-prompt:
+    post:
+      tags:
+      - Smart Columns
+      summary: Enrich Prompt
+      operationId: enrich_prompt_api_v3_enrich_prompt_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__smart_columns__PromptRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/rag/data_source/{data_source}/documents/{document_id}:
+    get:
+      tags:
+      - Smart Columns
+      summary: Get Rag Document
+      operationId: get_rag_document_api_v3_rag_data_source__data_source__documents__document_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: data_source
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Data Source
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Document Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    app__routes__v3__smart_columns__DateRange:
+      properties:
+        from:
+          type: string
+          format: date-time
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      required:
+      - from
+      title: DateRange
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
+    ColumnType:
+      type: string
+      enum:
+      - smart
+      - static
+      title: ColumnType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RerunFrequency:
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - none
+      title: RerunFrequency
+    app__routes__v3__smart_columns__KeywordConfig:
+      properties:
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        is_strict:
+          type: boolean
+          title: Is Strict
+      type: object
+      required:
+      - logic
+      - keywords
+      - is_strict
+      title: KeywordConfig
+    SmartColumnPatchRequest:
+      properties:
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+      type: object
+      title: SmartColumnPatchRequest
+    RerunSmartColumnRequest:
+      properties:
+        column_version:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Column Version
+      type: object
+      title: RerunSmartColumnRequest
+    DataSource:
+      type: string
+      enum:
+      - meeting_minutes
+      - purchase_orders
+      - online_research
+      - strategic_plans
+      - contacts
+      - annual_budgets
+      - procurement_guidelines
+      - news
+      - rfps
+      - legislation
+      - grants
+      - intent
+      - email
+      - google_search
+      - summary
+      - signals
+      - call_script
+      title: DataSource
+    app__routes__v3__smart_columns__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        data_source:
+          $ref: '#/components/schemas/DataSource'
+      type: object
+      required:
+      - prompt
+      - data_source
+      title: PromptRequest
+    SmartColumnRequest:
+      properties:
+        column_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Id
+        column_type:
+          $ref: '#/components/schemas/ColumnType'
+        column_name:
+          type: string
+          title: Column Name
+        column_version:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Column Version
+        description:
+          type: string
+          title: Description
+        data_source:
+          $ref: '#/components/schemas/DataSource'
+        keyword_config:
+          $ref: '#/components/schemas/app__routes__v3__smart_columns__KeywordConfig'
+        rerun_frequency:
+          $ref: '#/components/schemas/RerunFrequency'
+        last_run:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__smart_columns__DateRange'
+          - type: 'null'
+        intent_factors:
+          $ref: '#/components/schemas/IntentFactors'
+        reference_column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Reference Column Ids
+      type: object
+      required:
+      - column_type
+      - column_name
+      - description
+      - data_source
+      - keyword_config
+      - rerun_frequency
+      title: SmartColumnRequest
+    IntentFactors:
+      properties:
+        key_factors:
+          type: string
+          title: Key Factors
+        scoring_rubric:
+          type: string
+          title: Scoring Rubric
+      type: object
+      required:
+      - key_factors
+      - scoring_rubric
+      title: IntentFactors
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

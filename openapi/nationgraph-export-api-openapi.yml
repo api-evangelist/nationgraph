@@ -1,0 +1,785 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Export API
+  version: 0.2.36
+tags:
+- name: Export
+paths:
+  /api/v3/export/workspaces/{workspace_id}:
+    post:
+      tags:
+      - Export
+      summary: Export Workspace Csv
+      description: "Export workspace data to CSV format.\n\nArgs:\n    workspace_id: The workspace ID to export\n    request: WorkspaceExportRequest object containing filter, sort, search, column_ids, and institution_ids\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+      operationId: export_workspace_csv_api_v3_export_workspaces__workspace_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceExportRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/export/institution/{institution_id}/purchase_orders/column/{column_id}:
+    get:
+      tags:
+      - Export
+      summary: Export Single Po Csv
+      description: "Export purchase orders for a specific column and institution as a CSV file.\n\nArgs:\n    column_id: Custom column ID containing purchase order data\n    institution_id: Institution ID\n    is_prev: Whether to use previous content\n    token_BEARER: Authentication token\n    app_session: Database app_session\n\nReturns:\n    CSV file with columns: Supplier, Item, Amount, Date."
+      operationId: export_single_po_csv_api_v3_export_institution__institution_id__purchase_orders_column__column_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: column_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Column Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      - name: is_prev
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Is Prev
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/export/workspaces/{workspace_id}/purchase_orders:
+    post:
+      tags:
+      - Export
+      summary: Export Po Csv
+      description: "Export purchase orders from smart columns in a workspace as a CSV file.\nArgs:\n    workspace_id: The workspace ID to export purchase orders from\n    request: PurchaseOrdersExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)\n    Each row is one individual purchase item. Columns: Institution, Supplier, Item, Amount, Date, plus any other selected columns (excluding contacts and purchase_orders columns)."
+      operationId: export_po_csv_api_v3_export_workspaces__workspace_id__purchase_orders_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: filter_json
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter Json
+      - name: sort_json
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort Json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrdersExportRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/export/rfps:
+    post:
+      tags:
+      - Export
+      summary: Export Rfps Csv
+      description: "Export RFPs to CSV format.\n\nArgs:\n    request: RFPsExportRequest object containing the list of RFPs\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+      operationId: export_rfps_csv_api_v3_export_rfps_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFPsExportRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/export/grants:
+    post:
+      tags:
+      - Export
+      summary: Export Grants Csv
+      description: "Export grants to CSV format.\n\nArgs:\n    request: GrantsExportRequest object containing the list of grants\n    token_BEARER: Authentication token"
+      operationId: export_grants_csv_api_v3_export_grants_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrantsExportRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/export/workspaces/{workspace_id}/contacts:
+    post:
+      tags:
+      - Export
+      summary: Export Contacts Csv
+      description: "Export contacts from smart columns in a workspace as a CSV file.\n\nArgs:\n    workspace_id: The workspace ID to export contacts from\n    request: ContactsExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)"
+      operationId: export_contacts_csv_api_v3_export_workspaces__workspace_id__contacts_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: filter_json
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter Json
+      - name: sort_json
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort Json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactsExportRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RFPs:
+      properties:
+        id:
+          type: integer
+          title: Id
+        unique_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unique Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        agency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agency
+        due_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Due Date
+        rfp_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rfp Url
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated At
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution City
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        source_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Source Id
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+        county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County
+        street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+        latitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latitude
+        longitude:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Longitude
+        geo_shape:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Geo Shape
+        county_fips_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County Fips Code
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        entity_understanding:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Understanding
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
+        favicon_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Favicon Path
+        last_processed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Processed At
+        homepage_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Homepage Url
+        contact_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Contact Url
+        institution_rfp_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Rfp Url
+        meeting_minute_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Meeting Minute Url
+        budget_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Budget Url
+        strategic_plan_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Strategic Plan Url
+        procurement_guideline_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Procurement Guideline Url
+        press_release_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Press Release Url
+        open_data_portal_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Open Data Portal Url
+        youtube_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Youtube Url
+        foia_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Foia Url
+        homepage_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Homepage Url Status
+        contact_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Contact Url Status
+        rfp_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rfp Url Status
+        meeting_minute_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Meeting Minute Url Status
+        budget_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Budget Url Status
+        strategic_plan_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Strategic Plan Url Status
+        press_release_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Press Release Url Status
+        procurement_guideline_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Procurement Guideline Url Status
+        open_data_portal_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Open Data Portal Url Status
+        youtube_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Youtube Url Status
+        foia_url_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Foia Url Status
+        score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Score
+        relevance_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Score
+        decay_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Decay Score
+      type: object
+      required:
+      - id
+      title: RFPs
+      description: Pydantic model for RFP API responses with full institution data.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceExportRequest:
+      properties:
+        filters:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filters
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/Sort'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: WorkspaceExportRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RFPsExportRequest:
+      properties:
+        rfps:
+          items:
+            $ref: '#/components/schemas/RFPs'
+          type: array
+          title: Rfps
+      type: object
+      required:
+      - rfps
+      title: RFPsExportRequest
+    ContactsExportRequest:
+      properties:
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        filter_json:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filter Json
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+          default: ''
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        only_direct_matches:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Only Direct Matches
+          default: false
+      type: object
+      title: ContactsExportRequest
+    Sort:
+      properties:
+        column:
+          type: string
+          title: Column
+        direction:
+          $ref: '#/components/schemas/SortType'
+      type: object
+      required:
+      - column
+      - direction
+      title: Sort
+    GrantResponse-Input:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        funding_agency:
+          type: string
+          title: Funding Agency
+        awardee_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Awardee Name
+        total_obligated_amount:
+          type: number
+          title: Total Obligated Amount
+        period_of_performance_start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance Start Date
+        period_of_performance_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance End Date
+        last_modified_date:
+          type: string
+          format: date
+          title: Last Modified Date
+        grant_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Link
+        outlayed_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outlayed Amount
+        external_grant_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Grant Id
+        transaction_count:
+          type: integer
+          title: Transaction Count
+          default: 1
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        relevance_rank:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Rank
+        score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Score
+        relevance_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Score
+        decay_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Decay Score
+      type: object
+      required:
+      - id
+      - title
+      - funding_agency
+      - total_obligated_amount
+      - last_modified_date
+      title: GrantResponse
+    GrantsExportRequest:
+      properties:
+        grants:
+          items:
+            $ref: '#/components/schemas/GrantResponse-Input'
+          type: array
+          title: Grants
+      type: object
+      required:
+      - grants
+      title: GrantsExportRequest
+    PurchaseOrdersExportRequest:
+      properties:
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        filter_json:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filter Json
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+          default: ''
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: PurchaseOrdersExportRequest
+    SortType:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortType
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

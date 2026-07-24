@@ -1,0 +1,988 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM Contacts API
+  version: 0.2.36
+tags:
+- name: CRM Contacts
+paths:
+  /api/v3/crm/{integration_id}/contacts:
+    get:
+      tags:
+      - CRM Contacts
+      summary: List Contacts
+      description: Get a paginated list of contacts from the CRM.
+      operationId: list_contacts_api_v3_crm__integration_id__contacts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of results
+          default: 10
+          title: Limit
+        description: Number of results
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor
+          title: After
+        description: Pagination cursor
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - CRM Contacts
+      summary: Create Contact
+      description: Create a new contact in the CRM.
+      operationId: create_contact_api_v3_crm__integration_id__contacts_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/search:
+    get:
+      tags:
+      - CRM Contacts
+      summary: Search Contacts
+      description: Search for contacts using various filters.
+      operationId: search_contacts_api_v3_crm__integration_id__contacts_search_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Text search across searchable properties
+          title: Query
+        description: Text search across searchable properties
+      - name: email
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by email
+          title: Email
+        description: Filter by email
+      - name: firstname
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by first name
+          title: Firstname
+        description: Filter by first name
+      - name: lastname
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by last name
+          title: Lastname
+        description: Filter by last name
+      - name: phone
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by phone
+          title: Phone
+        description: Filter by phone
+      - name: company
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by company name
+          title: Company
+        description: Filter by company name
+      - name: jobtitle
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by job title
+          title: Jobtitle
+        description: Filter by job title
+      - name: city
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by city
+          title: City
+        description: Filter by city
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by state
+          title: State
+        description: Filter by state
+      - name: country
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by country
+          title: Country
+        description: Filter by country
+      - name: owner_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by CRM owner ID
+          title: Owner Id
+        description: Filter by CRM owner ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results
+          default: 10
+          title: Limit
+        description: Number of results
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor
+          title: After
+        description: Pagination cursor
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactSearchResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/properties:
+    get:
+      tags:
+      - CRM Contacts
+      summary: Get Contact Properties
+      description: Get all available contact properties in the CRM.
+      operationId: get_contact_properties_api_v3_crm__integration_id__contacts_properties_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PropertyInfo'
+                title: Response Get Contact Properties Api V3 Crm  Integration Id  Contacts Properties Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/by-email/{email}:
+    get:
+      tags:
+      - CRM Contacts
+      summary: Get Contact by Email
+      description: Get a single contact by their email address.
+      operationId: get_contact_by_email_api_v3_crm__integration_id__contacts_by_email__email__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The contact's email address
+          title: Email
+        description: The contact's email address
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      - name: associations
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated associated objects to include (e.g., companies,deals)
+          title: Associations
+        description: Comma-separated associated objects to include (e.g., companies,deals)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/{contact_id}:
+    get:
+      tags:
+      - CRM Contacts
+      summary: Get Contact
+      description: Get a single contact by its CRM ID.
+      operationId: get_contact_api_v3_crm__integration_id__contacts__contact_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: contact_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The CRM contact ID
+          title: Contact Id
+        description: The CRM contact ID
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties to return
+          title: Properties
+        description: Comma-separated list of properties to return
+      - name: associations
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated associated objects to include (e.g., companies,deals)
+          title: Associations
+        description: Comma-separated associated objects to include (e.g., companies,deals)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - CRM Contacts
+      summary: Update Contact
+      description: Update an existing contact in the CRM.
+      operationId: update_contact_api_v3_crm__integration_id__contacts__contact_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: contact_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The CRM contact ID
+          title: Contact Id
+        description: The CRM contact ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/batch/read:
+    post:
+      tags:
+      - CRM Contacts
+      summary: Batch Get Contacts
+      description: Get multiple contacts by their IDs or emails.
+      operationId: batch_get_contacts_api_v3_crm__integration_id__contacts_batch_read_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchGetRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/batch/create:
+    post:
+      tags:
+      - CRM Contacts
+      summary: Batch Create Contacts
+      description: Create multiple contacts in a single request.
+      operationId: batch_create_contacts_api_v3_crm__integration_id__contacts_batch_create_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchCreateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/contacts/batch/update:
+    post:
+      tags:
+      - CRM Contacts
+      summary: Batch Update Contacts
+      description: Update multiple contacts in a single request.
+      operationId: batch_update_contacts_api_v3_crm__integration_id__contacts_batch_update_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchUpdateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UpdateContactRequest:
+      properties:
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        firstname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+        lastname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lastname
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        mobilephone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobilephone
+        jobtitle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Jobtitle
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        lifecyclestage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lifecyclestage
+        hs_lead_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hs Lead Status
+        hubspot_owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hubspot Owner Id
+      type: object
+      title: UpdateContactRequest
+      description: Request to update a contact in HubSpot.
+    app__routes__v3__crm_contacts__BatchUpdateRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchUpdateItem'
+          type: array
+          title: Contacts
+          description: List of contacts to update
+        id_property:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id Property
+          description: Set to 'email' to update by email
+      type: object
+      required:
+      - contacts
+      title: BatchUpdateRequest
+      description: Request for batch updating contacts.
+    app__routes__v3__crm_contacts__BatchUpdateItem:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Contact ID to update
+        properties:
+          $ref: '#/components/schemas/UpdateContactRequest'
+          description: Properties to update
+      type: object
+      required:
+      - id
+      - properties
+      title: BatchUpdateItem
+      description: Single item in batch update request.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PropertyInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        label:
+          type: string
+          title: Label
+        type:
+          type: string
+          title: Type
+        fieldType:
+          type: string
+          title: Fieldtype
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        groupName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Groupname
+      type: object
+      required:
+      - name
+      - label
+      - type
+      - fieldType
+      title: PropertyInfo
+      description: Information about a CRM property.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    app__routes__v3__crm_contacts__BatchCreateRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CreateContactRequest'
+          type: array
+          title: Contacts
+          description: List of contacts to create
+        company_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Id
+          description: CRM company/account ID to associate all contacts with
+      type: object
+      required:
+      - contacts
+      title: BatchCreateRequest
+      description: Request for batch creating contacts.
+    CreateContactRequest:
+      properties:
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        firstname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+        lastname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lastname
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        mobilephone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobilephone
+        jobtitle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Jobtitle
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Zip
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        lifecyclestage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lifecyclestage
+        hs_lead_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hs Lead Status
+        hubspot_owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hubspot Owner Id
+      type: object
+      title: CreateContactRequest
+      description: Request to create a contact in HubSpot.
+    ContactListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: ContactListResponse
+      description: API response for listing contacts.
+    app__routes__v3__crm_contacts__ContactResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        properties:
+          additionalProperties: true
+          type: object
+          title: Properties
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - properties
+      title: ContactResponse
+      description: API response for a single contact.
+    ContactSearchResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        results:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - total
+      - results
+      title: ContactSearchResponse
+      description: API response for searching contacts.
+    app__routes__v3__crm_contacts__BatchGetRequest:
+      properties:
+        ids:
+          items:
+            type: string
+          type: array
+          title: Ids
+          description: List of contact IDs to retrieve
+        properties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Properties
+          description: Properties to return
+        id_property:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id Property
+          description: Set to 'email' to look up by email
+      type: object
+      required:
+      - ids
+      title: BatchGetRequest
+      description: Request for batch getting contacts.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

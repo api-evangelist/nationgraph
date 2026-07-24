@@ -1,0 +1,273 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Purchase Orders API
+  version: 0.2.36
+tags:
+- name: Purchase Orders
+paths:
+  /api/internal/purchase-orders/{id}:
+    get:
+      tags:
+      - Purchase Orders
+      summary: Get Purchase Order
+      operationId: get_purchase_order_api_internal_purchase_orders__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/internal/purchase-orders/search:
+    post:
+      tags:
+      - Purchase Orders
+      summary: Search Purchase Orders
+      description: 'Search purchase orders for an institution.
+
+
+        The ``query`` field accepts a Postgres tsquery expression — see the
+
+        PurchaseOrderSearchFilters docstring for syntax and examples. Malformed
+
+        tsquery returns 400 with the Postgres syntax error.
+
+
+        All filters compose with AND: matching POs must satisfy every supplied
+
+        filter (institution_ids, query, amount range, date range).
+
+
+        At least one of ``institution_ids`` or ``query`` must be supplied —
+
+        unbounded scans of the 235M-row PO table are rejected.'
+      operationId: search_purchase_orders_api_internal_purchase_orders_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderSearchFilters'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_PurchaseOrderResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    PaginatedResponse_PurchaseOrderResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PurchaseOrderResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[PurchaseOrderResponse]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PurchaseOrderSearchFilters:
+      properties:
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        min_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Amount
+        max_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max Amount
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: End Date
+        sort:
+          type: string
+          enum:
+          - po_date_desc
+          - amount_desc
+          title: Sort
+          default: po_date_desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+      type: object
+      title: PurchaseOrderSearchFilters
+      description: "Search filters for purchase orders.\n\nThe ``query`` field accepts a Postgres tsquery expression evaluated against\nthe ``search_vector`` column (which covers both supplier_name and\nitem_description, tokenized with the ``simple`` config — no stemming, no\nstop-word filtering, automatic word-boundary matching).\n\nOperators:\n    & (AND), | (OR), ! (NOT), parens for grouping\n\nTokens with multiple words must be combined explicitly — there's no\nimplicit AND. Hyphenated words tokenize both as the full string and the\nparts (CDW-G becomes cdw-g, cdw, g — any of those will match).\n\nExamples:\n    \"lightspeed\"\n        Match the word lightspeed in either field.\n\n    \"lightspeed & systems\"\n        Both words must appear (any order, either field).\n\n    \"lightspeed | securly | goguardian\"\n        Any of the three.\n\n    \"(lightspeed | securly) & !pos & !demo\"\n        Either competitor, but exclude POS systems and demo POs.\n\n    \"((cdw & cisco) | (amazon & networking)) & 2026\"\n        Reseller-aware nested query.\n\nMalformed queries return HTTP 400 with the Postgres syntax error.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nendpoint rejects requests with both empty to prevent unbounded scans."
+    PurchaseOrderResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        entity_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Name
+        source_table:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Table
+        supplier_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Supplier Name
+        item_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Item Description
+        total_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Amount
+        po_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Po Date
+        po_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Po Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+      type: object
+      required:
+      - id
+      title: PurchaseOrderResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

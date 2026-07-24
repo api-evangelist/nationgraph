@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts RAG Files API
+  version: 0.2.36
+tags:
+- name: RAG Files
+paths:
+  /api/internal/rag/files/{data_source}/{id}:
+    get:
+      tags:
+      - RAG Files
+      summary: Get Rag File
+      description: "Download the source file backing a RAG document.\n\n``(data_source, id)`` together identify the file — each source's\ndocument table has an independent autoincrement ID space, so ``id``\nalone is ambiguous.\n\nResponses:\n    200 — file body + detected mime type.\n    404 — no matching document or no file_path on the row.\n    502 — S3 download failed."
+      operationId: get_rag_file_api_internal_rag_files__data_source___id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: data_source
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/RagDataSource'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RagDataSource:
+      type: string
+      enum:
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      title: RagDataSource
+      description: 'Supported sources for RAG file downloads.
+
+
+        Each value matches the key the ML team''s ``nationgraph_rag.database_search``
+
+        uses in its DATA_MAP. Not every chunk-search endpoint has a backing file —
+
+        YouTube videos, for example, don''t live in S3, so they''re not exposed
+
+        here.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

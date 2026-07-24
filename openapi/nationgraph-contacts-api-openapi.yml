@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Contacts API
+  version: 0.2.36
+tags:
+- name: Contacts
+paths:
+  /api/v3/contacts:
+    get:
+      tags:
+      - Contacts
+      summary: Get Contacts
+      operationId: get_contacts_api_v3_contacts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Institution Id
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+          title: Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/app__types__contacts__contact_response__ContactResponse'
+                title: Response Get Contacts Api V3 Contacts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/contacts/search:
+    post:
+      tags:
+      - Contacts
+      summary: Search Contacts
+      description: 'Search for contacts using complex criteria.
+
+        Uses POST because search criteria are complex and better suited for request body.'
+      operationId: search_contacts_api_v3_contacts_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSearchCriteria'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/app__types__contacts__contact_response__ContactResponse'
+                type: array
+                title: Response Search Contacts Api V3 Contacts Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    app__types__contacts__contact_response__ContactResponse:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+        full_name:
+          type: string
+          title: Full Name
+        title:
+          type: string
+          title: Title
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        institution_id:
+          type: string
+          title: Institution Id
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        scrape_timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Scrape Timestamp
+        scraper_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Scraper Filename
+        email_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email Status
+        entity_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Name
+        mailing_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mailing Address
+        search_metadata:
+          anyOf:
+          - $ref: '#/components/schemas/SearchMetadata'
+          - type: 'null'
+      type: object
+      required:
+      - full_name
+      - title
+      - institution_id
+      title: ContactResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ContactSearchCriteria:
+      properties:
+        description:
+          type: string
+          title: Description
+        institution_id:
+          type: string
+          title: Institution Id
+        start_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        search_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Type
+          default: hybrid
+        email_statuses:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EmailStatus'
+            type: array
+          - type: 'null'
+          title: Email Statuses
+      type: object
+      required:
+      - description
+      - institution_id
+      title: ContactSearchCriteria
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SearchMetadata:
+      properties:
+        reason:
+          type: string
+          title: Reason
+        citations:
+          items:
+            type: string
+          type: array
+          title: Citations
+        direct_match:
+          type: boolean
+          title: Direct Match
+        verified:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Verified
+      type: object
+      required:
+      - reason
+      - citations
+      - direct_match
+      title: SearchMetadata
+    EmailStatus:
+      type: string
+      enum:
+      - valid
+      - do_not_mail
+      - unknown
+      - risky
+      - not_verified
+      title: EmailStatus
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

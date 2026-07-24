@@ -1,0 +1,267 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Scheduling API
+  version: 0.2.36
+tags:
+- name: Scheduling
+paths:
+  /api/v3/scheduling/hosts:
+    get:
+      tags:
+      - Scheduling
+      summary: List Hosts
+      operationId: list_hosts_api_v3_scheduling_hosts_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostsResponse'
+      security:
+      - HTTPBearer: []
+  /api/v3/scheduling/availability:
+    get:
+      tags:
+      - Scheduling
+      summary: Get Availability
+      operationId: get_availability_api_v3_scheduling_availability_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: host_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Host Id
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          description: ISO 8601 UTC, inclusive window start
+          title: Start
+        description: ISO 8601 UTC, inclusive window start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          description: ISO 8601 UTC, exclusive window end
+          title: End
+        description: ISO 8601 UTC, exclusive window end
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/scheduling/bookings:
+    post:
+      tags:
+      - Scheduling
+      summary: Create Booking
+      operationId: create_booking_api_v3_scheduling_bookings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingConfirmation'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BookingRequest:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        start_time:
+          type: string
+          title: Start Time
+        timezone:
+          type: string
+          title: Timezone
+        name:
+          type: string
+          title: Name
+        email:
+          type: string
+          title: Email
+        guests:
+          items:
+            type: string
+          type: array
+          title: Guests
+        prep_answer:
+          type: string
+          title: Prep Answer
+          default: ''
+      type: object
+      required:
+      - host_id
+      - start_time
+      - timezone
+      - name
+      - email
+      title: BookingRequest
+    BookingConfirmation:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: confirmed
+        host_id:
+          type: string
+          title: Host Id
+        host_name:
+          type: string
+          title: Host Name
+        event_name:
+          type: string
+          title: Event Name
+        start_time:
+          type: string
+          title: Start Time
+        end_time:
+          type: string
+          title: End Time
+        timezone:
+          type: string
+          title: Timezone
+        cancel_url:
+          type: string
+          title: Cancel Url
+        reschedule_url:
+          type: string
+          title: Reschedule Url
+      type: object
+      required:
+      - host_id
+      - host_name
+      - event_name
+      - start_time
+      - end_time
+      - timezone
+      - cancel_url
+      - reschedule_url
+      title: BookingConfirmation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HostsResponse:
+      properties:
+        hosts:
+          items:
+            $ref: '#/components/schemas/HostSummary'
+          type: array
+          title: Hosts
+      type: object
+      required:
+      - hosts
+      title: HostsResponse
+    AvailabilityResponse:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        slots:
+          items:
+            type: string
+          type: array
+          title: Slots
+      type: object
+      required:
+      - host_id
+      - slots
+      title: AvailabilityResponse
+    HostSummary:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        role:
+          type: string
+          title: Role
+          default: ''
+        event_name:
+          type: string
+          title: Event Name
+        duration_minutes:
+          type: integer
+          title: Duration Minutes
+        prep_question:
+          type: string
+          title: Prep Question
+          default: ''
+      type: object
+      required:
+      - id
+      - name
+      - event_name
+      - duration_minutes
+      title: HostSummary
+      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
+
+        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

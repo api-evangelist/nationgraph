@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts RAG API
+  version: 0.2.36
+tags:
+- name: RAG
+paths:
+  /api/v3/rag/preprocess:
+    post:
+      tags:
+      - RAG
+      summary: Preprocess Rag Query
+      description: "Preprocess a RAG query\n\nArgs:\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    Preprocessed query data including extracted keywords and embeddings"
+      operationId: preprocess_rag_query_api_v3_rag_preprocess_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RagPreprocessRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RagPreprocessResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/rag/query:
+    post:
+      tags:
+      - RAG
+      summary: Query Rag Data
+      description: "Query RAG data\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    preprocessed_data: Output from the /rag/preprocess endpoint\n\nReturns:\n    RAG response with content, citations, and summary"
+      operationId: query_rag_data_api_v3_rag_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RagQueryRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RagQueryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/rag/query-direct:
+    post:
+      tags:
+      - RAG
+      summary: Query Rag Direct
+      description: "Convenience endpoint - combines preprocess and query\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    RAG response with content, citations, and summary"
+      operationId: query_rag_direct_api_v3_rag_query_direct_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: unique_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Unique Id
+      - name: description
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Description
+      - name: search_category
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Search Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_query_rag_direct_api_v3_rag_query_direct_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RagQueryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    app__routes__v3__rag__KeywordConfig:
+      properties:
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+      type: object
+      required:
+      - logic
+      - keywords
+      title: KeywordConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RagPreprocessRequest:
+      properties:
+        description:
+          type: string
+          title: Description
+        search_category:
+          type: string
+          title: Search Category
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
+      type: object
+      required:
+      - description
+      - search_category
+      title: RagPreprocessRequest
+    Body_query_rag_direct_api_v3_rag_query_direct_post:
+      properties:
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
+      type: object
+      title: Body_query_rag_direct_api_v3_rag_query_direct_post
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
+    RagQueryRequest:
+      properties:
+        unique_id:
+          type: string
+          title: Unique Id
+        search_category:
+          type: string
+          title: Search Category
+        preprocessed_data:
+          additionalProperties: true
+          type: object
+          title: Preprocessed Data
+      type: object
+      required:
+      - unique_id
+      - search_category
+      - preprocessed_data
+      title: RagQueryRequest
+    RagQueryResponse:
+      properties:
+        type:
+          type: string
+          title: Type
+        content:
+          type: string
+          title: Content
+        citations:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Citations
+        summary:
+          type: string
+          title: Summary
+        is_starred:
+          type: boolean
+          title: Is Starred
+      type: object
+      required:
+      - type
+      - content
+      - citations
+      - summary
+      - is_starred
+      title: RagQueryResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RagPreprocessResponse:
+      properties:
+        preprocessed_data:
+          additionalProperties: true
+          type: object
+          title: Preprocessed Data
+      type: object
+      required:
+      - preprocessed_data
+      title: RagPreprocessResponse
+    app__routes__v3__rag__DateRange:
+      properties:
+        from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      title: DateRange
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

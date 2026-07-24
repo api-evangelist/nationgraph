@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Subscription API
+  version: 0.2.36
+tags:
+- name: Subscription
+paths:
+  /api/v3/subscriptions:
+    post:
+      tags:
+      - Subscription
+      summary: Create Subscription For User
+      operationId: create_subscription_for_user_api_v3_subscriptions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSubscriptionCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/subscriptions/{subscription_id}:
+    patch:
+      tags:
+      - Subscription
+      summary: Update Subscription
+      operationId: update_subscription_api_v3_subscriptions__subscription_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Subscription Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSubscriptionUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserSubscriptionCreate:
+      properties:
+        frequency:
+          $ref: '#/components/schemas/NotificationFrequency'
+        subscription_type:
+          $ref: '#/components/schemas/SubscriptionType'
+        delivery_method:
+          $ref: '#/components/schemas/DeliveryMethod'
+        delivery_target:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Target
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+      type: object
+      required:
+      - frequency
+      - subscription_type
+      - delivery_method
+      title: UserSubscriptionCreate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    NotificationFrequency:
+      type: string
+      enum:
+      - instant
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      title: NotificationFrequency
+    UserSubscriptionUpdate:
+      properties:
+        frequency:
+          anyOf:
+          - $ref: '#/components/schemas/NotificationFrequency'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+        delivery_target:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Target
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+      type: object
+      title: UserSubscriptionUpdate
+    SubscriptionType:
+      type: string
+      enum:
+      - signals_digest
+      title: SubscriptionType
+    SubscriptionStatus:
+      type: string
+      enum:
+      - active
+      - inactive
+      title: SubscriptionStatus
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

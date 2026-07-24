@@ -1,0 +1,210 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Org Admin API
+  version: 0.2.36
+tags:
+- name: Org Admin
+paths:
+  /api/v3/org-admin/signal-settings:
+    get:
+      tags:
+      - Org Admin
+      summary: List Org Signal Settings
+      description: 'List all active signal settings belonging to the provided org member IDs.
+
+
+        The caller (frontend) fetches member IDs from BetterAuth /my-org/members
+
+        and passes them here. Superadmins may pass ?org_id= to target any org.'
+      operationId: list_org_signal_settings_api_v3_org_admin_signal_settings_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: member_ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Member Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgSignalSettingResponse'
+                title: Response List Org Signal Settings Api V3 Org Admin Signal Settings Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/org-admin/signal-settings/copy:
+    post:
+      tags:
+      - Org Admin
+      summary: Copy Signal Settings To Recipients
+      description: 'Copy signal templates to one or more org recipients, then auto-run each.
+
+
+        The frontend resolves org member IDs from BetterAuth before calling this.
+
+        The api:signal:settings:manage capability is enforced via require_permission'
+      operationId: copy_signal_settings_to_recipients_api_v3_org_admin_signal_settings_copy_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgAdminCopyRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgAdminCopyResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OrgAdminCopyResult:
+      properties:
+        created:
+          type: integer
+          title: Created
+        auto_run_triggered:
+          type: integer
+          title: Auto Run Triggered
+        errors:
+          items:
+            type: string
+          type: array
+          title: Errors
+      type: object
+      required:
+      - created
+      - auto_run_triggered
+      - errors
+      title: OrgAdminCopyResult
+    OrgAdminCopyRequest:
+      properties:
+        signal_setting_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Signal Setting Ids
+        recipient_user_ids:
+          items:
+            type: string
+          type: array
+          title: Recipient User Ids
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+      type: object
+      required:
+      - signal_setting_ids
+      - recipient_user_ids
+      title: OrgAdminCopyRequest
+    OrgSignalSettingResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        query:
+          type: string
+          title: Query
+        keywords:
+          items: {}
+          type: array
+          title: Keywords
+        exclude_keywords:
+          items: {}
+          type: array
+          title: Exclude Keywords
+        initial_search_start:
+          type: string
+          format: date-time
+          title: Initial Search Start
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        owner_user_id:
+          type: string
+          title: Owner User Id
+        owner_email:
+          type: string
+          title: Owner Email
+      type: object
+      required:
+      - id
+      - name
+      - query
+      - keywords
+      - exclude_keywords
+      - initial_search_start
+      - created_at
+      - owner_user_id
+      - owner_email
+      title: OrgSignalSettingResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

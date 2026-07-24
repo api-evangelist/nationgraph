@@ -1,0 +1,295 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts YouTube API
+  version: 0.2.36
+tags:
+- name: YouTube
+paths:
+  /api/internal/youtube/search:
+    post:
+      tags:
+      - YouTube
+      summary: Search Youtube
+      description: 'Search YouTube caption chunks.
+
+
+        Institution linkage is dual-route — chunks are matched if EITHER the
+
+        video''s channel is mapped to the institution (via youtube_links) OR the
+
+        video itself carries a per-video tag (raw.video_institution_unique_id).
+
+        Results from both routes are unioned and deduped, preferring the
+
+        per-video tag when both routes match the same chunk.
+
+
+        The ``query`` field uses ``websearch_to_tsquery(''english'', ...)`` —
+
+        websearch syntax (quoted phrases, OR, leading - to exclude). For tight
+
+        phrase matching, quote the phrase. Cover-density ranking (ts_rank_cd)
+
+        already favors chunks where query terms appear close together.
+
+
+        At least one of ``institution_ids`` or ``query`` is required.'
+      operationId: search_youtube_api_internal_youtube_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YouTubeSearchFilters'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_YouTubeChunkResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/internal/youtube/chunks/{id}:
+    get:
+      tags:
+      - YouTube
+      summary: Get Youtube Chunk
+      operationId: get_youtube_chunk_api_internal_youtube_chunks__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YouTubeChunkResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    YouTubeSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        date_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date After
+        date_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Before
+        group_by_document:
+          type: boolean
+          title: Group By Document
+          default: false
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 50
+      type: object
+      title: YouTubeSearchFilters
+      description: "Search filters for YouTube caption chunks.\n\nThe ``query`` field is evaluated against the chunks' ``text_search_fts``\ncolumn via ``websearch_to_tsquery('english', ...)`` — stemming on,\nwebsearch syntax (quoted phrases, OR, leading - to exclude).\n\nInstitution linkage uses BOTH routes signals uses, results unioned:\n  • Channel route: raw.channel_id → youtube_links.channel_id → unique_id\n  • Video route:   raw.video_institution_unique_id (direct per-video tag)\n\nThe signals retriever uses ``phraseto_tsquery`` because its API takes\nprogrammatic keyword groups. Our user-input API uses ``websearch`` to\nmatch the rest of the chunk endpoints. For tight phrase matching,\nconsumers quote the phrase: ``query='\"school board meeting\"'``.\nCover-density ranking (ts_rank_cd) already prefers chunks where query\nterms appear close together.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nchunks table is large and unbounded scans are rejected."
+    YouTubeChunkResponse:
+      properties:
+        chunk_id:
+          type: integer
+          title: Chunk Id
+        document_id:
+          type: integer
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        video_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Video Title
+        video_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Video Url
+        youtube_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Youtube Id
+        channel_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Channel Name
+        video_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Video Date
+        video_published_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Video Published At
+        text:
+          type: string
+          title: Text
+        video_start_timestamp:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Video Start Timestamp
+        video_end_timestamp:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Video End Timestamp
+        relevance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
+      type: object
+      required:
+      - chunk_id
+      - document_id
+      - text
+      title: YouTubeChunkResponse
+    PaginatedResponse_YouTubeChunkResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/YouTubeChunkResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[YouTubeChunkResponse]
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

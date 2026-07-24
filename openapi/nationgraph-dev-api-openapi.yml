@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Dev API
+  version: 0.2.36
+tags:
+- name: Dev
+paths:
+  /api/v3/dev/whoami:
+    get:
+      tags:
+      - Dev
+      summary: 'DEV: Show caller identity + impersonation actor'
+      description: 'DEV ONLY: Echoes who the request is acting AS and, when impersonated, who is
+
+        really driving it. Hit this while impersonating (either plane — admin plugin or
+
+        org-scoped) and watch the backend logs.'
+      operationId: whoami_api_v3_dev_whoami_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /api/v3/dev/ping-db:
+    get:
+      tags:
+      - Dev
+      summary: 'DEV: Raw DB connectivity check'
+      description: 'DEV ONLY: SELECT 1 against app_db — confirms the container can reach ng-local-pg.'
+      operationId: ping_db_api_v3_dev_ping_db_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,1136 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts API
+  version: 0.2.36
+tags:
+- name: Accounts
+paths:
+  /api/v3/accounts/{institution_id}/stats:
+    get:
+      tags:
+      - Accounts
+      summary: Get Institution Stats
+      operationId: get_institution_stats_api_v3_accounts__institution_id__stats_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstitutionStatsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/logos:
+    post:
+      tags:
+      - Accounts
+      summary: Get Institution Logos
+      operationId: get_institution_logos_api_v3_accounts_logos_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstitutionLogosRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstitutionLogosResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/accounts/{institution_id}/signals:
+    get:
+      tags:
+      - Accounts
+      summary: List Institution Signals
+      operationId: list_institution_signals_api_v3_accounts__institution_id__signals_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_EnrichedSignal_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/{institution_id}/rfps:
+    get:
+      tags:
+      - Accounts
+      summary: List Institution Rfps
+      operationId: list_institution_rfps_api_v3_accounts__institution_id__rfps_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: expired
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Expired
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_AccountRFPItem_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/{institution_id}/grants:
+    get:
+      tags:
+      - Accounts
+      summary: List Institution Grants
+      operationId: list_institution_grants_api_v3_accounts__institution_id__grants_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: expired
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Expired
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_AccountGrantItem_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/{institution_id}/activity:
+    get:
+      tags:
+      - Accounts
+      summary: List Institution Activity
+      operationId: list_institution_activity_api_v3_accounts__institution_id__activity_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/ActivityType'
+          - type: 'null'
+          title: Types
+      - name: date_range
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ActivityDateRange'
+          default: all_time
+      - name: sort
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ActivitySort'
+          default: newest_first
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_AccountActivityItem_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/{institution_id}/summary:
+    get:
+      tags:
+      - Accounts
+      summary: Get Institution Summary
+      description: 'Return the account''s activity summary, triggering a worker regeneration
+
+        when it''s missing or stale. The result and freshness are delivered via the
+
+        `account_summary_ready` websocket event, so the client does not poll.'
+      operationId: get_institution_summary_api_v3_accounts__institution_id__summary_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountSummaryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/accounts/list:
+    post:
+      tags:
+      - Accounts
+      summary: List Accounts
+      operationId: list_accounts_api_v3_accounts_list_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountListRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    FundingStatusEnum:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_funding_period
+      title: FundingStatusEnum
+    ActivityDateRange:
+      type: string
+      enum:
+      - all_time
+      - last_week
+      - last_30_days
+      - last_90_days
+      - last_year
+      title: ActivityDateRange
+    ActivityType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      - automation_ran
+      title: ActivityType
+    AccountRFPItem:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRFPStatus'
+          - type: 'null'
+        posted_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Posted Date
+        completed_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Completed Date
+      type: object
+      required:
+      - id
+      title: AccountRFPItem
+    EnrichedSignal:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        signal_setting_id:
+          type: string
+          format: uuid
+          title: Signal Setting Id
+        institution_id:
+          type: string
+          title: Institution Id
+        significance:
+          $ref: '#/components/schemas/SignalSignificance'
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+        query:
+          type: string
+          title: Query
+        institution:
+          $ref: '#/components/schemas/SignalInstitution'
+        status:
+          $ref: '#/components/schemas/SignalStatusEnum'
+        source_type:
+          $ref: '#/components/schemas/SignalSourceType'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        list_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: List Ids
+      type: object
+      required:
+      - id
+      - signal_setting_id
+      - institution_id
+      - significance
+      - reason
+      - summary
+      - title
+      - metadata_
+      - created_at
+      - query
+      - institution
+      - status
+      - source_type
+      title: EnrichedSignal
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_AccountActivityItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AccountActivityItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountActivityItem]
+    InstitutionLogosResponse:
+      properties:
+        logos:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: 'null'
+          type: object
+          title: Logos
+      type: object
+      required:
+      - logos
+      title: InstitutionLogosResponse
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    AccountContactPreview:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - id
+      title: AccountContactPreview
+    PaginatedResponse_AccountRFPItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AccountRFPItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountRFPItem]
+    AccountListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AccountListItem'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        has_more:
+          type: boolean
+          title: Has More
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      - total
+      - has_more
+      title: AccountListResponse
+    ActivitySort:
+      type: string
+      enum:
+      - newest_first
+      - oldest_first
+      title: ActivitySort
+    AccountActivityItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          $ref: '#/components/schemas/ActivityType'
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+      type: object
+      required:
+      - id
+      - type
+      - created_at
+      title: AccountActivityItem
+    AccountListSortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: AccountListSortDirection
+    InstitutionStatsResponse:
+      properties:
+        signals:
+          type: integer
+          title: Signals
+        rfps:
+          type: integer
+          title: Rfps
+        grants:
+          type: integer
+          title: Grants
+        contacts:
+          type: integer
+          title: Contacts
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+      type: object
+      required:
+      - signals
+      - rfps
+      - grants
+      - contacts
+      title: InstitutionStatsResponse
+    SummaryStatus:
+      type: string
+      enum:
+      - none
+      - generating
+      - ready
+      - failed
+      title: SummaryStatus
+    AccountTerritoryResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - name
+      title: AccountTerritoryResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AccountRFPStatus:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_due_date
+      title: AccountRFPStatus
+    AccountListSort:
+      properties:
+        field:
+          $ref: '#/components/schemas/AccountListSortField'
+          default: name
+        direction:
+          $ref: '#/components/schemas/AccountListSortDirection'
+          default: asc
+      type: object
+      title: AccountListSort
+    AccountSummaryResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/SummaryStatus'
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        summary_generated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Summary Generated At
+        sections:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Sections
+      type: object
+      required:
+      - status
+      title: AccountSummaryResponse
+    InstitutionLogosRequest:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Institution Ids
+      type: object
+      required:
+      - institution_ids
+      title: InstitutionLogosRequest
+    PaginatedResponse_EnrichedSignal_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/EnrichedSignal'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[EnrichedSignal]
+    AccountCRMResponse:
+      properties:
+        crm_type:
+          type: string
+          title: Crm Type
+        crm_id:
+          type: string
+          title: Crm Id
+      type: object
+      required:
+      - crm_type
+      - crm_id
+      title: AccountCRMResponse
+    AccountListSortField:
+      type: string
+      enum:
+      - name
+      - population
+      - signals
+      title: AccountListSortField
+    SignalSignificance:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      title: SignalSignificance
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
+    SignalInstitution:
+      properties:
+        name:
+          type: string
+          title: Name
+        state:
+          type: string
+          title: State
+        type:
+          $ref: '#/components/schemas/InstitutionEnum'
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+      type: object
+      required:
+      - name
+      - state
+      - type
+      title: SignalInstitution
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    PaginatedResponse_AccountGrantItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AccountGrantItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountGrantItem]
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    AccountListItem:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        account_type:
+          type: string
+          title: Account Type
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        signal_count:
+          type: integer
+          title: Signal Count
+          default: 0
+        contact_count:
+          type: integer
+          title: Contact Count
+          default: 0
+        contacts:
+          items:
+            $ref: '#/components/schemas/AccountContactPreview'
+          type: array
+          title: Contacts
+        territories:
+          items:
+            $ref: '#/components/schemas/AccountTerritoryResponse'
+          type: array
+          title: Territories
+        crms:
+          items:
+            $ref: '#/components/schemas/AccountCRMResponse'
+          type: array
+          title: Crms
+      type: object
+      required:
+      - institution_id
+      - name
+      - account_type
+      - city
+      - state
+      - population
+      title: AccountListItem
+    AccountListRequest:
+      properties:
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 50
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        sort:
+          $ref: '#/components/schemas/AccountListSort'
+        filters:
+          $ref: '#/components/schemas/AccountListFilters'
+      type: object
+      title: AccountListRequest
+    AccountGrantItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        funding_agency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Funding Agency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/FundingStatusEnum'
+          - type: 'null'
+        total_obligated_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Obligated Amount
+        period_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period End Date
+        grant_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Link
+      type: object
+      required:
+      - id
+      title: AccountGrantItem
+    AccountListFilters:
+      properties:
+        territory_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Territory Ids
+        exclude_territory_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Exclude Territory Ids
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+        population_min:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Population Min
+        population_max:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Population Max
+        has_signals:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Has Signals
+      type: object
+      title: AccountListFilters
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

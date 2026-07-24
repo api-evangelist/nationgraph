@@ -1,0 +1,354 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Summary API
+  version: 0.2.36
+tags:
+- name: Summary
+paths:
+  /api/v3/summary/generate-email:
+    post:
+      summary: Generate Email
+      description: Generate an email to an institution using a prompt and selected insights.
+      operationId: generate_email_api_v3_summary_generate_email_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPromptRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/EmailResponse'
+                - $ref: '#/components/schemas/EmailRenderResponse'
+                title: Response Generate Email Api V3 Summary Generate Email Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Summary
+  /api/v3/summary/workspaces/{workspace_id}/institution/{institution_id}/custom:
+    get:
+      summary: Get Cells By Institution
+      description: Get all starred custom cell (insight) records for an institution.
+      operationId: get_cells_by_institution_api_v3_summary_workspaces__workspace_id__institution__institution_id__custom_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Workspace Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Summary
+  /api/v3/summary/enrich-prompt:
+    post:
+      summary: Enrich Prompt
+      operationId: enrich_prompt_api_v3_summary_enrich_prompt_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__types__summary__PromptRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Summary
+  /api/v3/summary/generate-call-script:
+    post:
+      summary: Generate Call Script
+      description: Generate call script notes for an institution using user prompt and selected insights.
+      operationId: generate_call_script_api_v3_summary_generate_call_script_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallScriptPromptRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Summary
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    app__types__summary__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - prompt
+      - type
+      title: PromptRequest
+    RenderTemplateParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          title: Type
+        raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Raw
+      type: object
+      required:
+      - id
+      - type
+      title: RenderTemplateParam
+    RenderTemplate:
+      properties:
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            $ref: '#/components/schemas/RenderTemplateParam'
+          type: array
+          title: Params
+          default: []
+      type: object
+      required:
+      - subject_raw
+      - body_raw
+      title: RenderTemplate
+    EmailRenderResponse:
+      properties:
+        render_id:
+          type: string
+          title: Render Id
+      type: object
+      required:
+      - render_id
+      title: EmailRenderResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EmailPromptRequest:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        tone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tone
+        template:
+          anyOf:
+          - $ref: '#/components/schemas/RenderTemplate'
+          - type: string
+          - type: 'null'
+          title: Template
+        context:
+          items:
+            $ref: '#/components/schemas/EmailContextItem'
+          type: array
+          title: Context
+          default: []
+        insights:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Insights'
+            type: array
+          - type: 'null'
+          title: Insights
+        signal_ids:
+          items:
+            type: string
+          type: array
+          title: Signal Ids
+          default: []
+        contact_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Contact Id
+      type: object
+      required:
+      - institution_id
+      title: EmailPromptRequest
+    CallScriptPromptRequest:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        prompt:
+          type: string
+          title: Prompt
+        insights:
+          items:
+            $ref: '#/components/schemas/Insights'
+          type: array
+          title: Insights
+        workspace_id:
+          type: string
+          title: Workspace Id
+      type: object
+      required:
+      - institution_id
+      - prompt
+      - insights
+      - workspace_id
+      title: CallScriptPromptRequest
+    Insights:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        type:
+          type: string
+          title: Type
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+        supplier_items:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Supplier Items
+        count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Count
+      type: object
+      required:
+      - type
+      title: Insights
+    EmailContextItem:
+      properties:
+        type:
+          type: string
+          title: Type
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+      type: object
+      required:
+      - type
+      - data
+      title: EmailContextItem
+    EmailResponse:
+      properties:
+        subject:
+          type: string
+          title: Subject
+        body:
+          type: string
+          title: Body
+      type: object
+      required:
+      - subject
+      - body
+      title: EmailResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,831 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM Leads API
+  version: 0.2.36
+tags:
+- name: CRM Leads
+paths:
+  /api/v3/crm/{integration_id}/leads:
+    get:
+      tags:
+      - CRM Leads
+      summary: List Leads
+      description: 'List leads from the CRM with pagination.
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.
+
+        HubSpot does not have a Lead object.'
+      operationId: list_leads_api_v3_crm__integration_id__leads_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          description: Number of leads to return
+          default: 100
+          title: Limit
+        description: Number of leads to return
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          description: Offset for pagination
+          default: 0
+          title: Offset
+        description: Offset for pagination
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties
+          title: Properties
+        description: Comma-separated list of properties
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadListAPIResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - CRM Leads
+      summary: Create Lead
+      description: 'Create a new lead in the CRM.
+
+
+        **Required fields**:
+
+        - `lastname`: Lead''s last name
+
+        - `company`: Company name
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.'
+      operationId: create_lead_api_v3_crm__integration_id__leads_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLeadRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/leads/{lead_id}:
+    get:
+      tags:
+      - CRM Leads
+      summary: Get Lead
+      description: 'Get a single lead by ID.
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.'
+      operationId: get_lead_api_v3_crm__integration_id__leads__lead_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: lead_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The lead ID
+          title: Lead Id
+        description: The lead ID
+      - name: properties
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of properties
+          title: Properties
+        description: Comma-separated list of properties
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - CRM Leads
+      summary: Update Lead
+      description: 'Update an existing lead.
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.'
+      operationId: update_lead_api_v3_crm__integration_id__leads__lead_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: lead_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The lead ID
+          title: Lead Id
+        description: The lead ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLeadRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/leads/search:
+    get:
+      tags:
+      - CRM Leads
+      summary: Search Leads
+      description: 'Search for leads using various criteria.
+
+
+        **Query parameters**:
+
+        - `query`: Text search across name and company
+
+        - `lastname`: Filter by last name
+
+        - `company`: Filter by company name
+
+        - `email`: Filter by email
+
+        - `status`: Filter by lead status
+
+        - `industry`: Filter by industry
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.'
+      operationId: search_leads_api_v3_crm__integration_id__leads_search_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Text search
+          title: Query
+        description: Text search
+      - name: lastname
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Last name
+          title: Lastname
+        description: Last name
+      - name: company
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Company name
+          title: Company
+        description: Company name
+      - name: email
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Email address
+          title: Email
+        description: Email address
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Lead status
+          title: Status
+        description: Lead status
+      - name: industry
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Industry
+          title: Industry
+        description: Industry
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          description: Number of results
+          default: 100
+          title: Limit
+        description: Number of results
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadListAPIResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/leads/{lead_id}/convert:
+    post:
+      tags:
+      - CRM Leads
+      summary: Convert Lead
+      description: 'Convert a lead to an Account, Contact, and optionally an Opportunity.
+
+
+        This is a Salesforce-specific operation that qualifies a lead and creates:
+
+        - **Account** (company)
+
+        - **Contact** (person)
+
+        - **Opportunity** (deal) - optional
+
+
+        **Request body options**:
+
+        - `accountId`: Associate with existing Account instead of creating new one
+
+        - `contactId`: Associate with existing Contact instead of creating new one
+
+        - `createOpportunity`: Whether to create an Opportunity (default: false)
+
+        - `opportunityName`: Name for the Opportunity (if creating one)
+
+        - `ownerId`: Assign to specific owner
+
+        - `sendNotificationEmail`: Send email notification (default: false)
+
+
+        **Note**: This endpoint is only supported for Salesforce integrations.'
+      operationId: convert_lead_api_v3_crm__integration_id__leads__lead_id__convert_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: lead_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The lead ID to convert
+          title: Lead Id
+        description: The lead ID to convert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertLeadRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvertLeadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ConvertLeadResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        leadId:
+          type: string
+          title: Leadid
+          description: The converted Lead ID
+        accountId:
+          type: string
+          title: Accountid
+          description: The created or associated Account ID
+        contactId:
+          type: string
+          title: Contactid
+          description: The created or associated Contact ID
+        opportunityId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Opportunityid
+          description: The created Opportunity ID (if requested)
+      type: object
+      required:
+      - success
+      - leadId
+      - accountId
+      - contactId
+      title: ConvertLeadResponse
+      description: Response from converting a lead.
+    LeadListAPIResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/LeadResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      - has_more
+      title: LeadListAPIResponse
+      description: API response for listing leads.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateLeadRequest:
+      properties:
+        LastName:
+          type: string
+          title: Lastname
+          description: Last name (required)
+        Company:
+          type: string
+          title: Company
+          description: Company name (required)
+        FirstName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+          description: First name
+        Title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Job title
+        Email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: Email address
+        Phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+          description: Phone number
+        MobilePhone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobilephone
+          description: Mobile phone
+        Website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+          description: Company website
+        Street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+          description: Street address
+        City:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City
+        State:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+          description: State/province
+        PostalCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postalcode
+          description: Postal code
+        Country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: Country
+        Industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+          description: Industry
+        NumberOfEmployees:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numberofemployees
+          description: Number of employees
+        AnnualRevenue:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Annualrevenue
+          description: Annual revenue
+        Status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: Lead status
+        Rating:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rating
+          description: Lead rating
+        LeadSource:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Leadsource
+          description: Lead source
+        Description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description
+        OwnerId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ownerid
+          description: Owner user ID
+      additionalProperties: true
+      type: object
+      required:
+      - LastName
+      - Company
+      title: CreateLeadRequest
+      description: 'Request to create a lead in Salesforce.
+
+
+        LastName and Company are required. All other fields are optional.'
+    LeadResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        properties:
+          additionalProperties: true
+          type: object
+          title: Properties
+      type: object
+      required:
+      - id
+      - properties
+      title: LeadResponse
+      description: API response for a single lead.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ConvertLeadRequest:
+      properties:
+        accountId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accountid
+          description: Existing Account ID to associate with. If not provided, creates new Account.
+        contactId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Contactid
+          description: Existing Contact ID to associate with. If not provided, creates new Contact.
+        createOpportunity:
+          type: boolean
+          title: Createopportunity
+          description: Whether to create an Opportunity during conversion.
+          default: false
+        opportunityName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Opportunityname
+          description: Name for the new Opportunity (if createOpportunity is True).
+        ownerId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ownerid
+          description: Owner for the created Account, Contact, and Opportunity.
+        sendNotificationEmail:
+          type: boolean
+          title: Sendnotificationemail
+          description: Whether to send notification email to the owner.
+          default: false
+      type: object
+      title: ConvertLeadRequest
+      description: Request to convert a lead to Account, Contact, and optionally Opportunity.
+    UpdateLeadRequest:
+      properties:
+        FirstName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+          description: First name
+        LastName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lastname
+          description: Last name
+        Company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+          description: Company name
+        Title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Job title
+        Email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: Email address
+        Phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+          description: Phone number
+        MobilePhone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobilephone
+          description: Mobile phone
+        Website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+          description: Company website
+        Street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+          description: Street address
+        City:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City
+        State:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+          description: State/province
+        PostalCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postalcode
+          description: Postal code
+        Country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: Country
+        Industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+          description: Industry
+        NumberOfEmployees:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numberofemployees
+          description: Number of employees
+        AnnualRevenue:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Annualrevenue
+          description: Annual revenue
+        Status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: Lead status
+        Rating:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rating
+          description: Lead rating
+        LeadSource:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Leadsource
+          description: Lead source
+        Description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description
+        OwnerId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ownerid
+          description: Owner user ID
+      additionalProperties: true
+      type: object
+      title: UpdateLeadRequest
+      description: 'Request to update a lead in Salesforce.
+
+
+        All fields are optional - only include fields you want to update.'
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

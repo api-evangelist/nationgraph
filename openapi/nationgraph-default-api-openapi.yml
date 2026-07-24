@@ -1,0 +1,36 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Default API
+  version: 0.2.36
+tags:
+- name: Default
+paths:
+  /:
+    get:
+      tags:
+      - Default
+      summary: Read Root
+      operationId: read_root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /health:
+    get:
+      tags:
+      - Default
+      summary: Healthcheck
+      operationId: healthcheck_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,310 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Contracts API
+  version: 0.2.36
+tags:
+- name: Contracts
+paths:
+  /api/internal/contracts/{id}:
+    get:
+      tags:
+      - Contracts
+      summary: Get Contract
+      operationId: get_contract_api_internal_contracts__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/internal/contracts/search:
+    post:
+      tags:
+      - Contracts
+      summary: Search Contracts
+      description: 'Search contracts (retool.contract_data).
+
+
+        Three orthogonal text inputs, AND''d together:
+
+
+        - ``vendors``: array of vendor terms (weight A in text_search_strict)
+
+        - ``products``: array of product terms (weight B in text_search_strict)
+
+        - ``query``: free-text over raw_text (text_search_prose, english config)
+
+
+        See ContractSearchFilters docstring for the full syntax. All filters are
+
+        optional — the table is small enough (~7K rows) to allow unbounded scans.'
+      operationId: search_contracts_api_internal_contracts_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractSearchFilters'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_ContractResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ContractSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+          description: 'Free-text search over the contract body (raw_text, english config, stemming on). Supports websearch syntax: quoted phrases, OR, leading ''-'' to exclude.'
+        contract_start_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract Start After
+        contract_start_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract Start Before
+        contract_end_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract End After
+        contract_end_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract End Before
+        min_total_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Total Acv
+        max_total_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max Total Acv
+        min_annual_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Annual Acv
+        max_annual_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max Annual Acv
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        sort:
+          type: string
+          enum:
+          - relevance
+          - contract_start_date_desc
+          - contract_start_date_asc
+          - contract_end_date_asc
+          - contract_end_date_desc
+          - total_acv_desc
+          - annual_acv_desc
+          - created_at_desc
+          title: Sort
+          default: created_at_desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+      type: object
+      title: ContractSearchFilters
+      description: "Search filters for contracts (retool.contract_data).\n\nThe vendor + product columns have been removed from contract_data —\nthey now live in sibling tables (``retool.vendors``,\n``retool.vendor_products``). The endpoint currently searches **only**\nthe prose column (``text_search_prose``) over ``raw_text``.\n\nQuery syntax (websearch_to_tsquery, english config — stemming on):\n\n    bare words:    \"granicus laserfiche\"        implicit AND\n    quoted phrase: '\"early termination\"'         exact phrase\n    OR:            \"granicus OR tyler\"           literal OR keyword\n    exclude:       \"granicus -laserfiche\"        prefix - to exclude\n\nAll filters are optional. ~7K rows is small enough to permit unbounded\nscans, but supplying at least a query or institution scope is\nrecommended.\n\nVendor / product search will be re-added when the new ``retool.vendors``\nand ``retool.vendor_products`` tables are integrated into the endpoint."
+    PaginatedResponse_ContractResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/ContractResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[ContractResponse]
+    ContractResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        annual_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Annual Acv
+        total_acv:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Acv
+        contract_start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract Start Date
+        contract_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Contract End Date
+        signees:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Signees
+        file_path:
+          type: string
+          title: File Path
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        relevance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance
+      type: object
+      required:
+      - id
+      - institution_id
+      - file_path
+      title: ContractResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

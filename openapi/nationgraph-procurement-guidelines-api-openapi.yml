@@ -1,0 +1,300 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Procurement Guidelines API
+  version: 0.2.36
+tags:
+- name: Procurement Guidelines
+paths:
+  /api/internal/procurement-guidelines/chunks/{id}:
+    get:
+      tags:
+      - Procurement Guidelines
+      summary: Get Procurement Guideline Chunk
+      description: Fetch a single procurement guideline chunk by chunk ID.
+      operationId: get_procurement_guideline_chunk_api_internal_procurement_guidelines_chunks__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcurementGuidelineChunkResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/internal/procurement-guidelines/search:
+    post:
+      tags:
+      - Procurement Guidelines
+      summary: Search Procurement Guidelines
+      description: 'Search procurement guideline chunks via Postgres FTS.
+
+
+        At least one of ``institution_ids`` or ``query`` must be supplied —
+
+        chunks table is 140K+ rows and we don''t allow unbounded scans.
+
+
+        With ``query``: results ranked by ``ts_rank_cd``. Without ``query``
+
+        (institution-scoped browse): results sorted by document date descending.
+
+
+        ``query`` accepts a websearch-style string (same syntax as RFP / Grant /
+
+        Meeting Minute / Budget search): bare words for stemmed match,
+
+        ``"phrase"`` for exact phrase, ``OR``, ``-word`` for exclude.
+
+
+        Set ``group_by_document=true`` to collapse to the highest-scoring chunk
+
+        per document.
+
+
+        Semantic / LLM-synthesized answers are not in scope here — use the
+
+        existing ``/v3/rag/query`` endpoint for that. This endpoint returns raw
+
+        evidence rows for downstream reasoning.'
+      operationId: search_procurement_guidelines_api_internal_procurement_guidelines_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcurementGuidelineSearchFilters'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_ProcurementGuidelineChunkResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProcurementGuidelineChunkResponse:
+      properties:
+        chunk_id:
+          type: integer
+          title: Chunk Id
+        document_id:
+          type: integer
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+        document_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Title
+        document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Url
+        document_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Created At
+        text:
+          type: string
+          title: Text
+        relevance:
+          type: number
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
+      type: object
+      required:
+      - chunk_id
+      - document_id
+      - text
+      - relevance
+      title: ProcurementGuidelineChunkResponse
+    ProcurementGuidelineSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        document_date_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date After
+        document_date_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date Before
+        group_by_document:
+          type: boolean
+          title: Group By Document
+          default: false
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 50
+      type: object
+      title: ProcurementGuidelineSearchFilters
+      description: 'Search filters for procurement guideline chunks.
+
+
+        The ``query`` field accepts a websearch-style query string evaluated against
+
+        the chunks'' ``text_search_fts`` column (english config — stemming enabled).
+
+        Same syntax as RFP / Grant / Meeting Minute / Budget search.
+
+
+        Semantic search lives on the existing ``/v3/rag/query`` endpoint (returns
+
+        synthesized prose). This endpoint returns raw matching chunks for callers
+
+        who want to reason over evidence directly.
+
+
+        At least one of ``institution_ids`` or ``query`` must be supplied — the
+
+        chunks table is 140K+ rows and we reject fully unbounded scans.'
+    PaginatedResponse_ProcurementGuidelineChunkResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/ProcurementGuidelineChunkResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[ProcurementGuidelineChunkResponse]
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

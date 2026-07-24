@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Classifier API
+  version: 0.2.36
+tags:
+- name: Classifier
+paths:
+  /api/v3/classifier/get-entity-ids:
+    post:
+      tags:
+      - Classifier
+      summary: Get Entity Ids From Names
+      operationId: get_entity_ids_from_names_api_v3_classifier_get_entity_ids_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityIdRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityIdsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    EntityIdRequest:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+        institution_types:
+          type: string
+          title: Institution Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+      type: object
+      required:
+      - names
+      - institution_types
+      title: EntityIdRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EntityIdsResponse:
+      properties:
+        entity_ids:
+          items:
+            type: string
+          type: array
+          title: Entity Ids
+      type: object
+      required:
+      - entity_ids
+      title: EntityIdsResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

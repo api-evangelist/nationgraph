@@ -1,0 +1,745 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Workspaces API
+  version: 0.2.36
+tags:
+- name: Workspaces
+paths:
+  /api/v3/workspaces:
+    get:
+      tags:
+      - Workspaces
+      summary: Get Workspaces
+      description: Get workspaces for the user with pagination.
+      operationId: get_workspaces_api_v3_workspaces_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspacesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}:
+    get:
+      tags:
+      - Workspaces
+      summary: Get Workspace
+      description: 'Retrieve workspace data by joining Institutions and WorkspaceInstitutions.
+
+        Returns workspace institution records with additional fields.'
+      operationId: get_workspace_api_v3_workspaces__workspace_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: start_index
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Start Index
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          default: 50
+          title: Page Size
+      - name: filter_json
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Filter Json
+      - name: sort_json
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Sort Json
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Workspaces
+      summary: Edit Workspace
+      description: Edit a workspace with the given fields.
+      operationId: edit_workspace_api_v3_workspaces__workspace_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Updates
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Workspaces
+      summary: Delete Workspace
+      description: Soft delete a workspace and its associated workspace institutions.
+      operationId: delete_workspace_api_v3_workspaces__workspace_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/{workspace_id}/duplicate:
+    post:
+      tags:
+      - Workspaces
+      summary: Duplicate Workspace
+      description: 'Duplicate a workspace along with its custom columns, notes, tags,
+
+        smart cells, and workbook institution rows, all in one async transaction.'
+      operationId: duplicate_workspace_api_v3_workspaces__workspace_id__duplicate_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/workspaces/create:
+    post:
+      tags:
+      - Workspaces
+      summary: Create New Workspace
+      description: Create a new workspace and add filtered institutions to it.
+      operationId: create_new_workspace_api_v3_workspaces_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspacePreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/workspaces/preview:
+    post:
+      tags:
+      - Workspaces
+      summary: Preview Institutions
+      description: Preview filtered institutions for a workspace with pagination.
+      operationId: preview_institutions_api_v3_workspaces_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspacePreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewInstitutionsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/workspaces/{workspace_id}/institution/{institution_id}/unified-insights:
+    get:
+      summary: Get Unified Insights
+      operationId: get_unified_insights_api_v3_workspaces__workspace_id__institution__institution_id__unified_insights_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Workspaces
+components:
+  schemas:
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    WorkspaceDetailResponse:
+      properties:
+        data:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Data
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        ui_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Ui Metadata
+        smart_columns:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Smart Columns
+      type: object
+      required:
+      - data
+      - metadata
+      - name
+      - ui_metadata
+      - smart_columns
+      title: WorkspaceDetailResponse
+    ColumnMetadata:
+      properties:
+        is_visible:
+          type: boolean
+          title: Is Visible
+      type: object
+      required:
+      - is_visible
+      title: ColumnMetadata
+    PreviewInstitutionsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Institution'
+          type: array
+          title: Data
+        count:
+          type: integer
+          title: Count
+        page:
+          type: integer
+          title: Page
+        page_size:
+          type: integer
+          title: Page Size
+        total_pages:
+          type: integer
+          title: Total Pages
+        should_paginate:
+          type: boolean
+          title: Should Paginate
+      type: object
+      required:
+      - data
+      - count
+      - page
+      - page_size
+      - total_pages
+      - should_paginate
+      title: PreviewInstitutionsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkspacePreviewRequest:
+      properties:
+        codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Codes
+        unique_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Unique Ids
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        institution_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Types
+          default: []
+        included_states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 56
+          - type: 'null'
+          title: Included States
+          default: []
+        excluded_states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 56
+          - type: 'null'
+          title: Excluded States
+          default: []
+        included_counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 100
+          - type: 'null'
+          title: Included Counties
+          default: []
+        excluded_counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 100
+          - type: 'null'
+          title: Excluded Counties
+          default: []
+        included_cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 100
+          - type: 'null'
+          title: Included Cities
+          default: []
+        excluded_cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 100
+          - type: 'null'
+          title: Excluded Cities
+          default: []
+        min_population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Population
+        max_population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max Population
+        keywords:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 50
+          - type: 'null'
+          title: Keywords
+          default: []
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+        result_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Result Limit
+          default: 0
+        ui_metadata:
+          anyOf:
+          - $ref: '#/components/schemas/UiMetadataColumns'
+          - type: 'null'
+        page:
+          type: integer
+          title: Page
+          default: 1
+        list_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: List Id
+        workspace_setup_choice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Workspace Setup Choice
+      type: object
+      title: WorkspacePreviewRequest
+    WorkspacesResponse:
+      properties:
+        data:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: WorkspacesResponse
+    UiMetadataColumns:
+      properties:
+        columns:
+          additionalProperties:
+            $ref: '#/components/schemas/ColumnMetadata'
+          type: object
+          title: Columns
+        column_order:
+          items:
+            type: string
+          type: array
+          title: Column Order
+        pinned_columns:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Pinned Columns
+          default: []
+      type: object
+      required:
+      - columns
+      - column_order
+      title: UiMetadataColumns
+    Workspace:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_starred:
+          type: boolean
+          title: Is Starred
+          default: false
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        user_id:
+          type: string
+          title: User Id
+        payload:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Payload
+        ui_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Ui Metadata
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+          default: false
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+        list_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: List Id
+      type: object
+      required:
+      - modified_at
+      - name
+      - user_id
+      title: Workspace
+    Institution:
+      properties:
+        unique_id:
+          type: string
+          title: Unique Id
+        source_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Source Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+        state_county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State County
+        state_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State City
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        source_table:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionEnum'
+          - type: 'null'
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
+      type: object
+      required:
+      - unique_id
+      - source_id
+      - name
+      - state
+      - county
+      - city
+      - street
+      - state_county
+      - state_city
+      - population
+      - label
+      title: Institution
+    WorkspaceResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/Workspace'
+      type: object
+      required:
+      - data
+      title: WorkspaceResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,506 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts CRM Mappings API
+  version: 0.2.36
+tags:
+- name: CRM Mappings
+paths:
+  /api/v3/crm/{integration_id}/mappings:
+    get:
+      tags:
+      - CRM Mappings
+      summary: List Mappings
+      description: Get paginated CRM-institution mappings for this integration.
+      operationId: list_mappings_api_v3_crm__integration_id__mappings_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          description: Number of results
+          default: 100
+          title: Limit
+        description: Number of results
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor
+          title: After
+        description: Pagination cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - CRM Mappings
+      summary: Create Mappings
+      description: "Create mappings between CRM records and NationGraph institutions.\n\n**Single Mapping Format:**\n```json\n{\n  \"company_id\": \"123456\",\n  \"institution_id\": \"inst_abc\"\n}\n```\n\n**Bulk Mappings Format:**\n```json\n{\n  \"mappings\": [\n    {\"crm_id\": \"123456\", \"institution_id\": \"inst_abc\"},\n    {\"crm_id\": \"789012\", \"institution_id\": \"inst_xyz\"}\n  ]\n}\n```\n\n**Response:** Returns 202 Accepted immediately. Mappings are created in the background."
+      operationId: create_mappings_api_v3_crm__integration_id__mappings_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Request
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreateAcceptedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - CRM Mappings
+      summary: Delete Mappings
+      description: "Delete one or more CRM-institution mappings.\n\n**Request Format:**\n```json\n{\n  \"crm_ids\": [\"123456\", \"789012\"]\n}\n```\n\n**Response:** Returns which CRM IDs were successfully deleted and which were not found."
+      operationId: delete_mappings_api_v3_crm__integration_id__mappings_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteMappingsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDeleteMappingsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/mappings/export:
+    get:
+      tags:
+      - CRM Mappings
+      summary: Export Mappings CSV
+      description: Export all CRM-institution mappings as a CSV file.
+      operationId: export_mappings_csv_api_v3_crm__integration_id__mappings_export_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/mappings/push-nationgraph-ids:
+    post:
+      tags:
+      - CRM Mappings
+      summary: Push NationGraph IDs to CRM
+      description: Write each linked institution's NationGraph `unique_id` onto the CRM field chosen by `crm_field_name` (a HubSpot Company property or Salesforce Account field) for every mapped company/account. The field must already exist — it is never created. Skips records that already have the field set. Runs in the background.
+      operationId: push_nationgraph_ids_api_v3_crm__integration_id__mappings_push_nationgraph_ids_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushNationGraphIdsRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Push Nationgraph Ids Api V3 Crm  Integration Id  Mappings Push Nationgraph Ids Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/crm/{integration_id}/institutions/{institution_id}/contacts:
+    get:
+      tags:
+      - CRM Mappings
+      summary: Get CRM Contacts for Institution
+      description: 'Fetch all CRM contacts associated with the company mapped to this institution.
+
+
+        **Prerequisites:**
+
+        - Active CRM integration
+
+        - Existing mapping between this institution and a CRM company
+
+
+        **Returns:**
+
+        All contacts associated with the CRM company, including their email, name, job title, and lifecycle stage.'
+      operationId: get_crm_contacts_for_institution_api_v3_crm__integration_id__institutions__institution_id__contacts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The CRM integration ID
+          title: Integration Id
+        description: The CRM integration ID
+      - name: institution_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The NationGraph institution unique_id
+          title: Institution Id
+        description: The NationGraph institution unique_id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          description: Max contacts to return
+          default: 100
+          title: Limit
+        description: Max contacts to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstitutionContactsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
+    BulkCreateAcceptedResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: accepted
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - total
+      title: BulkCreateAcceptedResponse
+      description: Response for accepted bulk mapping creation (202).
+    PushNationGraphIdsRequest:
+      properties:
+        crm_field_name:
+          type: string
+          title: Crm Field Name
+          description: Existing CRM field to write each institution's NationGraph unique_id into (HubSpot Company property name or Salesforce Account field API name). Must already exist — the field is never created. Discover available fields via GET /crm/{integration_id}/company-fields.
+        crm_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Crm Ids
+          description: 'Optional scope: restrict the push to these CRM record IDs.'
+      type: object
+      required:
+      - crm_field_name
+      title: PushNationGraphIdsRequest
+      description: Request to push NationGraph IDs to a chosen CRM field.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MappingResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        crm_type:
+          $ref: '#/components/schemas/CRMType'
+        crm_id:
+          type: string
+          title: Crm Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+      - id
+      - crm_type
+      - crm_id
+      - institution_id
+      - created_at
+      title: MappingResponse
+      description: API response for a CRM institution mapping.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MappingListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/MappingResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      - total
+      title: MappingListResponse
+      description: API response for listing mappings.
+    CRMContactResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        firstname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Firstname
+        lastname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lastname
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+        jobtitle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Jobtitle
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        lifecyclestage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Lifecyclestage
+      type: object
+      required:
+      - id
+      title: CRMContactResponse
+      description: A CRM contact.
+    InstitutionContactsResponse:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CRMContactResponse'
+          type: array
+          title: Contacts
+        company_id:
+          type: string
+          title: Company Id
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - contacts
+      - company_id
+      - total
+      title: InstitutionContactsResponse
+      description: Response for contacts associated with a CRM company.
+    BulkDeleteMappingsRequest:
+      properties:
+        crm_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Crm Ids
+          description: List of external CRM record IDs to delete
+      type: object
+      required:
+      - crm_ids
+      title: BulkDeleteMappingsRequest
+      description: Request to delete one or more CRM institution mappings.
+    BulkDeleteMappingsResponse:
+      properties:
+        deleted:
+          items:
+            type: string
+          type: array
+          title: Deleted
+          description: CRM IDs that were successfully deleted
+        not_found:
+          items:
+            type: string
+          type: array
+          title: Not Found
+          description: CRM IDs that were not found
+      type: object
+      required:
+      - deleted
+      - not_found
+      title: BulkDeleteMappingsResponse
+      description: Response for bulk mapping deletion.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,557 @@
+openapi: 3.1.0
+info:
+  title: Nationgraph Accounts Signal Settings API
+  version: 0.2.36
+tags:
+- name: Signal Settings
+paths:
+  /api/v3/signal-settings:
+    post:
+      tags:
+      - Signal Settings
+      summary: Create Signal Setting
+      description: Get all signal settings for current user
+      operationId: create_signal_setting_api_v3_signal_settings_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignalSettingCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Signal Settings
+      summary: Get Signal Settings
+      description: Get all signal settings for current user or specified user if in same organization
+      operationId: get_signal_settings_api_v3_signal_settings_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+      - name: signal_setting_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          title: Signal Setting Ids
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      - name: created_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created After
+      - name: created_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created Before
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/signal-settings/batch:
+    post:
+      tags:
+      - Signal Settings
+      summary: Batch Create Signal Settings
+      operationId: batch_create_signal_settings_api_v3_signal_settings_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/SignalSettingCreate'
+              type: array
+              title: Signal Settings
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /api/v3/signal-settings/users/{user_id}/stats:
+    get:
+      tags:
+      - Signal Settings
+      summary: Get Signal Stats For User
+      description: Get all signal stats grouped by signal setting for user
+      operationId: get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+      - name: created_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created After
+      - name: created_before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created Before
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 200
+            minimum: 1
+          - type: 'null'
+          default: 20
+          title: Limit
+      - name: saved
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Saved
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SignalSortEnum'
+          default: created_at_desc
+      - name: institution_sort
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionSortEnum'
+          - type: 'null'
+          title: Institution Sort
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/signal-settings/{signal_setting_id}:
+    patch:
+      tags:
+      - Signal Settings
+      summary: Update Signal Setting
+      description: Update signal setting
+      operationId: update_signal_setting_api_v3_signal_settings__signal_setting_id__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: signal_setting_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Signal Setting Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignalSettingUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v3/signal-settings/{signal_setting_id}/run:
+    post:
+      tags:
+      - Signal Settings
+      summary: Run Signal Setting
+      description: Run a signal setting for a user (if they created it).
+      operationId: run_signal_setting_api_v3_signal_settings__signal_setting_id__run_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: signal_setting_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Signal Setting Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunSignalSettingRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SignalSortEnum:
+      type: string
+      enum:
+      - created_at_desc
+      - created_at_asc
+      title: SignalSortEnum
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get:
+      properties:
+        statuses:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SignalStatusEnum'
+            type: array
+          - type: 'null'
+          title: Statuses
+        signal_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Signal Ids
+        signal_setting_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Signal Setting Ids
+        list_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: List Ids
+        data_sources:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SignalSourceType'
+            type: array
+          - type: 'null'
+          title: Data Sources
+        institution_types:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InstitutionEnum'
+            type: array
+          - type: 'null'
+          title: Institution Types
+        keywords:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Keywords
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        exclude_territory_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Exclude Territory Ids
+        exclude_institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Institution Ids
+      type: object
+      title: Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
+    RunSignalSettingRequest:
+      properties:
+        initial_search:
+          type: boolean
+          title: Initial Search
+      type: object
+      required:
+      - initial_search
+      title: RunSignalSettingRequest
+    InstitutionSortEnum:
+      type: string
+      enum:
+      - most_signals
+      - most_recent
+      - oldest
+      - most_contacts
+      - account_type
+      title: InstitutionSortEnum
+      description: 'Sort order for institutions in paginated response.
+
+
+        Note: This sorting is applied per-page after signal-level pagination.
+
+        The same institution may appear on multiple pages if its signals span pages.'
+    SignalSettingStatus:
+      type: string
+      enum:
+      - active
+      - archived
+      title: SignalSettingStatus
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    SignalSettingUpdate:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+        keywords:
+          anyOf:
+          - items:
+              items:
+                type: string
+              type: array
+            type: array
+          - type: 'null'
+          title: Keywords
+        exclude_keywords:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Keywords
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SignalSettingStatus'
+          - type: 'null'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      type: object
+      title: SignalSettingUpdate
+    SignalSettingCreate:
+      properties:
+        query:
+          type: string
+          title: Query
+        keywords:
+          items:
+            items:
+              type: string
+            type: array
+          type: array
+          title: Keywords
+        exclude_keywords:
+          items:
+            type: string
+          type: array
+          title: Exclude Keywords
+        initial_search_start:
+          type: string
+          format: date-time
+          title: Initial Search Start
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      type: object
+      required:
+      - query
+      - keywords
+      - exclude_keywords
+      - initial_search_start
+      title: SignalSettingCreate
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
