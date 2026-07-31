@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+summary:
+  types:
+  - http
+schemes:
+- name: HTTPBearer
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/nationgraph-openapi-original.json

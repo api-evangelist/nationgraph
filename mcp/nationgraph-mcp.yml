@@ -1,0 +1,771 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/nationgraph-openapi-original.json
+note: >-
+  Candidate MCP tool surface derived one-per-operation from the OpenAPI.
+  No official hosted NationGraph MCP server was found. Auth: HTTP Bearer.
+server:
+  name: nationgraph
+  transport: http
+  auth: bearer
+tools:
+- name: get_institutions_in_workspace_api_v3_workspaces_institutions_get
+  description: "Get Institutions In Workspace [GET /api/v3/workspaces/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institutions_in_workspace_api_v3_workspaces_institutions_get
+- name: add_institution_to_workspace_api_v3_workspaces__workspace_id__institutions_post
+  description: "Add Institution To Workspace [POST /api/v3/workspaces/{workspace_id}/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#add_institution_to_workspace_api_v3_workspaces__workspace_id__institutions_post
+- name: delete_workspace_institutions_api_v3_workspaces__workspace_id__institutions_delete
+  description: "Delete Workspace Institutions [DELETE /api/v3/workspaces/{workspace_id}/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_workspace_institutions_api_v3_workspaces__workspace_id__institutions_delete
+- name: get_workspace_institutions_api_v3_workspaces__workspace_id__institutions_get
+  description: "Get Workspace Institutions [GET /api/v3/workspaces/{workspace_id}/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_workspace_institutions_api_v3_workspaces__workspace_id__institutions_get
+- name: get_institution_count_api_v3_institutions_count_post
+  description: "Get Institution Count [POST /api/v3/institutions/count]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_count_api_v3_institutions_count_post
+- name: get_institution_metadata_api_v3_institutions_metadata_post
+  description: "Get Institution Metadata [POST /api/v3/institutions/metadata]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_metadata_api_v3_institutions_metadata_post
+- name: get_institutions_api_v3_institutions_get
+  description: "Get Institutions [GET /api/v3/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institutions_api_v3_institutions_get
+- name: get_institution_api_v3_institutions__institution_id__get
+  description: "Get Institution [GET /api/v3/institutions/{institution_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_api_v3_institutions__institution_id__get
+- name: insert_note_api_v3_workspaces__workspace_id__institution__institution_id__notes_post
+  description: "Insert Note [POST /api/v3/workspaces/{workspace_id}/institution/{institution_id}/notes]"
+  source_operation: openapi/nationgraph-openapi-original.json#insert_note_api_v3_workspaces__workspace_id__institution__institution_id__notes_post
+- name: get_notes_by_institution_api_v3_workspaces__workspace_id__institution__institution_id__notes_get
+  description: "Get Notes By Institution [GET /api/v3/workspaces/{workspace_id}/institution/{institution_id}/notes]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_notes_by_institution_api_v3_workspaces__workspace_id__institution__institution_id__notes_get
+- name: update_note_api_v3_notes_put
+  description: "Update Note [PUT /api/v3/notes]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_note_api_v3_notes_put
+- name: delete_note_api_v3_notes__note_id__delete
+  description: "Delete Note [DELETE /api/v3/notes/{note_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_note_api_v3_notes__note_id__delete
+- name: generate_email_api_v3_summary_generate_email_post
+  description: "Generate Email [POST /api/v3/summary/generate-email]"
+  source_operation: openapi/nationgraph-openapi-original.json#generate_email_api_v3_summary_generate_email_post
+- name: get_cells_by_institution_api_v3_summary_workspaces__workspace_id__institution__institution_id__custom_get
+  description: "Get Cells By Institution [GET /api/v3/summary/workspaces/{workspace_id}/institution/{institution_id}/custom]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_cells_by_institution_api_v3_summary_workspaces__workspace_id__institution__institution_id__custom_get
+- name: enrich_prompt_api_v3_summary_enrich_prompt_post
+  description: "Enrich Prompt [POST /api/v3/summary/enrich-prompt]"
+  source_operation: openapi/nationgraph-openapi-original.json#enrich_prompt_api_v3_summary_enrich_prompt_post
+- name: generate_call_script_api_v3_summary_generate_call_script_post
+  description: "Generate Call Script [POST /api/v3/summary/generate-call-script]"
+  source_operation: openapi/nationgraph-openapi-original.json#generate_call_script_api_v3_summary_generate_call_script_post
+- name: get_workspaces_api_v3_workspaces_get
+  description: "Get Workspaces [GET /api/v3/workspaces]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_workspaces_api_v3_workspaces_get
+- name: get_workspace_api_v3_workspaces__workspace_id__get
+  description: "Get Workspace [GET /api/v3/workspaces/{workspace_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_workspace_api_v3_workspaces__workspace_id__get
+- name: edit_workspace_api_v3_workspaces__workspace_id__patch
+  description: "Edit Workspace [PATCH /api/v3/workspaces/{workspace_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#edit_workspace_api_v3_workspaces__workspace_id__patch
+- name: delete_workspace_api_v3_workspaces__workspace_id__delete
+  description: "Delete Workspace [DELETE /api/v3/workspaces/{workspace_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_workspace_api_v3_workspaces__workspace_id__delete
+- name: duplicate_workspace_api_v3_workspaces__workspace_id__duplicate_post
+  description: "Duplicate Workspace [POST /api/v3/workspaces/{workspace_id}/duplicate]"
+  source_operation: openapi/nationgraph-openapi-original.json#duplicate_workspace_api_v3_workspaces__workspace_id__duplicate_post
+- name: create_new_workspace_api_v3_workspaces_create_post
+  description: "Create New Workspace [POST /api/v3/workspaces/create]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_new_workspace_api_v3_workspaces_create_post
+- name: preview_institutions_api_v3_workspaces_preview_post
+  description: "Preview Institutions [POST /api/v3/workspaces/preview]"
+  source_operation: openapi/nationgraph-openapi-original.json#preview_institutions_api_v3_workspaces_preview_post
+- name: upsert_smart_column_api_v3_workspaces__workspace_id__smart_columns_post
+  description: "Upsert Smart Column [POST /api/v3/workspaces/{workspace_id}/smart-columns]"
+  source_operation: openapi/nationgraph-openapi-original.json#upsert_smart_column_api_v3_workspaces__workspace_id__smart_columns_post
+- name: rerun_smart_column_api_v3_workspaces__workspace_id__smart_columns__column_id__rerun_post
+  description: "Rerun Smart Column [POST /api/v3/workspaces/{workspace_id}/smart-columns/{column_id}/rerun]"
+  source_operation: openapi/nationgraph-openapi-original.json#rerun_smart_column_api_v3_workspaces__workspace_id__smart_columns__column_id__rerun_post
+- name: patch_smart_column_endpoint_api_v3_workspaces__workspace_id__smart_columns__column_id__patch
+  description: "Patch Smart Column Endpoint [PATCH /api/v3/workspaces/{workspace_id}/smart-columns/{column_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#patch_smart_column_endpoint_api_v3_workspaces__workspace_id__smart_columns__column_id__patch
+- name: process_smart_columns_for_institution_api_v3_workspaces__workspace_id__institutions__institution_id__smart_columns_post
+  description: "Process Smart Columns For Institution [POST /api/v3/workspaces/{workspace_id}/institutions/{institution_id}/smart-columns]"
+  source_operation: openapi/nationgraph-openapi-original.json#process_smart_columns_for_institution_api_v3_workspaces__workspace_id__institutions__institution_id__smart_columns_post
+- name: delete_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__delete
+  description: "Delete Custom Column [DELETE /api/v3/workspaces/{workspace_id}/custom-column/{column_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__delete
+- name: get_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__get
+  description: "Get Custom Column [GET /api/v3/workspaces/{workspace_id}/custom-column/{column_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_custom_column_api_v3_workspaces__workspace_id__custom_column__column_id__get
+- name: enrich_keywords_api_v3_enrich_keywords_post
+  description: "Enrich Keywords [POST /api/v3/enrich-keywords]"
+  source_operation: openapi/nationgraph-openapi-original.json#enrich_keywords_api_v3_enrich_keywords_post
+- name: enrich_prompt_api_v3_enrich_prompt_post
+  description: "Enrich Prompt [POST /api/v3/enrich-prompt]"
+  source_operation: openapi/nationgraph-openapi-original.json#enrich_prompt_api_v3_enrich_prompt_post
+- name: get_rag_document_api_v3_rag_data_source__data_source__documents__document_id__get
+  description: "Get Rag Document [GET /api/v3/rag/data_source/{data_source}/documents/{document_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_rag_document_api_v3_rag_data_source__data_source__documents__document_id__get
+- name: export_workspace_csv_api_v3_export_workspaces__workspace_id__post
+  description: "Export Workspace Csv [POST /api/v3/export/workspaces/{workspace_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_workspace_csv_api_v3_export_workspaces__workspace_id__post
+- name: export_single_po_csv_api_v3_export_institution__institution_id__purchase_orders_column__column_id__get
+  description: "Export Single Po Csv [GET /api/v3/export/institution/{institution_id}/purchase_orders/column/{column_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_single_po_csv_api_v3_export_institution__institution_id__purchase_orders_column__column_id__get
+- name: export_po_csv_api_v3_export_workspaces__workspace_id__purchase_orders_post
+  description: "Export Po Csv [POST /api/v3/export/workspaces/{workspace_id}/purchase_orders]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_po_csv_api_v3_export_workspaces__workspace_id__purchase_orders_post
+- name: export_rfps_csv_api_v3_export_rfps_post
+  description: "Export Rfps Csv [POST /api/v3/export/rfps]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_rfps_csv_api_v3_export_rfps_post
+- name: export_grants_csv_api_v3_export_grants_post
+  description: "Export Grants Csv [POST /api/v3/export/grants]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_grants_csv_api_v3_export_grants_post
+- name: export_contacts_csv_api_v3_export_workspaces__workspace_id__contacts_post
+  description: "Export Contacts Csv [POST /api/v3/export/workspaces/{workspace_id}/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_contacts_csv_api_v3_export_workspaces__workspace_id__contacts_post
+- name: webhook_clerk_api_v3_webhooks_clerk_post
+  description: "Clerk Webhook [POST /api/v3/webhooks/clerk]"
+  source_operation: openapi/nationgraph-openapi-original.json#webhook_clerk_api_v3_webhooks_clerk_post
+- name: list_org_signal_settings_api_v3_org_admin_signal_settings_get
+  description: "List Org Signal Settings [GET /api/v3/org-admin/signal-settings]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_org_signal_settings_api_v3_org_admin_signal_settings_get
+- name: copy_signal_settings_to_recipients_api_v3_org_admin_signal_settings_copy_post
+  description: "Copy Signal Settings To Recipients [POST /api/v3/org-admin/signal-settings/copy]"
+  source_operation: openapi/nationgraph-openapi-original.json#copy_signal_settings_to_recipients_api_v3_org_admin_signal_settings_copy_post
+- name: get_company_info_api_v3_intent_get_company_info_post
+  description: "Get Company Info [POST /api/v3/intent/get-company-info]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_company_info_api_v3_intent_get_company_info_post
+- name: create_company_rubrics_api_v3_intent_create_company_rubrics_post
+  description: "Create Company Rubrics [POST /api/v3/intent/create-company-rubrics]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_company_rubrics_api_v3_intent_create_company_rubrics_post
+- name: get_unified_insights_api_v3_workspaces__workspace_id__institution__institution_id__unified_insights_get
+  description: "Get Unified Insights [GET /api/v3/workspaces/{workspace_id}/institution/{institution_id}/unified-insights]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_unified_insights_api_v3_workspaces__workspace_id__institution__institution_id__unified_insights_get
+- name: create_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_post
+  description: "Create Tags [POST /api/v3/workspaces/{workspace_id}/institution/{institution_id}/tags]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_post
+- name: update_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_put
+  description: "Update Tags [PUT /api/v3/workspaces/{workspace_id}/institution/{institution_id}/tags]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_tags_api_v3_workspaces__workspace_id__institution__institution_id__tags_put
+- name: persist_new_tag_api_v3_tags_post
+  description: "Persist New Tag [POST /api/v3/tags]"
+  source_operation: openapi/nationgraph-openapi-original.json#persist_new_tag_api_v3_tags_post
+- name: get_workspace_tags_api_v3_workspaces__workspace_id__tags_get
+  description: "Get Workspace Tags [GET /api/v3/workspaces/{workspace_id}/tags]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_workspace_tags_api_v3_workspaces__workspace_id__tags_get
+- name: delete_workspace_tag_api_v3_workspaces__workspace_id__tags__tag_id__delete
+  description: "Delete Workspace Tag [DELETE /api/v3/workspaces/{workspace_id}/tags/{tag_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_workspace_tag_api_v3_workspaces__workspace_id__tags__tag_id__delete
+- name: update_insight_api_v3_insights__id__patch
+  description: "Update Insight [PATCH /api/v3/insights/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_insight_api_v3_insights__id__patch
+- name: get_entity_ids_from_names_api_v3_classifier_get_entity_ids_post
+  description: "Get Entity Ids From Names [POST /api/v3/classifier/get-entity-ids]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_entity_ids_from_names_api_v3_classifier_get_entity_ids_post
+- name: match_institutions_api_v3_classifiers_institutions_match_post
+  description: "Match Institutions [POST /api/v3/classifiers/institutions/match]"
+  source_operation: openapi/nationgraph-openapi-original.json#match_institutions_api_v3_classifiers_institutions_match_post
+- name: search_rfps_api_v3_rfps_search_post
+  description: "Search Rfps [POST /api/v3/rfps/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_rfps_api_v3_rfps_search_post
+- name: get_rfp_institutions_api_v3_rfps_institutions_get
+  description: "Get Rfp Institutions [GET /api/v3/rfps/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_rfp_institutions_api_v3_rfps_institutions_get
+- name: get_rfps_by_entity_api_v3_rfps__unique_id__get
+  description: "Get Rfps By Entity [GET /api/v3/rfps/{unique_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_rfps_by_entity_api_v3_rfps__unique_id__get
+- name: get_lists_api_v3_lists_get
+  description: "Get Lists [GET /api/v3/lists]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_lists_api_v3_lists_get
+- name: create_list_api_v3_lists_post
+  description: "Create List [POST /api/v3/lists]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_list_api_v3_lists_post
+- name: edit_list_api_v3_lists__list_id__patch
+  description: "Edit List [PATCH /api/v3/lists/{list_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#edit_list_api_v3_lists__list_id__patch
+- name: delete_list_api_v3_lists__list_id__delete
+  description: "Delete List [DELETE /api/v3/lists/{list_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_list_api_v3_lists__list_id__delete
+- name: add_signal_to_list_api_v3_lists__list_id__signals__signal_id__post
+  description: "Add Signal To List [POST /api/v3/lists/{list_id}/signals/{signal_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#add_signal_to_list_api_v3_lists__list_id__signals__signal_id__post
+- name: remove_signal_from_list_api_v3_lists__list_id__signals__signal_id__delete
+  description: "Remove Signal From List [DELETE /api/v3/lists/{list_id}/signals/{signal_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#remove_signal_from_list_api_v3_lists__list_id__signals__signal_id__delete
+- name: batch_add_signals_to_list_api_v3_lists__list_id__signals_post
+  description: "Batch Add Signals To List [POST /api/v3/lists/{list_id}/signals]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_add_signals_to_list_api_v3_lists__list_id__signals_post
+- name: batch_remove_signals_from_list_api_v3_lists__list_id__signals_delete
+  description: "Batch Remove Signals From List [DELETE /api/v3/lists/{list_id}/signals]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_remove_signals_from_list_api_v3_lists__list_id__signals_delete
+- name: get_signals_in_list_api_v3_lists__list_id__signals_get
+  description: "Get Signals In List [GET /api/v3/lists/{list_id}/signals]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_signals_in_list_api_v3_lists__list_id__signals_get
+- name: get_entity_metadata_api_v3_metadata__entity_id__get
+  description: "Get Entity Metadata [GET /api/v3/metadata/{entity_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_entity_metadata_api_v3_metadata__entity_id__get
+- name: get_user_profile_api_v3_user_profiles__user_id__get
+  description: "Get User Profile [GET /api/v3/user-profiles/{user_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_user_profile_api_v3_user_profiles__user_id__get
+- name: update_user_profile_api_v3_user_profiles__user_id__patch
+  description: "Update User Profile [PATCH /api/v3/user-profiles/{user_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_user_profile_api_v3_user_profiles__user_id__patch
+- name: search_user_profile_documents_api_v3_user_profiles_documents_search_post
+  description: "Search User Profile Documents [POST /api/v3/user-profiles/documents/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_user_profile_documents_api_v3_user_profiles_documents_search_post
+- name: generate_user_document_summary_api_v3_user_profiles__user_id__document_summary_post
+  description: "Generate User Document Summary [POST /api/v3/user-profiles/{user_id}/document-summary]"
+  source_operation: openapi/nationgraph-openapi-original.json#generate_user_document_summary_api_v3_user_profiles__user_id__document_summary_post
+- name: search_signals_api_v3_signals_search_post
+  description: "Search Signals [POST /api/v3/signals/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_signals_api_v3_signals_search_post
+- name: get_signal_api_v3_signals__signal_id__get
+  description: "Get Signal [GET /api/v3/signals/{signal_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_signal_api_v3_signals__signal_id__get
+- name: get_signal_data_sources_api_v3_signals__signal_id__sources_get
+  description: "Get Signal Data Sources [GET /api/v3/signals/{signal_id}/sources]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_signal_data_sources_api_v3_signals__signal_id__sources_get
+- name: add_user_to_signal_api_v3_signals__signal_id__users_post
+  description: "Add User To Signal [POST /api/v3/signals/{signal_id}/users]"
+  source_operation: openapi/nationgraph-openapi-original.json#add_user_to_signal_api_v3_signals__signal_id__users_post
+- name: create_signal_user_action_api_v3_signals__signal_id__actions_post
+  description: "Create Signal User Action [POST /api/v3/signals/{signal_id}/actions]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_signal_user_action_api_v3_signals__signal_id__actions_post
+- name: batch_create_signal_user_actions_api_v3_signals_actions_post
+  description: "Batch Create Signal User Actions [POST /api/v3/signals/actions]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_create_signal_user_actions_api_v3_signals_actions_post
+- name: update_signal_user_status_api_v3_signals__signal_id__status_patch
+  description: "Update Signal User Status [PATCH /api/v3/signals/{signal_id}/status]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_signal_user_status_api_v3_signals__signal_id__status_patch
+- name: batch_update_signal_user_status_api_v3_signals_status_patch
+  description: "Batch Update Signal User Status [PATCH /api/v3/signals/status]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_update_signal_user_status_api_v3_signals_status_patch
+- name: dismiss_signals_api_v3_signals_dismiss_post
+  description: "Dismiss Signals [POST /api/v3/signals/dismiss]"
+  source_operation: openapi/nationgraph-openapi-original.json#dismiss_signals_api_v3_signals_dismiss_post
+- name: create_signal_share_link_api_v3_signals__signal_id__share_get
+  description: "Create Signal Share Link [GET /api/v3/signals/{signal_id}/share]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_signal_share_link_api_v3_signals__signal_id__share_get
+- name: get_shared_signal_api_v3_signals_share__signal_token__get
+  description: "Get Shared Signal [GET /api/v3/signals/share/{signal_token}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_shared_signal_api_v3_signals_share__signal_token__get
+- name: get_contacts_api_v3_contacts_get
+  description: "Get Contacts [GET /api/v3/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_contacts_api_v3_contacts_get
+- name: search_contacts_api_v3_contacts_search_post
+  description: "Search Contacts [POST /api/v3/contacts/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_contacts_api_v3_contacts_search_post
+- name: preprocess_rag_query_api_v3_rag_preprocess_post
+  description: "Preprocess Rag Query [POST /api/v3/rag/preprocess]"
+  source_operation: openapi/nationgraph-openapi-original.json#preprocess_rag_query_api_v3_rag_preprocess_post
+- name: query_rag_data_api_v3_rag_query_post
+  description: "Query Rag Data [POST /api/v3/rag/query]"
+  source_operation: openapi/nationgraph-openapi-original.json#query_rag_data_api_v3_rag_query_post
+- name: query_rag_direct_api_v3_rag_query_direct_post
+  description: "Query Rag Direct [POST /api/v3/rag/query-direct]"
+  source_operation: openapi/nationgraph-openapi-original.json#query_rag_direct_api_v3_rag_query_direct_post
+- name: get_queue_stats_api_v3_queue_stats_get
+  description: "Get Queue Stats [GET /api/v3/queue/stats]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_queue_stats_api_v3_queue_stats_get
+- name: create_signal_setting_api_v3_signal_settings_post
+  description: "Create Signal Setting [POST /api/v3/signal-settings]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_signal_setting_api_v3_signal_settings_post
+- name: get_signal_settings_api_v3_signal_settings_get
+  description: "Get Signal Settings [GET /api/v3/signal-settings]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_signal_settings_api_v3_signal_settings_get
+- name: batch_create_signal_settings_api_v3_signal_settings_batch_post
+  description: "Batch Create Signal Settings [POST /api/v3/signal-settings/batch]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_create_signal_settings_api_v3_signal_settings_batch_post
+- name: get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
+  description: "Get Signal Stats For User [GET /api/v3/signal-settings/users/{user_id}/stats]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
+- name: update_signal_setting_api_v3_signal_settings__signal_setting_id__patch
+  description: "Update Signal Setting [PATCH /api/v3/signal-settings/{signal_setting_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_signal_setting_api_v3_signal_settings__signal_setting_id__patch
+- name: run_signal_setting_api_v3_signal_settings__signal_setting_id__run_post
+  description: "Run Signal Setting [POST /api/v3/signal-settings/{signal_setting_id}/run]"
+  source_operation: openapi/nationgraph-openapi-original.json#run_signal_setting_api_v3_signal_settings__signal_setting_id__run_post
+- name: presign_batch_api_v3_documents_presign_batch_post
+  description: "Presign Batch [POST /api/v3/documents/presign/batch]"
+  source_operation: openapi/nationgraph-openapi-original.json#presign_batch_api_v3_documents_presign_batch_post
+- name: create_template_api_v3_email_templates_post
+  description: "Create Template [POST /api/v3/email-templates]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_template_api_v3_email_templates_post
+- name: get_templates_api_v3_email_templates_get
+  description: "Get Templates [GET /api/v3/email-templates]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_templates_api_v3_email_templates_get
+- name: get_template_api_v3_email_templates__template_id__get
+  description: "Get Template [GET /api/v3/email-templates/{template_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_template_api_v3_email_templates__template_id__get
+- name: update_template_api_v3_email_templates__template_id__patch
+  description: "Update Template [PATCH /api/v3/email-templates/{template_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_template_api_v3_email_templates__template_id__patch
+- name: create_sequence_api_v3_email_sequences_post
+  description: "Create Sequence [POST /api/v3/email-sequences]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_sequence_api_v3_email_sequences_post
+- name: get_sequences_api_v3_email_sequences_get
+  description: "Get Sequences [GET /api/v3/email-sequences]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_sequences_api_v3_email_sequences_get
+- name: get_sequence_api_v3_email_sequences__sequence_id__get
+  description: "Get Sequence [GET /api/v3/email-sequences/{sequence_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_sequence_api_v3_email_sequences__sequence_id__get
+- name: update_sequence_api_v3_email_sequences__sequence_id__patch
+  description: "Update Sequence [PATCH /api/v3/email-sequences/{sequence_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_sequence_api_v3_email_sequences__sequence_id__patch
+- name: add_documents_to_organization_api_v3_organizations__organization_id__documents_post
+  description: "Add Documents To Organization [POST /api/v3/organizations/{organization_id}/documents]"
+  source_operation: openapi/nationgraph-openapi-original.json#add_documents_to_organization_api_v3_organizations__organization_id__documents_post
+- name: get_organization_documents_api_v3_organizations__organization_id__documents_get
+  description: "Get Organization Documents [GET /api/v3/organizations/{organization_id}/documents]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_organization_documents_api_v3_organizations__organization_id__documents_get
+- name: delete_organization_documents_api_v3_organizations__organization_id__documents_delete
+  description: "Delete Organization Documents [DELETE /api/v3/organizations/{organization_id}/documents]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_organization_documents_api_v3_organizations__organization_id__documents_delete
+- name: bootstrap_user_api_v3_users_post
+  description: "Bootstrap User [POST /api/v3/users]"
+  source_operation: openapi/nationgraph-openapi-original.json#bootstrap_user_api_v3_users_post
+- name: get_user_onboarding_progress_api_v3_users_onboarding_get
+  description: "Get User Onboarding Progress [GET /api/v3/users/onboarding]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_user_onboarding_progress_api_v3_users_onboarding_get
+- name: get_subscriptions_for_user_api_v3_users__user_id__subscriptions_get
+  description: "Get Subscriptions For User [GET /api/v3/users/{user_id}/subscriptions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_subscriptions_for_user_api_v3_users__user_id__subscriptions_get
+- name: get_user_integrations_api_v3_users__user_id__integrations_get
+  description: "Get User Integrations [GET /api/v3/users/{user_id}/integrations]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_user_integrations_api_v3_users__user_id__integrations_get
+- name: get_subscriptions_by_type_api_v3_users__user_id__subscriptions__subscription_type__get
+  description: "Get Subscriptions By Type [GET /api/v3/users/{user_id}/subscriptions/{subscription_type}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_subscriptions_by_type_api_v3_users__user_id__subscriptions__subscription_type__get
+- name: add_user_document_api_v3_users__user_id__documents__document_id__put
+  description: "Add User Document [PUT /api/v3/users/{user_id}/documents/{document_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#add_user_document_api_v3_users__user_id__documents__document_id__put
+- name: replace_user_documents_api_v3_users__user_id__documents_put
+  description: "Replace User Documents [PUT /api/v3/users/{user_id}/documents]"
+  source_operation: openapi/nationgraph-openapi-original.json#replace_user_documents_api_v3_users__user_id__documents_put
+- name: get_user_documents_api_v3_users__user_id__documents_get
+  description: "Get User Documents [GET /api/v3/users/{user_id}/documents]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_user_documents_api_v3_users__user_id__documents_get
+- name: create_subscription_for_user_api_v3_subscriptions_post
+  description: "Create Subscription For User [POST /api/v3/subscriptions]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_subscription_for_user_api_v3_subscriptions_post
+- name: update_subscription_api_v3_subscriptions__subscription_id__patch
+  description: "Update Subscription [PATCH /api/v3/subscriptions/{subscription_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_subscription_api_v3_subscriptions__subscription_id__patch
+- name: initiate_hubspot_auth_api_v3_crm_connect_hubspot_get
+  description: "Initiate HubSpot OAuth [GET /api/v3/crm/connect/hubspot]"
+  source_operation: openapi/nationgraph-openapi-original.json#initiate_hubspot_auth_api_v3_crm_connect_hubspot_get
+- name: redirect_to_hubspot_auth_api_v3_crm_connect_hubspot_redirect_get
+  description: "Redirect to HubSpot OAuth [GET /api/v3/crm/connect/hubspot/redirect]"
+  source_operation: openapi/nationgraph-openapi-original.json#redirect_to_hubspot_auth_api_v3_crm_connect_hubspot_redirect_get
+- name: hubspot_oauth_callback_api_v3_crm_callback_hubspot_get
+  description: "HubSpot OAuth Callback [GET /api/v3/crm/callback/hubspot]"
+  source_operation: openapi/nationgraph-openapi-original.json#hubspot_oauth_callback_api_v3_crm_callback_hubspot_get
+- name: initiate_salesforce_auth_api_v3_crm_connect_salesforce_get
+  description: "Initiate Salesforce OAuth [GET /api/v3/crm/connect/salesforce]"
+  source_operation: openapi/nationgraph-openapi-original.json#initiate_salesforce_auth_api_v3_crm_connect_salesforce_get
+- name: redirect_to_salesforce_auth_api_v3_crm_connect_salesforce_redirect_get
+  description: "Redirect to Salesforce OAuth [GET /api/v3/crm/connect/salesforce/redirect]"
+  source_operation: openapi/nationgraph-openapi-original.json#redirect_to_salesforce_auth_api_v3_crm_connect_salesforce_redirect_get
+- name: salesforce_oauth_callback_api_v3_crm_callback_salesforce_get
+  description: "Salesforce OAuth Callback [GET /api/v3/crm/callback/salesforce]"
+  source_operation: openapi/nationgraph-openapi-original.json#salesforce_oauth_callback_api_v3_crm_callback_salesforce_get
+- name: connect_zapier_api_v3_crm_connect_zapier_post
+  description: "Connect Zapier Integration [POST /api/v3/crm/connect/zapier]"
+  source_operation: openapi/nationgraph-openapi-original.json#connect_zapier_api_v3_crm_connect_zapier_post
+- name: get_crm_integration_status_api_v3_crm__integration_id__status_get
+  description: "Get CRM Integration Status [GET /api/v3/crm/{integration_id}/status]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_crm_integration_status_api_v3_crm__integration_id__status_get
+- name: disconnect_crm_integration_api_v3_crm__integration_id__delete
+  description: "Disconnect CRM Integration [DELETE /api/v3/crm/{integration_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#disconnect_crm_integration_api_v3_crm__integration_id__delete
+- name: get_crm_access_token_api_v3_crm__integration_id__token_get
+  description: "Get Valid CRM Access Token [GET /api/v3/crm/{integration_id}/token]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_crm_access_token_api_v3_crm__integration_id__token_get
+- name: push_signal_to_crm_api_v3_crm__integration_id__signals__signal_id__post
+  description: "Push Signal to CRM [POST /api/v3/crm/{integration_id}/signals/{signal_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_signal_to_crm_api_v3_crm__integration_id__signals__signal_id__post
+- name: push_contact_to_crm_api_v3_crm__integration_id__signals__signal_id__contacts__contact_id__post
+  description: "Push Contact to CRM [POST /api/v3/crm/{integration_id}/signals/{signal_id}/contacts/{contact_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_contact_to_crm_api_v3_crm__integration_id__signals__signal_id__contacts__contact_id__post
+- name: create_integration_delivery_api_v3_crm__integration_id__deliveries_post
+  description: "Deliver payload to a workflow subscription [POST /api/v3/crm/{integration_id}/deliveries]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_integration_delivery_api_v3_crm__integration_id__deliveries_post
+- name: list_integration_subscriptions_api_v3_crm__integration_id__subscriptions_get
+  description: "List workflow subscriptions [GET /api/v3/crm/{integration_id}/subscriptions]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_integration_subscriptions_api_v3_crm__integration_id__subscriptions_get
+- name: list_companies_api_v3_crm__integration_id__companies_get
+  description: "List Companies [GET /api/v3/crm/{integration_id}/companies]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_companies_api_v3_crm__integration_id__companies_get
+- name: create_company_api_v3_crm__integration_id__companies_post
+  description: "Create Company [POST /api/v3/crm/{integration_id}/companies]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_company_api_v3_crm__integration_id__companies_post
+- name: search_companies_api_v3_crm__integration_id__companies_search_get
+  description: "Simple Search Companies [GET /api/v3/crm/{integration_id}/companies/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_companies_api_v3_crm__integration_id__companies_search_get
+- name: advanced_search_companies_api_v3_crm__integration_id__companies_search_post
+  description: "Advanced Search Companies [POST /api/v3/crm/{integration_id}/companies/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#advanced_search_companies_api_v3_crm__integration_id__companies_search_post
+- name: get_company_api_v3_crm__integration_id__companies__company_id__get
+  description: "Get Company [GET /api/v3/crm/{integration_id}/companies/{company_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_company_api_v3_crm__integration_id__companies__company_id__get
+- name: update_company_api_v3_crm__integration_id__companies__company_id__patch
+  description: "Update Company [PATCH /api/v3/crm/{integration_id}/companies/{company_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_company_api_v3_crm__integration_id__companies__company_id__patch
+- name: batch_get_companies_api_v3_crm__integration_id__companies_batch_read_post
+  description: "Batch Get Companies [POST /api/v3/crm/{integration_id}/companies/batch/read]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_get_companies_api_v3_crm__integration_id__companies_batch_read_post
+- name: batch_create_companies_api_v3_crm__integration_id__companies_batch_create_post
+  description: "Batch Create Companies [POST /api/v3/crm/{integration_id}/companies/batch/create]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_create_companies_api_v3_crm__integration_id__companies_batch_create_post
+- name: batch_update_companies_api_v3_crm__integration_id__companies_batch_update_post
+  description: "Batch Update Companies [POST /api/v3/crm/{integration_id}/companies/batch/update]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_update_companies_api_v3_crm__integration_id__companies_batch_update_post
+- name: push_institution_to_crm_api_v3_crm__integration_id__institutions__institution_id__company_post
+  description: "Push Institution to CRM [POST /api/v3/crm/{integration_id}/institutions/{institution_id}/company]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_institution_to_crm_api_v3_crm__integration_id__institutions__institution_id__company_post
+- name: list_contacts_api_v3_crm__integration_id__contacts_get
+  description: "List Contacts [GET /api/v3/crm/{integration_id}/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_contacts_api_v3_crm__integration_id__contacts_get
+- name: create_contact_api_v3_crm__integration_id__contacts_post
+  description: "Create Contact [POST /api/v3/crm/{integration_id}/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_contact_api_v3_crm__integration_id__contacts_post
+- name: search_contacts_api_v3_crm__integration_id__contacts_search_get
+  description: "Search Contacts [GET /api/v3/crm/{integration_id}/contacts/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_contacts_api_v3_crm__integration_id__contacts_search_get
+- name: get_contact_properties_api_v3_crm__integration_id__contacts_properties_get
+  description: "Get Contact Properties [GET /api/v3/crm/{integration_id}/contacts/properties]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_contact_properties_api_v3_crm__integration_id__contacts_properties_get
+- name: get_contact_by_email_api_v3_crm__integration_id__contacts_by_email__email__get
+  description: "Get Contact by Email [GET /api/v3/crm/{integration_id}/contacts/by-email/{email}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_contact_by_email_api_v3_crm__integration_id__contacts_by_email__email__get
+- name: get_contact_api_v3_crm__integration_id__contacts__contact_id__get
+  description: "Get Contact [GET /api/v3/crm/{integration_id}/contacts/{contact_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_contact_api_v3_crm__integration_id__contacts__contact_id__get
+- name: update_contact_api_v3_crm__integration_id__contacts__contact_id__patch
+  description: "Update Contact [PATCH /api/v3/crm/{integration_id}/contacts/{contact_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_contact_api_v3_crm__integration_id__contacts__contact_id__patch
+- name: batch_get_contacts_api_v3_crm__integration_id__contacts_batch_read_post
+  description: "Batch Get Contacts [POST /api/v3/crm/{integration_id}/contacts/batch/read]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_get_contacts_api_v3_crm__integration_id__contacts_batch_read_post
+- name: batch_create_contacts_api_v3_crm__integration_id__contacts_batch_create_post
+  description: "Batch Create Contacts [POST /api/v3/crm/{integration_id}/contacts/batch/create]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_create_contacts_api_v3_crm__integration_id__contacts_batch_create_post
+- name: batch_update_contacts_api_v3_crm__integration_id__contacts_batch_update_post
+  description: "Batch Update Contacts [POST /api/v3/crm/{integration_id}/contacts/batch/update]"
+  source_operation: openapi/nationgraph-openapi-original.json#batch_update_contacts_api_v3_crm__integration_id__contacts_batch_update_post
+- name: list_owners_api_v3_crm__integration_id__owners_get
+  description: "List Owners [GET /api/v3/crm/{integration_id}/owners]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_owners_api_v3_crm__integration_id__owners_get
+- name: get_owner_api_v3_crm__integration_id__owners__owner_id__get
+  description: "Get Owner [GET /api/v3/crm/{integration_id}/owners/{owner_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_owner_api_v3_crm__integration_id__owners__owner_id__get
+- name: list_leads_api_v3_crm__integration_id__leads_get
+  description: "List Leads [GET /api/v3/crm/{integration_id}/leads]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_leads_api_v3_crm__integration_id__leads_get
+- name: create_lead_api_v3_crm__integration_id__leads_post
+  description: "Create Lead [POST /api/v3/crm/{integration_id}/leads]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_lead_api_v3_crm__integration_id__leads_post
+- name: get_lead_api_v3_crm__integration_id__leads__lead_id__get
+  description: "Get Lead [GET /api/v3/crm/{integration_id}/leads/{lead_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_lead_api_v3_crm__integration_id__leads__lead_id__get
+- name: update_lead_api_v3_crm__integration_id__leads__lead_id__patch
+  description: "Update Lead [PATCH /api/v3/crm/{integration_id}/leads/{lead_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_lead_api_v3_crm__integration_id__leads__lead_id__patch
+- name: search_leads_api_v3_crm__integration_id__leads_search_get
+  description: "Search Leads [GET /api/v3/crm/{integration_id}/leads/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_leads_api_v3_crm__integration_id__leads_search_get
+- name: convert_lead_api_v3_crm__integration_id__leads__lead_id__convert_post
+  description: "Convert Lead [POST /api/v3/crm/{integration_id}/leads/{lead_id}/convert]"
+  source_operation: openapi/nationgraph-openapi-original.json#convert_lead_api_v3_crm__integration_id__leads__lead_id__convert_post
+- name: list_mappings_api_v3_crm__integration_id__mappings_get
+  description: "List Mappings [GET /api/v3/crm/{integration_id}/mappings]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_mappings_api_v3_crm__integration_id__mappings_get
+- name: create_mappings_api_v3_crm__integration_id__mappings_post
+  description: "Create Mappings [POST /api/v3/crm/{integration_id}/mappings]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_mappings_api_v3_crm__integration_id__mappings_post
+- name: delete_mappings_api_v3_crm__integration_id__mappings_delete
+  description: "Delete Mappings [DELETE /api/v3/crm/{integration_id}/mappings]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_mappings_api_v3_crm__integration_id__mappings_delete
+- name: export_mappings_csv_api_v3_crm__integration_id__mappings_export_get
+  description: "Export Mappings CSV [GET /api/v3/crm/{integration_id}/mappings/export]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_mappings_csv_api_v3_crm__integration_id__mappings_export_get
+- name: push_nationgraph_ids_api_v3_crm__integration_id__mappings_push_nationgraph_ids_post
+  description: "Push NationGraph IDs to CRM [POST /api/v3/crm/{integration_id}/mappings/push-nationgraph-ids]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_nationgraph_ids_api_v3_crm__integration_id__mappings_push_nationgraph_ids_post
+- name: get_crm_contacts_for_institution_api_v3_crm__integration_id__institutions__institution_id__contacts_get
+  description: "Get CRM Contacts for Institution [GET /api/v3/crm/{integration_id}/institutions/{institution_id}/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_crm_contacts_for_institution_api_v3_crm__integration_id__institutions__institution_id__contacts_get
+- name: list_crm_company_fields_api_v3_crm__integration_id__company_fields_get
+  description: "List CRM Company Fields [GET /api/v3/crm/{integration_id}/company-fields]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_crm_company_fields_api_v3_crm__integration_id__company_fields_get
+- name: get_automation_pushable_columns_api_v3_crm__integration_id__automations__automation_id__pushable_columns_get
+  description: "Get Pushable Columns [GET /api/v3/crm/{integration_id}/automations/{automation_id}/pushable-columns]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automation_pushable_columns_api_v3_crm__integration_id__automations__automation_id__pushable_columns_get
+- name: get_push_status_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_status_get
+  description: "Get Push Status [GET /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/push-status]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_push_status_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_status_get
+- name: get_automation_push_history_api_v3_crm__integration_id__automations__automation_id__history_get
+  description: "Get CRM Push History for an Automation [GET /api/v3/crm/{integration_id}/automations/{automation_id}/history]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automation_push_history_api_v3_crm__integration_id__automations__automation_id__history_get
+- name: push_automation_results_to_crm_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_post
+  description: "Push Automation Results to CRM [POST /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/push]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_automation_results_to_crm_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_post
+- name: push_automation_result_as_activity_api_v3_crm__integration_id__automations__automation_id__runs__run_id__results__result_id__push_activity_post
+  description: "Push Automation Result as CRM Activity [POST /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/results/{result_id}/push-activity]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_automation_result_as_activity_api_v3_crm__integration_id__automations__automation_id__runs__run_id__results__result_id__push_activity_post
+- name: push_automation_run_signals_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_signals_post
+  description: "Push Automation Run Signals to CRM [POST /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/push-signals]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_automation_run_signals_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_signals_post
+- name: list_account_layouts_api_v3_crm__integration_id__account_layouts_get
+  description: "List Account Page Layouts [GET /api/v3/crm/{integration_id}/account-layouts]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_account_layouts_api_v3_crm__integration_id__account_layouts_get
+- name: check_custom_object_schema_api_v3_crm__integration_id__custom_object_schemas__schema_key__get
+  description: "Check Custom Object Schema [GET /api/v3/crm/{integration_id}/custom-object-schemas/{schema_key}]"
+  source_operation: openapi/nationgraph-openapi-original.json#check_custom_object_schema_api_v3_crm__integration_id__custom_object_schemas__schema_key__get
+- name: create_custom_object_schema_api_v3_crm__integration_id__custom_object_schemas__schema_key__post
+  description: "Create Custom Object Schema [POST /api/v3/crm/{integration_id}/custom-object-schemas/{schema_key}]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_custom_object_schema_api_v3_crm__integration_id__custom_object_schemas__schema_key__post
+- name: get_custom_object_schema_spec_api_v3_crm__integration_id__custom_object_schemas__schema_key__spec_get
+  description: "Get Custom Object Schema Spec [GET /api/v3/crm/{integration_id}/custom-object-schemas/{schema_key}/spec]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_custom_object_schema_spec_api_v3_crm__integration_id__custom_object_schemas__schema_key__spec_get
+- name: push_automation_results_as_custom_objects_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_custom_objects_post
+  description: "Push Automation Results as Custom Objects [POST /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/push-custom-objects]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_automation_results_as_custom_objects_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_custom_objects_post
+- name: push_run_contacts_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_contacts_post
+  description: "Push Contacts as CRM Contact Records [POST /api/v3/crm/{integration_id}/automations/{automation_id}/runs/{run_id}/push-contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#push_run_contacts_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_contacts_post
+- name: get_integration_crm_activity_api_v3_crm__integration_id__activity_get
+  description: "Get Non-Automation CRM Activity for an Integration [GET /api/v3/crm/{integration_id}/activity]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_integration_crm_activity_api_v3_crm__integration_id__activity_get
+- name: create_integration_api_v3_integrations_post
+  description: "Create Integration [POST /api/v3/integrations]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_integration_api_v3_integrations_post
+- name: update_integration_api_v3_integrations__integration_id__patch
+  description: "Update Integration [PATCH /api/v3/integrations/{integration_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_integration_api_v3_integrations__integration_id__patch
+- name: delete_integration_api_v3_integrations__integration_id__delete
+  description: "Delete Integration [DELETE /api/v3/integrations/{integration_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_integration_api_v3_integrations__integration_id__delete
+- name: get_external_user_id_api_v3_integrations__integration_id__users__user_id__get
+  description: "Get External User Id [GET /api/v3/integrations/{integration_id}/users/{user_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_external_user_id_api_v3_integrations__integration_id__users__user_id__get
+- name: slack_authorize_api_v3_integrations_slack_authorize_get
+  description: "Slack Authorize [GET /api/v3/integrations/slack/authorize]"
+  source_operation: openapi/nationgraph-openapi-original.json#slack_authorize_api_v3_integrations_slack_authorize_get
+- name: list_channels_api_v3_integrations_slack__integration_id__channels_get
+  description: "List Channels [GET /api/v3/integrations/slack/{integration_id}/channels]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_channels_api_v3_integrations_slack__integration_id__channels_get
+- name: get_enrichments_api_v3_enrichments_get
+  description: "Get Enrichments [GET /api/v3/enrichments]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_enrichments_api_v3_enrichments_get
+- name: create_enrichments_api_v3_enrichments_post
+  description: "Create Enrichments [POST /api/v3/enrichments]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_enrichments_api_v3_enrichments_post
+- name: get_enrichment_stats_api_v3_enrichments_stats_get
+  description: "Get Enrichment Stats [GET /api/v3/enrichments/stats]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_enrichment_stats_api_v3_enrichments_stats_get
+- name: get_vendor_products_api_v3_vendor_products_get
+  description: "Get Vendor Products [GET /api/v3/vendor-products]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_vendor_products_api_v3_vendor_products_get
+- name: create_automation_api_v3_automations_post
+  description: "Create Automation [POST /api/v3/automations]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_automation_api_v3_automations_post
+- name: get_automations_api_v3_automations_get
+  description: "Get Automations [GET /api/v3/automations]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automations_api_v3_automations_get
+- name: get_automation_types_api_v3_automations_types_get
+  description: "Get Automation Types [GET /api/v3/automations/types]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automation_types_api_v3_automations_types_get
+- name: get_automation_api_v3_automations__automation_id__get
+  description: "Get Automation [GET /api/v3/automations/{automation_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automation_api_v3_automations__automation_id__get
+- name: update_automation_api_v3_automations__automation_id__patch
+  description: "Update Automation [PATCH /api/v3/automations/{automation_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_automation_api_v3_automations__automation_id__patch
+- name: refresh_api_v3_automations__automation_id__refresh_post
+  description: "Refresh [POST /api/v3/automations/{automation_id}/refresh]"
+  source_operation: openapi/nationgraph-openapi-original.json#refresh_api_v3_automations__automation_id__refresh_post
+- name: create_and_run_api_v3_automations__automation_id__runs_post
+  description: "Create And Run [POST /api/v3/automations/{automation_id}/runs]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_and_run_api_v3_automations__automation_id__runs_post
+- name: get_automation_runs_api_v3_automations__automation_id__runs_get
+  description: "Get Automation Runs [GET /api/v3/automations/{automation_id}/runs]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_automation_runs_api_v3_automations__automation_id__runs_get
+- name: get_run_detail_api_v3_automations__automation_id__runs__run_id__get
+  description: "Get Run Detail [GET /api/v3/automations/{automation_id}/runs/{run_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_run_detail_api_v3_automations__automation_id__runs__run_id__get
+- name: update_run_status_api_v3_automations__automation_id__runs__run_id__status_patch
+  description: "Update Run Status [PATCH /api/v3/automations/{automation_id}/runs/{run_id}/status]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_run_status_api_v3_automations__automation_id__runs__run_id__status_patch
+- name: cancel_run_api_v3_automations__automation_id__runs__run_id__cancel_post
+  description: "Cancel Run [POST /api/v3/automations/{automation_id}/runs/{run_id}/cancel]"
+  source_operation: openapi/nationgraph-openapi-original.json#cancel_run_api_v3_automations__automation_id__runs__run_id__cancel_post
+- name: get_run_results_api_v3_automations__automation_id__runs__run_id__results_get
+  description: "Get Run Results [GET /api/v3/automations/{automation_id}/runs/{run_id}/results]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_run_results_api_v3_automations__automation_id__runs__run_id__results_get
+- name: export_run_csv_api_v3_automations__automation_id__runs__run_id__export_get
+  description: "Export Run Csv [GET /api/v3/automations/{automation_id}/runs/{run_id}/export]"
+  source_operation: openapi/nationgraph-openapi-original.json#export_run_csv_api_v3_automations__automation_id__runs__run_id__export_get
+- name: get_run_contacts_api_v3_automations__automation_id__runs__run_id__contacts_get
+  description: "Get Run Contacts [GET /api/v3/automations/{automation_id}/runs/{run_id}/contacts]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_run_contacts_api_v3_automations__automation_id__runs__run_id__contacts_get
+- name: get_result_files_api_v3_automations__automation_id__runs__run_id__results__result_id__files_get
+  description: "Get Result Files [GET /api/v3/automations/{automation_id}/runs/{run_id}/results/{result_id}/files]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_result_files_api_v3_automations__automation_id__runs__run_id__results__result_id__files_get
+- name: get_grants_metadata_api_v3_grants_metadata_get
+  description: "Get Grants Metadata [GET /api/v3/grants/metadata]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_grants_metadata_api_v3_grants_metadata_get
+- name: get_grant_institutions_api_v3_grants_institutions_get
+  description: "Get Grant Institutions [GET /api/v3/grants/institutions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_grant_institutions_api_v3_grants_institutions_get
+- name: get_grant_api_v3_grants__id__get
+  description: "Get Grant [GET /api/v3/grants/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_grant_api_v3_grants__id__get
+- name: search_grants_api_v3_grants_search_post
+  description: "Search Grants [POST /api/v3/grants/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_grants_api_v3_grants_search_post
+- name: get_grant_transactions_api_v3_grants__grant_id__transactions_get
+  description: "Get Grant Transactions [GET /api/v3/grants/{grant_id}/transactions]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_grant_transactions_api_v3_grants__grant_id__transactions_get
+- name: get_territory_stats_api_v3_territories_stats_get
+  description: "Get Territory Stats [GET /api/v3/territories/stats]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_territory_stats_api_v3_territories_stats_get
+- name: list_territories_api_v3_territories_get
+  description: "List Territories [GET /api/v3/territories]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_territories_api_v3_territories_get
+- name: create_territory_api_v3_territories_post
+  description: "Create Territory [POST /api/v3/territories]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_territory_api_v3_territories_post
+- name: preview_territory_api_v3_territories_preview_post
+  description: "Preview Territory [POST /api/v3/territories/preview]"
+  source_operation: openapi/nationgraph-openapi-original.json#preview_territory_api_v3_territories_preview_post
+- name: update_territory_api_v3_territories__filter_id__put
+  description: "Update Territory [PUT /api/v3/territories/{filter_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_territory_api_v3_territories__filter_id__put
+- name: delete_territory_api_v3_territories__filter_id__delete
+  description: "Delete Territory [DELETE /api/v3/territories/{filter_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_territory_api_v3_territories__filter_id__delete
+- name: list_views_api_v3_views_get
+  description: "List Views [GET /api/v3/views]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_views_api_v3_views_get
+- name: create_view_api_v3_views_post
+  description: "Create View [POST /api/v3/views]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_view_api_v3_views_post
+- name: get_view_api_v3_views__view_id__get
+  description: "Get View [GET /api/v3/views/{view_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_view_api_v3_views__view_id__get
+- name: update_view_api_v3_views__view_id__patch
+  description: "Update View [PATCH /api/v3/views/{view_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#update_view_api_v3_views__view_id__patch
+- name: delete_view_api_v3_views__view_id__delete
+  description: "Delete View [DELETE /api/v3/views/{view_id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#delete_view_api_v3_views__view_id__delete
+- name: whoami_api_v3_dev_whoami_get
+  description: "DEV: Show caller identity + impersonation actor [GET /api/v3/dev/whoami]"
+  source_operation: openapi/nationgraph-openapi-original.json#whoami_api_v3_dev_whoami_get
+- name: ping_db_api_v3_dev_ping_db_get
+  description: "DEV: Raw DB connectivity check [GET /api/v3/dev/ping-db]"
+  source_operation: openapi/nationgraph-openapi-original.json#ping_db_api_v3_dev_ping_db_get
+- name: enqueue_contract_parser_api_v3_foia_contract_parser_post
+  description: "Enqueue Contract Parser [POST /api/v3/foia/contract_parser]"
+  source_operation: openapi/nationgraph-openapi-original.json#enqueue_contract_parser_api_v3_foia_contract_parser_post
+- name: get_institution_stats_api_v3_accounts__institution_id__stats_get
+  description: "Get Institution Stats [GET /api/v3/accounts/{institution_id}/stats]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_stats_api_v3_accounts__institution_id__stats_get
+- name: get_institution_logos_api_v3_accounts_logos_post
+  description: "Get Institution Logos [POST /api/v3/accounts/logos]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_logos_api_v3_accounts_logos_post
+- name: list_institution_signals_api_v3_accounts__institution_id__signals_get
+  description: "List Institution Signals [GET /api/v3/accounts/{institution_id}/signals]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_institution_signals_api_v3_accounts__institution_id__signals_get
+- name: list_institution_rfps_api_v3_accounts__institution_id__rfps_get
+  description: "List Institution Rfps [GET /api/v3/accounts/{institution_id}/rfps]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_institution_rfps_api_v3_accounts__institution_id__rfps_get
+- name: list_institution_grants_api_v3_accounts__institution_id__grants_get
+  description: "List Institution Grants [GET /api/v3/accounts/{institution_id}/grants]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_institution_grants_api_v3_accounts__institution_id__grants_get
+- name: list_institution_activity_api_v3_accounts__institution_id__activity_get
+  description: "List Institution Activity [GET /api/v3/accounts/{institution_id}/activity]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_institution_activity_api_v3_accounts__institution_id__activity_get
+- name: get_institution_summary_api_v3_accounts__institution_id__summary_get
+  description: "Get Institution Summary [GET /api/v3/accounts/{institution_id}/summary]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_institution_summary_api_v3_accounts__institution_id__summary_get
+- name: list_accounts_api_v3_accounts_list_post
+  description: "List Accounts [POST /api/v3/accounts/list]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_accounts_api_v3_accounts_list_post
+- name: list_hosts_api_v3_scheduling_hosts_get
+  description: "List Hosts [GET /api/v3/scheduling/hosts]"
+  source_operation: openapi/nationgraph-openapi-original.json#list_hosts_api_v3_scheduling_hosts_get
+- name: get_availability_api_v3_scheduling_availability_get
+  description: "Get Availability [GET /api/v3/scheduling/availability]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_availability_api_v3_scheduling_availability_get
+- name: create_booking_api_v3_scheduling_bookings_post
+  description: "Create Booking [POST /api/v3/scheduling/bookings]"
+  source_operation: openapi/nationgraph-openapi-original.json#create_booking_api_v3_scheduling_bookings_post
+- name: get_purchase_order_api_internal_purchase_orders__id__get
+  description: "Get Purchase Order [GET /api/internal/purchase-orders/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_purchase_order_api_internal_purchase_orders__id__get
+- name: search_purchase_orders_api_internal_purchase_orders_search_post
+  description: "Search Purchase Orders [POST /api/internal/purchase-orders/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_purchase_orders_api_internal_purchase_orders_search_post
+- name: get_rfp_api_internal_rfps__id__get
+  description: "Get Rfp [GET /api/internal/rfps/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_rfp_api_internal_rfps__id__get
+- name: search_rfps_api_internal_rfps_search_post
+  description: "Search Rfps [POST /api/internal/rfps/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_rfps_api_internal_rfps_search_post
+- name: get_grant_api_internal_grants__id__get
+  description: "Get Grant [GET /api/internal/grants/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_grant_api_internal_grants__id__get
+- name: search_grants_api_internal_grants_search_post
+  description: "Search Grants [POST /api/internal/grants/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_grants_api_internal_grants_search_post
+- name: get_contract_api_internal_contracts__id__get
+  description: "Get Contract [GET /api/internal/contracts/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_contract_api_internal_contracts__id__get
+- name: search_contracts_api_internal_contracts_search_post
+  description: "Search Contracts [POST /api/internal/contracts/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_contracts_api_internal_contracts_search_post
+- name: get_meeting_minute_chunk_api_internal_meeting_minutes_chunks__id__get
+  description: "Get Meeting Minute Chunk [GET /api/internal/meeting-minutes/chunks/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_meeting_minute_chunk_api_internal_meeting_minutes_chunks__id__get
+- name: search_meeting_minutes_api_internal_meeting_minutes_search_post
+  description: "Search Meeting Minutes [POST /api/internal/meeting-minutes/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_meeting_minutes_api_internal_meeting_minutes_search_post
+- name: get_budget_chunk_api_internal_budgets_chunks__id__get
+  description: "Get Budget Chunk [GET /api/internal/budgets/chunks/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_budget_chunk_api_internal_budgets_chunks__id__get
+- name: search_budgets_api_internal_budgets_search_post
+  description: "Search Budgets [POST /api/internal/budgets/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_budgets_api_internal_budgets_search_post
+- name: get_procurement_guideline_chunk_api_internal_procurement_guidelines_chunks__id__get
+  description: "Get Procurement Guideline Chunk [GET /api/internal/procurement-guidelines/chunks/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_procurement_guideline_chunk_api_internal_procurement_guidelines_chunks__id__get
+- name: search_procurement_guidelines_api_internal_procurement_guidelines_search_post
+  description: "Search Procurement Guidelines [POST /api/internal/procurement-guidelines/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_procurement_guidelines_api_internal_procurement_guidelines_search_post
+- name: search_press_releases_api_internal_press_releases_search_post
+  description: "Search Press Releases [POST /api/internal/press-releases/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_press_releases_api_internal_press_releases_search_post
+- name: get_press_release_chunk_api_internal_press_releases_chunks__id__get
+  description: "Get Press Release Chunk [GET /api/internal/press-releases/chunks/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_press_release_chunk_api_internal_press_releases_chunks__id__get
+- name: get_press_release_document_api_internal_press_releases_documents__id__get
+  description: "Get Press Release Document [GET /api/internal/press-releases/documents/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_press_release_document_api_internal_press_releases_documents__id__get
+- name: search_youtube_api_internal_youtube_search_post
+  description: "Search Youtube [POST /api/internal/youtube/search]"
+  source_operation: openapi/nationgraph-openapi-original.json#search_youtube_api_internal_youtube_search_post
+- name: get_youtube_chunk_api_internal_youtube_chunks__id__get
+  description: "Get Youtube Chunk [GET /api/internal/youtube/chunks/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_youtube_chunk_api_internal_youtube_chunks__id__get
+- name: get_rag_file_api_internal_rag_files__data_source___id__get
+  description: "Get Rag File [GET /api/internal/rag/files/{data_source}/{id}]"
+  source_operation: openapi/nationgraph-openapi-original.json#get_rag_file_api_internal_rag_files__data_source___id__get
+- name: read_root__get
+  description: "Read Root [GET /]"
+  source_operation: openapi/nationgraph-openapi-original.json#read_root__get
+- name: healthcheck_health_get
+  description: "Healthcheck [GET /health]"
+  source_operation: openapi/nationgraph-openapi-original.json#healthcheck_health_get

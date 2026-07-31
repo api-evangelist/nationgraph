@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+authentication:
+  style: http-bearer
+  header: 'Authorization: Bearer <token>'
+  scheme_name: HTTPBearer
+  ref: authentication/nationgraph-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v3
+  base_path: /api/v3
+  note: Public operations live under /api/v3; some internal ops under /api/internal.
+pagination:
+  style: limit-offset
+  params:
+  - limit
+  - offset
+  - page_size
+  sort_param: sort
+  note: >-
+    List endpoints accept limit/offset (and page_size on some search endpoints)
+    query parameters; a `sort` parameter controls ordering. Derived from OpenAPI
+    parameters — no cursor pagination observed.
+idempotency:
+  supported: false
+  note: No Idempotency-Key header or idempotency contract is documented in the spec.
+request_tracing:
+  request_id_header: null
+  note: No documented X-Request-Id / correlation header in the spec.
+rate_limiting:
+  documented: false
+  note: No RateLimit headers documented in the spec.
+error_envelope:
+  field: detail
+  format: fastapi
+  ref: errors/nationgraph-problem-types.yml
+content_type: application/json
+cross_links:
+  authentication: authentication/nationgraph-authentication.yml
+  errors: errors/nationgraph-problem-types.yml
+  lifecycle: lifecycle/nationgraph-lifecycle.yml

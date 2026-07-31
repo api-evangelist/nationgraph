@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v3
+  spec_version: '0.2.36'
+  docs: https://api.nationgraph.com/docs
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No deprecation policy or Sunset/Deprecation header support documented.
+sla:
+  url: null
+status_page: null
+trust_center: https://app.vanta.com/nationgraph.com/trust/9g8d6olm0ikvy23x0vsdup
+deprecated_operations: []
+note: >-
+  Interactive API reference (Swagger UI) served at https://api.nationgraph.com/docs;
+  machine-readable spec at https://api.nationgraph.com/openapi.json (version 0.2.36).

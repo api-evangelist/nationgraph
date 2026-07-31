@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+format: fastapi
+note: >-
+  NationGraph runs a FastAPI service. Client errors use FastAPI's default JSON
+  envelope: a top-level `detail` field. Validation failures (422) return
+  `detail[]` arrays of ValidationError objects (loc / msg / type). This is not
+  RFC 9457 problem+json. Derived from the OpenAPI responses; titles/remediation
+  are inferred from standard FastAPI + HTTP Bearer semantics.
+envelope:
+  field: detail
+  validation_schema: HTTPValidationError
+problems:
+- status: 401
+  title: Unauthenticated
+  detail: Missing or invalid Bearer token.
+  remediation: 'Send a valid `Authorization: Bearer <token>` header.'
+  derived: HTTPBearer security scheme (not enumerated per-op in spec)
+- status: 403
+  title: Forbidden
+  detail: The authenticated principal lacks access to the resource or workspace.
+  remediation: Confirm the token's workspace/org scope.
+- status: 404
+  title: Not Found
+  detail: The referenced entity (signal, institution, list, automation, ...) does not exist.
+  remediation: Verify the path id.
+- status: 422
+  title: Unprocessable Entity (validation error)
+  detail: Request failed schema validation; see `detail[].loc` and `detail[].msg`.
+  schema: HTTPValidationError
+  remediation: Fix the fields named in each ValidationError `loc`.
+  occurrences_in_spec: 233

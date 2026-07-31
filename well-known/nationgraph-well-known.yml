@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: searched
+host: https://nationgraph.com
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+note: >-
+  Probed nationgraph.com well-known discovery surface on 2026-07-20; none present.
+  A first-party llms.txt IS published at https://nationgraph.com/llms.txt (text/plain).

@@ -1,0 +1,206 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+note: >-
+  Entity-relationship graph derived from OpenAPI component schemas ($ref arrays
+  => has_many; *_id fields matching a schema => belongs_to). Heuristic; not an
+  authoritative provider data dictionary.
+schema_count: 334
+entities:
+- entity: AccountListItem
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: contacts, kind: has_many, target: AccountContactPreview}
+  - {field: territories, kind: has_many, target: AccountTerritoryResponse}
+  - {field: crms, kind: has_many, target: AccountCRMResponse}
+- entity: CallScriptPromptRequest
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: insights, kind: has_many, target: Insights}
+  - {field: workspace_id, kind: belongs_to, target: Workspace}
+- entity: VendorContractEnrichmentConfig
+  relationships:
+  - {field: filters, kind: has_many, target: UserProfileInstitutionFilter}
+  - {field: vendors, kind: has_many, target: VendorWithProducts}
+  - {field: workspace_id, kind: belongs_to, target: Workspace}
+- entity: AutomationResultResponse
+  relationships:
+  - {field: linked_providers, kind: has_many, target: CRMType}
+  - {field: signals, kind: has_many, target: EnrichedSignal}
+- entity: ContactRow
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: linked_providers, kind: has_many, target: CRMType}
+- entity: DeepResearchConfig
+  relationships:
+  - {field: filters, kind: has_many, target: UserProfileInstitutionFilter}
+  - {field: queries, kind: has_many, target: DeepResearchQuery}
+- entity: EmailPromptRequest
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: context, kind: has_many, target: EmailContextItem}
+- entity: EnrichmentResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: workspace_id, kind: belongs_to, target: Workspace}
+- entity: EnrichmentWithInstitution
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: workspace_id, kind: belongs_to, target: Workspace}
+- entity: GrantDetailResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+  - {field: transactions, kind: has_many, target: GrantTransactionResponse}
+- entity: OutreachSequenceFilters
+  relationships:
+  - {field: territories, kind: has_many, target: UserProfileInstitutionFilter}
+  - {field: data_sources, kind: has_many, target: SignalSourceType}
+- entity: RFPResponse
+  relationships:
+  - {field: rfp_id, kind: belongs_to, target: RFPs}
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: UserIntegrationsGroupedResponse
+  relationships:
+  - {field: personal, kind: has_many, target: IntegrationResponse}
+  - {field: organization, kind: has_many, target: OrganizationIntegrationGroup}
+- entity: AccountListResponse
+  relationships:
+  - {field: items, kind: has_many, target: AccountListItem}
+- entity: AdvancedFilterGroupRequest
+  relationships:
+  - {field: filters, kind: has_many, target: AdvancedFilterRequest}
+- entity: AllEnrichmentsResponse
+  relationships:
+  - {field: data, kind: has_many, target: EnrichmentWithInstitution}
+- entity: AutomationStats
+  relationships:
+  - {field: items, kind: has_many, target: AutomationStatItem}
+- entity: BudgetChunkResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: ClassifyRequest
+  relationships:
+  - {field: rows, kind: has_many, target: ClassifyRow}
+- entity: CompanyListResponse
+  relationships:
+  - {field: results, kind: has_many, target: CompanyResponse}
+- entity: CompanySearchResponse
+  relationships:
+  - {field: results, kind: has_many, target: CompanyResponse}
+- entity: ContactListResponse
+  relationships:
+  - {field: results, kind: has_many, target: app__routes__v3__crm_contacts__ContactResponse}
+- entity: ContactPushSelector
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: ContactSearchCriteria
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: ContactSearchResponse
+  relationships:
+  - {field: results, kind: has_many, target: app__routes__v3__crm_contacts__ContactResponse}
+- entity: ContactsExportConfig
+  relationships:
+  - {field: filters, kind: has_many, target: UserProfileInstitutionFilter}
+- entity: ContractResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: CreateEnrichmentsResponse
+  relationships:
+  - {field: data, kind: has_many, target: EnrichmentResponse}
+- entity: CreateTagsRequest
+  relationships:
+  - {field: tags, kind: has_many, target: TagItem}
+- entity: CustomObjectSchemaSpecResponse
+  relationships:
+  - {field: fields, kind: has_many, target: CustomObjectFieldSpec}
+- entity: EnrichedSignal
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: EnrichmentInstitutionMetadata
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: EnrichmentRequest
+  relationships:
+  - {field: workspace_id, kind: belongs_to, target: Workspace}
+- entity: GrantResponse-Input
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: GrantTransactionResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: GrantsExportRequest
+  relationships:
+  - {field: grants, kind: has_many, target: GrantResponse-Input}
+- entity: HTTPValidationError
+  relationships:
+  - {field: detail, kind: has_many, target: ValidationError}
+- entity: HostsResponse
+  relationships:
+  - {field: hosts, kind: has_many, target: HostSummary}
+- entity: InstitutionContactsResponse
+  relationships:
+  - {field: contacts, kind: has_many, target: CRMContactResponse}
+- entity: InstitutionCountRequest
+  relationships:
+  - {field: institution_filters, kind: has_many, target: UserProfileInstitutionFilter}
+- entity: InstitutionCountsRequest
+  relationships:
+  - {field: filters, kind: has_many, target: InstitutionFilter}
+- entity: InstitutionStatsResponse
+  relationships:
+  - {field: linked_providers, kind: has_many, target: CRMType}
+- entity: LeadListAPIResponse
+  relationships:
+  - {field: results, kind: has_many, target: LeadResponse}
+- entity: LinkingHistoryItem
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: MappingListResponse
+  relationships:
+  - {field: results, kind: has_many, target: MappingResponse}
+- entity: MappingResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: MeetingMinuteChunkResponse
+  relationships:
+  - {field: institution_id, kind: belongs_to, target: Institution}
+- entity: OrganizationIntegrationGroup
+  relationships:
+  - {field: integrations, kind: has_many, target: ProviderIntegration}
+- entity: OwnerListResponse
+  relationships:
+  - {field: results, kind: has_many, target: OwnerResponse}
+- entity: OwnerResponse
+  relationships:
+  - {field: teams, kind: has_many, target: TeamResponse}
+- entity: PaginatedResponse_AccountActivityItem_
+  relationships:
+  - {field: results, kind: has_many, target: AccountActivityItem}
+- entity: PaginatedResponse_AccountGrantItem_
+  relationships:
+  - {field: results, kind: has_many, target: AccountGrantItem}
+- entity: PaginatedResponse_AccountRFPItem_
+  relationships:
+  - {field: results, kind: has_many, target: AccountRFPItem}
+- entity: PaginatedResponse_AutomationResultResponse_
+  relationships:
+  - {field: results, kind: has_many, target: AutomationResultResponse}
+- entity: PaginatedResponse_BudgetChunkResponse_
+  relationships:
+  - {field: results, kind: has_many, target: BudgetChunkResponse}
+- entity: PaginatedResponse_ContactRow_
+  relationships:
+  - {field: results, kind: has_many, target: ContactRow}
+- entity: PaginatedResponse_ContractResponse_
+  relationships:
+  - {field: results, kind: has_many, target: ContractResponse}
+- entity: PaginatedResponse_EnrichedSignal_
+  relationships:
+  - {field: results, kind: has_many, target: EnrichedSignal}
+- entity: PaginatedResponse_GrantDetailResponse_
+  relationships:
+  - {field: results, kind: has_many, target: GrantDetailResponse}
+- entity: PaginatedResponse_GrantResponse_
+  relationships:
+  - {field: results, kind: has_many, target: app__internal__types__grant__GrantResponse}

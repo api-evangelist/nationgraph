@@ -1,0 +1,14 @@
+generated: '2026-07-20'
+method: searched
+source: https://nationgraph.com
+url: https://app.vanta.com/nationgraph.com/trust/9g8d6olm0ikvy23x0vsdup
+platform: Vanta
+certifications: []
+notes: >-
+  NationGraph publishes a Vanta-hosted Trust Center, linked from the site footer.
+  The page is a client-rendered SPA, so specific named certifications could not be
+  verified verbatim in this pass; the trust center URL itself is confirmed real and
+  first-party. Re-run to enumerate certifications if Vanta exposes a static/API view.
+evidence:
+  - source: https://nationgraph.com
+    keywords: [trust center, vanta]

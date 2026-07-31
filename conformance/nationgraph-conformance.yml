@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nationgraph-openapi-original.json
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi field is 3.1.0
+- id: http-bearer-auth
+  conforms: true
+  evidence: components.securitySchemes.HTTPBearer type http scheme bearer
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 security scheme declared
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use FastAPI `detail` envelope, not application/problem+json
+- id: json-api
+  conforms: false
+- id: pagination
+  conforms: true
+  evidence: limit/offset/page_size + sort query parameters on list endpoints
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key contract documented

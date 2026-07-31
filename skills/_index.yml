@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/nationgraph-openapi-original.json
+skills:
+- file: nationgraph-find-buying-signals.md
+  name: Find government buying signals and save them to a list
+  api: openapi/nationgraph-openapi-original.json
+  operations:
+  - search_signals_api_v3_signals_search_post
+  - get_signal_api_v3_signals__signal_id__get
+  - get_signal_data_sources_api_v3_signals__signal_id__sources_get
+  - get_lists_api_v3_lists_get
+  - create_list_api_v3_lists_post
+  - add_signal_to_list_api_v3_lists__list_id__signals__signal_id__post
+- file: nationgraph-find-contacts.md
+  name: Find verified government decision-maker contacts
+  api: openapi/nationgraph-openapi-original.json
+  operations:
+  - search_contacts_api_v3_contacts_search_post
+  - get_contacts_api_v3_contacts_get

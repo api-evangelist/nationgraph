@@ -1,0 +1,31 @@
+# NationGraph
+
+> NationGraph makes the public sector legible and accessible to businesses. We index ~110,000 government institutions and ~4 million government webpages to surface predictive buying intelligence for sales teams selling to state, local, and education (SLED) government.
+
+## Products
+
+- [Signals](https://nationgraph.com/signals): Predictive intelligence on government purchasing decisions. Cross-references council meetings, budgets, purchase orders, contracts, capital improvement plans, and active RFPs to surface real buying triggers.
+- [Contacts](https://nationgraph.com/contacts): AI-powered search that matches government decision-makers by role, with verified emails and direct phone numbers.
+- [Public Record Automations](https://nationgraph.com/automations): Unlocks hard-to-access government documents at scale. Handles FOIA requests, extraction, and structured delivery into existing sales tools.
+- [Automations](https://nationgraph.com/automations): Turn signals and public-sector data into repeatable workflows — ranked institution lists, competitor contract research via FOIA, and CRM syncs.
+
+## Company
+
+- Founded: 2024
+- HQ: Miami, with offices in Toronto and San Francisco
+- Founders: Kimia Hamidi (CEO) and Eden Ding (CTO)
+- Funding: $22.5M raised. Seed led by XYZ Venture Capital. Series A led by Menlo Ventures with participation from Perplexity's Fund.
+- Customers include Ramp, Kärcher, InformedK12, and others.
+
+## Resources
+
+- [Help Center](https://nationgraph.gitbook.io/nationgraph/help-center/): Product documentation and guides
+- [Blog](https://nationgraph.com/blog): Industry insights, product updates, and government data analysis
+- [Glossary](https://nationgraph.com/glossary): 70+ government and procurement terms defined
+
+## Key Stats
+
+- 60x faster account research (4 hrs to 4 min)
+- 230% average increase in pipeline coverage
+- 3-5x higher win rate on RFPs
+- Replaces 20+ hrs/month of manual government research
