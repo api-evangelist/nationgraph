@@ -34,7 +34,7 @@ x-tier: profiled
 x-tier-reason: live-api-discovered
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-14'
 tags:
 - Company
 - Sales Intelligence
@@ -50,786 +50,674 @@ apis:
 - aid: nationgraph:nationgraph-accounts-api
   name: NationGraph Accounts API
   description: The Accounts API from NationGraph — 8 operation(s) for accounts.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Accounts
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-accounts-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-automations-api
   name: NationGraph Automations API
   description: The Automations API from NationGraph — 12 operation(s) for automations.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Automations
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-automations-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-budgets-api
   name: NationGraph Budgets API
   description: The Budgets API from NationGraph — 2 operation(s) for budgets.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Budgets
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-budgets-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-classifier-api
   name: NationGraph Classifier API
   description: The Classifier API from NationGraph — 1 operation(s) for classifier.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Classifier
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-classifier-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-classifiers-api
   name: NationGraph Classifiers API
   description: The Classifiers API from NationGraph — 1 operation(s) for classifiers.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Classifiers
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-classifiers-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-contacts-api
   name: NationGraph Contacts API
   description: The Contacts API from NationGraph — 2 operation(s) for contacts.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Contacts
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-contacts-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-contracts-api
   name: NationGraph Contracts API
   description: The Contracts API from NationGraph — 2 operation(s) for contracts.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Contracts
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-contracts-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-api
   name: NationGraph CRM API
   description: The CRM API from NationGraph — 14 operation(s) for crm.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-automation-push-api
   name: NationGraph CRM Automation Push API
   description: The CRM Automation Push API from NationGraph — 12 operation(s) for crm automation push.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Automation Push
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-automation-push-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-companies-api
   name: NationGraph CRM Companies API
   description: The CRM Companies API from NationGraph — 7 operation(s) for crm companies.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Companies
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-companies-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-contacts-api
   name: NationGraph CRM Contacts API
   description: The CRM Contacts API from NationGraph — 8 operation(s) for crm contacts.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Contacts
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-contacts-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-history-api
   name: NationGraph CRM History API
   description: The CRM History API from NationGraph — 1 operation(s) for crm history.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM History
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-history-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-leads-api
   name: NationGraph CRM Leads API
   description: The CRM Leads API from NationGraph — 4 operation(s) for crm leads.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Leads
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-leads-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-mappings-api
   name: NationGraph CRM Mappings API
   description: The CRM Mappings API from NationGraph — 4 operation(s) for crm mappings.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Mappings
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-mappings-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-crm-owners-api
   name: NationGraph CRM Owners API
   description: The CRM Owners API from NationGraph — 2 operation(s) for crm owners.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - CRM Owners
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-crm-owners-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-default-api
   name: NationGraph Default API
   description: The Default API from NationGraph — 2 operation(s) for default.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Default
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-default-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-dev-api
   name: NationGraph Dev API
   description: The Dev API from NationGraph — 2 operation(s) for dev.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Dev
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-dev-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-document-api
   name: NationGraph Document API
   description: The Document API from NationGraph — 1 operation(s) for document.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Document
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-document-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-email-sequences-api
   name: NationGraph Email Sequences API
   description: The Email Sequences API from NationGraph — 2 operation(s) for email sequences.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Email Sequences
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-email-sequences-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-email-templates-api
   name: NationGraph Email Templates API
   description: The Email Templates API from NationGraph — 2 operation(s) for email templates.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Email Templates
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-email-templates-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-enrichments-api
   name: NationGraph Enrichments API
   description: The Enrichments API from NationGraph — 2 operation(s) for enrichments.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Enrichments
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-enrichments-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-export-api
   name: NationGraph Export API
   description: The Export API from NationGraph — 6 operation(s) for export.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Export
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-export-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-foia-api
   name: NationGraph FOIA API
   description: The FOIA API from NationGraph — 1 operation(s) for foia.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - FOIA
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-foia-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-grants-api
   name: NationGraph Grants API
   description: The Grants API from NationGraph — 7 operation(s) for grants.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Grants
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-grants-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-insights-api
   name: NationGraph Insights API
   description: The Insights API from NationGraph — 1 operation(s) for insights.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Insights
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-insights-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-institutions-api
   name: NationGraph Institutions API
   description: The Institutions API from NationGraph — 6 operation(s) for institutions.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Institutions
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-institutions-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-integrations-api
   name: NationGraph Integrations API
   description: The Integrations API from NationGraph — 5 operation(s) for integrations.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Integrations
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-integrations-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-intent-api
   name: NationGraph Intent API
   description: The Intent API from NationGraph — 2 operation(s) for intent.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Intent
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-intent-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-lists-api
   name: NationGraph Lists API
   description: The Lists API from NationGraph — 4 operation(s) for lists.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Lists
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-lists-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-meeting-minutes-api
   name: NationGraph Meeting Minutes API
   description: The Meeting Minutes API from NationGraph — 2 operation(s) for meeting minutes.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Meeting Minutes
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-meeting-minutes-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-metadata-api
   name: NationGraph Metadata API
   description: The Metadata API from NationGraph — 1 operation(s) for metadata.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Metadata
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-metadata-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-notes-api
   name: NationGraph Notes API
   description: The Notes API from NationGraph — 3 operation(s) for notes.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Notes
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-notes-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-org-admin-api
   name: NationGraph Org Admin API
   description: The Org Admin API from NationGraph — 2 operation(s) for org admin.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Org Admin
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-org-admin-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-organization-api
   name: NationGraph Organization API
   description: The Organization API from NationGraph — 1 operation(s) for organization.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Organization
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-organization-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-press-releases-api
   name: NationGraph Press Releases API
   description: The Press Releases API from NationGraph — 3 operation(s) for press releases.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Press Releases
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-press-releases-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-procurement-guidelines-api
   name: NationGraph Procurement Guidelines API
   description: >-
     The Procurement Guidelines API from NationGraph — 2 operation(s) for procurement guidelines.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Procurement Guidelines
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-procurement-guidelines-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-purchase-orders-api
   name: NationGraph Purchase Orders API
   description: The Purchase Orders API from NationGraph — 2 operation(s) for purchase orders.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Purchase Orders
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-purchase-orders-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-queue-api
   name: NationGraph Queue API
   description: The Queue API from NationGraph — 1 operation(s) for queue.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Queue
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-queue-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-rag-api
   name: NationGraph RAG API
   description: The RAG API from NationGraph — 3 operation(s) for rag.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - RAG
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-rag-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-rag-files-api
   name: NationGraph RAG Files API
   description: The RAG Files API from NationGraph — 1 operation(s) for rag files.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - RAG Files
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-rag-files-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-rfps-api
   name: NationGraph RFPs API
   description: The RFPs API from NationGraph — 5 operation(s) for rfps.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - RFPs
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-rfps-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-scheduling-api
   name: NationGraph Scheduling API
   description: The Scheduling API from NationGraph — 3 operation(s) for scheduling.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Scheduling
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-scheduling-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-signal-settings-api
   name: NationGraph Signal Settings API
   description: The Signal Settings API from NationGraph — 5 operation(s) for signal settings.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Signal Settings
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-signal-settings-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-signals-api
   name: NationGraph Signals API
   description: The Signals API from NationGraph — 11 operation(s) for signals.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Signals
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-signals-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-smart-columns-api
   name: NationGraph Smart Columns API
   description: The Smart Columns API from NationGraph — 8 operation(s) for smart columns.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Smart Columns
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-smart-columns-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-subscription-api
   name: NationGraph Subscription API
   description: The Subscription API from NationGraph — 2 operation(s) for subscription.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Subscription
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-subscription-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-summary-api
   name: NationGraph Summary API
   description: The Summary API from NationGraph — 4 operation(s) for summary.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Summary
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-summary-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-tags-api
   name: NationGraph Tags API
   description: The Tags API from NationGraph — 4 operation(s) for tags.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Tags
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-tags-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-territories-api
   name: NationGraph Territories API
   description: The Territories API from NationGraph — 4 operation(s) for territories.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Territories
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-territories-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-user-api
   name: NationGraph User API
   description: The User API from NationGraph — 7 operation(s) for user.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - User
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-user-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-user-profile-api
   name: NationGraph User Profile API
   description: The User Profile API from NationGraph — 3 operation(s) for user profile.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - User Profile
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-user-profile-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-vendorproducts-api
   name: NationGraph VendorProducts API
   description: The VendorProducts API from NationGraph — 1 operation(s) for vendorproducts.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - VendorProducts
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-vendorproducts-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-views-api
   name: NationGraph Views API
   description: The Views API from NationGraph — 2 operation(s) for views.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Views
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-views-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-webhooks-api
   name: NationGraph Webhooks API
   description: The Webhooks API from NationGraph — 1 operation(s) for webhooks.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Webhooks
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-webhooks-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-workspaces-api
   name: NationGraph Workspaces API
   description: The Workspaces API from NationGraph — 6 operation(s) for workspaces.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - Workspaces
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-workspaces-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-youtube-api
   name: NationGraph YouTube API
   description: The YouTube API from NationGraph — 2 operation(s) for youtube.
-  humanURL: https://api.nationgraph.com/docs
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
   - YouTube
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-youtube-api-openapi.yml
-  - type: APIReference
-    url: https://api.nationgraph.com/docs
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 maintainers:
@@ -862,8 +750,6 @@ common:
   url: llms/nationgraph-llms.txt
 - type: DomainSecurity
   url: security/nationgraph-domain-security.yml
-- type: APIReference
-  url: https://api.nationgraph.com/docs
 - type: GitHubOrganization
   url: https://github.com/nationgraph
 - type: MCPServer
@@ -884,8 +770,16 @@ common:
   url: well-known/nationgraph-well-known.yml
 - type: AgentSkill
   url: skills/_index.yml
+- type: OAuthScopes
+  url: scopes/nationgraph-scopes.yml
+- type: Packages
+  url: packages/nationgraph-packages.yml
+- type: Plans
+  url: plans/nationgraph-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/nationgraph-rate-limits.yml
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-14'
   status: enriched
-  artifacts_added: 12
+  artifacts_added: 7
   pass: local-v1
