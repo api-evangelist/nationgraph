@@ -1,0 +1,839 @@
+{
+  "item": [
+    {
+      "id": "85f5d8a5-5bc6-4a96-a288-e7e464fb5b04",
+      "name": "RFPs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a114cd52-39f8-4669-9ee4-7f0e6bdc1652",
+          "name": "Search Rfps",
+          "request": {
+            "name": "Search Rfps",
+            "description": {
+              "content": "Search for RFPs with extensive filtering on both RFP and institution fields.\n\nPerforms efficient database-level JOIN between RFPs and Institutions.\nAll filters are passed in the request body.\n\n**Text Search:**\n- include_words: Keywords to search in title/description\n- exclude_words: Keywords to exclude from results\n- keyword_logic: \"AND\" (all words match) or \"OR\" (any word matches)\n\n**RFP Status & Dates:**\n- status: \"active\", \"expired\", or \"no_due_date\"\n- start_date/end_date: Filter by due date range\n- min_days_remaining/max_days_remaining: Filter by days until due\n\n**Institution Filters:**\n- institution_name: Partial match on institution name\n- selected_states: Filter by state codes (e.g., [\"CA\", \"TX\"])\n- selected_counties: Filter by county names\n- selected_cities: Filter by cities (format: \"state-city\")\n- selected_institution_types: Filter by type (e.g., \"higher_education\")\n- selected_labels: Filter by institution labels\n- min_population/max_population: Filter by population range\n\n**Pagination:**\n- offset: Starting position (default: 0)\n- limit: Results per page (default: 100, max: 10000)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rfps",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"include_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword_logic\": \"<string>\",\n  \"status\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"min_days_remaining\": \"<integer>\",\n  \"max_days_remaining\": \"<integer>\",\n  \"institution_name\": \"<string>\",\n  \"institutions_include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_counties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_institution_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_population\": \"<integer>\",\n  \"max_population\": \"<integer>\",\n  \"sort_by\": \"<string>\",\n  \"sort_order\": \"<string>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "643fd392-4926-4d17-8d23-b1690151dedc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"include_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword_logic\": \"<string>\",\n  \"status\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"min_days_remaining\": \"<integer>\",\n  \"max_days_remaining\": \"<integer>\",\n  \"institution_name\": \"<string>\",\n  \"institutions_include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_counties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_institution_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_population\": \"<integer>\",\n  \"max_population\": \"<integer>\",\n  \"sort_by\": \"<string>\",\n  \"sort_order\": \"<string>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rfps\": [\n    {\n      \"id\": 8919,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 6510,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 6251.212443521888,\n      \"longitude\": 4774.391732678399,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 8051.227325339189,\n      \"entity_understanding\": \"string\",\n      \"is_active\": false,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 9981.878944492086,\n      \"relevance_score\": 3077.8376264562858,\n      \"decay_score\": 3601.090121183881\n    },\n    {\n      \"id\": 9177,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 2084,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 1624.905963244856,\n      \"longitude\": 3977.6930175477555,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 5270.978414681154,\n      \"entity_understanding\": \"string\",\n      \"is_active\": true,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 6091.901940623161,\n      \"relevance_score\": 3405.703445022826,\n      \"decay_score\": 5793.43079572724\n    }\n  ],\n  \"total_count\": 2610\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf416ce3-d2d7-486b-8082-9eeffe5f3857",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"include_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_words\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword_logic\": \"<string>\",\n  \"status\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"min_days_remaining\": \"<integer>\",\n  \"max_days_remaining\": \"<integer>\",\n  \"institution_name\": \"<string>\",\n  \"institutions_include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_counties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_institution_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"selected_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_population\": \"<integer>\",\n  \"max_population\": \"<integer>\",\n  \"sort_by\": \"<string>\",\n  \"sort_order\": \"<string>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "930896f0-93df-4310-a670-ff537c06f1e1",
+          "name": "Get Rfp Institutions",
+          "request": {
+            "name": "Get Rfp Institutions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rfps",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d580c9a8-f066-4411-8161-9236bd30d0b5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"institutions\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6f45639-a39c-4842-8ec3-471a41de6e43",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e28f824-c8b8-4b0a-8c82-d17af31663f7",
+          "name": "Get Rfps By Entity",
+          "request": {
+            "name": "Get Rfps By Entity",
+            "description": {
+              "content": "Get RFPs for a specific entity (unique_id).\nReturns all RFPs associated with the given unique_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rfps",
+                ":unique_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "unique_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e351b30-7d00-47d2-9bc0-7a63afb21851",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    ":unique_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "unique_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf5ad5a0-3cce-4a47-a7bb-c78bebcbcee2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rfps",
+                    ":unique_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "unique_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e353b294-ff94-4ffe-a537-28ba57bddbd3",
+          "name": "Get Rfp",
+          "request": {
+            "name": "Get Rfp",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "rfps",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ebc0a5bd-b20e-48bd-b168-973c1b7d5c47",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "rfps",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1881,\n  \"rfp_id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"agency\": \"string\",\n  \"due_date\": \"2012-04-25\",\n  \"rfp_url\": \"string\",\n  \"source_url\": \"string\",\n  \"created_at\": \"1971-08-08T08:19:56.111Z\",\n  \"updated_at\": \"1994-03-25T17:21:51.835Z\",\n  \"institution_id\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"status\": \"active\",\n  \"days_until_due\": 1010,\n  \"relevance\": 6473.307231197149\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c55246c-7c22-4a7f-99e0-f9d2c6f5aa85",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "rfps",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "467a089e-ba2a-487c-a7d2-bcc1fdd63177",
+          "name": "Search Rfps",
+          "request": {
+            "name": "Search Rfps",
+            "description": {
+              "content": "Search RFPs.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe RFP search vector (title + description, english config, stemming on).\nSee RFPSearchFilters docstring for syntax.\n\nAll filters are optional. Empty body returns paginated RFPs sorted by the\ndefault order (``due_date_asc``). At ~2.4M rows the RFP table is small\nenough that fully unbounded queries are fine; this differs from the PO\nendpoint, which requires at least one bounding filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "rfps",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"status\": \"<string>\",\n  \"due_after\": \"<date>\",\n  \"due_before\": \"<date>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"due_date_asc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34c2f863-8fdb-4459-9361-501217971d2d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "rfps",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"status\": \"expired\",\n  \"due_after\": \"<date>\",\n  \"due_before\": \"<date>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"due_date_asc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 6176,\n      \"rfp_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"1994-06-17\",\n      \"rfp_url\": \"string\",\n      \"source_url\": \"string\",\n      \"created_at\": \"2024-02-05T13:59:44.740Z\",\n      \"updated_at\": \"2005-05-11T03:32:47.786Z\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"status\": \"active\",\n      \"days_until_due\": 3383,\n      \"relevance\": 8649.121911675498\n    },\n    {\n      \"id\": 6540,\n      \"rfp_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"1987-03-05\",\n      \"rfp_url\": \"string\",\n      \"source_url\": \"string\",\n      \"created_at\": \"1957-06-04T04:37:49.646Z\",\n      \"updated_at\": \"1974-08-05T02:26:29.336Z\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"status\": \"expired\",\n      \"days_until_due\": 3164,\n      \"relevance\": 4328.606065986906\n    }\n  ],\n  \"total\": 2530,\n  \"offset\": 4290,\n  \"limit\": 6919\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd1e5a52-f08c-4ebc-ab63-6375554eecb2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "rfps",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"status\": \"expired\",\n  \"due_after\": \"<date>\",\n  \"due_before\": \"<date>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"due_date_asc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "903abf47-98a7-4fb5-8d2f-bf17fa57173f",
+    "name": "Nationgraph Accounts RFPs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

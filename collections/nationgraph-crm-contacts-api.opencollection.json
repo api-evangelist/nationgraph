@@ -1,0 +1,412 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Contacts API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a paginated list of contacts from the CRM."
+        },
+        {
+          "info": {
+            "name": "Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new contact in the CRM."
+        },
+        {
+          "info": {
+            "name": "Search Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/search",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Text search across searchable properties"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by email"
+              },
+              {
+                "name": "firstname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by first name"
+              },
+              {
+                "name": "lastname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last name"
+              },
+              {
+                "name": "phone",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phone"
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Filter by company name"
+              },
+              {
+                "name": "jobtitle",
+                "value": "",
+                "type": "query",
+                "description": "Filter by job title"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "Filter by city"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter by country"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by CRM owner ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for contacts using various filters."
+        },
+        {
+          "info": {
+            "name": "Get Contact Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/properties",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all available contact properties in the CRM."
+        },
+        {
+          "info": {
+            "name": "Get Contact by Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/by-email/:email",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The contact's email address"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              },
+              {
+                "name": "associations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated associated objects to include (e.g., companies,deals)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single contact by their email address."
+        },
+        {
+          "info": {
+            "name": "Get Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/:contact_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM contact ID"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              },
+              {
+                "name": "associations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated associated objects to include (e.g., companies,deals)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single contact by its CRM ID."
+        },
+        {
+          "info": {
+            "name": "Update Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/:contact_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM contact ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing contact in the CRM."
+        },
+        {
+          "info": {
+            "name": "Batch Get Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/batch/read",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get multiple contacts by their IDs or emails."
+        },
+        {
+          "info": {
+            "name": "Batch Create Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/batch/create",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create multiple contacts in a single request."
+        },
+        {
+          "info": {
+            "name": "Batch Update Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/contacts/batch/update",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update multiple contacts in a single request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

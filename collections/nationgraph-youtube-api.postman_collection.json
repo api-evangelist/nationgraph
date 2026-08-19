@@ -1,0 +1,361 @@
+{
+  "item": [
+    {
+      "id": "658cee6c-e0b7-4676-9e96-4a1afcb4b785",
+      "name": "YouTube",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "20e9bc29-5c60-4c40-9e08-72c6f85ded99",
+          "name": "Search Youtube",
+          "request": {
+            "name": "Search Youtube",
+            "description": {
+              "content": "Search YouTube caption chunks.\n\nInstitution linkage is dual-route — chunks are matched if EITHER the\nvideo's channel is mapped to the institution (via youtube_links) OR the\nvideo itself carries a per-video tag (raw.video_institution_unique_id).\nResults from both routes are unioned and deduped, preferring the\nper-video tag when both routes match the same chunk.\n\nThe ``query`` field uses ``websearch_to_tsquery('english', ...)`` —\nwebsearch syntax (quoted phrases, OR, leading - to exclude). For tight\nphrase matching, quote the phrase. Cover-density ranking (ts_rank_cd)\nalready favors chunks where query terms appear close together.\n\nAt least one of ``institution_ids`` or ``query`` is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "youtube",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0780bce9-b8ef-47f4-a4bb-f778f248eba9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "youtube",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"chunk_id\": 2539,\n      \"document_id\": 9888,\n      \"text\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"video_title\": \"string\",\n      \"video_url\": \"string\",\n      \"youtube_id\": \"string\",\n      \"channel_name\": \"string\",\n      \"video_date\": \"1957-08-07T14:58:42.144Z\",\n      \"video_published_at\": \"1983-02-28T13:06:16.723Z\",\n      \"video_start_timestamp\": \"string\",\n      \"video_end_timestamp\": \"string\",\n      \"relevance\": 7424.5589970149895,\n      \"other_matching_chunks_in_document\": 8172\n    },\n    {\n      \"chunk_id\": 3643,\n      \"document_id\": 3344,\n      \"text\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"video_title\": \"string\",\n      \"video_url\": \"string\",\n      \"youtube_id\": \"string\",\n      \"channel_name\": \"string\",\n      \"video_date\": \"2003-01-01T07:48:21.074Z\",\n      \"video_published_at\": \"1972-12-13T09:57:46.055Z\",\n      \"video_start_timestamp\": \"string\",\n      \"video_end_timestamp\": \"string\",\n      \"relevance\": 9973.697776930656,\n      \"other_matching_chunks_in_document\": 849\n    }\n  ],\n  \"total\": 1070,\n  \"offset\": 2239,\n  \"limit\": 653\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "927c6772-fd07-4c0f-a98b-e071e15338a6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "youtube",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db3d2794-6fda-4cbf-9e6f-817760ac4a0a",
+          "name": "Get Youtube Chunk",
+          "request": {
+            "name": "Get Youtube Chunk",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "youtube",
+                "chunks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c17ec666-f3ab-4383-abb9-3e734697c79f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "youtube",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chunk_id\": 4812,\n  \"document_id\": 268,\n  \"text\": \"string\",\n  \"institution_id\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"video_title\": \"string\",\n  \"video_url\": \"string\",\n  \"youtube_id\": \"string\",\n  \"channel_name\": \"string\",\n  \"video_date\": \"1970-02-13T16:58:35.843Z\",\n  \"video_published_at\": \"1951-07-04T10:21:34.861Z\",\n  \"video_start_timestamp\": \"string\",\n  \"video_end_timestamp\": \"string\",\n  \"relevance\": 427.4393908260465,\n  \"other_matching_chunks_in_document\": 500\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "084d110c-9a8b-473c-8bb8-a41ba13c47bc",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "youtube",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a312420d-1561-4a9d-a9d8-9657b79bc6ee",
+    "name": "Nationgraph Accounts YouTube API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

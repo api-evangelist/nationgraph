@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts RFPs API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RFPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Rfps",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/rfps/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for RFPs with extensive filtering on both RFP and institution fields.\n\nPerforms efficient database-level JOIN between RFPs and Institutions.\nAll filters are passed in the request body.\n\n**Text Search:**\n- include_words: Keywords to search in title/description\n- exclude_words: Keywords to exclude from results\n- keyword_logic: \"AND\" (all words match) or \"OR\" (any word matches)\n\n**RFP Status & Dates:**\n- status: \"active\", \"expired\", or \"no_due_date\"\n- start_date/end_date: Filter by due date "
+        },
+        {
+          "info": {
+            "name": "Get Rfp Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/rfps/institutions",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Rfp Institutions"
+        },
+        {
+          "info": {
+            "name": "Get Rfps By Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/rfps/:unique_id",
+            "params": [
+              {
+                "name": "unique_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get RFPs for a specific entity (unique_id).\nReturns all RFPs associated with the given unique_id."
+        },
+        {
+          "info": {
+            "name": "Get Rfp",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/rfps/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Rfp"
+        },
+        {
+          "info": {
+            "name": "Search Rfps",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/rfps/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search RFPs.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe RFP search vector (title + description, english config, stemming on).\nSee RFPSearchFilters docstring for syntax.\n\nAll filters are optional. Empty body returns paginated RFPs sorted by the\ndefault order (``due_date_asc``). At ~2.4M rows the RFP table is small\nenough that fully unbounded queries are fine; this differs from the PO\nendpoint, which requires at least one bounding filter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

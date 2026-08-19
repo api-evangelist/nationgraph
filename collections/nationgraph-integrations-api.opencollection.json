@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Integrations API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Integration"
+        },
+        {
+          "info": {
+            "name": "Update Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Integration"
+        },
+        {
+          "info": {
+            "name": "Delete Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete Integration"
+        },
+        {
+          "info": {
+            "name": "Get External User Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/integrations/:integration_id/users/:user_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get External User Id"
+        },
+        {
+          "info": {
+            "name": "Slack Authorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/integrations/slack/authorize",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Redirect user to Slack OAuth to install bot in their workspace"
+        },
+        {
+          "info": {
+            "name": "List Channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/integrations/slack/:integration_id/channels",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all channels in user's Slack workspace\n\nRequires user to either:\n- Have created the integration\n- Be a member of the organization the integration belongs to"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

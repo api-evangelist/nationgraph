@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Metadata API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Entity Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/metadata/:entity_id",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the metadata for an institution by its entity ID.\n\nArgs:\n    entity_id: The unique identifier for the institution\n\nReturns:\n    Dict containing:\n        - overview: Text description of the institution\n        - homepage_url: URL of the institution's homepage\n        - latitude: Latitude coordinate (float or None)\n        - longitude: Longitude coordinate (float or None)\n        - population: Population count (int or None)\n        - students: Number of students in the district (int or None)\n "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

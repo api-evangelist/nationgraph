@@ -1,0 +1,373 @@
+{
+  "item": [
+    {
+      "id": "c1210cb1-cf50-4e7f-8a04-519beec9aeef",
+      "name": "Contacts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f77feb1-b137-4373-80c0-0055ed0377ed",
+          "name": "Get Contacts",
+          "request": {
+            "name": "Get Contacts",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "institution_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f98ba7ef-f57b-4e5a-87b6-c15b3d18c8e6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"full_name\": \"string\",\n    \"title\": \"string\",\n    \"institution_id\": \"string\",\n    \"id\": 2137,\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"updated_at\": \"1989-04-09T08:43:55.859Z\",\n    \"scrape_timestamp\": \"2003-07-30T01:30:00.502Z\",\n    \"scraper_filename\": \"string\",\n    \"email_status\": \"string\",\n    \"entity_name\": \"string\",\n    \"mailing_address\": \"string\",\n    \"search_metadata\": {\n      \"reason\": \"string\",\n      \"citations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"direct_match\": false,\n      \"verified\": false\n    }\n  },\n  {\n    \"full_name\": \"string\",\n    \"title\": \"string\",\n    \"institution_id\": \"string\",\n    \"id\": 8248,\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"updated_at\": \"1984-05-09T00:19:48.118Z\",\n    \"scrape_timestamp\": \"1970-01-28T06:53:52.041Z\",\n    \"scraper_filename\": \"string\",\n    \"email_status\": \"string\",\n    \"entity_name\": \"string\",\n    \"mailing_address\": \"string\",\n    \"search_metadata\": {\n      \"reason\": \"string\",\n      \"citations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"direct_match\": true,\n      \"verified\": false\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33664fff-6601-4ade-829d-978ac216c116",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ed0bf80-9b0a-4aab-be76-b0efd4cb7b6e",
+          "name": "Search Contacts",
+          "request": {
+            "name": "Search Contacts",
+            "description": {
+              "content": "Search for contacts using complex criteria.\nUses POST because search criteria are complex and better suited for request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "contacts",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"institution_id\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"search_type\": \"<string>\",\n  \"email_statuses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "93e1d557-4ed6-4771-9dc4-3bd53d3bb519",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "contacts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"institution_id\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"search_type\": \"<string>\",\n  \"email_statuses\": [\n    \"unknown\",\n    \"risky\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"full_name\": \"string\",\n    \"title\": \"string\",\n    \"institution_id\": \"string\",\n    \"id\": 1737,\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"updated_at\": \"1955-04-18T14:06:04.630Z\",\n    \"scrape_timestamp\": \"1950-03-04T23:53:21.489Z\",\n    \"scraper_filename\": \"string\",\n    \"email_status\": \"string\",\n    \"entity_name\": \"string\",\n    \"mailing_address\": \"string\",\n    \"search_metadata\": {\n      \"reason\": \"string\",\n      \"citations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"direct_match\": false,\n      \"verified\": true\n    }\n  },\n  {\n    \"full_name\": \"string\",\n    \"title\": \"string\",\n    \"institution_id\": \"string\",\n    \"id\": 5037,\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"updated_at\": \"1994-11-01T20:10:58.062Z\",\n    \"scrape_timestamp\": \"2021-11-21T16:15:12.640Z\",\n    \"scraper_filename\": \"string\",\n    \"email_status\": \"string\",\n    \"entity_name\": \"string\",\n    \"mailing_address\": \"string\",\n    \"search_metadata\": {\n      \"reason\": \"string\",\n      \"citations\": [\n        \"string\",\n        \"string\"\n      ],\n      \"direct_match\": true,\n      \"verified\": true\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eed425c-2b40-4b59-9600-912661a89a70",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "contacts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"institution_id\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"search_type\": \"<string>\",\n  \"email_statuses\": [\n    \"unknown\",\n    \"risky\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e5965bd3-41da-411c-9e56-92e19a36ae86",
+    "name": "Nationgraph Accounts Contacts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

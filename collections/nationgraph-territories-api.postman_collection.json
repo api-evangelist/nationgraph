@@ -1,0 +1,978 @@
+{
+  "item": [
+    {
+      "id": "8dfa4a0f-5003-40e9-b796-20646a0bd53b",
+      "name": "Territories",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fb508c6-ba3b-4972-8505-c0cd81f602d3",
+          "name": "Get Territory Stats",
+          "request": {
+            "name": "Get Territory Stats",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6905a7c-a49e-4bb7-9e55-9b7c6b2d7f4e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85cca6b5-7d41-483f-9208-7343f72a690b",
+          "name": "List Territories",
+          "request": {
+            "name": "List Territories",
+            "description": {
+              "content": "List caller's territories with per-row counts; visibility intentionally not returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a79f180-9bf4-4541-82a1-302fb00a7a49",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 8046,\n  \"items\": [\n    {\n      \"id\": \"8e1c0e71-2499-ec38-a8cb-39ac033a093b\",\n      \"name\": \"string\",\n      \"type\": \"institution_type\",\n      \"payload\": {\n        \"key_0\": true,\n        \"key_1\": 6422\n      },\n      \"account_count\": 1350,\n      \"created_at\": \"1957-06-24T22:20:21.460Z\",\n      \"updated_at\": \"1980-11-19T02:22:59.094Z\"\n    },\n    {\n      \"id\": \"64c9ff4b-68dc-bbbe-cfff-b0623c9110f9\",\n      \"name\": \"string\",\n      \"type\": \"institution_type\",\n      \"payload\": {\n        \"key_0\": false\n      },\n      \"account_count\": 7968,\n      \"created_at\": \"1995-07-30T05:40:49.204Z\",\n      \"updated_at\": \"1953-07-30T23:33:38.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "222080fb-1c1d-44af-bc04-97ca3977609d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b2fc3eb-95b2-40e6-9e37-e271d0064044",
+          "name": "Create Territory",
+          "request": {
+            "name": "Create Territory",
+            "description": {
+              "content": "Create one new territory; atomic JSONB + materialized write under user_profile row lock.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"payload\": {\n    \"name\": \"<string>\",\n    \"institution_type\": \"<string>\",\n    \"account_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"counties\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"cities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"population_min\": \"<integer>\",\n    \"population_max\": \"<integer>\",\n    \"search_query\": \"<string>\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21ec17df-59e6-46d4-a21d-a4ab23e260b6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"0d9dde32-1854-8bd6-2e07-c926c88e3f1d\",\n  \"name\": \"string\",\n  \"type\": \"institution_type\",\n  \"payload\": {\n    \"key_0\": 8194.96921931154,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  },\n  \"account_count\": 5086,\n  \"created_at\": \"2022-08-21T10:55:12.696Z\",\n  \"updated_at\": \"1971-08-18T06:42:17.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64d0f144-a609-4553-9a5b-b4c5c6547d17",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94eaf820-89fd-4de7-bbbc-75ccca501ea9",
+          "name": "Preview Territory",
+          "request": {
+            "name": "Preview Territory",
+            "description": {
+              "content": "Stateless resolve → count + 25-row sample. No writes, auth-only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"payload\": {\n    \"name\": \"<string>\",\n    \"institution_type\": \"<string>\",\n    \"account_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"counties\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"cities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"population_min\": \"<integer>\",\n    \"population_max\": \"<integer>\",\n    \"search_query\": \"<string>\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03e6e4ab-942d-4a66-97c8-dc6d51f1986a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6729,\n  \"sample\": [\n    {\n      \"unique_id\": \"string\",\n      \"name\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"county\": \"string\",\n      \"population\": 1176.462059913559,\n      \"source_table\": \"string\"\n    },\n    {\n      \"unique_id\": \"string\",\n      \"name\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"county\": \"string\",\n      \"population\": 5226.329749047375,\n      \"source_table\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adffaa4d-1324-438c-9a69-3845b480874f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f3fc0ee-c06f-4a44-9faf-41d14714b0d4",
+          "name": "Update Territory",
+          "request": {
+            "name": "Update Territory",
+            "description": {
+              "content": "Overwrite one existing territory in place; re-resolves the rule and diffs\nmembers under the user_profile row lock. Owner-bound; 404 if not owned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories",
+                ":filter_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "filter_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"payload\": {\n    \"name\": \"<string>\",\n    \"institution_type\": \"<string>\",\n    \"account_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"counties\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"cities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"population_min\": \"<integer>\",\n    \"population_max\": \"<integer>\",\n    \"search_query\": \"<string>\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "613dbfad-dd2c-4aca-a0bc-b7f09364f5a7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    ":filter_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filter_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"0d9dde32-1854-8bd6-2e07-c926c88e3f1d\",\n  \"name\": \"string\",\n  \"type\": \"institution_type\",\n  \"payload\": {\n    \"key_0\": 8194.96921931154,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  },\n  \"account_count\": 5086,\n  \"created_at\": \"2022-08-21T10:55:12.696Z\",\n  \"updated_at\": \"1971-08-18T06:42:17.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64318fbf-4bf5-4ea0-a047-c428249fbe9f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    ":filter_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filter_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"institution_list\",\n  \"payload\": {\n    \"name\": \"string\",\n    \"institution_type\": \"string\",\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 1890,\n    \"population_max\": 299,\n    \"search_query\": \"string\"\n  },\n  \"id\": \"<uuid>\",\n  \"visibility\": \"private\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaccf038-9599-4d17-86d6-e181d8f588bc",
+          "name": "Delete Territory",
+          "request": {
+            "name": "Delete Territory",
+            "description": {
+              "content": "Owner-bound delete; 404 indistinguishable from \"doesn't exist\" (don't leak existence).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "territories",
+                ":filter_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "filter_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e51c937-6632-4045-94c8-93a2da58b9d3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    ":filter_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filter_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b321fedd-a136-4df0-afd3-430e798f101d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "territories",
+                    ":filter_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filter_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "318999d3-ef5e-4c79-aac7-73f2c0340d1f",
+    "name": "Nationgraph Accounts Territories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,10 +1,10 @@
 generated: '2026-07-20'
 method: generated
-source: openapi/nationgraph-openapi-original.json
+source: openapi/_original/nationgraph-openapi-original.json
 skills:
 - file: nationgraph-find-buying-signals.md
   name: Find government buying signals and save them to a list
-  api: openapi/nationgraph-openapi-original.json
+  api: openapi/_original/nationgraph-openapi-original.json
   operations:
   - search_signals_api_v3_signals_search_post
   - get_signal_api_v3_signals__signal_id__get
@@ -14,7 +14,7 @@ skills:
   - add_signal_to_list_api_v3_lists__list_id__signals__signal_id__post
 - file: nationgraph-find-contacts.md
   name: Find verified government decision-maker contacts
-  api: openapi/nationgraph-openapi-original.json
+  api: openapi/_original/nationgraph-openapi-original.json
   operations:
   - search_contacts_api_v3_contacts_search_post
   - get_contacts_api_v3_contacts_get

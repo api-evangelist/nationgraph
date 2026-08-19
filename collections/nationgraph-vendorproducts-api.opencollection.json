@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts VendorProducts API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VendorProducts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vendor Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/vendor-products",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Vendor Products"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

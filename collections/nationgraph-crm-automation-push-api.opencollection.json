@@ -1,0 +1,459 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Automation Push API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Automation Push",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List CRM Company Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/company-fields",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all available fields on the company/account object in the user's CRM.\n\nReturns field names, labels, types, and whether each is a custom field.\nUse this to discover which CRM fields are available when setting up\nfield mappings for the push endpoint.\n\n- **HubSpot**: Lists all properties on the Companies object\n- **Salesforce**: Describes the Account object and returns all fields"
+        },
+        {
+          "info": {
+            "name": "Get Pushable Columns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/pushable-columns",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the list of columns available for CRM push for a given automation.\n\nEach column has a **key** (used in `source_field` of the push request),\na **label**, a **data_type**, and a human-readable **description**.\n\nThe available columns depend on the automation type. For `ranked_institutions`:\n- `rank` — Institution rank\n- `score` — Institution score\n- `signal_count` — Number of matching signals"
+        },
+        {
+          "info": {
+            "name": "Get Push Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/push-status",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check which results from an automation run have already been pushed to\nthis CRM integration.\n\nReturns per-result push status including when each was last pushed\nand which fields were included."
+        },
+        {
+          "info": {
+            "name": "Get CRM Push History for an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/history",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Paginated history of every CRM push made by this automation against the\ngiven integration.  Ordered by `pushed_at` descending.\n\nEach item includes the institution name, the run the push came from, and\nthe raw `fields_pushed` payload — the UI derives the activity type from\nthat payload (e.g. `activity_type: \"note\"` → Note, otherwise a custom\nfield push)."
+        },
+        {
+          "info": {
+            "name": "Push Automation Results to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/push",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Bulk-push automation run results to CRM companies using explicit field mappings.\n\n**How it works:**\n1. Loads all **completed** results for the specified run\n2. If `result_ids` is provided, narrows to only those results\n3. Filters to results whose institutions have a CRM mapping for this integration\n4. Maps each automation column to the specified existing CRM field\n5. Updates each mapped CRM company with the result data\n6. Records which results were pushed for tracking\n\n**Field mappings** are req"
+        },
+        {
+          "info": {
+            "name": "Push Automation Result as CRM Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/results/:result_id/push-activity",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              },
+              {
+                "name": "result_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation result ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push a single automation result to CRM as a note, task, or post.\n\nContent is automatically generated from the automation result data\n(rank, score, signal count, etc.) and formatted per automation type.\n\n**Action types:**\n- **`note`**: Records the result summary on the CRM company\n- **`task`**: Creates a follow-up task with the result as context\n- **`post`**: Creates a Chatter post (Salesforce only)\n\nFor tasks and posts, you can override the auto-generated subject/body\nvia `task_options` or `post"
+        },
+        {
+          "info": {
+            "name": "Push Automation Run Signals to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/push-signals",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push the underlying signal content from all CRM-linked results in a ranked\nautomation run as individual notes or tasks.\n\nFor each completed result that has a CRM company mapping, every referenced\nsignal is resolved to its full content (title, summary, significance, reason)\nand pushed using the existing signal-to-CRM push logic.\n\n**Action types:**\n- **`note`**: Records each signal as a note on the CRM company\n- **`task`**: Creates a follow-up task for each signal\n\nFor tasks, you can provide `task"
+        },
+        {
+          "info": {
+            "name": "List Account Page Layouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/account-layouts",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List available page layouts on the Account/Company object.\n\nUse this to discover which layout to pass to the custom object schema\ncreation endpoint so the related list is added to the correct layout.\n\n**Salesforce**: Returns all Account page layouts.\n**HubSpot**: Returns an empty list (HubSpot does not have page layouts)."
+        },
+        {
+          "info": {
+            "name": "Check Custom Object Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/custom-object-schemas/:schema_key",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "schema_key",
+                "value": "",
+                "type": "path",
+                "description": "Schema identifier (e.g. 'vendor_contract')"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check whether a custom object schema exists in the user's CRM.\n\nThe `schema_key` determines which NationGraph schema definition to check for.\nCurrently supported schemas:\n- **`vendor_contract`**: NationGraph Vendor Contract custom object\n\nReturns whether the object exists, its provider-specific identifier, and\nany expected fields that are missing from the existing object."
+        },
+        {
+          "info": {
+            "name": "Create Custom Object Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/custom-object-schemas/:schema_key",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "schema_key",
+                "value": "",
+                "type": "path",
+                "description": "Schema identifier (e.g. 'vendor_contract')"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a custom object schema in the user's CRM workspace.\n\nThe `schema_key` determines which NationGraph schema to create.\nCurrently supported schemas:\n- **`vendor_contract`**: Creates a NationGraph Vendor Contract custom object\n  with fields for vendor, product, ACV, dates, summary, institution,\n  and a link back to NationGraph. Associated with CRM companies/accounts.\n\n**HubSpot**: Creates a custom object schema with all properties and\ncompany associations via the schemas API.\n\n**Salesforce**:"
+        },
+        {
+          "info": {
+            "name": "Get Custom Object Schema Spec",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/custom-object-schemas/:schema_key/spec",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "schema_key",
+                "value": "",
+                "type": "path",
+                "description": "Schema identifier (e.g. 'vendor_contract')"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return the full, static definition of a NationGraph custom object schema.\n\nThis is the source of truth for manual-setup instructions when a custom object\nmust be created by hand ."
+        },
+        {
+          "info": {
+            "name": "Push Automation Results as Custom Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/push-custom-objects",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push automation run results as individual custom object records in the CRM.\n\nUnlike the regular field-push endpoint (which updates existing CRM company\nfields), this creates **new custom object records** — one per result — and\nassociates each with the corresponding CRM company/account.\n\n**Flow:**\n1. Loads completed results for the run (optionally filtered by `result_ids`)\n2. Resolves CRM company mappings for each result's institution\n3. Builds custom object properties from the result data\n4. Cre"
+        },
+        {
+          "info": {
+            "name": "Push Contacts as CRM Contact Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/automations/:automation_id/runs/:run_id/push-contacts",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation ID"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation run ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push a contacts_export run's matched people into the CRM as contact records, each associated to its institution's linked company. Contacts whose institution isn't CRM-linked are skipped (not errors)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

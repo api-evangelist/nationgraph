@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Procurement Guidelines API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Procurement Guidelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Procurement Guideline Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/procurement-guidelines/chunks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a single procurement guideline chunk by chunk ID."
+        },
+        {
+          "info": {
+            "name": "Search Procurement Guidelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/procurement-guidelines/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search procurement guideline chunks via Postgres FTS.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied —\nchunks table is 140K+ rows and we don't allow unbounded scans.\n\nWith ``query``: results ranked by ``ts_rank_cd``. Without ``query``\n(institution-scoped browse): results sorted by document date descending.\n\n``query`` accepts a websearch-style string (same syntax as RFP / Grant /\nMeeting Minute / Budget search): bare words for stemmed match,\n``\"phrase\"`` for exact phrase, ``OR"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

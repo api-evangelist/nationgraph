@@ -1,6 +1,6 @@
 generated: '2026-07-20'
 method: derived
-source: openapi/nationgraph-openapi-original.json
+source: openapi/_original/nationgraph-openapi-original.json
 note: >-
   Entity-relationship graph derived from OpenAPI component schemas ($ref arrays
   => has_many; *_id fields matching a schema => belongs_to). Heuristic; not an

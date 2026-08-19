@@ -1,0 +1,364 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate HubSpot OAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/connect/hubspot",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the authorization URL to initiate HubSpot OAuth flow. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "Redirect to HubSpot OAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/connect/hubspot/redirect",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Directly redirect to HubSpot OAuth authorization page. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "HubSpot OAuth Callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/callback/hubspot",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Authorization code from HubSpot"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State parameter for verification"
+              },
+              {
+                "name": "error",
+                "value": "",
+                "type": "query",
+                "description": "Error code if authorization failed"
+              },
+              {
+                "name": "error_description",
+                "value": "",
+                "type": "query",
+                "description": "Error description"
+              }
+            ]
+          },
+          "docs": "Handle the OAuth callback from HubSpot after user authorization."
+        },
+        {
+          "info": {
+            "name": "Initiate Salesforce OAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/connect/salesforce",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the authorization URL to initiate Salesforce OAuth flow. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "Redirect to Salesforce OAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/connect/salesforce/redirect",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Directly redirect to Salesforce OAuth authorization page. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "Salesforce OAuth Callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/callback/salesforce",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Authorization code from Salesforce"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State parameter for verification"
+              },
+              {
+                "name": "error",
+                "value": "",
+                "type": "query",
+                "description": "Error code if authorization failed"
+              },
+              {
+                "name": "error_description",
+                "value": "",
+                "type": "query",
+                "description": "Error description"
+              }
+            ]
+          },
+          "docs": "Handle the OAuth callback from Salesforce after user authorization."
+        },
+        {
+          "info": {
+            "name": "Connect Zapier Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/connect/zapier",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a Zapier integration for the organization. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "Get CRM Integration Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/status",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check the status of a specific CRM integration."
+        },
+        {
+          "info": {
+            "name": "Disconnect CRM Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Revoke and disconnect a CRM integration. Requires admin role."
+        },
+        {
+          "info": {
+            "name": "Get Valid CRM Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/token",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a valid access token for making CRM API calls."
+        },
+        {
+          "info": {
+            "name": "Push Signal to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/signals/:signal_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path",
+                "description": "The signal ID to push"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push a signal to HubSpot CRM as either a **note** or a **task**.\n\n**Action Types:**\n\n- **`note`**: Records the signal as a note on the HubSpot company. Use this to\n  document the signal for future reference.\n\n- **`task`**: Creates a follow-up task on the HubSpot company. Use this when\n  the signal requires action. Tasks include due dates, priority levels, and\n  can be assigned to team members.\n\n**Requirements:**\n- Active HubSpot integration\n- CRM mapping between the signal's institution and a Hu"
+        },
+        {
+          "info": {
+            "name": "Push Contact to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/signals/:signal_id/contacts/:contact_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path",
+                "description": "The signal ID"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact ID to push"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push a signal's contact to HubSpot and associate them with the mapped company.\n\n**What this does:**\n1. Creates the contact in HubSpot (or finds existing by email)\n2. Associates the contact with the HubSpot company linked to this signal's institution\n\n**Requirements:**\n- Active HubSpot integration\n- CRM mapping between the signal's institution and a HubSpot company"
+        },
+        {
+          "info": {
+            "name": "Deliver payload to a workflow subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/deliveries",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deliver a frontend-assembled payload to a chosen workflow (e.g. Zapier) subscription via webhook-manager. Used for automation-context pushes (ranked results, vendor contracts, outreach sequences, institutions) that have no CRM analog."
+        },
+        {
+          "info": {
+            "name": "List workflow subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/subscriptions",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The integration ID"
+              },
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event type, e.g. 'signals.push'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List active workflow (e.g. Zapier) webhook subscriptions for the integration, optionally filtered by event type. Used to populate the push target picker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,658 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Automations API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations",
+            "params": [
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "live",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stopped",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_stats",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Automations"
+        },
+        {
+          "info": {
+            "name": "Create Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Automation"
+        },
+        {
+          "info": {
+            "name": "Get Automation Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/types",
+            "params": [
+              {
+                "name": "scheduled",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Automation Types"
+        },
+        {
+          "info": {
+            "name": "Get Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Automation"
+        },
+        {
+          "info": {
+            "name": "Update Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Automation"
+        },
+        {
+          "info": {
+            "name": "Refresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/refresh",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Refresh"
+        },
+        {
+          "info": {
+            "name": "Get Automation Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Automation Runs"
+        },
+        {
+          "info": {
+            "name": "Create And Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create And Run"
+        },
+        {
+          "info": {
+            "name": "Get Run Detail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Run Detail"
+        },
+        {
+          "info": {
+            "name": "Update Run Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/status",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Run Status"
+        },
+        {
+          "info": {
+            "name": "Cancel Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/cancel",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel Run"
+        },
+        {
+          "info": {
+            "name": "Get Run Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/results",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "institution_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_linked",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendors",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "products",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signal_setting_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_sources",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Run Results"
+        },
+        {
+          "info": {
+            "name": "Export Run Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/export",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "crm_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "institution_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_linked",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "crm_pushed_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendors",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "products",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signal_setting_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_sources",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export Run Csv"
+        },
+        {
+          "info": {
+            "name": "Get Run Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/contacts",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Run Contacts"
+        },
+        {
+          "info": {
+            "name": "Get Result Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/automations/:automation_id/runs/:run_id/results/:result_id/files",
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "result_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Result Files"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1546 @@
+{
+  "item": [
+    {
+      "id": "03830abf-1a5d-4b71-823d-4c4efcb99845",
+      "name": "Institutions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7601595e-5d06-49fa-9d09-21ea24b93783",
+          "name": "Get Institutions In Workspace",
+          "request": {
+            "name": "Get Institutions In Workspace",
+            "description": {
+              "content": "Get institutions from the 'all_institutions' view/table.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "workspaces",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08025cb5-9768-497a-add2-1022375c0ccb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd4aa248-c330-4df7-9cc5-50451807dd8d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "921a5471-7192-4d2a-b904-da68b6cb58c5",
+          "name": "Add Institution To Workspace",
+          "request": {
+            "name": "Add Institution To Workspace",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "workspaces",
+                ":workspace_id",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7af1b37e-eb8f-43d1-b3bb-16c6bd1c2341",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d07d8f7-077c-42ef-88a2-7edf7b06b964",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eba18ae5-ff21-40bf-9916-8528a7f12eb7",
+          "name": "Delete Workspace Institutions",
+          "request": {
+            "name": "Delete Workspace Institutions",
+            "description": {
+              "content": "Delete institutions from a workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "workspaces",
+                ":workspace_id",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prepend\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "46f4b779-ca21-499c-bb75-b42f19d80446",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prepend\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6b999a8-ead8-40b6-818f-d7db1831ea37",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prepend\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b793380f-a87c-453f-a3ae-0fe1ef0772c5",
+          "name": "Get Workspace Institutions",
+          "request": {
+            "name": "Get Workspace Institutions",
+            "description": {
+              "content": "Get institutions linked to a specific workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "workspaces",
+                ":workspace_id",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53524499-bae2-48d7-83d7-f376df8f9505",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b193f9ab-9b45-47c0-9b63-2d28647308c7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "workspaces",
+                    ":workspace_id",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a86cd9ba-66dc-415d-b2e1-7247de5887af",
+          "name": "Get Institution Count",
+          "request": {
+            "name": "Get Institution Count",
+            "description": {
+              "content": "Get a single count of institutions matching the intersection of signal and territory filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "institutions",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution_filters\": [\n    {\n      \"type\": \"<string>\",\n      \"payload\": {\n        \"name\": \"<string>\",\n        \"institution_type\": \"<string>\",\n        \"account_types\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"states\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"counties\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"cities\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"population_min\": \"<integer>\",\n        \"population_max\": \"<integer>\",\n        \"search_query\": \"<string>\"\n      },\n      \"id\": \"<uuid>\",\n      \"visibility\": \"private\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"payload\": {\n        \"name\": \"<string>\",\n        \"institution_type\": \"<string>\",\n        \"account_types\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"states\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"counties\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"cities\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"population_min\": \"<integer>\",\n        \"population_max\": \"<integer>\",\n        \"search_query\": \"<string>\"\n      },\n      \"id\": \"<uuid>\",\n      \"visibility\": \"private\"\n    }\n  ],\n  \"signal_filters\": {\n    \"signal_setting_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_after\": \"<dateTime>\",\n    \"created_before\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0955667f-25a7-46af-9251-4b41faab47f0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_filters\": [\n    {\n      \"type\": \"institution_type\",\n      \"payload\": {\n        \"name\": \"string\",\n        \"institution_type\": \"string\",\n        \"account_types\": [\n          \"string\",\n          \"string\"\n        ],\n        \"states\": [\n          \"string\",\n          \"string\"\n        ],\n        \"counties\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cities\": [\n          \"string\",\n          \"string\"\n        ],\n        \"population_min\": 3449,\n        \"population_max\": 3995,\n        \"search_query\": \"string\"\n      },\n      \"id\": \"068a44cb-b8e7-baa9-4a4d-bb8ac3084662\",\n      \"visibility\": \"private\"\n    },\n    {\n      \"type\": \"institution_list\",\n      \"payload\": {\n        \"name\": \"string\",\n        \"institution_type\": \"string\",\n        \"account_types\": [\n          \"string\",\n          \"string\"\n        ],\n        \"states\": [\n          \"string\",\n          \"string\"\n        ],\n        \"counties\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cities\": [\n          \"string\",\n          \"string\"\n        ],\n        \"population_min\": 9296,\n        \"population_max\": 8253,\n        \"search_query\": \"string\"\n      },\n      \"id\": \"71f218be-de57-518d-db77-e9b8974e989b\",\n      \"visibility\": \"private\"\n    }\n  ],\n  \"signal_filters\": {\n    \"signal_setting_ids\": [\n      \"354c89a9-5ea4-7920-fe83-f9b352dffc51\",\n      \"0ead6ac1-b419-923d-36c2-9277429f4bb1\"\n    ],\n    \"data_sources\": [\n      \"annual_budgets\",\n      \"procurement_guidelines\"\n    ],\n    \"created_after\": \"2011-08-14T07:18:04.426Z\",\n    \"created_before\": \"2015-12-23T20:25:50.668Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19a60376-5c5a-4494-b8ef-92b081a6e202",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_filters\": [\n    {\n      \"type\": \"institution_type\",\n      \"payload\": {\n        \"name\": \"string\",\n        \"institution_type\": \"string\",\n        \"account_types\": [\n          \"string\",\n          \"string\"\n        ],\n        \"states\": [\n          \"string\",\n          \"string\"\n        ],\n        \"counties\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cities\": [\n          \"string\",\n          \"string\"\n        ],\n        \"population_min\": 3449,\n        \"population_max\": 3995,\n        \"search_query\": \"string\"\n      },\n      \"id\": \"068a44cb-b8e7-baa9-4a4d-bb8ac3084662\",\n      \"visibility\": \"private\"\n    },\n    {\n      \"type\": \"institution_list\",\n      \"payload\": {\n        \"name\": \"string\",\n        \"institution_type\": \"string\",\n        \"account_types\": [\n          \"string\",\n          \"string\"\n        ],\n        \"states\": [\n          \"string\",\n          \"string\"\n        ],\n        \"counties\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cities\": [\n          \"string\",\n          \"string\"\n        ],\n        \"population_min\": 9296,\n        \"population_max\": 8253,\n        \"search_query\": \"string\"\n      },\n      \"id\": \"71f218be-de57-518d-db77-e9b8974e989b\",\n      \"visibility\": \"private\"\n    }\n  ],\n  \"signal_filters\": {\n    \"signal_setting_ids\": [\n      \"354c89a9-5ea4-7920-fe83-f9b352dffc51\",\n      \"0ead6ac1-b419-923d-36c2-9277429f4bb1\"\n    ],\n    \"data_sources\": [\n      \"annual_budgets\",\n      \"procurement_guidelines\"\n    ],\n    \"created_after\": \"2011-08-14T07:18:04.426Z\",\n    \"created_before\": \"2015-12-23T20:25:50.668Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9efed71-a6e5-49da-8eaf-274dd5625a0b",
+          "name": "Get Institution Metadata",
+          "request": {
+            "name": "Get Institution Metadata",
+            "description": {
+              "content": "Get institution counts and metadata based on filters.\n\nRequest body should contain a list of filters, where each filter can specify:\n- institution_type: Filter by type (k12_districts, cities, etc.)\n- states: List of state codes (e.g., [\"CA\", \"NY\", \"TX\"])\n- population_min: Minimum population filter\n- population_max: Maximum population filter\n\nIf no filters provided, returns counts for all institution types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "institutions",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": [\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_districts\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"cities\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"counties\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"higher_education\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_departments\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"individual_units\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_schools\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"police_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"usfa_registry\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"state_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"states\",\n      \"states\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c8d400c-9761-421b-9f67-4cf0fc640635",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_districts\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"cities\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"counties\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"higher_education\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_departments\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"individual_units\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_schools\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"police_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"usfa_registry\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"state_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"states\",\n      \"states\": []\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "698ee38a-67a0-46bc-890b-fbe0bae790cf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_districts\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"cities\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"counties\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"higher_education\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"federal_departments\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"individual_units\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"k12_schools\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"police_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"usfa_registry\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"state_agencies\",\n      \"states\": []\n    },\n    {\n      \"ids\": [],\n      \"institution_type\": \"states\",\n      \"states\": []\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52301f89-b442-4a0f-864e-64f0f96cd9ce",
+          "name": "Get Institutions",
+          "request": {
+            "name": "Get Institutions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Limit number of results returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "institution_type",
+                  "value": "<string>",
+                  "description": "Filter by institution type (e.g., k12_districts, cities)"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_types",
+                  "value": "<string>",
+                  "description": "Multi-select institution types — applied as source_table IN (...)"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_types",
+                  "value": "<string>",
+                  "description": "Multi-select institution types — applied as source_table IN (...)"
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "List of state codes to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "List of state codes to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "counties",
+                  "value": "<string>",
+                  "description": "List of county names to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "counties",
+                  "value": "<string>",
+                  "description": "List of county names to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "cities",
+                  "value": "<string>",
+                  "description": "List of city names to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "cities",
+                  "value": "<string>",
+                  "description": "List of city names to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "population_min",
+                  "value": "<integer>",
+                  "description": "Minimum population filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "population_max",
+                  "value": "<integer>",
+                  "description": "Maximum population filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_query",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring match on Institution.name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f253577-472d-4587-9561-95b7c8a86135",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "institution_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "population_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "population_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26a0b989-d8c4-4bcb-9680-7e4c1b18b363",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "institution_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "counties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "population_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "population_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f1a4d2e-1977-4000-a11a-c088a9d40426",
+          "name": "Get Institution",
+          "request": {
+            "name": "Get Institution",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "institutions",
+                ":institution_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c8975530-d7b7-4c39-8128-a596b7f50040",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    ":institution_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e5323e7-05f6-406e-b816-afce81fcf958",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "institutions",
+                    ":institution_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c075eb52-5fec-403f-959a-b287e24f8d52",
+    "name": "Nationgraph Accounts Institutions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

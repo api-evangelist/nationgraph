@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Contracts API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/contracts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Contract"
+        },
+        {
+          "info": {
+            "name": "Search Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/contracts/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search contracts (retool.contract_data).\n\nThree orthogonal text inputs, AND'd together:\n\n- ``vendors``: array of vendor terms (weight A in text_search_strict)\n- ``products``: array of product terms (weight B in text_search_strict)\n- ``query``: free-text over raw_text (text_search_prose, english config)\n\nSee ContractSearchFilters docstring for the full syntax. All filters are\noptional — the table is small enough (~7K rows) to allow unbounded scans."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,526 @@
+{
+  "item": [
+    {
+      "id": "5e84cf35-e8ca-464d-b00a-119dac2e37cf",
+      "name": "Press Releases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1ce0b63-3be8-4ed7-ab05-648534474d54",
+          "name": "Search Press Releases",
+          "request": {
+            "name": "Search Press Releases",
+            "description": {
+              "content": "Search press release chunks.\n\nThe ``query`` field is evaluated against the chunks' ``search_vector`` via\n``websearch_to_tsquery('english', ...)`` — stemming on, websearch syntax\n(quoted phrases, OR, leading - to exclude).\n\nPass ``group_by_document=true`` to collapse to one chunk per press release\n(the highest-ranked when a query is supplied; the earliest chunk otherwise).\nThe response's ``other_matching_chunks_in_document`` field shows how many\nother chunks in that doc also matched — useful for deciding whether to\ndrill in.\n\nAt least one of ``institution_ids`` or ``query`` is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "press-releases",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f79e27e9-295c-4709-8fbe-7910ae223049",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"chunk_id\": 8468,\n      \"document_id\": \"string\",\n      \"text\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"document_date\": \"2002-05-20T13:24:24.491Z\",\n      \"document_title\": \"string\",\n      \"document_url\": \"string\",\n      \"document_created_at\": \"1962-01-07T08:29:50.945Z\",\n      \"relevance\": 4487.4653318069,\n      \"other_matching_chunks_in_document\": 400\n    },\n    {\n      \"chunk_id\": 3802,\n      \"document_id\": \"string\",\n      \"text\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"document_date\": \"1967-01-22T06:42:39.782Z\",\n      \"document_title\": \"string\",\n      \"document_url\": \"string\",\n      \"document_created_at\": \"1957-07-31T16:55:02.419Z\",\n      \"relevance\": 5063.635724669664,\n      \"other_matching_chunks_in_document\": 7818\n    }\n  ],\n  \"total\": 5964,\n  \"offset\": 6394,\n  \"limit\": 3618\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e5da2f2-41b4-4542-9c7c-edb20a73e82c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_after\": \"<date>\",\n  \"date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffc1248c-33d2-4502-85fd-ed99390fef4c",
+          "name": "Get Press Release Chunk",
+          "request": {
+            "name": "Get Press Release Chunk",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "press-releases",
+                "chunks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a1014472-6b64-4190-ae3f-ada5145739be",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chunk_id\": 9005,\n  \"document_id\": \"string\",\n  \"text\": \"string\",\n  \"institution_id\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"document_date\": \"1962-02-15T19:31:19.785Z\",\n  \"document_title\": \"string\",\n  \"document_url\": \"string\",\n  \"document_created_at\": \"2000-01-22T18:44:15.955Z\",\n  \"relevance\": 7826.436178827306,\n  \"other_matching_chunks_in_document\": 140\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93b8b9e2-acdf-4eb5-8131-129f111751a6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1ae2d97-b266-4963-a4b3-95b1328de6f1",
+          "name": "Get Press Release Document",
+          "request": {
+            "name": "Get Press Release Document",
+            "description": {
+              "content": "Fetch the full press release record by its UUID.\n\nReturns the entire ``content`` field along with title, url, publication\ndate, and institution context. Use after ``/search`` returns chunks if you\nneed the whole article rather than the snippet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "press-releases",
+                "documents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "428bb542-f3ff-4415-b391-97887a4d5818",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"institution_id\": \"string\",\n  \"title\": \"string\",\n  \"url\": \"string\",\n  \"date\": \"2022-02-01T13:53:04.918Z\",\n  \"content\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"created_at\": \"2024-09-07T20:03:18.974Z\",\n  \"updated_at\": \"2008-03-19T00:08:50.109Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8427a26f-9363-447c-a4e1-9e306d3fca37",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "press-releases",
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b9fd31da-f0f0-4e23-821b-fe7d78ccc6a0",
+    "name": "Nationgraph Accounts Press Releases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

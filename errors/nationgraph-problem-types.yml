@@ -1,22 +1,43 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/nationgraph-openapi-original.json
+generated: '2026-08-14'
+method: probed
+source: >-
+  openapi/_original/nationgraph-openapi-original.json (harvested 2026-07-20) + live 4xx responses
+  observed on api.nationgraph.com (2026-08-14)
 format: fastapi
 note: >-
   NationGraph runs a FastAPI service. Client errors use FastAPI's default JSON
   envelope: a top-level `detail` field. Validation failures (422) return
   `detail[]` arrays of ValidationError objects (loc / msg / type). This is not
-  RFC 9457 problem+json. Derived from the OpenAPI responses; titles/remediation
-  are inferred from standard FastAPI + HTTP Bearer semantics.
+  RFC 9457 problem+json. Derived from the OpenAPI responses; the 401 and 404 shapes were then
+  CONFIRMED VERBATIM against live responses on 2026-08-14, upgrading this artifact from derived
+  to probed. Titles/remediation for the statuses not reachable anonymously remain inferred from
+  standard FastAPI + HTTP Bearer semantics.
 envelope:
   field: detail
   validation_schema: HTTPValidationError
+  media_type: application/json
+  problem_json: false
+surface_divergence: >-
+  The MCP server at /internal/mcp does NOT use this envelope. It returns bare `text/plain` bodies
+  (observed: "no bearer token" on a 401), so NationGraph's two surfaces disagree on error format.
+  An agent handling both must parse two shapes. See conventions/nationgraph-conventions.yml.
 problems:
 - status: 401
   title: Unauthenticated
   detail: Missing or invalid Bearer token.
   remediation: 'Send a valid `Authorization: Bearer <token>` header.'
   derived: HTTPBearer security scheme (not enumerated per-op in spec)
+  observed:
+    method: probed
+    body: '{"detail":"Not authenticated"}'
+    headers: 'WWW-Authenticate: Bearer'
+    urls:
+    - https://api.nationgraph.com/api/v3/lists
+    - https://api.nationgraph.com/api/v3/contacts
+    - https://api.nationgraph.com/api/v3/workspaces/institutions
+    note: >-
+      The challenge is a bare `Bearer` with no realm, scope or resource_metadata parameter — it
+      tells a client nothing about how to obtain a token.
 - status: 403
   title: Forbidden
   detail: The authenticated principal lacks access to the resource or workspace.
@@ -25,6 +46,16 @@ problems:
   title: Not Found
   detail: The referenced entity (signal, institution, list, automation, ...) does not exist.
   remediation: Verify the path id.
+  observed:
+    method: probed
+    body: '{"detail":"Not Found"}'
+    urls:
+    - https://api.nationgraph.com/api/v3/user
+    - https://api.nationgraph.com/openapi.json
+    note: >-
+      The same opaque body is returned for an unknown entity AND for a route the application no
+      longer serves — this is what /openapi.json now answers after the specification was
+      withdrawn. A caller cannot distinguish "wrong id" from "endpoint removed".
 - status: 422
   title: Unprocessable Entity (validation error)
   detail: Request failed schema validation; see `detail[].loc` and `detail[].msg`.

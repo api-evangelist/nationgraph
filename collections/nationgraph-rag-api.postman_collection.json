@@ -1,0 +1,578 @@
+{
+  "item": [
+    {
+      "id": "489f11db-274d-480f-ab8a-bff25e0489bb",
+      "name": "RAG",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b5c4abe-c7c9-430e-910f-f187a401502b",
+          "name": "Preprocess Rag Query",
+          "request": {
+            "name": "Preprocess Rag Query",
+            "description": {
+              "content": "Preprocess a RAG query\n\nArgs:\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    Preprocessed query data including extracted keywords and embeddings",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rag",
+                "preprocess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"keyword_config\": {\n    \"logic\": \"<string>\",\n    \"keywords\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"<dateTime>\",\n    \"to\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bebef16f-d494-44f9-98f9-17c722f876fd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "preprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"keyword_config\": {\n    \"logic\": \"AND\",\n    \"keywords\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"2022-02-08T21:14:56.982Z\",\n    \"to\": \"1986-12-12T19:43:03.676Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"preprocessed_data\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": 751.2906530608487,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fa41703-4d2d-4df0-9054-24f4f8d0e1cd",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "preprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"keyword_config\": {\n    \"logic\": \"AND\",\n    \"keywords\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"2022-02-08T21:14:56.982Z\",\n    \"to\": \"1986-12-12T19:43:03.676Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfc5256b-bf21-4941-a954-4920d992fe03",
+          "name": "Query Rag Data",
+          "request": {
+            "name": "Query Rag Data",
+            "description": {
+              "content": "Query RAG data\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    preprocessed_data: Output from the /rag/preprocess endpoint\n\nReturns:\n    RAG response with content, citations, and summary",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rag",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unique_id\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"preprocessed_data\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": \"string\",\n    \"key_3\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b4ed039-36b5-4d95-a477-c643c1845477",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"unique_id\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"preprocessed_data\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 9826.614279571237\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"content\": \"string\",\n  \"citations\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 4602,\n      \"key_2\": 1895.4109969669753,\n      \"key_3\": \"string\"\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 6417.032435259505,\n      \"key_2\": \"string\"\n    }\n  ],\n  \"summary\": \"string\",\n  \"is_starred\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46643c6a-0329-4fbd-aa3c-970c2e7d4d14",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"unique_id\": \"<string>\",\n  \"search_category\": \"<string>\",\n  \"preprocessed_data\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 9826.614279571237\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aff6218a-5960-422e-9110-16d190084ce5",
+          "name": "Query Rag Direct",
+          "request": {
+            "name": "Query Rag Direct",
+            "description": {
+              "content": "Convenience endpoint - combines preprocess and query\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    RAG response with content, citations, and summary",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rag",
+                "query-direct"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "unique_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "search_category",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"keyword_config\": {\n    \"logic\": \"<string>\",\n    \"keywords\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"<dateTime>\",\n    \"to\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55900489-b437-4d80-ac4a-1a25836fe011",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "query-direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "unique_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_category",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keyword_config\": {\n    \"logic\": \"AND\",\n    \"keywords\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"1953-10-21T10:29:21.372Z\",\n    \"to\": \"1949-07-04T22:52:26.550Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"content\": \"string\",\n  \"citations\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 4602,\n      \"key_2\": 1895.4109969669753,\n      \"key_3\": \"string\"\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 6417.032435259505,\n      \"key_2\": \"string\"\n    }\n  ],\n  \"summary\": \"string\",\n  \"is_starred\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e472205f-179f-4dfe-a8a6-7c5b68f359b2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rag",
+                    "query-direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "unique_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_category",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keyword_config\": {\n    \"logic\": \"AND\",\n    \"keywords\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"date_range\": {\n    \"from\": \"1953-10-21T10:29:21.372Z\",\n    \"to\": \"1949-07-04T22:52:26.550Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5032d92d-5da2-45b5-8365-c7c3389662f7",
+    "name": "Nationgraph Accounts RAG API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

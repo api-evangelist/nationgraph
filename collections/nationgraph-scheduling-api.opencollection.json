@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Scheduling API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Hosts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/scheduling/hosts",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Hosts"
+        },
+        {
+          "info": {
+            "name": "Get Availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/scheduling/availability",
+            "params": [
+              {
+                "name": "host_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC, inclusive window start"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC, exclusive window end"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Availability"
+        },
+        {
+          "info": {
+            "name": "Create Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/scheduling/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Booking"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Dev API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dev",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DEV: Show caller identity + impersonation actor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/dev/whoami",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEV ONLY: Echoes who the request is acting AS and, when impersonated, who is\nreally driving it. Hit this while impersonating (either plane — admin plugin or\norg-scoped) and watch the backend logs."
+        },
+        {
+          "info": {
+            "name": "DEV: Raw DB connectivity check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/dev/ping-db",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEV ONLY: SELECT 1 against app_db — confirms the container can reach ng-local-pg."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

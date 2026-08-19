@@ -1,0 +1,1223 @@
+{
+  "item": [
+    {
+      "id": "2a6ad127-885d-4696-bdaf-c3cdedd11c14",
+      "name": "Export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05c91b9f-1a76-485c-830c-bc1ec420d847",
+          "name": "Export Workspace Csv",
+          "request": {
+            "name": "Export Workspace Csv",
+            "description": {
+              "content": "Export workspace data to CSV format.\n\nArgs:\n    workspace_id: The workspace ID to export\n    request: WorkspaceExportRequest object containing filter, sort, search, column_ids, and institution_ids\n    token_BEARER: Authentication token\n    app_session: Database app_session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "workspaces",
+                ":workspace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sort\": {\n    \"column\": \"<string>\",\n    \"direction\": \"<string>\"\n  },\n  \"search\": \"<string>\",\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df1a4feb-7be0-47d0-9dc5-2bda9c549525",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sort\": {\n    \"column\": \"string\",\n    \"direction\": \"desc\"\n  },\n  \"search\": \"<string>\",\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52c55d7c-0548-43d0-ac09-7708f9bf08dc",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sort\": {\n    \"column\": \"string\",\n    \"direction\": \"desc\"\n  },\n  \"search\": \"<string>\",\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0fe5f74d-2056-48fb-8313-4fc84e41d173",
+          "name": "Export Single Po Csv",
+          "request": {
+            "name": "Export Single Po Csv",
+            "description": {
+              "content": "Export purchase orders for a specific column and institution as a CSV file.\n\nArgs:\n    column_id: Custom column ID containing purchase order data\n    institution_id: Institution ID\n    is_prev: Whether to use previous content\n    token_BEARER: Authentication token\n    app_session: Database app_session\n\nReturns:\n    CSV file with columns: Supplier, Item, Amount, Date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "institution",
+                ":institution_id",
+                "purchase_orders",
+                "column",
+                ":column_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_prev",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "column_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "74a4d8d2-51f4-4623-bdb5-d2a6370e64c7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "institution",
+                    ":institution_id",
+                    "purchase_orders",
+                    "column",
+                    ":column_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_prev",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "column_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a160074d-a856-4137-8151-41da8121f4fa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "institution",
+                    ":institution_id",
+                    "purchase_orders",
+                    "column",
+                    ":column_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_prev",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "column_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "095fe6bb-c620-4cec-8cbc-7f3a718d65cc",
+          "name": "Export Po Csv",
+          "request": {
+            "name": "Export Po Csv",
+            "description": {
+              "content": "Export purchase orders from smart columns in a workspace as a CSV file.\nArgs:\n    workspace_id: The workspace ID to export purchase orders from\n    request: PurchaseOrdersExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)\n    Each row is one individual purchase item. Columns: Institution, Supplier, Item, Amount, Date, plus any other selected columns (excluding contacts and purchase_orders columns).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "workspaces",
+                ":workspace_id",
+                "purchase_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter_json",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_json",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff167239-5650-48ec-ac16-93323ab16745",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter_json",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_json",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ab8ebe3-1733-4b76-9fa2-6043cc4dfd6b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter_json",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_json",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47e968c0-d553-4f28-8d1c-ff74ea7c4da5",
+          "name": "Export Rfps Csv",
+          "request": {
+            "name": "Export Rfps Csv",
+            "description": {
+              "content": "Export RFPs to CSV format.\n\nArgs:\n    request: RFPsExportRequest object containing the list of RFPs\n    token_BEARER: Authentication token\n    app_session: Database app_session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "rfps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rfps\": [\n    {\n      \"id\": \"<integer>\",\n      \"unique_id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"agency\": \"<string>\",\n      \"due_date\": \"<string>\",\n      \"rfp_url\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"institution_name\": \"<string>\",\n      \"institution_city\": \"<string>\",\n      \"institution_state\": \"<string>\",\n      \"institution_type\": \"<string>\",\n      \"source_id\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"county\": \"<string>\",\n      \"street\": \"<string>\",\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\",\n      \"geo_shape\": \"<string>\",\n      \"county_fips_code\": \"<string>\",\n      \"population\": \"<number>\",\n      \"entity_understanding\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"favicon_path\": \"<string>\",\n      \"last_processed_at\": \"<string>\",\n      \"homepage_url\": \"<string>\",\n      \"contact_url\": \"<string>\",\n      \"institution_rfp_url\": \"<string>\",\n      \"meeting_minute_url\": \"<string>\",\n      \"budget_url\": \"<string>\",\n      \"strategic_plan_url\": \"<string>\",\n      \"procurement_guideline_url\": \"<string>\",\n      \"press_release_url\": \"<string>\",\n      \"open_data_portal_url\": \"<string>\",\n      \"youtube_url\": \"<string>\",\n      \"foia_url\": \"<string>\",\n      \"homepage_url_status\": \"<string>\",\n      \"contact_url_status\": \"<string>\",\n      \"rfp_url_status\": \"<string>\",\n      \"meeting_minute_url_status\": \"<string>\",\n      \"budget_url_status\": \"<string>\",\n      \"strategic_plan_url_status\": \"<string>\",\n      \"press_release_url_status\": \"<string>\",\n      \"procurement_guideline_url_status\": \"<string>\",\n      \"open_data_portal_url_status\": \"<string>\",\n      \"youtube_url_status\": \"<string>\",\n      \"foia_url_status\": \"<string>\",\n      \"score\": \"<number>\",\n      \"relevance_score\": \"<number>\",\n      \"decay_score\": \"<number>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"unique_id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"agency\": \"<string>\",\n      \"due_date\": \"<string>\",\n      \"rfp_url\": \"<string>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"institution_name\": \"<string>\",\n      \"institution_city\": \"<string>\",\n      \"institution_state\": \"<string>\",\n      \"institution_type\": \"<string>\",\n      \"source_id\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"county\": \"<string>\",\n      \"street\": \"<string>\",\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\",\n      \"geo_shape\": \"<string>\",\n      \"county_fips_code\": \"<string>\",\n      \"population\": \"<number>\",\n      \"entity_understanding\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"favicon_path\": \"<string>\",\n      \"last_processed_at\": \"<string>\",\n      \"homepage_url\": \"<string>\",\n      \"contact_url\": \"<string>\",\n      \"institution_rfp_url\": \"<string>\",\n      \"meeting_minute_url\": \"<string>\",\n      \"budget_url\": \"<string>\",\n      \"strategic_plan_url\": \"<string>\",\n      \"procurement_guideline_url\": \"<string>\",\n      \"press_release_url\": \"<string>\",\n      \"open_data_portal_url\": \"<string>\",\n      \"youtube_url\": \"<string>\",\n      \"foia_url\": \"<string>\",\n      \"homepage_url_status\": \"<string>\",\n      \"contact_url_status\": \"<string>\",\n      \"rfp_url_status\": \"<string>\",\n      \"meeting_minute_url_status\": \"<string>\",\n      \"budget_url_status\": \"<string>\",\n      \"strategic_plan_url_status\": \"<string>\",\n      \"press_release_url_status\": \"<string>\",\n      \"procurement_guideline_url_status\": \"<string>\",\n      \"open_data_portal_url_status\": \"<string>\",\n      \"youtube_url_status\": \"<string>\",\n      \"foia_url_status\": \"<string>\",\n      \"score\": \"<number>\",\n      \"relevance_score\": \"<number>\",\n      \"decay_score\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3097829-9c56-405c-b8fa-416b36d54eff",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "rfps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rfps\": [\n    {\n      \"id\": 52,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 1528,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 973.0025273233489,\n      \"longitude\": 7022.404123544396,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 4384.661303270501,\n      \"entity_understanding\": \"string\",\n      \"is_active\": false,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 9312.548243199839,\n      \"relevance_score\": 9207.815342450125,\n      \"decay_score\": 9143.40583877395\n    },\n    {\n      \"id\": 8893,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 8078,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 5586.17574929094,\n      \"longitude\": 6889.686746440401,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 2939.7901879786127,\n      \"entity_understanding\": \"string\",\n      \"is_active\": false,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 7594.901059856725,\n      \"relevance_score\": 5641.325439879199,\n      \"decay_score\": 5447.129170484714\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d4be6b0-0757-45ff-b7c9-2f5b371179cd",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "rfps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rfps\": [\n    {\n      \"id\": 52,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 1528,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 973.0025273233489,\n      \"longitude\": 7022.404123544396,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 4384.661303270501,\n      \"entity_understanding\": \"string\",\n      \"is_active\": false,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 9312.548243199839,\n      \"relevance_score\": 9207.815342450125,\n      \"decay_score\": 9143.40583877395\n    },\n    {\n      \"id\": 8893,\n      \"unique_id\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"agency\": \"string\",\n      \"due_date\": \"string\",\n      \"rfp_url\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_city\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"source_id\": 8078,\n      \"label\": \"string\",\n      \"county\": \"string\",\n      \"street\": \"string\",\n      \"latitude\": 5586.17574929094,\n      \"longitude\": 6889.686746440401,\n      \"geo_shape\": \"string\",\n      \"county_fips_code\": \"string\",\n      \"population\": 2939.7901879786127,\n      \"entity_understanding\": \"string\",\n      \"is_active\": false,\n      \"favicon_path\": \"string\",\n      \"last_processed_at\": \"string\",\n      \"homepage_url\": \"string\",\n      \"contact_url\": \"string\",\n      \"institution_rfp_url\": \"string\",\n      \"meeting_minute_url\": \"string\",\n      \"budget_url\": \"string\",\n      \"strategic_plan_url\": \"string\",\n      \"procurement_guideline_url\": \"string\",\n      \"press_release_url\": \"string\",\n      \"open_data_portal_url\": \"string\",\n      \"youtube_url\": \"string\",\n      \"foia_url\": \"string\",\n      \"homepage_url_status\": \"string\",\n      \"contact_url_status\": \"string\",\n      \"rfp_url_status\": \"string\",\n      \"meeting_minute_url_status\": \"string\",\n      \"budget_url_status\": \"string\",\n      \"strategic_plan_url_status\": \"string\",\n      \"press_release_url_status\": \"string\",\n      \"procurement_guideline_url_status\": \"string\",\n      \"open_data_portal_url_status\": \"string\",\n      \"youtube_url_status\": \"string\",\n      \"foia_url_status\": \"string\",\n      \"score\": 7594.901059856725,\n      \"relevance_score\": 5641.325439879199,\n      \"decay_score\": 5447.129170484714\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f60ec98-f367-42fa-a78e-0bcf374658e8",
+          "name": "Export Grants Csv",
+          "request": {
+            "name": "Export Grants Csv",
+            "description": {
+              "content": "Export grants to CSV format.\n\nArgs:\n    request: GrantsExportRequest object containing the list of grants\n    token_BEARER: Authentication token",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grants\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"funding_agency\": \"<string>\",\n      \"total_obligated_amount\": \"<number>\",\n      \"last_modified_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"awardee_name\": \"<string>\",\n      \"period_of_performance_start_date\": \"<date>\",\n      \"period_of_performance_end_date\": \"<date>\",\n      \"grant_link\": \"<string>\",\n      \"outlayed_amount\": \"<number>\",\n      \"external_grant_id\": \"<string>\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"<string>\",\n      \"institution_state\": \"<string>\",\n      \"institution_type\": \"<string>\",\n      \"institution_id\": \"<string>\",\n      \"relevance_rank\": \"<number>\",\n      \"score\": \"<number>\",\n      \"relevance_score\": \"<number>\",\n      \"decay_score\": \"<number>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"funding_agency\": \"<string>\",\n      \"total_obligated_amount\": \"<number>\",\n      \"last_modified_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"awardee_name\": \"<string>\",\n      \"period_of_performance_start_date\": \"<date>\",\n      \"period_of_performance_end_date\": \"<date>\",\n      \"grant_link\": \"<string>\",\n      \"outlayed_amount\": \"<number>\",\n      \"external_grant_id\": \"<string>\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"<string>\",\n      \"institution_state\": \"<string>\",\n      \"institution_type\": \"<string>\",\n      \"institution_id\": \"<string>\",\n      \"relevance_rank\": \"<number>\",\n      \"score\": \"<number>\",\n      \"relevance_score\": \"<number>\",\n      \"decay_score\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "588c4e78-0745-4442-beee-fce71d60251e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grants\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"total_obligated_amount\": 7258.203589722175,\n      \"last_modified_date\": \"1976-03-30\",\n      \"description\": \"string\",\n      \"awardee_name\": \"string\",\n      \"period_of_performance_start_date\": \"1953-09-09\",\n      \"period_of_performance_end_date\": \"1973-08-14\",\n      \"grant_link\": \"string\",\n      \"outlayed_amount\": 8207.848934926504,\n      \"external_grant_id\": \"string\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"institution_id\": \"string\",\n      \"relevance_rank\": 1836.0625186435086,\n      \"score\": 3961.3492304858987,\n      \"relevance_score\": 6275.7891402249625,\n      \"decay_score\": 3325.8998326770206\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"total_obligated_amount\": 5507.824866537452,\n      \"last_modified_date\": \"2017-07-24\",\n      \"description\": \"string\",\n      \"awardee_name\": \"string\",\n      \"period_of_performance_start_date\": \"2015-06-20\",\n      \"period_of_performance_end_date\": \"1996-02-27\",\n      \"grant_link\": \"string\",\n      \"outlayed_amount\": 5609.66380738772,\n      \"external_grant_id\": \"string\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"institution_id\": \"string\",\n      \"relevance_rank\": 4332.878088461395,\n      \"score\": 6986.513147656279,\n      \"relevance_score\": 8450.522581230842,\n      \"decay_score\": 62.437418851213344\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d25029d-7bd4-474c-9247-902733382474",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grants\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"total_obligated_amount\": 7258.203589722175,\n      \"last_modified_date\": \"1976-03-30\",\n      \"description\": \"string\",\n      \"awardee_name\": \"string\",\n      \"period_of_performance_start_date\": \"1953-09-09\",\n      \"period_of_performance_end_date\": \"1973-08-14\",\n      \"grant_link\": \"string\",\n      \"outlayed_amount\": 8207.848934926504,\n      \"external_grant_id\": \"string\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"institution_id\": \"string\",\n      \"relevance_rank\": 1836.0625186435086,\n      \"score\": 3961.3492304858987,\n      \"relevance_score\": 6275.7891402249625,\n      \"decay_score\": 3325.8998326770206\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"total_obligated_amount\": 5507.824866537452,\n      \"last_modified_date\": \"2017-07-24\",\n      \"description\": \"string\",\n      \"awardee_name\": \"string\",\n      \"period_of_performance_start_date\": \"2015-06-20\",\n      \"period_of_performance_end_date\": \"1996-02-27\",\n      \"grant_link\": \"string\",\n      \"outlayed_amount\": 5609.66380738772,\n      \"external_grant_id\": \"string\",\n      \"transaction_count\": 1,\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"institution_id\": \"string\",\n      \"relevance_rank\": 4332.878088461395,\n      \"score\": 6986.513147656279,\n      \"relevance_score\": 8450.522581230842,\n      \"decay_score\": 62.437418851213344\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea6a4793-307c-4a22-a47d-14bcee5fae2f",
+          "name": "Export Contacts Csv",
+          "request": {
+            "name": "Export Contacts Csv",
+            "description": {
+              "content": "Export contacts from smart columns in a workspace as a CSV file.\n\nArgs:\n    workspace_id: The workspace ID to export contacts from\n    request: ContactsExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "export",
+                "workspaces",
+                ":workspace_id",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter_json",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_json",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"only_direct_matches\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59771a1f-15bd-41f2-b606-2d06bdea9e9b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter_json",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_json",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"only_direct_matches\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83f54629-e33c-41df-8b15-79cbf9e6ff14",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "export",
+                    "workspaces",
+                    ":workspace_id",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter_json",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_json",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"column_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"only_direct_matches\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "79579996-37a2-4d11-82ab-d1a67d8d0c1c",
+    "name": "Nationgraph Accounts Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "item": [
+    {
+      "id": "629990ab-aa30-47c6-9b8e-948f30e578c2",
+      "name": "VendorProducts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc9033d7-34f5-44ca-8b90-6bd535d795be",
+          "name": "Get Vendor Products",
+          "request": {
+            "name": "Get Vendor Products",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "vendor-products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "79466705-8348-44fa-9361-cbfeae6e0905",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "vendor-products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"9ccdc7eb-df3d-8246-a5cc-9aac6c475463\",\n    \"vendor_name\": \"string\",\n    \"products\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"id\": \"afc39da5-276a-f21c-cf98-7af65a98be46\",\n    \"vendor_name\": \"string\",\n    \"products\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5a22aac0-b5c0-49fb-ae27-a165f4bc4915",
+    "name": "Nationgraph Accounts VendorProducts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

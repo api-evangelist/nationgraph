@@ -1,16 +1,42 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/nationgraph-openapi-original.json
+generated: '2026-08-14'
+method: probed
+source: >-
+  live probes of api.nationgraph.com (2026-08-14) +
+  openapi/_original/nationgraph-openapi-original.json (harvested 2026-07-20)
+note: >-
+  UPGRADED from derived (2026-07-20) to probed (2026-08-14). Authentication, request tracing and
+  rate limiting are now recorded from observed live responses rather than inferred from the
+  specification. NationGraph runs TWO surfaces with materially different conventions — a REST API
+  and an MCP server — and they do not share an auth model.
 authentication:
-  style: http-bearer
-  header: 'Authorization: Bearer <token>'
-  scheme_name: HTTPBearer
+  style: split
+  rest:
+    style: http-bearer
+    header: 'Authorization: Bearer <token>'
+    scheme_name: HTTPBearer
+    challenge: 'WWW-Authenticate: Bearer'
+    scoped: false
+  mcp:
+    style: oauth2
+    header: 'Authorization: Bearer <oauth-token>'
+    required_scope: mcp:read
+    challenge: >-
+      Bearer resource_metadata="https://api.nationgraph.com/.well-known/oauth-protected-resource",
+      scope="mcp:read"
+    discovery: https://api.nationgraph.com/.well-known/oauth-authorization-server
+    pkce: S256
+    dynamic_client_registration: true
   ref: authentication/nationgraph-authentication.yml
 versioning:
   scheme: uri-path
   current: v3
   base_path: /api/v3
-  note: Public operations live under /api/v3; some internal ops under /api/internal.
+  note: >-
+    Public operations live under /api/v3. A separate /internal/* surface exists on the same host
+    and is served by a DIFFERENT runtime — /api/* answers with `server: uvicorn` and FastAPI's
+    JSON 404, while /internal/* answers with a plain-text `404 page not found` and emits an
+    x-request-id header. The MCP server lives on the /internal side.
+  ref: lifecycle/nationgraph-lifecycle.yml
 pagination:
   style: limit-offset
   params:
@@ -18,25 +44,86 @@ pagination:
   - offset
   - page_size
   sort_param: sort
+  cursor: false
   note: >-
-    List endpoints accept limit/offset (and page_size on some search endpoints)
-    query parameters; a `sort` parameter controls ordering. Derived from OpenAPI
-    parameters — no cursor pagination observed.
+    List endpoints accept limit/offset (and page_size on some search endpoints) query parameters;
+    a `sort` parameter controls ordering. Derived from OpenAPI parameters — no cursor pagination
+    observed.
 idempotency:
   supported: false
-  note: No Idempotency-Key header or idempotency contract is documented in the spec.
+  header: null
+  note: >-
+    No Idempotency-Key header and no idempotency contract documented anywhere. 134 of the 253
+    harvested operations are writes, and none of them are replay-safe by contract — an agent that
+    retries a timed-out POST has no guarantee against a duplicate. No Idempotency pointer is
+    emitted; there is nothing to point at.
 request_tracing:
-  request_id_header: null
-  note: No documented X-Request-Id / correlation header in the spec.
+  request_id_header: x-request-id
+  scope: /internal/* only
+  method: probed
+  observed_example_shape: 32-character lowercase hex
+  note: >-
+    Observed live on the MCP endpoint's 401 response. NOT returned by the FastAPI /api/v3 surface
+    or the API root, both of which respond with only date, content-type, content-length and
+    server. So correlation IDs exist for the agent surface and not for the REST surface. Never
+    documented by NationGraph.
 rate_limiting:
   documented: false
-  note: No RateLimit headers documented in the spec.
+  headers_observed: false
+  method: probed
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header on any observed response, and no
+    throttling triggered by a 15-request burst against the API root (15/15 returned 200).
+  ref: rate-limits/nationgraph-rate-limits.yml
 error_envelope:
   field: detail
   format: fastapi
+  media_type: application/json
+  problem_json: false
+  method: probed
+  observed:
+  - {status: 401, body: '{"detail":"Not authenticated"}', surface: /api/v3}
+  - {status: 404, body: '{"detail":"Not Found"}', surface: /api/v3}
+  - {status: 401, body: 'no bearer token', surface: /internal/mcp, media_type: 'text/plain'}
+  note: >-
+    The two surfaces do not even share an error format — REST returns a FastAPI JSON `detail`
+    envelope, the MCP endpoint returns bare text/plain. Neither is RFC 9457.
   ref: errors/nationgraph-problem-types.yml
 content_type: application/json
+field_expansion:
+  supported: false
+  note: No expand / fields / include sparse-fieldset parameter observed in the specification.
+metadata:
+  supported: false
+  note: No customer-defined metadata property observed on resources.
+webhooks:
+  outbound: false
+  note: >-
+    NationGraph publishes NO outbound webhook or event surface for customers. The single webhook
+    path in the specification, POST /api/v3/webhooks/clerk, is an INBOUND receiver for events
+    from Clerk, NationGraph's own identity vendor — it is their intake, not a customer
+    subscription. No AsyncAPI artifact and no Webhooks pointer is emitted, because there is no
+    customer-facing event surface to describe.
+security_headers:
+  hsts:
+    nationgraph.com: true
+    api.nationgraph.com: false
+  note: >-
+    The API host does not send Strict-Transport-Security, while the marketing host does
+    (max-age 31536000). See security/nationgraph-domain-security.yml.
 cross_links:
   authentication: authentication/nationgraph-authentication.yml
+  scopes: scopes/nationgraph-scopes.yml
   errors: errors/nationgraph-problem-types.yml
   lifecycle: lifecycle/nationgraph-lifecycle.yml
+  rate_limits: rate-limits/nationgraph-rate-limits.yml
+  mcp: mcp/nationgraph-mcp.yml
+  conformance: conformance/nationgraph-conformance.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/', http_status: 200}
+  - {url: 'https://api.nationgraph.com/api/v3/lists', http_status: 401}
+  - {url: 'https://api.nationgraph.com/api/v3/user', http_status: 404}
+  - {url: 'https://api.nationgraph.com/internal/mcp', http_status: 401}
+  - {url: 'https://api.nationgraph.com/internal/openapi.json', http_status: 404}

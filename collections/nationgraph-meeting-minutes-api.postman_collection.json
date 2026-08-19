@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "2a334502-bd9a-4e83-ade1-7e796abaf309",
+      "name": "Meeting Minutes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f49d8d7-b0d7-43a1-94e9-0ada24a15c34",
+          "name": "Get Meeting Minute Chunk",
+          "request": {
+            "name": "Get Meeting Minute Chunk",
+            "description": {
+              "content": "Fetch a single meeting minute chunk by chunk ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "meeting-minutes",
+                "chunks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c4e096b4-4cf8-4adc-a9c5-92430a87f238",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "meeting-minutes",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chunk_id\": 443,\n  \"document_id\": 2210,\n  \"text\": \"string\",\n  \"relevance\": 4939.590751974238,\n  \"institution_id\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"meeting_date\": \"1996-08-11\",\n  \"document_title\": \"string\",\n  \"document_url\": \"string\",\n  \"document_created_at\": \"2002-11-08T11:34:37.351Z\",\n  \"other_matching_chunks_in_document\": 4009\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "870d1892-1b35-4eb6-9717-454d41704c10",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "meeting-minutes",
+                    "chunks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78a6a5d5-7a39-406b-be1d-fe3c6c5b08b9",
+          "name": "Search Meeting Minutes",
+          "request": {
+            "name": "Search Meeting Minutes",
+            "description": {
+              "content": "Search meeting minute chunks via Postgres FTS.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied —\nchunks table has 20M+ rows and we don't allow unbounded scans.\n\nWith ``query``: results ranked by ``ts_rank_cd`` (cover density —\nproximity of query terms). Without ``query`` (institution-scoped\nbrowse): results sorted by meeting date descending.\n\n``query`` accepts a websearch-style string (same syntax as RFP / Grant\nsearch): bare words for stemmed match, ``\"phrase\"`` for exact phrase,\n``OR``, ``-word`` for exclude.\n\nSet ``group_by_document=true`` to collapse to the highest-scoring chunk\nper document (or earliest chunk when no query).\n\nSemantic / LLM-synthesized answers are not in scope here — use the\nexisting ``/v3/rag/query`` endpoint for that. This endpoint returns raw\nevidence rows for downstream reasoning.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "meeting-minutes",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"meeting_date_after\": \"<date>\",\n  \"meeting_date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6e1d99c-1d14-4f63-85f4-bf60fe47633e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "meeting-minutes",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"meeting_date_after\": \"<date>\",\n  \"meeting_date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"chunk_id\": 1864,\n      \"document_id\": 7416,\n      \"text\": \"string\",\n      \"relevance\": 1922.6686154038807,\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"meeting_date\": \"1972-01-20\",\n      \"document_title\": \"string\",\n      \"document_url\": \"string\",\n      \"document_created_at\": \"2020-05-05T04:40:37.045Z\",\n      \"other_matching_chunks_in_document\": 7571\n    },\n    {\n      \"chunk_id\": 9566,\n      \"document_id\": 2701,\n      \"text\": \"string\",\n      \"relevance\": 1615.897428876506,\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"meeting_date\": \"1984-03-05\",\n      \"document_title\": \"string\",\n      \"document_url\": \"string\",\n      \"document_created_at\": \"1979-07-18T04:23:01.237Z\",\n      \"other_matching_chunks_in_document\": 2777\n    }\n  ],\n  \"total\": 7713,\n  \"offset\": 3618,\n  \"limit\": 8974\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62dee250-05be-4710-b35d-9657d66b014a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "meeting-minutes",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"meeting_date_after\": \"<date>\",\n  \"meeting_date_before\": \"<date>\",\n  \"group_by_document\": false,\n  \"offset\": 0,\n  \"limit\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "febdd794-bd61-488f-bdef-cfba130266ea",
+    "name": "Nationgraph Accounts Meeting Minutes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

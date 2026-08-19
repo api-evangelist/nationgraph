@@ -1,0 +1,1350 @@
+{
+  "item": [
+    {
+      "id": "85d40ae3-0954-46e4-b564-b4f71eb7cd80",
+      "name": "CRM Leads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76d8897e-b3cd-42d6-a082-fcb2209881e6",
+          "name": "List Leads",
+          "request": {
+            "name": "List Leads",
+            "description": {
+              "content": "List leads from the CRM with pagination.\n\n**Note**: This endpoint is only supported for Salesforce integrations.\nHubSpot does not have a Lead object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of leads to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<string>",
+                  "description": "Comma-separated list of properties"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f782f6f-4623-4252-b9a1-1d19c9c4ce83",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5911\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 9073,\n        \"key_1\": 1698\n      }\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c20bed0-87e3-4ee0-8a02-31c70fb9b8ef",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1466a7f-4ae3-4c64-911f-7147577bcb95",
+          "name": "Create Lead",
+          "request": {
+            "name": "Create Lead",
+            "description": {
+              "content": "Create a new lead in the CRM.\n\n**Required fields**:\n- `lastname`: Lead's last name\n- `company`: Company name\n\n**Note**: This endpoint is only supported for Salesforce integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bcc285d3-a841-4369-a0e1-80ee850e7b86",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f63fcf8-8a02-4ee9-a618-a3b3f35e37bb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b033d5f-3e17-4b4b-a801-a6c3cedbf05a",
+          "name": "Get Lead",
+          "request": {
+            "name": "Get Lead",
+            "description": {
+              "content": "Get a single lead by ID.\n\n**Note**: This endpoint is only supported for Salesforce integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads",
+                ":lead_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<string>",
+                  "description": "Comma-separated list of properties"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lead_id",
+                  "description": "(Required) The lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ff3b1f62-a17d-4d15-902c-c0483da9f0d4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f89cbee-ebc3-4d3a-a170-34fbeaf93945",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac0106b9-c6f2-4720-8727-04cb560a2963",
+          "name": "Update Lead",
+          "request": {
+            "name": "Update Lead",
+            "description": {
+              "content": "Update an existing lead.\n\n**Note**: This endpoint is only supported for Salesforce integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads",
+                ":lead_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lead_id",
+                  "description": "(Required) The lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FirstName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2af5f350-f917-4eb4-b800-ada8ff143977",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FirstName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\",\n  \"key_0\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "670e40f3-7c0b-45ac-a774-2cdd2d1f0cfe",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FirstName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Company\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"Phone\": \"<string>\",\n  \"MobilePhone\": \"<string>\",\n  \"Website\": \"<string>\",\n  \"Street\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"PostalCode\": \"<string>\",\n  \"Country\": \"<string>\",\n  \"Industry\": \"<string>\",\n  \"NumberOfEmployees\": \"<integer>\",\n  \"AnnualRevenue\": \"<number>\",\n  \"Status\": \"<string>\",\n  \"Rating\": \"<string>\",\n  \"LeadSource\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"OwnerId\": \"<string>\",\n  \"key_0\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01ee94a2-4b2b-456e-91d6-e6b633db4c03",
+          "name": "Search Leads",
+          "request": {
+            "name": "Search Leads",
+            "description": {
+              "content": "Search for leads using various criteria.\n\n**Query parameters**:\n- `query`: Text search across name and company\n- `lastname`: Filter by last name\n- `company`: Filter by company name\n- `email`: Filter by email\n- `status`: Filter by lead status\n- `industry`: Filter by industry\n\n**Note**: This endpoint is only supported for Salesforce integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Text search"
+                },
+                {
+                  "disabled": false,
+                  "key": "lastname",
+                  "value": "<string>",
+                  "description": "Last name"
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>",
+                  "description": "Company name"
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "Email address"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Lead status"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry",
+                  "value": "<string>",
+                  "description": "Industry"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e83f87d-706c-4d45-9a9d-bfb5d419664a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5911\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 9073,\n        \"key_1\": 1698\n      }\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac82be18-a061-41a4-b5ec-7712e714b925",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92744b23-c2d1-4ce4-8dc7-875087927d21",
+          "name": "Convert Lead",
+          "request": {
+            "name": "Convert Lead",
+            "description": {
+              "content": "Convert a lead to an Account, Contact, and optionally an Opportunity.\n\nThis is a Salesforce-specific operation that qualifies a lead and creates:\n- **Account** (company)\n- **Contact** (person)\n- **Opportunity** (deal) - optional\n\n**Request body options**:\n- `accountId`: Associate with existing Account instead of creating new one\n- `contactId`: Associate with existing Contact instead of creating new one\n- `createOpportunity`: Whether to create an Opportunity (default: false)\n- `opportunityName`: Name for the Opportunity (if creating one)\n- `ownerId`: Assign to specific owner\n- `sendNotificationEmail`: Send email notification (default: false)\n\n**Note**: This endpoint is only supported for Salesforce integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "leads",
+                ":lead_id",
+                "convert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lead_id",
+                  "description": "(Required) The lead ID to convert"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"contactId\": \"<string>\",\n  \"createOpportunity\": false,\n  \"opportunityName\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"sendNotificationEmail\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec2a066e-a487-456c-99c0-6e70dd3f3fb2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID to convert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"contactId\": \"<string>\",\n  \"createOpportunity\": false,\n  \"opportunityName\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"sendNotificationEmail\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"leadId\": \"string\",\n  \"accountId\": \"string\",\n  \"contactId\": \"string\",\n  \"opportunityId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a187dcf-1092-44fc-a94d-97b51ed455a9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "leads",
+                    ":lead_id",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) The lead ID to convert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"contactId\": \"<string>\",\n  \"createOpportunity\": false,\n  \"opportunityName\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"sendNotificationEmail\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "357b4414-08ba-4de8-b02f-833fece5f00d",
+    "name": "Nationgraph Accounts CRM Leads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

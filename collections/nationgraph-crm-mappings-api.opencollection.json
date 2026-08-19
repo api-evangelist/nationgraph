@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Mappings API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Mappings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/mappings",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get paginated CRM-institution mappings for this integration."
+        },
+        {
+          "info": {
+            "name": "Create Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/mappings",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create mappings between CRM records and NationGraph institutions.\n\n**Single Mapping Format:**\n```json\n{\n  \"company_id\": \"123456\",\n  \"institution_id\": \"inst_abc\"\n}\n```\n\n**Bulk Mappings Format:**\n```json\n{\n  \"mappings\": [\n    {\"crm_id\": \"123456\", \"institution_id\": \"inst_abc\"},\n    {\"crm_id\": \"789012\", \"institution_id\": \"inst_xyz\"}\n  ]\n}\n```\n\n**Response:** Returns 202 Accepted immediately. Mappings are created in the background."
+        },
+        {
+          "info": {
+            "name": "Delete Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/mappings",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete one or more CRM-institution mappings.\n\n**Request Format:**\n```json\n{\n  \"crm_ids\": [\"123456\", \"789012\"]\n}\n```\n\n**Response:** Returns which CRM IDs were successfully deleted and which were not found."
+        },
+        {
+          "info": {
+            "name": "Export Mappings CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/mappings/export",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export all CRM-institution mappings as a CSV file."
+        },
+        {
+          "info": {
+            "name": "Push NationGraph IDs to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/mappings/push-nationgraph-ids",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Write each linked institution's NationGraph `unique_id` onto the CRM field chosen by `crm_field_name` (a HubSpot Company property or Salesforce Account field) for every mapped company/account. The field must already exist — it is never created. Skips records that already have the field set. Runs in the background."
+        },
+        {
+          "info": {
+            "name": "Get CRM Contacts for Institution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/institutions/:institution_id/contacts",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "institution_id",
+                "value": "",
+                "type": "path",
+                "description": "The NationGraph institution unique_id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max contacts to return"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch all CRM contacts associated with the company mapped to this institution.\n\n**Prerequisites:**\n- Active CRM integration\n- Existing mapping between this institution and a CRM company\n\n**Returns:**\nAll contacts associated with the CRM company, including their email, name, job title, and lifecycle stage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -3,7 +3,7 @@ name: Find verified government decision-maker contacts
 description: >-
   Search NationGraph Contacts for verified government decision-makers by role and
   institution, returning emails and direct phone numbers for outreach.
-api: openapi/nationgraph-openapi-original.json
+api: openapi/_original/nationgraph-openapi-original.json
 auth: HTTP Bearer (Authorization: Bearer <token>)
 operations:
   - search_contacts_api_v3_contacts_search_post

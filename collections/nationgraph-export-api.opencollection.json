@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Export API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export Workspace Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/export/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export workspace data to CSV format.\n\nArgs:\n    workspace_id: The workspace ID to export\n    request: WorkspaceExportRequest object containing filter, sort, search, column_ids, and institution_ids\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+        },
+        {
+          "info": {
+            "name": "Export Single Po Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/export/institution/:institution_id/purchase_orders/column/:column_id",
+            "params": [
+              {
+                "name": "column_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "institution_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "is_prev",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export purchase orders for a specific column and institution as a CSV file.\n\nArgs:\n    column_id: Custom column ID containing purchase order data\n    institution_id: Institution ID\n    is_prev: Whether to use previous content\n    token_BEARER: Authentication token\n    app_session: Database app_session\n\nReturns:\n    CSV file with columns: Supplier, Item, Amount, Date."
+        },
+        {
+          "info": {
+            "name": "Export Po Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/export/workspaces/:workspace_id/purchase_orders",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_json",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_json",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export purchase orders from smart columns in a workspace as a CSV file.\nArgs:\n    workspace_id: The workspace ID to export purchase orders from\n    request: PurchaseOrdersExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceI"
+        },
+        {
+          "info": {
+            "name": "Export Rfps Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/export/rfps",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export RFPs to CSV format.\n\nArgs:\n    request: RFPsExportRequest object containing the list of RFPs\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+        },
+        {
+          "info": {
+            "name": "Export Grants Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/export/grants",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export grants to CSV format.\n\nArgs:\n    request: GrantsExportRequest object containing the list of grants\n    token_BEARER: Authentication token"
+        },
+        {
+          "info": {
+            "name": "Export Contacts Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/export/workspaces/:workspace_id/contacts",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_json",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_json",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export contacts from smart columns in a workspace as a CSV file.\n\nArgs:\n    workspace_id: The workspace ID to export contacts from\n    request: ContactsExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

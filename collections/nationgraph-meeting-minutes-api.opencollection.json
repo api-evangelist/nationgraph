@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Meeting Minutes API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meeting Minutes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Meeting Minute Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/meeting-minutes/chunks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a single meeting minute chunk by chunk ID."
+        },
+        {
+          "info": {
+            "name": "Search Meeting Minutes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/meeting-minutes/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search meeting minute chunks via Postgres FTS.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied —\nchunks table has 20M+ rows and we don't allow unbounded scans.\n\nWith ``query``: results ranked by ``ts_rank_cd`` (cover density —\nproximity of query terms). Without ``query`` (institution-scoped\nbrowse): results sorted by meeting date descending.\n\n``query`` accepts a websearch-style string (same syntax as RFP / Grant\nsearch): bare words for stemmed match, ``\"phrase\"`` for exact phr"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

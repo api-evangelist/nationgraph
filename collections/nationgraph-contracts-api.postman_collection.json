@@ -1,0 +1,358 @@
+{
+  "item": [
+    {
+      "id": "08a6be02-24ab-4c60-a8c9-d17e063a1bb4",
+      "name": "Contracts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16ec3397-602c-4d0f-9395-60743c849ccc",
+          "name": "Get Contract",
+          "request": {
+            "name": "Get Contract",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "contracts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "571c1882-99ed-424c-920a-5ab52fafa44e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"institution_id\": \"string\",\n  \"file_path\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\",\n  \"institution_type\": \"string\",\n  \"annual_acv\": 6600.724435914745,\n  \"total_acv\": 6995.22430464937,\n  \"contract_start_date\": \"1950-04-20\",\n  \"contract_end_date\": \"1981-04-20\",\n  \"signees\": {},\n  \"created_at\": \"1958-03-02T10:00:41.185Z\",\n  \"relevance\": 612.5670419496676\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e314fcd8-f7ce-41ed-94ec-bfa6426993e3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ab6e535-0b4c-4918-a801-0d356ad97f6e",
+          "name": "Search Contracts",
+          "request": {
+            "name": "Search Contracts",
+            "description": {
+              "content": "Search contracts (retool.contract_data).\n\nThree orthogonal text inputs, AND'd together:\n\n- ``vendors``: array of vendor terms (weight A in text_search_strict)\n- ``products``: array of product terms (weight B in text_search_strict)\n- ``query``: free-text over raw_text (text_search_prose, english config)\n\nSee ContractSearchFilters docstring for the full syntax. All filters are\noptional — the table is small enough (~7K rows) to allow unbounded scans.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "contracts",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"contract_start_after\": \"<date>\",\n  \"contract_start_before\": \"<date>\",\n  \"contract_end_after\": \"<date>\",\n  \"contract_end_before\": \"<date>\",\n  \"min_total_acv\": \"<number>\",\n  \"max_total_acv\": \"<number>\",\n  \"min_annual_acv\": \"<number>\",\n  \"max_annual_acv\": \"<number>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"created_at_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f71d272-6aa2-4d4e-9d68-4e7aecc0881d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "contracts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"contract_start_after\": \"<date>\",\n  \"contract_start_before\": \"<date>\",\n  \"contract_end_after\": \"<date>\",\n  \"contract_end_before\": \"<date>\",\n  \"min_total_acv\": \"<number>\",\n  \"max_total_acv\": \"<number>\",\n  \"min_annual_acv\": \"<number>\",\n  \"max_annual_acv\": \"<number>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"created_at_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"institution_id\": \"string\",\n      \"file_path\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"annual_acv\": 9829.25287334046,\n      \"total_acv\": 9494.275365631414,\n      \"contract_start_date\": \"1952-05-11\",\n      \"contract_end_date\": \"2020-12-13\",\n      \"signees\": {},\n      \"created_at\": \"2000-11-27T02:29:06.577Z\",\n      \"relevance\": 142.907250516896\n    },\n    {\n      \"id\": \"string\",\n      \"institution_id\": \"string\",\n      \"file_path\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\",\n      \"institution_type\": \"string\",\n      \"annual_acv\": 9671.67691257499,\n      \"total_acv\": 3539.5321075677157,\n      \"contract_start_date\": \"1991-04-12\",\n      \"contract_end_date\": \"1966-07-09\",\n      \"signees\": {},\n      \"created_at\": \"2005-10-04T08:04:55.555Z\",\n      \"relevance\": 5399.910617401902\n    }\n  ],\n  \"total\": 3355,\n  \"offset\": 7905,\n  \"limit\": 9914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "666cbe7d-404e-4343-ba60-21314a444af5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "contracts",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"contract_start_after\": \"<date>\",\n  \"contract_start_before\": \"<date>\",\n  \"contract_end_after\": \"<date>\",\n  \"contract_end_before\": \"<date>\",\n  \"min_total_acv\": \"<number>\",\n  \"max_total_acv\": \"<number>\",\n  \"min_annual_acv\": \"<number>\",\n  \"max_annual_acv\": \"<number>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort\": \"created_at_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8995448b-5016-4d12-81b6-417bc1f283ff",
+    "name": "Nationgraph Accounts Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

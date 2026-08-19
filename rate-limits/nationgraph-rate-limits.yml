@@ -1,0 +1,73 @@
+generated: '2026-08-14'
+method: probed
+source: >-
+  live header observation on api.nationgraph.com (2026-08-14) +
+  https://nationgraph.gitbook.io/nationgraph/help-center/ +
+  openapi/_original/nationgraph-openapi-original.json
+provider: NationGraph
+providerId: nationgraph
+limit_count: 0
+documented: false
+headers_observed: false
+summary: >-
+  NationGraph publishes NO rate limits and returns NO rate-limit headers. This was established by
+  observation, not by absence of documentation alone: response headers were captured from the API
+  root, from authenticated-required /api/v3 endpoints, and from the MCP endpoint, and a
+  15-request burst was run against the API root. No RateLimit-*, X-RateLimit-*, Retry-After or
+  equivalent header appeared on any response, and no request was throttled. An honest zero.
+limits: []
+headers:
+  rateLimit: null
+  rateLimitRemaining: null
+  rateLimitReset: null
+  retryAfter: null
+  requestId: x-request-id
+  requestIdScope: /internal/* only
+  note: >-
+    The only observability header NationGraph returns is x-request-id, and only on the /internal
+    surface (the MCP server). The FastAPI /api/v3 surface returns no correlation header at all —
+    its responses carry only date, content-type, content-length and server. A client that gets
+    throttled or errors on the REST API has no identifier to quote to support.
+responseCodes:
+  throttled: null
+  note: >-
+    The 429 status was not observed and is not documented. What an exhausted consumer receives is
+    unknown.
+observations:
+- surface: API root
+  url: https://api.nationgraph.com/
+  requests: 15
+  window: burst, sequential
+  outcome: '15/15 returned HTTP 200; no throttling, no rate-limit headers, no Retry-After'
+  headers_returned: [date, content-type, content-length, server]
+- surface: REST /api/v3
+  url: https://api.nationgraph.com/api/v3/lists
+  outcome: '401 Not authenticated'
+  headers_returned: [date, content-type, content-length, server, www-authenticate]
+  note: No rate-limit headers on the challenge response.
+- surface: MCP
+  url: https://api.nationgraph.com/internal/mcp
+  outcome: '401 no bearer token'
+  headers_returned: [date, content-type, content-length, www-authenticate, x-content-type-options, x-request-id]
+  note: >-
+    No rate-limit headers. Notably, the MCP surface returns no quota signal either — an agent
+    holding an mcp:read token has no published or runtime indication of how much it may call.
+docs_searched:
+- {url: 'https://nationgraph.gitbook.io/nationgraph/help-center/', status: 200, result: 'no rate limit, quota or throttling section'}
+- {url: 'https://www.nationgraph.com/llms.txt', status: 200, result: 'no limits documented'}
+- {url: 'https://api.nationgraph.com/docs', status: 404, result: 'interactive reference withdrawn; see lifecycle/'}
+spec_note: >-
+  The harvested OpenAPI (v0.2.36, 2026-07-20) declares no 429 response on any of its 253
+  operations and documents no rate-limit headers.
+cross_links:
+  conventions: conventions/nationgraph-conventions.yml
+  plans: plans/nationgraph-plans-pricing.yml
+  errors: errors/nationgraph-problem-types.yml
+  lifecycle: lifecycle/nationgraph-lifecycle.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/', http_status: 200, note: 'x15 burst, no throttle, no rate-limit headers'}
+  - {url: 'https://api.nationgraph.com/api/v3/lists', http_status: 401}
+  - {url: 'https://api.nationgraph.com/internal/mcp', http_status: 401}
+  - {url: 'https://nationgraph.gitbook.io/nationgraph/help-center/', http_status: 200}

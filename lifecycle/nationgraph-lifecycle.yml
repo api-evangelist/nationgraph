@@ -1,20 +1,111 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/nationgraph-openapi-original.json
+generated: '2026-08-14'
+method: probed
+source: >-
+  live probes of api.nationgraph.com (2026-08-14) +
+  openapi/_original/nationgraph-openapi-original.json (harvested 2026-07-20)
 versioning:
   scheme: uri-path
   current: v3
+  base_path: /api/v3
   spec_version: '0.2.36'
-  docs: https://api.nationgraph.com/docs
+  spec_version_note: >-
+    Last observed specification version. Cannot be re-read — see contract_availability below.
+  docs: null
 deprecation:
   policy_url: null
   sunset_header: false
-  note: No deprecation policy or Sunset/Deprecation header support documented.
+  deprecation_header: false
+  note: >-
+    No deprecation policy, no versioning policy, and no RFC 8594 Sunset/Deprecation header
+    support. Nothing published tells a consumer how much notice they would get before a breaking
+    change.
+contract_availability:
+  status: withdrawn
+  observed: '2026-08-14'
+  previously_observed: '2026-07-20'
+  finding: >-
+    THE MACHINE-READABLE CONTRACT HAS BEEN WITHDRAWN. On 2026-07-20 NationGraph served an
+    OpenAPI 3.1.0 specification (v0.2.36, 212 paths / 253 operations) at
+    https://api.nationgraph.com/openapi.json alongside interactive Swagger UI at /docs. As of
+    2026-08-14 both return HTTP 404 `{"detail":"Not Found"}`, as do /redoc, /swagger.json,
+    /openapi.yaml, /api-docs and every versioned variant probed. The pattern is exactly what
+    FastAPI produces when an application is redeployed with `openapi_url=None, docs_url=None` —
+    a deliberate configuration change, not an outage.
+  api_still_live: true
+  api_evidence: >-
+    The API itself is unaffected and fully operational. /api/v3/lists, /api/v3/contacts,
+    /api/v3/workspaces/institutions and POST /api/v3/signals/search all return 401
+    "Not authenticated" (not 404), and the API root returns 200
+    {"message":"Hello, welcome to the NationGraph API"}. Only the DISCOVERY surface was removed.
+  net_effect: >-
+    NationGraph moved in two opposite directions in the same three weeks. It withdrew the REST
+    contract that let a developer discover the API, and it stood up an OAuth-discoverable MCP
+    server that lets an agent discover it. The human-facing developer surface got smaller while
+    the agent-facing one got larger.
+  our_copy: >-
+    openapi/_original/nationgraph-openapi-original.json is our verbatim capture from 2026-07-20,
+    and is now the only public record of this contract. Everything derived in this repo carries
+    that date and that provenance. It must NOT be presented as currently discoverable.
+  probes:
+  - {url: 'https://api.nationgraph.com/openapi.json', status: 404}
+  - {url: 'https://api.nationgraph.com/docs', status: 404}
+  - {url: 'https://api.nationgraph.com/redoc', status: 404}
+  - {url: 'https://api.nationgraph.com/swagger.json', status: 404}
+  - {url: 'https://api.nationgraph.com/openapi.yaml', status: 404}
+  - {url: 'https://api.nationgraph.com/api-docs', status: 404}
+  - {url: 'https://api.nationgraph.com/', status: 200}
 sla:
   url: null
-status_page: null
+  published: false
+status_page:
+  url: null
+  published: false
+  note: >-
+    No status page. status.nationgraph.com does not resolve (NXDOMAIN), nationgraph.com/status
+    returns 404, and no third-party status host (Statuspage, Instatus, Better Stack) is linked
+    from the site or the help center. No StatusPage pointer is emitted.
+  probes:
+  - {url: 'https://status.nationgraph.com/', status: NXDOMAIN}
+  - {url: 'https://www.nationgraph.com/status', status: 404}
+changelog:
+  url: null
+  published: false
+  note: >-
+    No developer changelog or release notes. https://www.nationgraph.com/announcements exists but
+    is a marketing news feed — four undated company/product posts (Series A, "Introducing
+    Automations", launch announcement) — not a dated, versioned record of API change. No
+    ChangeLog artifact is written.
+  probes:
+  - {url: 'https://www.nationgraph.com/changelog', status: 404}
+  - {url: 'https://www.nationgraph.com/announcements', status: 200}
 trust_center: https://app.vanta.com/nationgraph.com/trust/9g8d6olm0ikvy23x0vsdup
+support: https://nationgraph.com/get-a-demo
 deprecated_operations: []
-note: >-
-  Interactive API reference (Swagger UI) served at https://api.nationgraph.com/docs;
-  machine-readable spec at https://api.nationgraph.com/openapi.json (version 0.2.36).
+deprecated_operations_note: >-
+  Zero operations carried a `deprecated: true` flag in the harvested specification.
+agent_surface_timeline:
+- date: '2026-07-20'
+  event: >-
+    OpenAPI 3.1.0 v0.2.36 live at /openapi.json with Swagger UI at /docs. No OAuth discovery, no
+    MCP server. llms.txt published on the marketing host.
+- date: '2026-08-14'
+  event: >-
+    OpenAPI and Swagger UI withdrawn (404). OAuth 2.0/OIDC discovery live on the API host, plus
+    an RFC 9728 protected-resource descriptor advertising a remote MCP server at
+    /internal/mcp with an `mcp:read` scope. API itself unchanged and live.
+cross_links:
+  conventions: conventions/nationgraph-conventions.yml
+  conformance: conformance/nationgraph-conformance.yml
+  mcp: mcp/nationgraph-mcp.yml
+  well_known: well-known/nationgraph-well-known.yml
+  trust_center: security/nationgraph-trust-center.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/openapi.json', http_status: 404}
+  - {url: 'https://api.nationgraph.com/docs', http_status: 404}
+  - {url: 'https://api.nationgraph.com/', http_status: 200}
+  - {url: 'https://api.nationgraph.com/api/v3/lists', http_status: 401}
+  - {url: 'https://www.nationgraph.com/status', http_status: 404}
+  - {url: 'https://www.nationgraph.com/changelog', http_status: 404}
+  - {url: 'https://www.nationgraph.com/announcements', http_status: 200}

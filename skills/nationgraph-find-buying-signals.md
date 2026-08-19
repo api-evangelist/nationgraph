@@ -4,7 +4,7 @@ description: >-
   Search NationGraph for predictive public-sector buying signals, inspect a
   signal and its underlying government sources, then organize the promising ones
   into a working list.
-api: openapi/nationgraph-openapi-original.json
+api: openapi/_original/nationgraph-openapi-original.json
 auth: HTTP Bearer (Authorization: Bearer <token>)
 operations:
   - search_signals_api_v3_signals_search_post

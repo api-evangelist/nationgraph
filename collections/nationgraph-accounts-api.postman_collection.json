@@ -1,0 +1,1581 @@
+{
+  "item": [
+    {
+      "id": "4b5c65ac-a924-46e0-b0ff-b3f6b1c53a70",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c8bce8e-9333-4e01-a136-d3962d5d920f",
+          "name": "Get Institution Stats",
+          "request": {
+            "name": "Get Institution Stats",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c23ff7f-f8c9-4f64-b197-f454d2681c13",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"signals\": 7201,\n  \"rfps\": 258,\n  \"grants\": 8274,\n  \"contacts\": 80\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae1bc20a-4f2b-45b1-a8ef-71ebdef422e8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d52064fd-a79f-41e8-b31c-42d32e450dc3",
+          "name": "Get Institution Logos",
+          "request": {
+            "name": "Get Institution Logos",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                "logos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution_ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d60c4a3c-c82f-4b5b-ac15-fbb44a63e404",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    "logos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logos\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b2f686f-9282-42ab-9d66-b12f9cdb4d4a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    "logos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e40600c-452d-4854-8a69-69400efb271e",
+          "name": "List Institution Signals",
+          "request": {
+            "name": "List Institution Signals",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "signals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f535ef4-a796-49bb-afbe-380a95aa9321",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"7591d812-bd00-8a43-a426-61a3f28bf529\",\n      \"signal_setting_id\": \"8787a1db-78f7-4b64-562a-18dba6e7916d\",\n      \"institution_id\": \"string\",\n      \"significance\": \"medium\",\n      \"reason\": \"string\",\n      \"summary\": \"string\",\n      \"title\": \"string\",\n      \"metadata_\": {\n        \"key_0\": 3819.1920952546975\n      },\n      \"created_at\": \"2011-02-28T18:16:28.837Z\",\n      \"query\": \"string\",\n      \"institution\": {\n        \"name\": \"string\",\n        \"state\": \"string\",\n        \"type\": \"higher_education\"\n      },\n      \"status\": \"pending\",\n      \"source_type\": \"annual_budgets\",\n      \"document_date\": \"1993-05-26\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"list_ids\": [\n        \"aaa3d63f-3124-d66b-ed5e-157bfc7ee2a5\",\n        \"9e894b20-224b-6f98-266b-db772954409b\"\n      ]\n    },\n    {\n      \"id\": \"c6d6659e-b595-22bf-8d50-e3643a94fd1a\",\n      \"signal_setting_id\": \"82f213a3-465b-b174-49f6-bfa232d9347c\",\n      \"institution_id\": \"string\",\n      \"significance\": \"high\",\n      \"reason\": \"string\",\n      \"summary\": \"string\",\n      \"title\": \"string\",\n      \"metadata_\": {\n        \"key_0\": 9507.892032827302,\n        \"key_1\": false\n      },\n      \"created_at\": \"1996-07-30T00:35:47.011Z\",\n      \"query\": \"string\",\n      \"institution\": {\n        \"name\": \"string\",\n        \"state\": \"string\",\n        \"type\": \"higher_education\"\n      },\n      \"status\": \"acknowledged\",\n      \"source_type\": \"annual_budgets\",\n      \"document_date\": \"1969-02-27\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"list_ids\": [\n        \"9eb982c0-e2ff-a98c-74b5-766eb9a23624\",\n        \"4a63c3ca-9639-baf9-5286-bad084a5e550\"\n      ]\n    }\n  ],\n  \"total\": 987,\n  \"offset\": 3757,\n  \"limit\": 4810\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89a3220c-e968-4229-ab9f-f44d15bfebc2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c523fa1e-4f1c-4591-834a-e804642297c8",
+          "name": "List Institution Rfps",
+          "request": {
+            "name": "List Institution Rfps",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "rfps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expired",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b40f2e57-1f3b-4d4d-99b2-2f6e1045f3d3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "rfps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expired",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 4,\n      \"title\": \"string\",\n      \"status\": \"expired\",\n      \"posted_date\": \"1955-01-01T16:34:20.148Z\",\n      \"completed_date\": \"1956-04-14\"\n    },\n    {\n      \"id\": 8302,\n      \"title\": \"string\",\n      \"status\": \"no_due_date\",\n      \"posted_date\": \"2024-09-27T05:22:23.155Z\",\n      \"completed_date\": \"2007-02-12\"\n    }\n  ],\n  \"total\": 4427,\n  \"offset\": 7813,\n  \"limit\": 2476\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75deac71-1451-4782-b348-c1c4414fc84d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "rfps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expired",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0fc7621f-7065-44ea-a890-28393a7b5b4c",
+          "name": "List Institution Grants",
+          "request": {
+            "name": "List Institution Grants",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expired",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bc40db1c-9712-4b13-ad4a-5255727a2ae0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expired",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"faeb4a5c-28d8-1891-9a52-1004ea015618\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"status\": \"no_funding_period\",\n      \"total_obligated_amount\": 2015.0832608994774,\n      \"period_end_date\": \"1999-08-31\",\n      \"grant_link\": \"string\"\n    },\n    {\n      \"id\": \"75b294a6-b6fb-b9c0-909a-bafb8a36bab8\",\n      \"title\": \"string\",\n      \"funding_agency\": \"string\",\n      \"status\": \"active\",\n      \"total_obligated_amount\": 4218.226529206047,\n      \"period_end_date\": \"1969-12-05\",\n      \"grant_link\": \"string\"\n    }\n  ],\n  \"total\": 2986,\n  \"offset\": 2665,\n  \"limit\": 9327\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b500e437-68c2-4ccd-9c05-96760d2f4f0a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expired",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ba0fb1e-9997-40d5-ac71-a3da8153574d",
+          "name": "List Institution Activity",
+          "request": {
+            "name": "List Institution Activity",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_range",
+                  "value": "all_time"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "newest_first"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13a6b630-fc88-414b-8639-a85e24f942a0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "automation_ran"
+                    },
+                    {
+                      "key": "types",
+                      "value": "procurement_guidelines"
+                    },
+                    {
+                      "key": "date_range",
+                      "value": "all_time"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "newest_first"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"annual_budgets\",\n      \"created_at\": \"1959-10-08T17:20:45.590Z\",\n      \"title\": \"string\",\n      \"summary\": \"string\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"document_date\": \"2017-06-28\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"grants\",\n      \"created_at\": \"1992-03-19T13:28:08.465Z\",\n      \"title\": \"string\",\n      \"summary\": \"string\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"document_date\": \"1972-11-15\"\n    }\n  ],\n  \"total\": 9207,\n  \"offset\": 5915,\n  \"limit\": 73\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ccc979-43f2-4ce8-81fc-661f13eb2225",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "automation_ran"
+                    },
+                    {
+                      "key": "types",
+                      "value": "procurement_guidelines"
+                    },
+                    {
+                      "key": "date_range",
+                      "value": "all_time"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "newest_first"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0155529d-e95e-41db-b2c5-0ab1b87191ac",
+          "name": "Get Institution Summary",
+          "request": {
+            "name": "Get Institution Summary",
+            "description": {
+              "content": "Return the account's activity summary, triggering a worker regeneration\nwhen it's missing or stale. The result and freshness are delivered via the\n`account_summary_ready` websocket event, so the client does not poll.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                ":institution_id",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5bfb87d2-ed1d-4f52-9e73-7431ed1d1f3b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"generating\",\n  \"summary\": \"string\",\n  \"summary_generated_at\": \"2011-09-26T20:55:20.147Z\",\n  \"sections\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2810.8944962314376\n    },\n    {\n      \"key_0\": 5285.114754346765,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6146e211-6832-44d8-aad7-cf5c0125845f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    ":institution_id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76ffc1fb-7866-41d6-b4f3-085c287ed474",
+          "name": "List Accounts",
+          "request": {
+            "name": "List Accounts",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "accounts",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"limit\": 50,\n  \"cursor\": \"<string>\",\n  \"search\": \"<string>\",\n  \"sort\": {\n    \"field\": \"name\",\n    \"direction\": \"asc\"\n  },\n  \"filters\": {\n    \"territory_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"exclude_territory_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"account_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"counties\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"cities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"population_min\": \"<integer>\",\n    \"population_max\": \"<integer>\",\n    \"has_signals\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "305422c3-aae5-4759-804d-5e9903d4070d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 50,\n  \"cursor\": \"<string>\",\n  \"search\": \"<string>\",\n  \"sort\": {\n    \"field\": \"name\",\n    \"direction\": \"asc\"\n  },\n  \"filters\": {\n    \"territory_ids\": [\n      \"93ec9287-592f-bba1-99ea-5037d8647f8b\",\n      \"073f4239-40d7-93f4-29f3-206bdd5f2c24\"\n    ],\n    \"exclude_territory_ids\": [\n      \"894a409f-56f6-36b4-853a-692ed41af853\",\n      \"5de091b3-8609-37b6-4045-1aee22574540\"\n    ],\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 2568,\n    \"population_max\": 862,\n    \"has_signals\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"institution_id\": \"string\",\n      \"name\": \"string\",\n      \"account_type\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"population\": 6479.895952220004,\n      \"signal_count\": 0,\n      \"contact_count\": 0,\n      \"contacts\": [\n        {\n          \"id\": \"f2661e35-e676-45a2-8cf6-949e25ea7814\",\n          \"full_name\": \"string\"\n        },\n        {\n          \"id\": \"6fe30bcb-2e12-6d25-5102-3c20999798c2\",\n          \"full_name\": \"string\"\n        }\n      ],\n      \"territories\": [\n        {\n          \"id\": \"a1a67b72-e7b0-c433-8c46-f6f5dbbb588e\",\n          \"name\": \"string\"\n        },\n        {\n          \"id\": \"d4db07d7-caa7-95c4-db14-c37715033bf0\",\n          \"name\": \"string\"\n        }\n      ],\n      \"crms\": [\n        {\n          \"crm_type\": \"string\",\n          \"crm_id\": \"string\"\n        },\n        {\n          \"crm_type\": \"string\",\n          \"crm_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"institution_id\": \"string\",\n      \"name\": \"string\",\n      \"account_type\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"population\": 504.9900445037181,\n      \"signal_count\": 0,\n      \"contact_count\": 0,\n      \"contacts\": [\n        {\n          \"id\": \"f46691aa-d454-3385-be89-455e28ae462d\",\n          \"full_name\": \"string\"\n        },\n        {\n          \"id\": \"3362a101-0d2d-fb25-4cdc-f6f99be7a9c7\",\n          \"full_name\": \"string\"\n        }\n      ],\n      \"territories\": [\n        {\n          \"id\": \"3ced0c69-eca7-8c27-7c0f-075c3bf86c30\",\n          \"name\": \"string\"\n        },\n        {\n          \"id\": \"71f1f8ad-446e-8d17-640a-523b70c118c3\",\n          \"name\": \"string\"\n        }\n      ],\n      \"crms\": [\n        {\n          \"crm_type\": \"string\",\n          \"crm_id\": \"string\"\n        },\n        {\n          \"crm_type\": \"string\",\n          \"crm_id\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"total\": 6541,\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce8797fe-6754-4817-b654-83639062e0b1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "accounts",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 50,\n  \"cursor\": \"<string>\",\n  \"search\": \"<string>\",\n  \"sort\": {\n    \"field\": \"name\",\n    \"direction\": \"asc\"\n  },\n  \"filters\": {\n    \"territory_ids\": [\n      \"93ec9287-592f-bba1-99ea-5037d8647f8b\",\n      \"073f4239-40d7-93f4-29f3-206bdd5f2c24\"\n    ],\n    \"exclude_territory_ids\": [\n      \"894a409f-56f6-36b4-853a-692ed41af853\",\n      \"5de091b3-8609-37b6-4045-1aee22574540\"\n    ],\n    \"account_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"counties\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"population_min\": 2568,\n    \"population_max\": 862,\n    \"has_signals\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "026ce78c-193f-44d6-8ae8-1f664c8ec13d",
+    "name": "Nationgraph Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

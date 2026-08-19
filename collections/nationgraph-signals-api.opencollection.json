@@ -1,0 +1,334 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Signals API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/signals/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search Signals"
+        },
+        {
+          "info": {
+            "name": "Get Signal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Signal"
+        },
+        {
+          "info": {
+            "name": "Get Signal Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id/sources",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Signal Data Sources"
+        },
+        {
+          "info": {
+            "name": "Add User To Signal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id/users",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add User To Signal"
+        },
+        {
+          "info": {
+            "name": "Create Signal User Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id/actions",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Signal User Action"
+        },
+        {
+          "info": {
+            "name": "Batch Create Signal User Actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/signals/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Batch Create Signal User Actions"
+        },
+        {
+          "info": {
+            "name": "Update Signal User Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id/status",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Signal User Status"
+        },
+        {
+          "info": {
+            "name": "Batch Update Signal User Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/signals/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Batch Update Signal User Status"
+        },
+        {
+          "info": {
+            "name": "Dismiss Signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/signals/dismiss",
+            "params": [
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signal_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signal_setting_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "list_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_sources",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "institution_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "saved",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "institution_sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dismiss Signals"
+        },
+        {
+          "info": {
+            "name": "Create Signal Share Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/signals/:signal_id/share",
+            "params": [
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a shareable token for a signal"
+        },
+        {
+          "info": {
+            "name": "Get Shared Signal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/signals/share/:signal_token",
+            "params": [
+              {
+                "name": "signal_token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Public endpoint to access a shared signal (no authentication required)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

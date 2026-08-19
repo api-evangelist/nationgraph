@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Leads API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Leads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Leads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of leads to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List leads from the CRM with pagination.\n\n**Note**: This endpoint is only supported for Salesforce integrations.\nHubSpot does not have a Lead object."
+        },
+        {
+          "info": {
+            "name": "Create Lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new lead in the CRM.\n\n**Required fields**:\n- `lastname`: Lead's last name\n- `company`: Company name\n\n**Note**: This endpoint is only supported for Salesforce integrations."
+        },
+        {
+          "info": {
+            "name": "Get Lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads/:lead_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "path",
+                "description": "The lead ID"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single lead by ID.\n\n**Note**: This endpoint is only supported for Salesforce integrations."
+        },
+        {
+          "info": {
+            "name": "Update Lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads/:lead_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "path",
+                "description": "The lead ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing lead.\n\n**Note**: This endpoint is only supported for Salesforce integrations."
+        },
+        {
+          "info": {
+            "name": "Search Leads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads/search",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Text search"
+              },
+              {
+                "name": "lastname",
+                "value": "",
+                "type": "query",
+                "description": "Last name"
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Company name"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Lead status"
+              },
+              {
+                "name": "industry",
+                "value": "",
+                "type": "query",
+                "description": "Industry"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for leads using various criteria.\n\n**Query parameters**:\n- `query`: Text search across name and company\n- `lastname`: Filter by last name\n- `company`: Filter by company name\n- `email`: Filter by email\n- `status`: Filter by lead status\n- `industry`: Filter by industry\n\n**Note**: This endpoint is only supported for Salesforce integrations."
+        },
+        {
+          "info": {
+            "name": "Convert Lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/leads/:lead_id/convert",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "path",
+                "description": "The lead ID to convert"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convert a lead to an Account, Contact, and optionally an Opportunity.\n\nThis is a Salesforce-specific operation that qualifies a lead and creates:\n- **Account** (company)\n- **Contact** (person)\n- **Opportunity** (deal) - optional\n\n**Request body options**:\n- `accountId`: Associate with existing Account instead of creating new one\n- `contactId`: Associate with existing Contact instead of creating new one\n- `createOpportunity`: Whether to create an Opportunity (default: false)\n- `opportunityName`: "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

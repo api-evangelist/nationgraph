@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Territories API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Territories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Territory Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/territories/stats",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Territory Stats"
+        },
+        {
+          "info": {
+            "name": "List Territories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/territories",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List caller's territories with per-row counts; visibility intentionally not returned."
+        },
+        {
+          "info": {
+            "name": "Create Territory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/territories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create one new territory; atomic JSONB + materialized write under user_profile row lock."
+        },
+        {
+          "info": {
+            "name": "Preview Territory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/territories/preview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stateless resolve → count + 25-row sample. No writes, auth-only."
+        },
+        {
+          "info": {
+            "name": "Update Territory",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v3/territories/:filter_id",
+            "params": [
+              {
+                "name": "filter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Overwrite one existing territory in place; re-resolves the rule and diffs\nmembers under the user_profile row lock. Owner-bound; 404 if not owned."
+        },
+        {
+          "info": {
+            "name": "Delete Territory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/territories/:filter_id",
+            "params": [
+              {
+                "name": "filter_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Owner-bound delete; 404 indistinguishable from \"doesn't exist\" (don't leak existence)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Owners API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Owners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Owners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/owners",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by email address (exact match)"
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query",
+                "description": "Include archived owners"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a paginated list of owners from the CRM.\n\nOwners are users in your CRM account who can be assigned to CRM records\n(contacts, companies, deals, tasks, etc.). Use this endpoint to populate\nowner dropdowns in your UI for assignment purposes.\n\n**Pagination:**\nUse the `nextCursor` value in subsequent requests to fetch more results.\n\n**Filtering:**\n- Use `email` to find a specific owner by email address\n- Use `archived` to include archived (deactivated) owners"
+        },
+        {
+          "info": {
+            "name": "Get Owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/owners/:owner_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM owner ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single owner by their CRM ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

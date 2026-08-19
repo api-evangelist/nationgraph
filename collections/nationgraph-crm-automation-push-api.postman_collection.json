@@ -1,0 +1,2860 @@
+{
+  "item": [
+    {
+      "id": "c8f525f8-4d04-4f11-8945-faba9bfb0b03",
+      "name": "CRM Automation Push",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4ff29b5-b2e9-4e0e-9c65-687df6fb0c29",
+          "name": "List CRM Company Fields",
+          "request": {
+            "name": "List CRM Company Fields",
+            "description": {
+              "content": "List all available fields on the company/account object in the user's CRM.\n\nReturns field names, labels, types, and whether each is a custom field.\nUse this to discover which CRM fields are available when setting up\nfield mappings for the push endpoint.\n\n- **HubSpot**: Lists all properties on the Companies object\n- **Salesforce**: Describes the Account object and returns all fields",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "company-fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b039cdae-fb1a-4e8d-8838-8e17cda7780f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "company-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"label\": \"string\",\n    \"type\": \"string\",\n    \"custom\": false\n  },\n  {\n    \"name\": \"string\",\n    \"label\": \"string\",\n    \"type\": \"string\",\n    \"custom\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7240396-9f11-475a-99ea-b2bd6bee6b1a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "company-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a27101b-56ac-4900-b01a-0927d602542e",
+          "name": "Get Pushable Columns",
+          "request": {
+            "name": "Get Pushable Columns",
+            "description": {
+              "content": "Get the list of columns available for CRM push for a given automation.\n\nEach column has a **key** (used in `source_field` of the push request),\na **label**, a **data_type**, and a human-readable **description**.\n\nThe available columns depend on the automation type. For `ranked_institutions`:\n- `rank` — Institution rank\n- `score` — Institution score\n- `signal_count` — Number of matching signals",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "pushable-columns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6970ee39-6f30-412d-a817-8857459abc8b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "pushable-columns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"string\",\n    \"label\": \"string\",\n    \"default_crm_name\": \"string\",\n    \"data_type\": \"string\",\n    \"description\": \"string\"\n  },\n  {\n    \"key\": \"string\",\n    \"label\": \"string\",\n    \"default_crm_name\": \"string\",\n    \"data_type\": \"string\",\n    \"description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4586400-fd34-41b3-a4fb-e7fbb79b5575",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "pushable-columns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d4fd167-c518-482f-a687-e121ae8f47a1",
+          "name": "Get Push Status",
+          "request": {
+            "name": "Get Push Status",
+            "description": {
+              "content": "Check which results from an automation run have already been pushed to\nthis CRM integration.\n\nReturns per-result push status including when each was last pushed\nand which fields were included.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "push-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ad09adf-bb47-433a-8f96-a09280003f83",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 5726,\n  \"pushed_count\": 6146,\n  \"unpushed_count\": 7502,\n  \"items\": [\n    {\n      \"automation_result_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"pushed\": false,\n      \"pushed_at\": \"1947-02-25T21:15:49.831Z\",\n      \"fields_pushed\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"automation_result_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"pushed\": true,\n      \"pushed_at\": \"1975-03-09T05:54:34.535Z\",\n      \"fields_pushed\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7e72458-e419-4faa-a318-6f3a5570b5fd",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa993795-0fc4-4013-a566-6f163b6abf83",
+          "name": "Get CRM Push History for an Automation",
+          "request": {
+            "name": "Get CRM Push History for an Automation",
+            "description": {
+              "content": "Paginated history of every CRM push made by this automation against the\ngiven integration.  Ordered by `pushed_at` descending.\n\nEach item includes the institution name, the run the push came from, and\nthe raw `fields_pushed` payload — the UI derives the activity type from\nthat payload (e.g. `activity_type: \"note\"` → Note, otherwise a custom\nfield push).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ee48ca7-587f-4150-a97b-5231e51b7f24",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"pushed_at\": \"2026-03-18T08:33:15.528Z\",\n      \"run_id\": \"string\",\n      \"automation_result_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"fields_pushed\": {\n        \"key_0\": 1419.4096763247665\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"pushed_at\": \"1964-12-04T00:36:03.875Z\",\n      \"run_id\": \"string\",\n      \"automation_result_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"fields_pushed\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"total\": 4385,\n  \"offset\": 6881,\n  \"limit\": 5996\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da96f662-1556-4f04-8e9a-e41e9dbc0852",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9962b97c-06d3-4304-aa1e-a391bc8c6b84",
+          "name": "Push Automation Results to CRM",
+          "request": {
+            "name": "Push Automation Results to CRM",
+            "description": {
+              "content": "Bulk-push automation run results to CRM companies using explicit field mappings.\n\n**How it works:**\n1. Loads all **completed** results for the specified run\n2. If `result_ids` is provided, narrows to only those results\n3. Filters to results whose institutions have a CRM mapping for this integration\n4. Maps each automation column to the specified existing CRM field\n5. Updates each mapped CRM company with the result data\n6. Records which results were pushed for tracking\n\n**Field mappings** are required. Each entry maps an automation column key\n(from the pushable-columns endpoint) to an existing CRM field name\n(from the company-fields endpoint).\n\n**Selective push** — pass `result_ids` to push only specific results\ninstead of the entire run. Results that are not in `completed` status\nare silently excluded.\n\n**Example request (all results):**\n```json\n{\n  \"field_mappings\": [\n    {\"source_field\": \"score\", \"crm_field_name\": \"nationgraph_score\"},\n    {\"source_field\": \"rank\", \"crm_field_name\": \"ng_rank\"}\n  ]\n}\n```\n\n**Example request (selected results only):**\n```json\n{\n  \"field_mappings\": [\n    {\"source_field\": \"score\", \"crm_field_name\": \"nationgraph_score\"}\n  ],\n  \"result_ids\": [\"uuid-1\", \"uuid-2\"]\n}\n```\n\n**Requirements:**\n- Active CRM integration (HubSpot or Salesforce)\n- CRM mappings between institutions and CRM companies\n- Target CRM fields must already exist (use company-fields endpoint to verify)\n- Run must have completed results",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"field_mappings\": [\n    {\n      \"source_field\": \"<string>\",\n      \"crm_field_name\": \"<string>\",\n      \"write_mode\": \"overwrite\"\n    },\n    {\n      \"source_field\": \"<string>\",\n      \"crm_field_name\": \"<string>\",\n      \"write_mode\": \"overwrite\"\n    }\n  ],\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"institution_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"crm_linked\": \"<boolean>\",\n    \"search\": \"<string>\",\n    \"crm_pushed\": \"<boolean>\",\n    \"crm_pushed_after\": \"<dateTime>\",\n    \"crm_pushed_before\": \"<dateTime>\",\n    \"vendors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"start_date_after\": \"<date>\",\n    \"start_date_before\": \"<date>\",\n    \"end_date_after\": \"<date>\",\n    \"end_date_before\": \"<date>\",\n    \"signal_setting_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6cd5e0ec-aba5-44a9-b57d-d2890b618def",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"field_mappings\": [\n    {\n      \"source_field\": \"string\",\n      \"crm_field_name\": \"string\",\n      \"write_mode\": \"overwrite\"\n    },\n    {\n      \"source_field\": \"string\",\n      \"crm_field_name\": \"string\",\n      \"write_mode\": \"overwrite\"\n    }\n  ],\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"executing\",\n      \"failed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"2008-09-28T11:04:41.789Z\",\n    \"crm_pushed_before\": \"1964-07-31T10:54:46.610Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1987-05-22\",\n    \"start_date_before\": \"1961-04-24\",\n    \"end_date_after\": \"1981-11-03\",\n    \"end_date_before\": \"2013-04-02\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"rfp\",\n      \"procurement_guidelines\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 7893,\n  \"linked_count\": 1516,\n  \"pushed_count\": 5708,\n  \"error_count\": 7511,\n  \"skipped_count\": 1843,\n  \"errors\": [\n    {\n      \"institution_id\": \"string\",\n      \"crm_id\": \"string\",\n      \"success\": true,\n      \"error\": \"string\"\n    },\n    {\n      \"institution_id\": \"string\",\n      \"crm_id\": \"string\",\n      \"success\": false,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af9aaef9-f9c6-4f5c-9d19-7fa1ca094a40",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"field_mappings\": [\n    {\n      \"source_field\": \"string\",\n      \"crm_field_name\": \"string\",\n      \"write_mode\": \"overwrite\"\n    },\n    {\n      \"source_field\": \"string\",\n      \"crm_field_name\": \"string\",\n      \"write_mode\": \"overwrite\"\n    }\n  ],\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"executing\",\n      \"failed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"2008-09-28T11:04:41.789Z\",\n    \"crm_pushed_before\": \"1964-07-31T10:54:46.610Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1987-05-22\",\n    \"start_date_before\": \"1961-04-24\",\n    \"end_date_after\": \"1981-11-03\",\n    \"end_date_before\": \"2013-04-02\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"rfp\",\n      \"procurement_guidelines\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5035f0d0-f974-421c-94e6-80ab44a956c0",
+          "name": "Push Automation Result as CRM Activity",
+          "request": {
+            "name": "Push Automation Result as CRM Activity",
+            "description": {
+              "content": "Push a single automation result to CRM as a note, task, or post.\n\nContent is automatically generated from the automation result data\n(rank, score, signal count, etc.) and formatted per automation type.\n\n**Action types:**\n- **`note`**: Records the result summary on the CRM company\n- **`task`**: Creates a follow-up task with the result as context\n- **`post`**: Creates a Chatter post (Salesforce only)\n\nFor tasks and posts, you can override the auto-generated subject/body\nvia `task_options` or `post_options`.\n\n**Requirements:**\n- Active CRM integration (HubSpot or Salesforce)\n- CRM mapping between the result's institution and a CRM company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "results",
+                ":result_id",
+                "push-activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "result_id",
+                  "description": "(Required) The automation result ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action_type\": \"<string>\",\n  \"include_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task_options\": {\n    \"subject\": \"<string>\",\n    \"body\": \"<string>\",\n    \"due_date\": \"<string>\",\n    \"priority\": \"<string>\",\n    \"owner_id\": \"<string>\"\n  },\n  \"post_options\": {\n    \"title\": \"<string>\",\n    \"body\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"filters\": {\n    \"statuses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"institution_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"crm_linked\": \"<boolean>\",\n    \"search\": \"<string>\",\n    \"crm_pushed\": \"<boolean>\",\n    \"crm_pushed_after\": \"<dateTime>\",\n    \"crm_pushed_before\": \"<dateTime>\",\n    \"vendors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"start_date_after\": \"<date>\",\n    \"start_date_before\": \"<date>\",\n    \"end_date_after\": \"<date>\",\n    \"end_date_before\": \"<date>\",\n    \"signal_setting_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"contact_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e35e312-c1cf-40dd-b6ec-412a6fffabf8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "results",
+                    ":result_id",
+                    "push-activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "result_id",
+                      "description": "(Required) The automation result ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_type\": \"lead\",\n  \"include_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task_options\": {\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"due_date\": \"string\",\n    \"priority\": \"MEDIUM\",\n    \"owner_id\": \"string\"\n  },\n  \"post_options\": {\n    \"title\": \"string\",\n    \"body\": \"string\"\n  },\n  \"contact_id\": \"<string>\",\n  \"filters\": {\n    \"statuses\": [\n      \"pending\",\n      \"completed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": true,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"2018-06-22T10:18:07.967Z\",\n    \"crm_pushed_before\": \"1969-12-06T21:19:59.393Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"2012-11-13\",\n    \"start_date_before\": \"1980-05-22\",\n    \"end_date_after\": \"1981-02-10\",\n    \"end_date_before\": \"1974-12-23\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"meeting_minutes\",\n      \"meeting_minutes\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"contact_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"action_type\": \"lead\",\n  \"crm_id\": \"string\",\n  \"company_id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41e33584-777d-4690-bce4-aa6189c5aa4e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "results",
+                    ":result_id",
+                    "push-activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "result_id",
+                      "description": "(Required) The automation result ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_type\": \"lead\",\n  \"include_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"task_options\": {\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"due_date\": \"string\",\n    \"priority\": \"MEDIUM\",\n    \"owner_id\": \"string\"\n  },\n  \"post_options\": {\n    \"title\": \"string\",\n    \"body\": \"string\"\n  },\n  \"contact_id\": \"<string>\",\n  \"filters\": {\n    \"statuses\": [\n      \"pending\",\n      \"completed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": true,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"2018-06-22T10:18:07.967Z\",\n    \"crm_pushed_before\": \"1969-12-06T21:19:59.393Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"2012-11-13\",\n    \"start_date_before\": \"1980-05-22\",\n    \"end_date_after\": \"1981-02-10\",\n    \"end_date_before\": \"1974-12-23\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"meeting_minutes\",\n      \"meeting_minutes\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"contact_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59d8cd96-a280-4825-a119-c48c7eecb797",
+          "name": "Push Automation Run Signals to CRM",
+          "request": {
+            "name": "Push Automation Run Signals to CRM",
+            "description": {
+              "content": "Push the underlying signal content from all CRM-linked results in a ranked\nautomation run as individual notes or tasks.\n\nFor each completed result that has a CRM company mapping, every referenced\nsignal is resolved to its full content (title, summary, significance, reason)\nand pushed using the existing signal-to-CRM push logic.\n\n**Action types:**\n- **`note`**: Records each signal as a note on the CRM company\n- **`task`**: Creates a follow-up task for each signal\n\nFor tasks, you can provide `task_options` to set due date, priority, and owner.\n\nResults without a CRM mapping are silently skipped (reported in `skipped_count`).\n\n**Requirements:**\n- Only supported for `ranked_institutions` automation type\n- Active CRM integration (HubSpot or Salesforce)\n- CRM mappings between institutions and CRM companies\n- Run must have completed results",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "push-signals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action_type\": \"<string>\",\n  \"task_options\": {\n    \"subject\": \"<string>\",\n    \"body\": \"<string>\",\n    \"due_date\": \"<string>\",\n    \"priority\": \"<string>\",\n    \"owner_id\": \"<string>\"\n  },\n  \"filters\": {\n    \"statuses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"institution_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"crm_linked\": \"<boolean>\",\n    \"search\": \"<string>\",\n    \"crm_pushed\": \"<boolean>\",\n    \"crm_pushed_after\": \"<dateTime>\",\n    \"crm_pushed_before\": \"<dateTime>\",\n    \"vendors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"start_date_after\": \"<date>\",\n    \"start_date_before\": \"<date>\",\n    \"end_date_after\": \"<date>\",\n    \"end_date_before\": \"<date>\",\n    \"signal_setting_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "abc892c6-ad66-4f90-a38d-f9551cd409a8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_type\": \"<string>\",\n  \"task_options\": {\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"due_date\": \"string\",\n    \"priority\": \"HIGH\",\n    \"owner_id\": \"string\"\n  },\n  \"filters\": {\n    \"statuses\": [\n      \"failed\",\n      \"cancelled\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": true,\n    \"crm_pushed_after\": \"2004-01-22T12:47:57.589Z\",\n    \"crm_pushed_before\": \"1980-12-22T13:18:10.091Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1959-12-17\",\n    \"start_date_before\": \"1948-06-23\",\n    \"end_date_after\": \"1981-11-16\",\n    \"end_date_before\": \"1997-11-30\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"procurement_guidelines\",\n      \"rfp\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 5122,\n  \"linked_count\": 6003,\n  \"skipped_count\": 3977,\n  \"total_signals\": 7849,\n  \"pushed_count\": 1139,\n  \"error_count\": 3209,\n  \"action_type\": \"string\",\n  \"results\": [\n    {\n      \"signal_id\": \"string\",\n      \"signal_title\": \"string\",\n      \"success\": true,\n      \"crm_id\": \"string\",\n      \"company_id\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"signal_id\": \"string\",\n      \"signal_title\": \"string\",\n      \"success\": false,\n      \"crm_id\": \"string\",\n      \"company_id\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "814f123f-fe27-459e-b35d-41744f0fd021",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_type\": \"<string>\",\n  \"task_options\": {\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"due_date\": \"string\",\n    \"priority\": \"HIGH\",\n    \"owner_id\": \"string\"\n  },\n  \"filters\": {\n    \"statuses\": [\n      \"failed\",\n      \"cancelled\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": true,\n    \"crm_pushed_after\": \"2004-01-22T12:47:57.589Z\",\n    \"crm_pushed_before\": \"1980-12-22T13:18:10.091Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1959-12-17\",\n    \"start_date_before\": \"1948-06-23\",\n    \"end_date_after\": \"1981-11-16\",\n    \"end_date_before\": \"1997-11-30\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"procurement_guidelines\",\n      \"rfp\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ead5cadd-4c2f-48c1-ab4f-40ec5710a571",
+          "name": "List Account Page Layouts",
+          "request": {
+            "name": "List Account Page Layouts",
+            "description": {
+              "content": "List available page layouts on the Account/Company object.\n\nUse this to discover which layout to pass to the custom object schema\ncreation endpoint so the related list is added to the correct layout.\n\n**Salesforce**: Returns all Account page layouts.\n**HubSpot**: Returns an empty list (HubSpot does not have page layouts).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "account-layouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4d57d0c4-7164-4758-89fc-e558b9c78ff4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "account-layouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"label\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"label\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b2a7e72-ff6e-43e2-b783-b19b8075c065",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "account-layouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30df7e8c-c23a-4127-8882-547c20e70628",
+          "name": "Check Custom Object Schema",
+          "request": {
+            "name": "Check Custom Object Schema",
+            "description": {
+              "content": "Check whether a custom object schema exists in the user's CRM.\n\nThe `schema_key` determines which NationGraph schema definition to check for.\nCurrently supported schemas:\n- **`vendor_contract`**: NationGraph Vendor Contract custom object\n\nReturns whether the object exists, its provider-specific identifier, and\nany expected fields that are missing from the existing object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "custom-object-schemas",
+                ":schema_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schema_key",
+                  "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c8ec2ef2-1bc9-459c-9239-9220cea51e41",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exists\": true,\n  \"schema_key\": \"string\",\n  \"provider\": \"string\",\n  \"object_type_id\": \"string\",\n  \"missing_fields\": [\n    \"string\",\n    \"string\"\n  ],\n  \"company_association_exists\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7dabf8f-8e19-4f27-ae2b-c95b9b30d7d5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c9d9ebd-79c9-4446-80bf-e2ab6d708fe7",
+          "name": "Create Custom Object Schema",
+          "request": {
+            "name": "Create Custom Object Schema",
+            "description": {
+              "content": "Create a custom object schema in the user's CRM workspace.\n\nThe `schema_key` determines which NationGraph schema to create.\nCurrently supported schemas:\n- **`vendor_contract`**: Creates a NationGraph Vendor Contract custom object\n  with fields for vendor, product, ACV, dates, summary, institution,\n  and a link back to NationGraph. Associated with CRM companies/accounts.\n\n**HubSpot**: Creates a custom object schema with all properties and\ncompany associations via the schemas API.\n\n**Salesforce**: Creates a custom object via the Tooling API, then adds\neach custom field individually, including an Account lookup.\n\nThis endpoint is idempotent-safe — call the check endpoint first to\nverify the schema doesn't already exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "custom-object-schemas",
+                ":schema_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schema_key",
+                  "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5d9e844-eb52-4859-8c46-5f011f8f140f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schema_key\": \"string\",\n  \"provider\": \"string\",\n  \"object_type_id\": \"string\",\n  \"fields_created\": 6874\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa89fa07-83b1-4b14-956d-ec738974bddd",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87cd15cf-da24-4ba8-ba2b-2a584e06ddc9",
+          "name": "Get Custom Object Schema Spec",
+          "request": {
+            "name": "Get Custom Object Schema Spec",
+            "description": {
+              "content": "Return the full, static definition of a NationGraph custom object schema.\n\nThis is the source of truth for manual-setup instructions when a custom object\nmust be created by hand .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "custom-object-schemas",
+                ":schema_key",
+                "spec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schema_key",
+                  "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c4c716c-b8a8-4d9e-b9bd-2bfea18732ba",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key",
+                    "spec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schema_key\": \"string\",\n  \"provider\": \"string\",\n  \"object_internal_name\": \"string\",\n  \"singular_label\": \"string\",\n  \"plural_label\": \"string\",\n  \"associate_to_company\": true,\n  \"fields\": [\n    {\n      \"internal_name\": \"string\",\n      \"label\": \"string\",\n      \"field_type_label\": \"string\",\n      \"is_primary_display\": true\n    },\n    {\n      \"internal_name\": \"string\",\n      \"label\": \"string\",\n      \"field_type_label\": \"string\",\n      \"is_primary_display\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc49b5d6-f698-4291-b843-354c247baf27",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "custom-object-schemas",
+                    ":schema_key",
+                    "spec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema_key",
+                      "description": "(Required) Schema identifier (e.g. 'vendor_contract')"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4709427f-1111-49bc-9855-1482f71608c7",
+          "name": "Push Automation Results as Custom Objects",
+          "request": {
+            "name": "Push Automation Results as Custom Objects",
+            "description": {
+              "content": "Push automation run results as individual custom object records in the CRM.\n\nUnlike the regular field-push endpoint (which updates existing CRM company\nfields), this creates **new custom object records** — one per result — and\nassociates each with the corresponding CRM company/account.\n\n**Flow:**\n1. Loads completed results for the run (optionally filtered by `result_ids`)\n2. Resolves CRM company mappings for each result's institution\n3. Builds custom object properties from the result data\n4. Creates records in the CRM with company associations\n5. Tracks each push in the `AutomationCRMPush` table\n\n**Requirements:**\n- Active CRM integration (HubSpot or Salesforce)\n- The custom object schema must already exist (use the schema endpoints)\n- CRM mappings between institutions and CRM companies\n- Run must have completed results\n\n**Supported automation types:**\n- `vendor_contract_enrichment` → `vendor_contract` schema\n\nEach record includes a link back to the NationGraph automation page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "push-custom-objects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"institution_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"crm_linked\": \"<boolean>\",\n    \"search\": \"<string>\",\n    \"crm_pushed\": \"<boolean>\",\n    \"crm_pushed_after\": \"<dateTime>\",\n    \"crm_pushed_before\": \"<dateTime>\",\n    \"vendors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"start_date_after\": \"<date>\",\n    \"start_date_before\": \"<date>\",\n    \"end_date_after\": \"<date>\",\n    \"end_date_before\": \"<date>\",\n    \"signal_setting_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8de6db9-7b4e-4987-bf7d-0cf859c5e551",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-custom-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"completed\",\n      \"cancelled\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": true,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"1984-04-14T21:38:19.713Z\",\n    \"crm_pushed_before\": \"2013-03-30T10:23:19.794Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1971-12-18\",\n    \"start_date_before\": \"1998-03-11\",\n    \"end_date_after\": \"1952-03-01\",\n    \"end_date_before\": \"1980-12-26\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"youtube\",\n      \"press_releases\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 1163,\n  \"linked_count\": 372,\n  \"pushed_count\": 9308,\n  \"error_count\": 6223,\n  \"skipped_count\": 5165,\n  \"errors\": [\n    {\n      \"institution_id\": \"string\",\n      \"crm_id\": \"string\",\n      \"success\": true,\n      \"error\": \"string\"\n    },\n    {\n      \"institution_id\": \"string\",\n      \"crm_id\": \"string\",\n      \"success\": false,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a34460d5-5980-4b82-a371-8ccf5db5e442",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-custom-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"result_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"completed\",\n      \"cancelled\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": true,\n    \"search\": \"string\",\n    \"crm_pushed\": false,\n    \"crm_pushed_after\": \"1984-04-14T21:38:19.713Z\",\n    \"crm_pushed_before\": \"2013-03-30T10:23:19.794Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1971-12-18\",\n    \"start_date_before\": \"1998-03-11\",\n    \"end_date_after\": \"1952-03-01\",\n    \"end_date_before\": \"1980-12-26\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"youtube\",\n      \"press_releases\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c23e2c37-7434-486c-987a-ca81558b1040",
+          "name": "Push Contacts as CRM Contact Records",
+          "request": {
+            "name": "Push Contacts as CRM Contact Records",
+            "description": {
+              "content": "Push a contacts_export run's matched people into the CRM as contact records, each associated to its institution's linked company. Contacts whose institution isn't CRM-linked are skipped (not errors).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "automations",
+                ":automation_id",
+                "runs",
+                ":run_id",
+                "push-contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_id",
+                  "description": "(Required) The automation ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The automation run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contacts\": [\n    {\n      \"institution_id\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"institution_id\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"institution_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"states\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"crm_linked\": \"<boolean>\",\n    \"search\": \"<string>\",\n    \"crm_pushed\": \"<boolean>\",\n    \"crm_pushed_after\": \"<dateTime>\",\n    \"crm_pushed_before\": \"<dateTime>\",\n    \"vendors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"start_date_after\": \"<date>\",\n    \"start_date_before\": \"<date>\",\n    \"end_date_after\": \"<date>\",\n    \"end_date_before\": \"<date>\",\n    \"signal_setting_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"data_sources\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb270599-9cd1-4ea8-b289-17d0b79efe7b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"institution_id\": \"string\",\n      \"contact_id\": \"string\"\n    },\n    {\n      \"institution_id\": \"string\",\n      \"contact_id\": \"string\"\n    }\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"executing\",\n      \"failed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": true,\n    \"crm_pushed_after\": \"1951-01-20T10:54:49.604Z\",\n    \"crm_pushed_before\": \"2026-05-04T20:31:48.410Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1953-09-12\",\n    \"start_date_before\": \"1982-06-01\",\n    \"end_date_after\": \"1954-07-22\",\n    \"end_date_before\": \"2023-06-25\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"annual_budgets\",\n      \"meeting_minutes\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_contacts\": 3909,\n  \"pushed_count\": 4513,\n  \"skipped_unlinked_count\": 9482,\n  \"error_count\": 8251,\n  \"already_pushed_count\": 0,\n  \"results\": [\n    {\n      \"contact_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"success\": false,\n      \"crm_contact_id\": \"string\",\n      \"company_id\": \"string\",\n      \"skipped_unlinked\": false,\n      \"already_pushed\": false,\n      \"error\": \"string\"\n    },\n    {\n      \"contact_id\": \"string\",\n      \"institution_id\": \"string\",\n      \"success\": false,\n      \"crm_contact_id\": \"string\",\n      \"company_id\": \"string\",\n      \"skipped_unlinked\": false,\n      \"already_pushed\": false,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c252ed75-80b4-4fde-bf12-ff056cbfdef0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "automations",
+                    ":automation_id",
+                    "runs",
+                    ":run_id",
+                    "push-contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_id",
+                      "description": "(Required) The automation ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The automation run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"institution_id\": \"string\",\n      \"contact_id\": \"string\"\n    },\n    {\n      \"institution_id\": \"string\",\n      \"contact_id\": \"string\"\n    }\n  ],\n  \"filters\": {\n    \"statuses\": [\n      \"executing\",\n      \"failed\"\n    ],\n    \"institution_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"states\": [\n      \"string\",\n      \"string\"\n    ],\n    \"crm_linked\": false,\n    \"search\": \"string\",\n    \"crm_pushed\": true,\n    \"crm_pushed_after\": \"1951-01-20T10:54:49.604Z\",\n    \"crm_pushed_before\": \"2026-05-04T20:31:48.410Z\",\n    \"vendors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"products\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_date_after\": \"1953-09-12\",\n    \"start_date_before\": \"1982-06-01\",\n    \"end_date_after\": \"1954-07-22\",\n    \"end_date_before\": \"2023-06-25\",\n    \"signal_setting_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"data_sources\": [\n      \"annual_budgets\",\n      \"meeting_minutes\"\n    ],\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5065cf7b-57e2-4b86-aa42-a4c338b3c487",
+    "name": "Nationgraph Accounts CRM Automation Push API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

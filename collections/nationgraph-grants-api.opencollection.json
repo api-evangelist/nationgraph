@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Grants API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Grants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Grants Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/grants/metadata",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Grants Metadata"
+        },
+        {
+          "info": {
+            "name": "Get Grant Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/grants/institutions",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Grant Institutions"
+        },
+        {
+          "info": {
+            "name": "Get Grant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/grants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Grant"
+        },
+        {
+          "info": {
+            "name": "Search Grants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/grants/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search Grants"
+        },
+        {
+          "info": {
+            "name": "Get Grant Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/grants/:grant_id/transactions",
+            "params": [
+              {
+                "name": "grant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Grant Transactions"
+        },
+        {
+          "info": {
+            "name": "Get Grant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/grants/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Grant"
+        },
+        {
+          "info": {
+            "name": "Search Grants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/grants/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search grants.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe grant search vector (title + description, english config, stemming on).\nSee GrantSearchFilters docstring for syntax.\n\nAll filters are optional. ~1.27M rows; fully unbounded queries are fine\nfor browsing (matches RFP endpoint behavior, differs from PO which\nrequires bounding filters)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

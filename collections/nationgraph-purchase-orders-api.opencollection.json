@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Purchase Orders API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchase Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/purchase-orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Purchase Order"
+        },
+        {
+          "info": {
+            "name": "Search Purchase Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/purchase-orders/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search purchase orders for an institution.\n\nThe ``query`` field accepts a Postgres tsquery expression — see the\nPurchaseOrderSearchFilters docstring for syntax and examples. Malformed\ntsquery returns 400 with the Postgres syntax error.\n\nAll filters compose with AND: matching POs must satisfy every supplied\nfilter (institution_ids, query, amount range, date range).\n\nAt least one of ``institution_ids`` or ``query`` must be supplied —\nunbounded scans of the 235M-row PO table are rejected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

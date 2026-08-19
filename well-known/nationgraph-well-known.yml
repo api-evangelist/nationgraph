@@ -1,17 +1,105 @@
-generated: '2026-07-20'
-method: searched
-host: https://nationgraph.com
-documents:
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/oauth-authorization-server
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
-note: >-
-  Probed nationgraph.com well-known discovery surface on 2026-07-20; none present.
-  A first-party llms.txt IS published at https://nationgraph.com/llms.txt (text/plain).
+generated: '2026-08-14'
+method: probed
+source: live probes of every apis.yml host on 2026-08-14
+summary: >-
+  NationGraph serves a real, first-party OAuth 2.0 / OpenID Connect discovery surface on the API
+  host, api.nationgraph.com. The 2026-07-20 round probed only the marketing host and recorded a
+  clean 404 sweep; re-probing the API host this round found three live documents, including an
+  RFC 9728 protected-resource descriptor that points at an undocumented MCP server. The marketing
+  host (nationgraph.com) and the app host (app.nationgraph.com) still serve nothing under
+  /.well-known/ — app.nationgraph.com answers every path with a 19KB Next.js SPA shell under a
+  404 status, which is NOT a document and is recorded here as a miss.
+hosts:
+- host: https://api.nationgraph.com
+  role: API host
+  hits: 3
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: nationgraph-openid-configuration.json
+    note: >-
+      OpenID Provider metadata. issuer https://api.nationgraph.com/auth. EdDSA-signed id_tokens,
+      PKCE S256 required, RFC 7591 dynamic client registration endpoint present. Claim set
+      (org_id / org_role / org_slug / azp / sid) indicates a Clerk-backed identity provider
+      fronted on NationGraph's own domain.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: nationgraph-oauth-authorization-server.json
+    note: >-
+      RFC 8414 Authorization Server metadata. Byte-identical to the openid-configuration
+      document (both 1557 bytes) — the same handler answers both paths.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: nationgraph-oauth-protected-resource.json
+    note: >-
+      RFC 9728 Protected Resource metadata. THE MOST CONSEQUENTIAL FIND OF THIS ROUND — it names
+      resource https://api.nationgraph.com/internal/mcp with scopes_supported [mcp:read,
+      offline_access] and resource_name "NationGraph". This is how the MCP server was discovered;
+      it is documented nowhere else on NationGraph's public surface. See mcp/nationgraph-mcp.yml.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://nationgraph.com
+  role: marketing host
+  hits: 0
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  note: >-
+    Every path returns an 88-byte HTML body reading "Invalid .well-known request" under a 404
+    status. A deliberate catch-all, not a document.
+- host: https://app.nationgraph.com
+  role: application host
+  hits: 0
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  note: >-
+    SPA catch-all: every path returns the same 19,337-byte Next.js HTML shell under a 404. Not a
+    document on any path. Explicitly recorded as a miss so a later round does not mistake the
+    uniform body for a served surface.
+agent_card:
+  found: false
+  note: >-
+    No A2A Agent Card on any host, at either the 1.0 path (/.well-known/agent-card.json) or the
+    legacy pre-0.3 path (/.well-known/agent.json). No a2a/ artifact is written and no AgentCard
+    pointer is emitted — an agent card may only ever be recorded when the provider actually
+    serves one.
+cross_links:
+  mcp: mcp/nationgraph-mcp.yml
+  scopes: scopes/nationgraph-scopes.yml
+  authentication: authentication/nationgraph-authentication.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/.well-known/openid-configuration', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-authorization-server', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-protected-resource', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/security.txt', http_status: 404}
+  - {url: 'https://api.nationgraph.com/.well-known/agent-card.json', http_status: 404}
+  - {url: 'https://api.nationgraph.com/.well-known/agent.json', http_status: 404}
+  - {url: 'https://nationgraph.com/.well-known/security.txt', http_status: 404}
+  - {url: 'https://nationgraph.com/.well-known/agent-card.json', http_status: 404}
+  - {url: 'https://app.nationgraph.com/.well-known/agent-card.json', http_status: 404}

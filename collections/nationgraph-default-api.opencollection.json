@@ -1,0 +1,32 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Default API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Read Root",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "{{baseUrl}}/"
+      },
+      "docs": "Read Root"
+    },
+    {
+      "info": {
+        "name": "Healthcheck",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      },
+      "docs": "Healthcheck"
+    }
+  ],
+  "bundled": true
+}

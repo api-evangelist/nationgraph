@@ -1,0 +1,74 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  registry.npmjs.org + pypi.org + rubygems.org + crates.io + api.github.com/orgs/NationGraph +
+  https://nationgraph.gitbook.io/nationgraph/help-center/ + https://www.nationgraph.com/llms.txt
+package_count: 0
+official_package_count: 0
+summary: >-
+  NationGraph publishes NO first-party client libraries or SDKs in any package registry, in any
+  language. Searched npm (full-text plus direct lookups on `nationgraph`, `nationgraph-sdk`,
+  `@nationgraph/sdk`, `@nationgraph/mcp`, and a scope search on `nationgraph`), PyPI, RubyGems,
+  crates.io, the NationGraph GitHub organization, the GitBook help center and the first-party
+  llms.txt. Nothing first-party exists anywhere. Consistent with the rest of this profile:
+  NationGraph ships a live API and a live MCP server but publishes no developer documentation,
+  no SDK, and — as of 2026-08-14 — no machine-readable specification either. Access runs through
+  the demo/sales motion.
+packages: []
+mcp_distribution_note: >-
+  Worth stating explicitly because it is the interesting negative: NationGraph's MCP server is
+  REMOTE ONLY. There is no `npx -y @nationgraph/mcp` stdio package to install — nothing is
+  published under any NationGraph name on npm or PyPI. An agent reaches it by POSTing to
+  https://api.nationgraph.com/internal/mcp with an OAuth token. See mcp/nationgraph-mcp.yml.
+registries_searched:
+- {registry: npm, query: 'text=nationgraph (0 results), scope:nationgraph (0 results), direct: nationgraph, nationgraph-sdk, @nationgraph/sdk, @nationgraph/mcp', first_party_hits: 0, status: '404 on every direct lookup; 0 results on both searches'}
+- {registry: pypi, query: 'nationgraph, nationgraph-sdk', first_party_hits: 0, status: '404 on every lookup'}
+- {registry: rubygems, query: nationgraph, first_party_hits: 0, status: '404'}
+- {registry: crates.io, query: nationgraph, first_party_hits: 0, status: '404'}
+- {registry: maven-central, query: not searched, reason: no JVM surface indicated anywhere in the public surface}
+- {registry: nuget, query: not searched, reason: no .NET surface indicated anywhere in the public surface}
+- {registry: pkg.go.dev, query: not searched, reason: no Go client surface indicated; the /internal service is Go but is not distributed}
+- {registry: packagist, query: not searched, reason: no PHP surface indicated anywhere in the public surface}
+github_org:
+  url: https://github.com/NationGraph
+  api: https://api.github.com/orgs/NationGraph
+  public_repos: 3
+  first_party_libraries: 0
+  note: >-
+    Every public repository in the NationGraph GitHub organization is a FORK of third-party
+    software — infrastructure they build on, not client libraries they publish. Recorded so a
+    later round does not re-open this.
+  repos:
+  - {name: R2R, upstream: 'SciPhi-AI/R2R', kind: fork, pushed: '2025-07-01', note: 'Agentic RAG retrieval system — the retrieval infrastructure behind their document/RAG endpoints, not a NationGraph SDK.'}
+  - {name: domino, upstream: 'Tauffer-Consulting/domino', kind: fork, pushed: '2026-03-06', note: 'Open-source workflow creation and monitoring platform — plausibly the substrate for their Automations product.'}
+  - {name: domino-docs, upstream: 'Tauffer-Consulting/domino-docs', kind: fork, pushed: '2024-07-14', note: 'Documentation for the Domino project. Stale fork.'}
+cdn_distribution: []
+cdn_distribution_note: >-
+  Checked, nothing to record. NationGraph publishes no embeddable widget, script-tag loader or
+  browser component of any kind. See also: no components/ artifact is written for this provider.
+cli:
+  published: false
+  note: >-
+    Checked, nothing to record. No first-party CLI in any registry, no install instructions in
+    the help center, no binary in the GitHub organization. No cli/ artifact is written.
+false_positives: []
+false_positives_note: >-
+  No name collisions found. `nationgraph` is unclaimed on npm, PyPI, RubyGems and crates.io — a
+  clean namespace in every registry checked.
+cross_links:
+  mcp: mcp/nationgraph-mcp.yml
+  authentication: authentication/nationgraph-authentication.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://registry.npmjs.org/nationgraph', http_status: 404}
+  - {url: 'https://registry.npmjs.org/nationgraph-sdk', http_status: 404}
+  - {url: 'https://registry.npmjs.org/@nationgraph%2Fsdk', http_status: 404}
+  - {url: 'https://registry.npmjs.org/@nationgraph%2Fmcp', http_status: 404}
+  - {url: 'https://registry.npmjs.org/-/v1/search?text=nationgraph', http_status: 200, note: 'total: 0'}
+  - {url: 'https://registry.npmjs.org/-/v1/search?text=scope:nationgraph', http_status: 200, note: 'total: 0'}
+  - {url: 'https://pypi.org/pypi/nationgraph/json', http_status: 404}
+  - {url: 'https://pypi.org/pypi/nationgraph-sdk/json', http_status: 404}
+  - {url: 'https://rubygems.org/api/v1/gems/nationgraph.json', http_status: 404}
+  - {url: 'https://crates.io/api/v1/crates/nationgraph', http_status: 404}
+  - {url: 'https://api.github.com/orgs/nationgraph/repos?per_page=100', http_status: 200, note: '3 repos, all forks'}

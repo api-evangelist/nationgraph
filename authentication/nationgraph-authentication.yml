@@ -1,12 +1,151 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/nationgraph-openapi-original.json
+generated: '2026-08-14'
+method: probed
+source: >-
+  https://api.nationgraph.com/.well-known/openid-configuration +
+  https://api.nationgraph.com/.well-known/oauth-protected-resource + live 401 challenges on
+  api.nationgraph.com + openapi/_original/nationgraph-openapi-original.json
 summary:
   types:
+  - oauth2
+  - openIdConnect
   - http
+  note: >-
+    UPGRADED 2026-07-20 (derived, http bearer only) -> 2026-08-14 (probed). The July round could
+    only see what the OpenAPI declared: a single opaque `HTTPBearer` scheme. Probing the API host
+    this round revealed a full OAuth 2.0 / OpenID Connect authorization server published at
+    https://api.nationgraph.com/auth, which the OpenAPI never mentioned. Both are real and they
+    cover DIFFERENT surfaces — see `surfaces` below. This is the single largest correction of
+    this round.
+surfaces:
+- surface: REST API
+  base: https://api.nationgraph.com/api/v3
+  scheme: HTTPBearer
+  observed_challenge: 'WWW-Authenticate: Bearer'
+  observed_status: 401
+  observed_body: '{"detail":"Not authenticated"}'
+  scoped: false
+  note: >-
+    Opaque bearer token, no published scope model, no published key-issuance flow. The challenge
+    is a bare `Bearer` with no realm, no scope and no resource_metadata parameter — it gives a
+    client nothing to act on. Confirmed live on 2026-08-14 against /api/v3/lists,
+    /api/v3/contacts, /api/v3/workspaces/institutions and POST /api/v3/signals/search.
+- surface: MCP server
+  base: https://api.nationgraph.com/internal/mcp
+  scheme: OAuth2Bearer
+  observed_challenge: >-
+    Bearer resource_metadata="https://api.nationgraph.com/.well-known/oauth-protected-resource",
+    scope="mcp:read"
+  observed_status: 401
+  observed_body: 'no bearer token'
+  scoped: true
+  note: >-
+    A fully spec-compliant RFC 9728 challenge — it hands the client the discovery document and the
+    required scope. An MCP client can bootstrap from a cold start with no human in the loop: read
+    the resource metadata, register dynamically, run authorization_code + PKCE, get a token. This
+    is markedly better authentication engineering than the REST surface receives.
 schemes:
+- name: NationGraphOIDC
+  type: openIdConnect
+  openIdConnectUrl: https://api.nationgraph.com/.well-known/openid-configuration
+  issuer: https://api.nationgraph.com/auth
+  method: probed
+  sources:
+  - https://api.nationgraph.com/.well-known/openid-configuration
+- name: NationGraphOAuth2
+  type: oauth2
+  method: probed
+  issuer: https://api.nationgraph.com/auth
+  flows:
+    authorizationCode:
+      authorizationUrl: https://api.nationgraph.com/auth/oauth2/authorize
+      tokenUrl: https://api.nationgraph.com/auth/oauth2/token
+      refreshUrl: https://api.nationgraph.com/auth/oauth2/token
+      scopes:
+        openid: OIDC — request an ID token
+        profile: OIDC — basic profile claims
+        email: OIDC — email claim
+        offline_access: Refresh token for unattended / long-running sessions
+        mcp:read: Read access to the NationGraph MCP server
+    clientCredentials:
+      tokenUrl: https://api.nationgraph.com/auth/oauth2/token
+      scopes:
+        mcp:read: Read access to the NationGraph MCP server
+  pkce:
+    required: true
+    code_challenge_methods: [S256]
+  dynamic_client_registration:
+    supported: true
+    rfc: RFC 7591
+    endpoint: https://api.nationgraph.com/auth/oauth2/register
+    note: >-
+      Open registration endpoint. Combined with `token_endpoint_auth_methods_supported: none`
+      (public clients), this is what lets an MCP client onboard itself without a
+      pre-provisioned client_id.
+  token_endpoint_auth_methods: [none, client_secret_basic, client_secret_post]
+  response_types: [code]
+  response_modes: [query]
+  grant_types: [authorization_code, client_credentials, refresh_token]
+  id_token_signing_alg: [EdDSA]
+  subject_types: [public]
+  acr_values: ['urn:mace:incommon:iap:bronze']
+  prompt_values: [login, consent, create, select_account, none]
+  claims:
+  - sub
+  - iss
+  - aud
+  - exp
+  - iat
+  - sid
+  - scope
+  - azp
+  - org_id
+  - org_role
+  - org_slug
+  multi_tenancy:
+    supported: true
+    claims: [org_id, org_role, org_slug]
+    note: >-
+      Organization claims are carried in the token itself, so a NationGraph token is scoped to a
+      customer org and a role within it — the tenancy boundary an agent operates inside.
+  ref: scopes/nationgraph-scopes.yml
+  sources:
+  - https://api.nationgraph.com/.well-known/oauth-authorization-server
+  - https://api.nationgraph.com/.well-known/openid-configuration
 - name: HTTPBearer
   type: http
   scheme: bearer
+  method: derived
+  applies_to: REST /api/v3
   sources:
-  - openapi/nationgraph-openapi-original.json
+  - openapi/_original/nationgraph-openapi-original.json
+identity_provider:
+  vendor: Clerk (inferred)
+  basis: >-
+    Inferred, not asserted by NationGraph. Three independent signals point the same way: the
+    org_id / org_role / org_slug / azp / sid claim shape is Clerk's, EdDSA id_token signing is a
+    Clerk default, and NationGraph's own OpenAPI exposes an inbound
+    `POST /api/v3/webhooks/clerk` receiver (openapi/nationgraph-webhooks-api-openapi.yml). The
+    authorization server is fronted on NationGraph's own domain either way.
+docs: null
+docs_note: >-
+  NationGraph publishes NO authentication documentation. There is no developer portal, no API
+  key page, no OAuth guide, and no MCP connection instructions anywhere on nationgraph.com or in
+  the GitBook help center. Every fact in this artifact was read from live machine-readable
+  discovery documents and live 401 challenges. A developer or agent cannot learn how to
+  authenticate from NationGraph's prose — only from its protocol.
+cross_links:
+  scopes: scopes/nationgraph-scopes.yml
+  mcp: mcp/nationgraph-mcp.yml
+  well_known: well-known/nationgraph-well-known.yml
+  conventions: conventions/nationgraph-conventions.yml
+  conformance: conformance/nationgraph-conformance.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/.well-known/openid-configuration', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-authorization-server', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-protected-resource', http_status: 200}
+  - {url: 'https://api.nationgraph.com/internal/mcp', http_status: 401}
+  - {url: 'https://api.nationgraph.com/api/v3/lists', http_status: 401}
+  - {url: 'https://api.nationgraph.com/api/v3/contacts', http_status: 401}
+  - {url: 'https://api.nationgraph.com/api/v3/workspaces/institutions', http_status: 401}

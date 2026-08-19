@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Institutions API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Institutions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Institutions In Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/workspaces/institutions",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get institutions from the 'all_institutions' view/table."
+        },
+        {
+          "info": {
+            "name": "Get Workspace Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/workspaces/:workspace_id/institutions",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get institutions linked to a specific workspace."
+        },
+        {
+          "info": {
+            "name": "Add Institution To Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/workspaces/:workspace_id/institutions",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add Institution To Workspace"
+        },
+        {
+          "info": {
+            "name": "Delete Workspace Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/workspaces/:workspace_id/institutions",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete institutions from a workspace."
+        },
+        {
+          "info": {
+            "name": "Get Institution Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/institutions/count",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single count of institutions matching the intersection of signal and territory filters."
+        },
+        {
+          "info": {
+            "name": "Get Institution Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/institutions/metadata",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get institution counts and metadata based on filters.\n\nRequest body should contain a list of filters, where each filter can specify:\n- institution_type: Filter by type (k12_districts, cities, etc.)\n- states: List of state codes (e.g., [\"CA\", \"NY\", \"TX\"])\n- population_min: Minimum population filter\n- population_max: Maximum population filter\n\nIf no filters provided, returns counts for all institution types."
+        },
+        {
+          "info": {
+            "name": "Get Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/institutions",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "List of institution IDs to filter by"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit number of results returned"
+              },
+              {
+                "name": "institution_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by institution type (e.g., k12_districts, cities)"
+              },
+              {
+                "name": "account_types",
+                "value": "",
+                "type": "query",
+                "description": "Multi-select institution types — applied as source_table IN (...)"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "List of state codes to filter by"
+              },
+              {
+                "name": "counties",
+                "value": "",
+                "type": "query",
+                "description": "List of county names to filter by"
+              },
+              {
+                "name": "cities",
+                "value": "",
+                "type": "query",
+                "description": "List of city names to filter by"
+              },
+              {
+                "name": "population_min",
+                "value": "",
+                "type": "query",
+                "description": "Minimum population filter"
+              },
+              {
+                "name": "population_max",
+                "value": "",
+                "type": "query",
+                "description": "Maximum population filter"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match on Institution.name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Institutions"
+        },
+        {
+          "info": {
+            "name": "Get Institution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/institutions/:institution_id",
+            "params": [
+              {
+                "name": "institution_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Institution"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

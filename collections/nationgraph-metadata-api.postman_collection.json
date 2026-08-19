@@ -1,0 +1,194 @@
+{
+  "item": [
+    {
+      "id": "75b43e3f-986b-429d-8a8a-29442f2b146a",
+      "name": "Metadata",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "858e3729-1225-4417-be58-8ea5961a097f",
+          "name": "Get Entity Metadata",
+          "request": {
+            "name": "Get Entity Metadata",
+            "description": {
+              "content": "Get the metadata for an institution by its entity ID.\n\nArgs:\n    entity_id: The unique identifier for the institution\n\nReturns:\n    Dict containing:\n        - overview: Text description of the institution\n        - homepage_url: URL of the institution's homepage\n        - latitude: Latitude coordinate (float or None)\n        - longitude: Longitude coordinate (float or None)\n        - population: Population count (int or None)\n        - students: Number of students in the district (int or None)\n        - teachers: Number of teachers in the district (int or None)\n        - total_schools: Number of schools in the district (int or None)\n        - district_type: The type of school district we have (string or None)\n        - federal_grants: The amount of money the school district is granted yearly by the federal government\n        - state_grants: The amount of money the school district is granted yearly by the state government\n        - local_grants: The amount of money the school district is granted yearly by the local government\n        - interest_expenditure: The amount of money the school district spends yearly on paying interest\n        - operations_expenditure: The amount of money the school district spends yearly on its operations\n        - instructional_expenditure: The amount of money the school district spends yearly on its instructional costs\n        - administration_expenditure: The amount of money the school district spends yearly on administration\n        - phone_number: A phone number to contact the school district\n        - locale: A short description of the area that the school district is in (suburban, urban, rural, town, etc.)\n        - student_and_staff_support_expenditure: The amount of money the school district spends yearly on student and staff support and resources\n        - total_grants: The total amount of grant money the school district receives yearly\n        - total_expenditures: The total amount of money the school district spends yearly across all expenses\n\nRaises:\n    HTTPException: If there's an error retrieving the data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "metadata",
+                ":entity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aad171e0-41f3-4a8a-bc56-ecc1abbe9bb1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "metadata",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96ba4b77-cf10-4506-bd43-f3324d0c73ea",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "metadata",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b56276a5-a7f3-49bb-912d-da6e6f93f194",
+    "name": "Nationgraph Accounts Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

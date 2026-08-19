@@ -1,0 +1,82 @@
+generated: '2026-08-14'
+method: probed
+source: https://api.nationgraph.com/.well-known/oauth-authorization-server
+docs: null
+summary: >-
+  NationGraph's authorization server publishes its scope set in machine-readable form via RFC 8414
+  / OpenID Connect Discovery. These five scopes are read verbatim from that live document, not
+  from prose and not from the OpenAPI — the harvested OpenAPI declares only an opaque HTTP Bearer
+  scheme and carries no oauth2 securityScheme at all, so `derive-oauth-scopes.py` finds nothing
+  here. The provider publishes NO human-readable scopes or permissions reference page; this
+  discovery document is the only scope documentation NationGraph offers.
+authorization_server: https://api.nationgraph.com/auth
+scope_count: 5
+scopes:
+- name: openid
+  type: openid-connect
+  description: >-
+    Standard OIDC scope. Requests an ID token identifying the authenticated end user.
+  standard: true
+- name: profile
+  type: openid-connect
+  description: >-
+    Standard OIDC scope. Grants access to the end user's basic profile claims via the userinfo
+    endpoint.
+  standard: true
+- name: email
+  type: openid-connect
+  description: >-
+    Standard OIDC scope. Grants access to the end user's email address claim.
+  standard: true
+- name: offline_access
+  type: openid-connect
+  description: >-
+    Standard OIDC scope. Requests a refresh token so a client can act without the user present —
+    the scope that makes long-running agent sessions possible against this API.
+  standard: true
+  applies_to_resource: https://api.nationgraph.com/internal/mcp
+- name: mcp:read
+  type: resource
+  description: >-
+    First-party, NationGraph-specific scope. Grants READ access to the NationGraph MCP server at
+    https://api.nationgraph.com/internal/mcp. Required — the endpoint's WWW-Authenticate challenge
+    names this scope explicitly on an unauthenticated request.
+  standard: false
+  applies_to_resource: https://api.nationgraph.com/internal/mcp
+  ref: mcp/nationgraph-mcp.yml
+protected_resources:
+- resource: https://api.nationgraph.com/internal/mcp
+  resource_name: NationGraph
+  scopes_supported: [mcp:read, offline_access]
+  source: https://api.nationgraph.com/.well-known/oauth-protected-resource
+observations:
+- >-
+  The ONLY resource-specific scope NationGraph defines is `mcp:read`. There is no write scope, and
+  no scope of any kind covering the /api/v3 REST surface — those 253 operations sit behind an
+  opaque bearer token with no published scope model. The scope vocabulary that exists is
+  agent-facing and read-only.
+- >-
+  `mcp:read` being read-only is a deliberate, legible boundary: an agent granted this scope can
+  query NationGraph's government-signal corpus but cannot write into a customer's workspace,
+  lists, or CRM sync.
+endpoints:
+  authorization: https://api.nationgraph.com/auth/oauth2/authorize
+  token: https://api.nationgraph.com/auth/oauth2/token
+  registration: https://api.nationgraph.com/auth/oauth2/register
+  introspection: https://api.nationgraph.com/auth/oauth2/introspect
+  revocation: https://api.nationgraph.com/auth/oauth2/revoke
+  userinfo: https://api.nationgraph.com/auth/oauth2/userinfo
+  end_session: https://api.nationgraph.com/auth/oauth2/end-session
+  jwks: https://api.nationgraph.com/auth/.well-known/jwks.json
+cross_links:
+  authentication: authentication/nationgraph-authentication.yml
+  mcp: mcp/nationgraph-mcp.yml
+  well_known: well-known/nationgraph-well-known.yml
+  conformance: conformance/nationgraph-conformance.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-authorization-server', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/openid-configuration', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-protected-resource', http_status: 200}
+  - {url: 'https://api.nationgraph.com/internal/mcp', http_status: 401, note: 'WWW-Authenticate names scope="mcp:read"'}

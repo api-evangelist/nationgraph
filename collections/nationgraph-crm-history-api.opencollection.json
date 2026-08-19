@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM History API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Non-Automation CRM Activity for an Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/activity",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Paginated history of non-automation CRM activity for this integration.\n\nReturns every row in `crm_actions` for the integration's organization and\nCRM provider — link/note/task/post/contact_push — joined with institution\nnames.  Ordered by `created_at` descending."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,51 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://www.nationgraph.com/sitemap.xml + https://www.nationgraph.com/pricing (404) +
+  https://www.nationgraph.com/get-a-demo + https://nationgraph.gitbook.io/nationgraph/help-center/
+provider: NationGraph
+providerId: nationgraph
+plan_count: 0
+pricing_model: sales-gated
+public_pricing: false
+summary: >-
+  NationGraph publishes NO pricing. There is no /pricing page — the URL returns 404, and no
+  pricing route appears anywhere in their sitemap, which lists every product, blog, guide and
+  glossary page they serve. There is no plan table, no tier comparison, no free tier, no
+  self-service signup and no published API metering. Every commercial path on the site funnels to
+  a demo request. This is an honest zero, recorded as a measurement rather than omitted.
+plans: []
+acquisition_paths:
+- {url: 'https://www.nationgraph.com/get-a-demo', status: 200, type: demo-request}
+- {url: 'https://www.nationgraph.com/schedule-demo', status: 200, type: demo-request}
+- {url: 'https://www.nationgraph.com/10-free-signals', status: 200, type: lead-magnet, note: 'A limited free-signals offer used as a lead capture, not a published plan with defined quota or price.'}
+- {url: 'https://app.nationgraph.com/', status: 200, type: customer-login}
+api_pricing:
+  published: false
+  note: >-
+    Nothing states whether API or MCP access is included in a subscription, sold as an add-on, or
+    metered. Since NationGraph publishes no developer documentation at all, API commercial terms
+    are entirely inside the sales conversation. An agent or developer cannot determine the cost of
+    a call from any public source.
+third_party_reporting:
+  note: >-
+    Recorded as context only, NOT as a NationGraph-published plan and NOT scored. Capterra lists
+    NationGraph starting around $1,000 with no free trial, and press coverage describes per-seat
+    subscription billing with usage-based pricing under consideration. These are third-party
+    characterizations of a private pricing motion; NationGraph itself publishes none of it.
+  sources:
+  - https://www.capterra.com/p/10035726/NationGraph/
+probes:
+- {url: 'https://www.nationgraph.com/pricing', status: 404}
+- {url: 'https://www.nationgraph.com/sitemap.xml', status: 200, note: 'no /pricing or /plans route present'}
+- {url: 'https://www.nationgraph.com/get-a-demo', status: 200}
+cross_links:
+  rate_limits: rate-limits/nationgraph-rate-limits.yml
+  lifecycle: lifecycle/nationgraph-lifecycle.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://www.nationgraph.com/pricing', http_status: 404}
+  - {url: 'https://www.nationgraph.com/sitemap.xml', http_status: 200}
+  - {url: 'https://www.nationgraph.com/get-a-demo', http_status: 200}
+  - {url: 'https://nationgraph.gitbook.io/nationgraph/help-center/', http_status: 200}

@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Org Admin API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Org Admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Org Signal Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/org-admin/signal-settings",
+            "params": [
+              {
+                "name": "member_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all active signal settings belonging to the provided org member IDs.\n\nThe caller (frontend) fetches member IDs from BetterAuth /my-org/members\nand passes them here. Superadmins may pass ?org_id= to target any org."
+        },
+        {
+          "info": {
+            "name": "Copy Signal Settings To Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/org-admin/signal-settings/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Copy signal templates to one or more org recipients, then auto-run each.\n\nThe frontend resolves org member IDs from BetterAuth before calling this.\nThe api:signal:settings:manage capability is enforced via require_permission"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts RAG Files API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RAG Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Rag File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/rag/files/:data_source/:id",
+            "params": [
+              {
+                "name": "data_source",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download the source file backing a RAG document.\n\n``(data_source, id)`` together identify the file — each source's\ndocument table has an independent autoincrement ID space, so ``id``\nalone is ambiguous.\n\nResponses:\n    200 — file body + detected mime type.\n    404 — no matching document or no file_path on the row.\n    502 — S3 download failed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

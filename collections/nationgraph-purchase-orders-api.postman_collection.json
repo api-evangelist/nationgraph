@@ -1,0 +1,358 @@
+{
+  "item": [
+    {
+      "id": "2e321357-1427-4a43-9e9a-2f3019c65227",
+      "name": "Purchase Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1eb464ac-a4dd-42b9-bc16-b3d7cd758413",
+          "name": "Get Purchase Order",
+          "request": {
+            "name": "Get Purchase Order",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "purchase-orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28fe9926-a76d-4984-aca1-6b205b11f2ec",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "purchase-orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"institution_id\": \"string\",\n  \"entity_name\": \"string\",\n  \"source_table\": \"string\",\n  \"supplier_name\": \"string\",\n  \"item_description\": \"string\",\n  \"total_amount\": 1000.0434908611444,\n  \"po_date\": \"1950-03-10\",\n  \"po_id\": \"string\",\n  \"institution_name\": \"string\",\n  \"institution_state\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f91170d9-0939-4f60-92cd-2e3fef787285",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "purchase-orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecc62154-ef63-446d-8304-88d39931495d",
+          "name": "Search Purchase Orders",
+          "request": {
+            "name": "Search Purchase Orders",
+            "description": {
+              "content": "Search purchase orders for an institution.\n\nThe ``query`` field accepts a Postgres tsquery expression — see the\nPurchaseOrderSearchFilters docstring for syntax and examples. Malformed\ntsquery returns 400 with the Postgres syntax error.\n\nAll filters compose with AND: matching POs must satisfy every supplied\nfilter (institution_ids, query, amount range, date range).\n\nAt least one of ``institution_ids`` or ``query`` must be supplied —\nunbounded scans of the 235M-row PO table are rejected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "internal",
+                "purchase-orders",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query\": \"<string>\",\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_amount\": \"<number>\",\n  \"max_amount\": \"<number>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"sort\": \"po_date_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56e1cdbc-677c-48f4-839a-3dbcba180dbd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "purchase-orders",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query\": \"<string>\",\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_amount\": \"<number>\",\n  \"max_amount\": \"<number>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"sort\": \"po_date_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"institution_id\": \"string\",\n      \"entity_name\": \"string\",\n      \"source_table\": \"string\",\n      \"supplier_name\": \"string\",\n      \"item_description\": \"string\",\n      \"total_amount\": 2475.823445270382,\n      \"po_date\": \"2020-03-01\",\n      \"po_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"institution_id\": \"string\",\n      \"entity_name\": \"string\",\n      \"source_table\": \"string\",\n      \"supplier_name\": \"string\",\n      \"item_description\": \"string\",\n      \"total_amount\": 8376.792137186236,\n      \"po_date\": \"1990-10-23\",\n      \"po_id\": \"string\",\n      \"institution_name\": \"string\",\n      \"institution_state\": \"string\"\n    }\n  ],\n  \"total\": 5262,\n  \"offset\": 6177,\n  \"limit\": 5837\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a2a5e38-cce8-4e72-9fae-8c0e7269a1f3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "internal",
+                    "purchase-orders",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"query\": \"<string>\",\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"min_amount\": \"<number>\",\n  \"max_amount\": \"<number>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"sort\": \"po_date_desc\",\n  \"offset\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ec6e4abe-b917-4850-9b49-9e833fa82628",
+    "name": "Nationgraph Accounts Purchase Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Press Releases API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Press Releases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Press Releases",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/press-releases/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search press release chunks.\n\nThe ``query`` field is evaluated against the chunks' ``search_vector`` via\n``websearch_to_tsquery('english', ...)`` — stemming on, websearch syntax\n(quoted phrases, OR, leading - to exclude).\n\nPass ``group_by_document=true`` to collapse to one chunk per press release\n(the highest-ranked when a query is supplied; the earliest chunk otherwise).\nThe response's ``other_matching_chunks_in_document`` field shows how many\nother chunks in that doc also matched — useful for "
+        },
+        {
+          "info": {
+            "name": "Get Press Release Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/press-releases/chunks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Press Release Chunk"
+        },
+        {
+          "info": {
+            "name": "Get Press Release Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/press-releases/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the full press release record by its UUID.\n\nReturns the entire ``content`` field along with title, url, publication\ndate, and institution context. Use after ``/search`` returns chunks if you\nneed the whole article rather than the snippet."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts RAG API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RAG",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Preprocess Rag Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/rag/preprocess",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Preprocess a RAG query\n\nArgs:\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    Preprocessed query data including extracted keywords and embeddings"
+        },
+        {
+          "info": {
+            "name": "Query Rag Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/rag/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Query RAG data\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    preprocessed_data: Output from the /rag/preprocess endpoint\n\nReturns:\n    RAG response with content, citations, and summary"
+        },
+        {
+          "info": {
+            "name": "Query Rag Direct",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/rag/query-direct",
+            "params": [
+              {
+                "name": "unique_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_category",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convenience endpoint - combines preprocess and query\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    RAG response with content, citations, and summary"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

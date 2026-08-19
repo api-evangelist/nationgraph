@@ -1,0 +1,402 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts CRM Companies API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from previous response"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return (e.g., 'name,domain,my_custom_prop')"
+              },
+              {
+                "name": "associations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of associated objects to include (e.g., 'contacts,deals')"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a paginated list of companies from the CRM.\n\n## Properties\n\nRequest specific properties (including custom properties) using the `properties` parameter:\n```\nGET /crm/{integration_id}/companies?properties=name,domain,my_custom_property\n```\n\n**Default properties returned:** name, domain, description, phone, address, city, state, zip,\ncountry, website, industry, numberofemployees, annualrevenue, lifecyclestage, hs_lead_status,\nhubspot_owner_id, createdate, hs_lastmodifieddate\n\n## Associations\n\nI"
+        },
+        {
+          "info": {
+            "name": "Create Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new company in the CRM."
+        },
+        {
+          "info": {
+            "name": "Simple Search Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/search",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Text search across searchable properties"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by company name"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Filter by domain"
+              },
+              {
+                "name": "industry",
+                "value": "",
+                "type": "query",
+                "description": "Filter by industry"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "Filter by city"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter by country"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by CRM owner ID"
+              },
+              {
+                "name": "nationgraph_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by NationGraph institution unique_id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Simple search for companies using query parameters.\n\n**For complex filtering with AND/OR logic, custom properties, or advanced operators,\nuse `POST /crm/{integration_id}/companies/search` instead.**\n\n## Available Filters\n\nAll filters are ANDed together (all must match):\n\n- `query`: Full-text search across searchable properties\n- `name`: Filter by company name (partial match with wildcards)\n- `domain`: Filter by exact domain\n- `industry`: Filter by industry\n- `city`, `state`, `country`: Location "
+        },
+        {
+          "info": {
+            "name": "Advanced Search Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/search",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Advanced search for companies with full CRM filter capabilities.\n\n## Filter Operators\n\n| Operator | Description | Example |\n|----------|-------------|---------|\n| `EQ` | Equals | `{\"propertyName\": \"state\", \"operator\": \"EQ\", \"value\": \"CA\"}` |\n| `NEQ` | Not equals | `{\"propertyName\": \"industry\", \"operator\": \"NEQ\", \"value\": \"TECHNOLOGY\"}` |\n| `LT` | Less than | `{\"propertyName\": \"numberofemployees\", \"operator\": \"LT\", \"value\": \"100\"}` |\n| `LTE` | Less than or equal | `{\"propertyName\": \"annualrevenue"
+        },
+        {
+          "info": {
+            "name": "Get Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/:company_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM company ID"
+              },
+              {
+                "name": "properties",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of properties to return"
+              },
+              {
+                "name": "associations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated associated objects to include (e.g., contacts,deals)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single company by its CRM ID."
+        },
+        {
+          "info": {
+            "name": "Update Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/:company_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM company ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing company in the CRM."
+        },
+        {
+          "info": {
+            "name": "Batch Get Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/batch/read",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get multiple companies by their IDs."
+        },
+        {
+          "info": {
+            "name": "Batch Create Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/batch/create",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create multiple companies in a single request."
+        },
+        {
+          "info": {
+            "name": "Batch Update Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/companies/batch/update",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update multiple companies in a single request."
+        },
+        {
+          "info": {
+            "name": "Push Institution to CRM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/crm/:integration_id/institutions/:institution_id/company",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The CRM integration ID"
+              },
+              {
+                "name": "institution_id",
+                "value": "",
+                "type": "path",
+                "description": "The NationGraph institution unique_id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push a NationGraph institution to CRM as a new company.\n\n**Available fields to push:**\n\n*From Institution:*\n- `name` → CRM `name`\n- `state` → CRM `state`\n- `city` → CRM `city`\n- `street` → CRM `address`\n- `county` → Appended to CRM `description`\n- `population` → CRM `numberofemployees`\n- `label` → CRM `industry` (mapped to valid enum, e.g., \"K12 District\" → \"PRIMARY_SECONDARY_EDUCATION\")\n\n*From Institution Metadata:*\n- `website` → CRM `website` (from homepage_url)\n- `description` → CRM `descript"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

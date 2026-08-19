@@ -1,0 +1,2245 @@
+{
+  "item": [
+    {
+      "id": "66ec2e36-9faa-46c5-8fae-5d636d0cf7d1",
+      "name": "CRM Companies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "087c9414-0734-42d1-9fcb-38932b8f3a53",
+          "name": "List Companies",
+          "request": {
+            "name": "List Companies",
+            "description": {
+              "content": "Get a paginated list of companies from the CRM.\n\n## Properties\n\nRequest specific properties (including custom properties) using the `properties` parameter:\n```\nGET /crm/{integration_id}/companies?properties=name,domain,my_custom_property\n```\n\n**Default properties returned:** name, domain, description, phone, address, city, state, zip,\ncountry, website, industry, numberofemployees, annualrevenue, lifecyclestage, hs_lead_status,\nhubspot_owner_id, createdate, hs_lastmodifieddate\n\n## Associations\n\nInclude associated objects using the `associations` parameter:\n```\nGET /crm/{integration_id}/companies?associations=contacts,deals\n```\n\nValid association types: `contacts`, `deals`, `tickets`, `notes`, `tasks`, `meetings`, `calls`, `emails`\n\n## Pagination\n\n- Max 100 results per page\n- Use `next_cursor` from response in subsequent requests",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of results per page (max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Pagination cursor from previous response"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<string>",
+                  "description": "Comma-separated list of properties to return (e.g., 'name,domain,my_custom_prop')"
+                },
+                {
+                  "disabled": false,
+                  "key": "associations",
+                  "value": "<string>",
+                  "description": "Comma-separated list of associated objects to include (e.g., 'contacts,deals')"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a9e4ea40-245c-4375-baf6-6885d36ffd00",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "associations",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5412.404772089123,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc718288-441a-426b-8393-48ffd4b446f7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "associations",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b5a4718-6c1d-4a07-9dc8-62ab84316c91",
+          "name": "Create Company",
+          "request": {
+            "name": "Create Company",
+            "description": {
+              "content": "Create a new company in the CRM.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21c629cf-7cec-475c-864e-58d7408e9ade",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false\n  },\n  \"created_at\": \"string\",\n  \"updated_at\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44882cc6-7fcb-4bc7-893f-dc2be6edc621",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b067d6bb-0510-4ae1-97bb-30fae53941ec",
+          "name": "Simple Search Companies",
+          "request": {
+            "name": "Simple Search Companies",
+            "description": {
+              "content": "Simple search for companies using query parameters.\n\n**For complex filtering with AND/OR logic, custom properties, or advanced operators,\nuse `POST /crm/{integration_id}/companies/search` instead.**\n\n## Available Filters\n\nAll filters are ANDed together (all must match):\n\n- `query`: Full-text search across searchable properties\n- `name`: Filter by company name (partial match with wildcards)\n- `domain`: Filter by exact domain\n- `industry`: Filter by industry\n- `city`, `state`, `country`: Location filters\n- `owner_id`: Filter by CRM owner\n\n## Custom Properties\n\nRequest custom properties using the `properties` parameter:\n```\nGET /crm/{integration_id}/companies/search?name=acme&properties=name,domain,my_custom_property\n```\n\n## Rate Limit\n\n5 requests/second/account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Text search across searchable properties"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by company name"
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Filter by domain"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry",
+                  "value": "<string>",
+                  "description": "Filter by industry"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "Filter by city"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by state"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Filter by country"
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_id",
+                  "value": "<string>",
+                  "description": "Filter by CRM owner ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "nationgraph_id",
+                  "value": "<string>",
+                  "description": "Filter by NationGraph institution unique_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Pagination cursor"
+                },
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<string>",
+                  "description": "Comma-separated list of properties to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "325e1a8e-0091-48c1-9347-84f3cfa47d32",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nationgraph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1243,\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 3926,\n        \"key_1\": 8989.095371505715,\n        \"key_2\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 8370.900295658392\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "647fca0b-b7a4-4d23-b60f-0c7041caf723",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nationgraph_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6748a001-0f32-4132-b815-a2d97db54ff3",
+          "name": "Advanced Search Companies",
+          "request": {
+            "name": "Advanced Search Companies",
+            "description": {
+              "content": "Advanced search for companies with full CRM filter capabilities.\n\n## Filter Operators\n\n| Operator | Description | Example |\n|----------|-------------|---------|\n| `EQ` | Equals | `{\"propertyName\": \"state\", \"operator\": \"EQ\", \"value\": \"CA\"}` |\n| `NEQ` | Not equals | `{\"propertyName\": \"industry\", \"operator\": \"NEQ\", \"value\": \"TECHNOLOGY\"}` |\n| `LT` | Less than | `{\"propertyName\": \"numberofemployees\", \"operator\": \"LT\", \"value\": \"100\"}` |\n| `LTE` | Less than or equal | `{\"propertyName\": \"annualrevenue\", \"operator\": \"LTE\", \"value\": \"1000000\"}` |\n| `GT` | Greater than | `{\"propertyName\": \"createdate\", \"operator\": \"GT\", \"value\": \"2024-01-01\"}` |\n| `GTE` | Greater than or equal | `{\"propertyName\": \"numberofemployees\", \"operator\": \"GTE\", \"value\": \"50\"}` |\n| `CONTAINS_TOKEN` | Contains (supports `*` wildcard) | `{\"propertyName\": \"name\", \"operator\": \"CONTAINS_TOKEN\", \"value\": \"*school*\"}` |\n| `NOT_CONTAINS_TOKEN` | Does not contain | `{\"propertyName\": \"domain\", \"operator\": \"NOT_CONTAINS_TOKEN\", \"value\": \"test\"}` |\n| `HAS_PROPERTY` | Has any value | `{\"propertyName\": \"website\", \"operator\": \"HAS_PROPERTY\"}` |\n| `NOT_HAS_PROPERTY` | Has no value | `{\"propertyName\": \"phone\", \"operator\": \"NOT_HAS_PROPERTY\"}` |\n| `IN` | In list | `{\"propertyName\": \"state\", \"operator\": \"IN\", \"values\": [\"CA\", \"TX\", \"NY\"]}` |\n| `NOT_IN` | Not in list | `{\"propertyName\": \"lifecyclestage\", \"operator\": \"NOT_IN\", \"values\": [\"lead\"]}` |\n| `BETWEEN` | Between range | `{\"propertyName\": \"numberofemployees\", \"operator\": \"BETWEEN\", \"value\": \"10\", \"highValue\": \"100\"}` |\n\n## Filter Logic\n\n- **Within a filterGroup**: Filters are ANDed (all must match)\n- **Between filterGroups**: Groups are ORed (any group can match)\n\n## Custom Properties\n\nRequest any property by name, including custom properties:\n```json\n{\n  \"properties\": [\"name\", \"domain\", \"my_custom_property\", \"another_custom_field\"],\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\"propertyName\": \"my_custom_property\", \"operator\": \"EQ\", \"value\": \"some_value\"}\n      ]\n    }\n  ]\n}\n```\n\n## Limits\n\n- Max 5 filter groups\n- Max 6 filters per group\n- Max 18 total filters\n- Max 100 results per page\n- Max 10,000 total results per query\n- Rate limit: 5 requests/second/account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"<string>\",\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"<string>\"\n        },\n        {\n          \"propertyName\": \"<string>\",\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"<string>\",\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"<string>\"\n        },\n        {\n          \"propertyName\": \"<string>\",\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"query\": \"<string>\",\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sorts\": [\n    {\n      \"propertyName\": \"<string>\",\n      \"direction\": \"ASCENDING\"\n    }\n  ],\n  \"limit\": 10,\n  \"after\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba44ba9b-e8fc-4fc4-93c9-440f48d6d7a8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        },\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"NOT_CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        }\n      ]\n    },\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"GT\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        },\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"NOT_CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"query\": \"<string>\",\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sorts\": [\n    {\n      \"propertyName\": \"string\",\n      \"direction\": \"ASCENDING\"\n    }\n  ],\n  \"limit\": 10,\n  \"after\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1243,\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 3926,\n        \"key_1\": 8989.095371505715,\n        \"key_2\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 8370.900295658392\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1258c6fd-586c-4243-8be7-743957c70376",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterGroups\": [\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        },\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"NOT_CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        }\n      ]\n    },\n    {\n      \"filters\": [\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"GT\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        },\n        {\n          \"propertyName\": \"string\",\n          \"operator\": \"NOT_CONTAINS_TOKEN\",\n          \"value\": \"string\",\n          \"values\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"highValue\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"query\": \"<string>\",\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sorts\": [\n    {\n      \"propertyName\": \"string\",\n      \"direction\": \"ASCENDING\"\n    }\n  ],\n  \"limit\": 10,\n  \"after\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6164af25-7ee7-490d-b66f-eef2ce62f28d",
+          "name": "Get Company",
+          "request": {
+            "name": "Get Company",
+            "description": {
+              "content": "Get a single company by its CRM ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                ":company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "properties",
+                  "value": "<string>",
+                  "description": "Comma-separated list of properties to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "associations",
+                  "value": "<string>",
+                  "description": "Comma-separated associated objects to include (e.g., contacts,deals)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) The CRM company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "177a4b6c-ec03-4c2c-96cf-c8d7650fdcd3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "associations",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The CRM company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false\n  },\n  \"created_at\": \"string\",\n  \"updated_at\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94956d0-2eb6-4f10-91a2-1aa6d52077e8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "associations",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The CRM company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6cbe469-cd5f-4d65-8caa-61a4316406a4",
+          "name": "Update Company",
+          "request": {
+            "name": "Update Company",
+            "description": {
+              "content": "Update an existing company in the CRM.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                ":company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) The CRM company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d65200f7-8467-495d-b973-eaf492b82d6b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The CRM company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"properties\": {\n    \"key_0\": false\n  },\n  \"created_at\": \"string\",\n  \"updated_at\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb2e07bb-b678-42ea-949d-37133bdcc3a8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The CRM company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zip\": \"<string>\",\n  \"country\": \"<string>\",\n  \"website\": \"<string>\",\n  \"industry\": \"<string>\",\n  \"numberofemployees\": \"<string>\",\n  \"annualrevenue\": \"<string>\",\n  \"lifecyclestage\": \"<string>\",\n  \"hubspot_owner_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebdf974d-fd9c-4019-a037-0a0dd6de8286",
+          "name": "Batch Get Companies",
+          "request": {
+            "name": "Batch Get Companies",
+            "description": {
+              "content": "Get multiple companies by their IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                "batch",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e07ea54d-0b5b-40bb-b7cd-28f90718f4e1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5412.404772089123,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4de7bf0-7349-441d-bbb3-2bb23e47b2e5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "837a465d-6456-44e6-a7de-33eb9e7ef31a",
+          "name": "Batch Create Companies",
+          "request": {
+            "name": "Batch Create Companies",
+            "description": {
+              "content": "Create multiple companies in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                "batch",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companies\": [\n    {\n      \"name\": \"<string>\",\n      \"domain\": \"<string>\",\n      \"description\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"website\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"numberofemployees\": \"<string>\",\n      \"annualrevenue\": \"<string>\",\n      \"lifecyclestage\": \"<string>\",\n      \"hubspot_owner_id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"domain\": \"<string>\",\n      \"description\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"website\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"numberofemployees\": \"<string>\",\n      \"annualrevenue\": \"<string>\",\n      \"lifecyclestage\": \"<string>\",\n      \"hubspot_owner_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5abcd0de-08bb-4efa-a43e-a9c62a52c697",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companies\": [\n    {\n      \"name\": \"string\",\n      \"domain\": \"string\",\n      \"description\": \"string\",\n      \"phone\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"country\": \"string\",\n      \"website\": \"string\",\n      \"industry\": \"string\",\n      \"numberofemployees\": \"string\",\n      \"annualrevenue\": \"string\",\n      \"lifecyclestage\": \"string\",\n      \"hubspot_owner_id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"domain\": \"string\",\n      \"description\": \"string\",\n      \"phone\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"country\": \"string\",\n      \"website\": \"string\",\n      \"industry\": \"string\",\n      \"numberofemployees\": \"string\",\n      \"annualrevenue\": \"string\",\n      \"lifecyclestage\": \"string\",\n      \"hubspot_owner_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5412.404772089123,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6909ef7-5bf0-4ea2-8a6f-7e12a84a1a6c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companies\": [\n    {\n      \"name\": \"string\",\n      \"domain\": \"string\",\n      \"description\": \"string\",\n      \"phone\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"country\": \"string\",\n      \"website\": \"string\",\n      \"industry\": \"string\",\n      \"numberofemployees\": \"string\",\n      \"annualrevenue\": \"string\",\n      \"lifecyclestage\": \"string\",\n      \"hubspot_owner_id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"domain\": \"string\",\n      \"description\": \"string\",\n      \"phone\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"country\": \"string\",\n      \"website\": \"string\",\n      \"industry\": \"string\",\n      \"numberofemployees\": \"string\",\n      \"annualrevenue\": \"string\",\n      \"lifecyclestage\": \"string\",\n      \"hubspot_owner_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee8404b1-788e-42be-bd3e-6ffaa04108ef",
+          "name": "Batch Update Companies",
+          "request": {
+            "name": "Batch Update Companies",
+            "description": {
+              "content": "Update multiple companies in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "companies",
+                "batch",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companies\": [\n    {\n      \"id\": \"<string>\",\n      \"properties\": {\n        \"name\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"description\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"address\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip\": \"<string>\",\n        \"country\": \"<string>\",\n        \"website\": \"<string>\",\n        \"industry\": \"<string>\",\n        \"numberofemployees\": \"<string>\",\n        \"annualrevenue\": \"<string>\",\n        \"lifecyclestage\": \"<string>\",\n        \"hubspot_owner_id\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"properties\": {\n        \"name\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"description\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"address\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip\": \"<string>\",\n        \"country\": \"<string>\",\n        \"website\": \"<string>\",\n        \"industry\": \"<string>\",\n        \"numberofemployees\": \"<string>\",\n        \"annualrevenue\": \"<string>\",\n        \"lifecyclestage\": \"<string>\",\n        \"hubspot_owner_id\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60bcc99b-994a-4e05-9cc3-39c380841f05",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companies\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"name\": \"string\",\n        \"domain\": \"string\",\n        \"description\": \"string\",\n        \"phone\": \"string\",\n        \"address\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zip\": \"string\",\n        \"country\": \"string\",\n        \"website\": \"string\",\n        \"industry\": \"string\",\n        \"numberofemployees\": \"string\",\n        \"annualrevenue\": \"string\",\n        \"lifecyclestage\": \"string\",\n        \"hubspot_owner_id\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"name\": \"string\",\n        \"domain\": \"string\",\n        \"description\": \"string\",\n        \"phone\": \"string\",\n        \"address\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zip\": \"string\",\n        \"country\": \"string\",\n        \"website\": \"string\",\n        \"industry\": \"string\",\n        \"numberofemployees\": \"string\",\n        \"annualrevenue\": \"string\",\n        \"lifecyclestage\": \"string\",\n        \"hubspot_owner_id\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": 5412.404772089123,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"has_more\": false,\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3096f409-0827-4765-b21a-769c700bd5be",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "companies",
+                    "batch",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companies\": [\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"name\": \"string\",\n        \"domain\": \"string\",\n        \"description\": \"string\",\n        \"phone\": \"string\",\n        \"address\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zip\": \"string\",\n        \"country\": \"string\",\n        \"website\": \"string\",\n        \"industry\": \"string\",\n        \"numberofemployees\": \"string\",\n        \"annualrevenue\": \"string\",\n        \"lifecyclestage\": \"string\",\n        \"hubspot_owner_id\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"properties\": {\n        \"name\": \"string\",\n        \"domain\": \"string\",\n        \"description\": \"string\",\n        \"phone\": \"string\",\n        \"address\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zip\": \"string\",\n        \"country\": \"string\",\n        \"website\": \"string\",\n        \"industry\": \"string\",\n        \"numberofemployees\": \"string\",\n        \"annualrevenue\": \"string\",\n        \"lifecyclestage\": \"string\",\n        \"hubspot_owner_id\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b704858d-9dc5-4ed5-b2f6-2250b925fe06",
+          "name": "Push Institution to CRM",
+          "request": {
+            "name": "Push Institution to CRM",
+            "description": {
+              "content": "Push a NationGraph institution to CRM as a new company.\n\n**Available fields to push:**\n\n*From Institution:*\n- `name` → CRM `name`\n- `state` → CRM `state`\n- `city` → CRM `city`\n- `street` → CRM `address`\n- `county` → Appended to CRM `description`\n- `population` → CRM `numberofemployees`\n- `label` → CRM `industry` (mapped to valid enum, e.g., \"K12 District\" → \"PRIMARY_SECONDARY_EDUCATION\")\n\n*From Institution Metadata:*\n- `website` → CRM `website` (from homepage_url)\n- `description` → CRM `description` (from entity_understanding)\n- `latitude` → Appended to CRM `description` (hs_latitude is read-only)\n- `longitude` → Appended to CRM `description` (hs_longitude is read-only)\n\n**Default fields (if not specified):** name, state, city, street, website, description\n\n**Auto-mapping:** By default, this will also create a CRM-institution mapping so you can\nreference this company in future operations. Set `create_mapping: false` to skip.\n\n**Owner assignment:** Optionally assign the company to a CRM owner using `owner_id`.\nGet available owners via `GET /crm/{integration_id}/owners`.\n\n**Custom fields:** Optionally write literal values to existing CRM custom fields on the\nnew company using `custom_fields` (e.g. a \"Source\" field set to \"Nationgraph\"). Field\nnames must match the CRM's API name (HubSpot property name or Salesforce field API name);\nfields that don't exist on the CRM org are silently skipped.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "crm",
+                ":integration_id",
+                "institutions",
+                ":institution_id",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "integration_id",
+                  "description": "(Required) The CRM integration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "institution_id",
+                  "description": "(Required) The NationGraph institution unique_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"create_mapping\": true,\n  \"owner_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"crm_field_name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"crm_field_name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27ec5ec0-481c-4e93-a531-dd5ac6a46645",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "institutions",
+                    ":institution_id",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) The NationGraph institution unique_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"name\",\n    \"label\"\n  ],\n  \"create_mapping\": true,\n  \"owner_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"crm_field_name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"crm_field_name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company_id\": \"string\",\n  \"institution_id\": \"string\",\n  \"properties_pushed\": {\n    \"key_0\": 8215.57134826394,\n    \"key_1\": false\n  },\n  \"mapping_created\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e14cf962-25fa-447f-b8f0-6bf37aa9d69c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "crm",
+                    ":integration_id",
+                    "institutions",
+                    ":institution_id",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "integration_id",
+                      "description": "(Required) The CRM integration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "institution_id",
+                      "description": "(Required) The NationGraph institution unique_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"name\",\n    \"label\"\n  ],\n  \"create_mapping\": true,\n  \"owner_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"crm_field_name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"crm_field_name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f44d87cd-015b-4c62-be5d-85664ab6e72a",
+    "name": "Nationgraph Accounts CRM Companies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

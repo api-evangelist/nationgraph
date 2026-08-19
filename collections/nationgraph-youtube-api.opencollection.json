@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts YouTube API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "YouTube",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Youtube",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/internal/youtube/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search YouTube caption chunks.\n\nInstitution linkage is dual-route — chunks are matched if EITHER the\nvideo's channel is mapped to the institution (via youtube_links) OR the\nvideo itself carries a per-video tag (raw.video_institution_unique_id).\nResults from both routes are unioned and deduped, preferring the\nper-video tag when both routes match the same chunk.\n\nThe ``query`` field uses ``websearch_to_tsquery('english', ...)`` —\nwebsearch syntax (quoted phrases, OR, leading - to exclude). For tig"
+        },
+        {
+          "info": {
+            "name": "Get Youtube Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/internal/youtube/chunks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Youtube Chunk"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

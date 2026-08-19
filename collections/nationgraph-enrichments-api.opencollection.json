@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Enrichments API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrichments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Enrichments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/enrichments",
+            "params": [
+              {
+                "name": "institution_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Enrichment id to page after (the `next_cursor` from a previous response). Omit to fetch the first page."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a cursor-paginated list of enrichment records for the user across all workspaces.\nResults are ordered by (created_at DESC, id DESC). Pass the id of the last\nenrichment from the previous page as `after` to fetch the next page. Total\ncount is returned only on the first request (when `after` is omitted).\n\nFilters (all optional, combined with AND):\n- `institution_ids`: restrict to enrichments for these institutions.\n- `statuses`: restrict to these status values. Use `\"unknown\"` to match rows\n  w"
+        },
+        {
+          "info": {
+            "name": "Create Enrichments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/enrichments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create new enrichment records for multiple institutions."
+        },
+        {
+          "info": {
+            "name": "Get Enrichment Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/enrichments/stats",
+            "params": [
+              {
+                "name": "institution_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get status-bucketed counts of enrichments for the authenticated user.\nRows with NULL status are bucketed under `\"unknown\"`. Respects the same\n`institution_ids` filter as GET /enrichments, so pill counts stay in sync\nwhen an institution filter is active. Status is deliberately not a filter\nhere — stats is the source of the pill counts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

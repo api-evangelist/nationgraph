@@ -1,0 +1,499 @@
+{
+  "item": [
+    {
+      "id": "ad2e93d2-8bef-420a-b2c4-0911eb656ff8",
+      "name": "Enrichments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69048acf-dfe2-4a9d-82fd-83ab51ab3b26",
+          "name": "Get Enrichments",
+          "request": {
+            "name": "Get Enrichments",
+            "description": {
+              "content": "Get a cursor-paginated list of enrichment records for the user across all workspaces.\nResults are ordered by (created_at DESC, id DESC). Pass the id of the last\nenrichment from the previous page as `after` to fetch the next page. Total\ncount is returned only on the first request (when `after` is omitted).\n\nFilters (all optional, combined with AND):\n- `institution_ids`: restrict to enrichments for these institutions.\n- `statuses`: restrict to these status values. Use `\"unknown\"` to match rows\n  where status IS NULL (mirrors the bucket key returned by /stats).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "enrichments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Enrichment id to page after (the `next_cursor` from a previous response). Omit to fetch the first page."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ad87349-42d0-4d86-b433-cef02e5d395f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c1e6af16-9909-660f-e145-c7bd98e012c0\",\n      \"user_email\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2005-07-29T23:50:50.691Z\",\n      \"modified_at\": \"2006-07-05T21:40:48.062Z\",\n      \"request_text\": \"string\",\n      \"result\": \"string\",\n      \"institution_id\": \"string\",\n      \"workspace_id\": \"79430d93-2f73-8aeb-2c2e-33e8e29f20ca\",\n      \"institution_metadata\": {\n        \"institution_id\": \"string\",\n        \"institution_name\": \"string\",\n        \"institution_state\": \"string\",\n        \"institution_city\": \"string\",\n        \"institution_county\": \"string\",\n        \"institution_label\": \"string\"\n      }\n    },\n    {\n      \"id\": \"da538fcb-9d75-868f-528c-33331db967b3\",\n      \"user_email\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1953-02-10T07:37:41.848Z\",\n      \"modified_at\": \"2012-01-18T22:32:06.941Z\",\n      \"request_text\": \"string\",\n      \"result\": \"string\",\n      \"institution_id\": \"string\",\n      \"workspace_id\": \"588959a7-6d27-0e75-de79-259a01b02f40\",\n      \"institution_metadata\": {\n        \"institution_id\": \"string\",\n        \"institution_name\": \"string\",\n        \"institution_state\": \"string\",\n        \"institution_city\": \"string\",\n        \"institution_county\": \"string\",\n        \"institution_label\": \"string\"\n      }\n    }\n  ],\n  \"limit\": 4826,\n  \"has_more\": false,\n  \"next_cursor\": \"string\",\n  \"total\": 5238\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6d93dfa-aa00-46f9-a53d-3d29d83793c0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5983eab-6592-4617-82c8-b97b5d71f3c7",
+          "name": "Create Enrichments",
+          "request": {
+            "name": "Create Enrichments",
+            "description": {
+              "content": "Create new enrichment records for multiple institutions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "enrichments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_text\": \"<string>\",\n  \"source_type\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workspace_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e480ecfb-0c00-4fd7-81c7-8cf49b61bc3d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_text\": \"<string>\",\n  \"source_type\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workspace_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8b930354-bdd2-2f16-b129-861acc083188\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"user_email\": \"string\",\n      \"request_text\": \"string\",\n      \"institution_id\": \"string\",\n      \"workspace_id\": \"b323e424-dd73-170d-f0ea-a642b17e6585\",\n      \"created_at\": \"1970-04-13T20:58:32.749Z\",\n      \"modified_at\": \"1995-12-09T01:54:08.712Z\"\n    },\n    {\n      \"id\": \"8c07521d-4935-9f45-2032-a06b9cb68d8a\",\n      \"status\": \"string\",\n      \"type\": \"string\",\n      \"user_email\": \"string\",\n      \"request_text\": \"string\",\n      \"institution_id\": \"string\",\n      \"workspace_id\": \"9edcd372-5053-b678-f5c3-237270cc010f\",\n      \"created_at\": \"1978-04-09T19:24:49.275Z\",\n      \"modified_at\": \"1969-01-18T06:19:25.397Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05a63dc3-0fb5-4f1b-8c18-5eb3ee7fece4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_text\": \"<string>\",\n  \"source_type\": \"<string>\",\n  \"institution_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workspace_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "982c2a96-0e34-4791-b2b9-6274cdd40fe4",
+          "name": "Get Enrichment Stats",
+          "request": {
+            "name": "Get Enrichment Stats",
+            "description": {
+              "content": "Get status-bucketed counts of enrichments for the authenticated user.\nRows with NULL status are bucketed under `\"unknown\"`. Respects the same\n`institution_ids` filter as GET /enrichments, so pill counts stay in sync\nwhen an institution filter is active. Status is deliberately not a filter\nhere — stats is the source of the pill counts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "enrichments",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c599d843-e8f3-4fc7-b8e8-3086ae1cd937",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3440,\n  \"by_status\": {\n    \"key_0\": 992,\n    \"key_1\": 8551\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98cc70c6-8f27-41ad-9d13-5e02e375f084",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "enrichments",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2383e9d-1db9-4d51-a1b3-941bf11804f7",
+    "name": "Nationgraph Accounts Enrichments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

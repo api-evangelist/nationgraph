@@ -1,26 +1,152 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/nationgraph-openapi-original.json
+generated: '2026-08-14'
+method: probed
+source: >-
+  live probes of api.nationgraph.com discovery documents and 401 challenges (2026-08-14) +
+  openapi/_original/nationgraph-openapi-original.json (harvested 2026-07-20)
+note: >-
+  UPGRADED from derived (2026-07-20) to probed (2026-08-14). The July assessment was made from
+  the OpenAPI alone and marked oauth2 and openid-connect FALSE. Both were wrong: NationGraph runs
+  a conformant OAuth 2.0 / OIDC authorization server that the OpenAPI simply never declared.
+  Those two rows are corrected here, and six standards the OpenAPI could not have revealed —
+  RFC 8414, RFC 9728, RFC 7591, PKCE, OIDC Discovery and MCP — are assessed for the first time.
 standards:
 - id: openapi-3.1
   conforms: true
-  evidence: openapi field is 3.1.0
+  method: derived
+  evidence: openapi field is 3.1.0 in the harvested specification
+  note: >-
+    Conformed as harvested. NOT currently discoverable — NationGraph withdrew the public
+    specification between 2026-07-20 and 2026-08-14. See lifecycle/nationgraph-lifecycle.yml.
+- id: oauth2
+  conforms: true
+  method: probed
+  evidence: >-
+    RFC 6749 authorization server at https://api.nationgraph.com/auth with authorize, token,
+    introspect (RFC 7662) and revoke (RFC 7009) endpoints; grants authorization_code,
+    client_credentials, refresh_token.
+  corrects: '2026-07-20 assessment recorded conforms:false (no oauth2 scheme in the OpenAPI)'
+- id: openid-connect
+  conforms: true
+  method: probed
+  evidence: >-
+    OIDC Core provider — issuer, userinfo endpoint, EdDSA-signed id_tokens, public subject types,
+    end_session endpoint, standard claim set.
+  corrects: '2026-07-20 assessment recorded conforms:false'
+- id: oidc-discovery
+  conforms: true
+  method: probed
+  evidence: /.well-known/openid-configuration returns 200 application/json with a complete provider metadata document
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  method: probed
+  evidence: /.well-known/oauth-authorization-server returns 200 with valid AS metadata
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: true
+  method: probed
+  evidence: >-
+    /.well-known/oauth-protected-resource returns 200 naming resource
+    https://api.nationgraph.com/internal/mcp, its authorization_servers and scopes_supported. The
+    MCP endpoint's 401 also returns the matching `WWW-Authenticate: Bearer resource_metadata=...`
+    parameter, so the two halves of RFC 9728 agree with each other.
+  note: >-
+    The strongest conformance result in this profile, and a genuinely uncommon one — most
+    providers that ship an MCP server do not ship the protected-resource descriptor that makes it
+    discoverable.
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  method: probed
+  evidence: registration_endpoint https://api.nationgraph.com/auth/oauth2/register advertised in AS metadata
+- id: rfc7636-pkce
+  conforms: true
+  method: probed
+  evidence: code_challenge_methods_supported ["S256"] — S256 only, plain not offered
+- id: rfc9207-authorization-response-iss
+  conforms: true
+  method: probed
+  evidence: authorization_response_iss_parameter_supported true (mix-up attack mitigation)
+- id: mcp
+  conforms: true
+  method: probed
+  evidence: >-
+    Live remote MCP endpoint at https://api.nationgraph.com/internal/mcp answering JSON-RPC 2.0
+    over HTTP with an OAuth-gated 401. Tool schemas not verifiable anonymously.
+  ref: mcp/nationgraph-mcp.yml
+- id: a2a
+  conforms: false
+  method: probed
+  evidence: >-
+    No Agent Card at /.well-known/agent-card.json or /.well-known/agent.json on any of
+    api.nationgraph.com, nationgraph.com or app.nationgraph.com — 404 on all six probes.
 - id: http-bearer-auth
   conforms: true
-  evidence: components.securitySchemes.HTTPBearer type http scheme bearer
-- id: oauth2
-  conforms: false
-  evidence: no oauth2 security scheme declared
-- id: openid-connect
-  conforms: false
+  method: probed
+  evidence: 'REST /api/v3 returns 401 with WWW-Authenticate: Bearer'
 - id: rfc9457-problem-details
   conforms: false
-  evidence: errors use FastAPI `detail` envelope, not application/problem+json
+  method: probed
+  evidence: >-
+    Errors use the FastAPI `{"detail": "..."}` envelope with content-type application/json, not
+    application/problem+json. Confirmed live: /api/v3/lists 401 returns
+    {"detail":"Not authenticated"}.
+  ref: errors/nationgraph-problem-types.yml
+- id: rfc9110-well-known-uris
+  conforms: partial
+  method: probed
+  evidence: >-
+    Discovery documents served on the API host only. The marketing host answers every
+    /.well-known/ path with an "Invalid .well-known request" catch-all and the app host with an
+    SPA shell — both under 404.
+- id: security-txt-rfc9116
+  conforms: false
+  method: probed
+  evidence: /.well-known/security.txt returns 404 on all three hosts
 - id: json-api
   conforms: false
+  method: derived
+  evidence: plain application/json resource representations, no JSON:API media type or envelope
 - id: pagination
   conforms: true
+  method: derived
   evidence: limit/offset/page_size + sort query parameters on list endpoints
 - id: idempotency
   conforms: false
-  evidence: no Idempotency-Key contract documented
+  method: derived
+  evidence: >-
+    No Idempotency-Key header or idempotency contract in the specification, and none documented.
+    134 write operations carry no replay-safety mechanism.
+- id: rate-limit-headers
+  conforms: false
+  method: probed
+  evidence: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After headers observed on any live response, including
+    a 15-request burst against the API root. See rate-limits/nationgraph-rate-limits.yml.
+- id: sunset-deprecation-rfc8594
+  conforms: false
+  method: derived
+  evidence: no Sunset or Deprecation header support and no deprecation policy published
+compliance_certifications:
+  published: false
+  note: >-
+    NationGraph links a Vanta-hosted Trust Center, but it renders client-side and exposes no
+    named certification (SOC 2, ISO 27001, HIPAA, FedRAMP, StateRAMP) to any fetch. No Compliance
+    pointer is emitted, because no certification could be verified — only the existence of the
+    trust center page. See security/nationgraph-trust-center.yml.
+cross_links:
+  authentication: authentication/nationgraph-authentication.yml
+  scopes: scopes/nationgraph-scopes.yml
+  mcp: mcp/nationgraph-mcp.yml
+  well_known: well-known/nationgraph-well-known.yml
+  errors: errors/nationgraph-problem-types.yml
+  rate_limits: rate-limits/nationgraph-rate-limits.yml
+  lifecycle: lifecycle/nationgraph-lifecycle.yml
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://api.nationgraph.com/.well-known/openid-configuration', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-authorization-server', http_status: 200}
+  - {url: 'https://api.nationgraph.com/.well-known/oauth-protected-resource', http_status: 200}
+  - {url: 'https://api.nationgraph.com/internal/mcp', http_status: 401}
+  - {url: 'https://api.nationgraph.com/api/v3/lists', http_status: 401}
+  - {url: 'https://api.nationgraph.com/.well-known/security.txt', http_status: 404}
+  - {url: 'https://api.nationgraph.com/.well-known/agent-card.json', http_status: 404}
+  - {url: 'https://api.nationgraph.com/openapi.json', http_status: 404}

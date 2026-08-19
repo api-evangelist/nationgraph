@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nationgraph Accounts Lists API",
+    "version": "0.2.36"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/lists",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all lists for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new list for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Edit List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Edit a list name."
+        },
+        {
+          "info": {
+            "name": "Delete List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a list and its signal associations. Does not delete OR archive the signals themselves."
+        },
+        {
+          "info": {
+            "name": "Add Signal To List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id/signals/:signal_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a signal to a list."
+        },
+        {
+          "info": {
+            "name": "Remove Signal From List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id/signals/:signal_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signal_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove a signal from a list."
+        },
+        {
+          "info": {
+            "name": "Get Signals In List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id/signals",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all signals in a list."
+        },
+        {
+          "info": {
+            "name": "Batch Add Signals To List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id/signals",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add multiple signals to a list."
+        },
+        {
+          "info": {
+            "name": "Batch Remove Signals From List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v3/lists/:list_id/signals",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove multiple signals from a list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
