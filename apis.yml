@@ -53,6 +53,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -232,7 +234,8 @@ apis:
   description: The Default API from NationGraph — 2 operation(s) for default.
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
-  tags:
+  tags: []
+  tags_raw:
   - Default
   properties:
   - type: OpenAPI
@@ -353,6 +356,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - institutions
+  tags_raw:
   - Institutions
   properties:
   - type: OpenAPI
@@ -365,6 +370,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -389,6 +396,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -690,6 +699,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
