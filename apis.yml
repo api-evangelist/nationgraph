@@ -549,18 +549,6 @@ apis:
     url: openapi/nationgraph-rag-files-api-openapi.yml
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
-- aid: nationgraph:nationgraph-rfps-api
-  name: NationGraph RFPs API
-  description: The RFPs API from NationGraph — 5 operation(s) for rfps.
-  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
-  baseURL: https://api.nationgraph.com
-  tags:
-  - RFPs
-  properties:
-  - type: OpenAPI
-    url: openapi/nationgraph-rfps-api-openapi.yml
-  - type: Authentication
-    url: authentication/nationgraph-authentication.yml
 - aid: nationgraph:nationgraph-scheduling-api
   name: NationGraph Scheduling API
   description: The Scheduling API from NationGraph — 3 operation(s) for scheduling.
@@ -741,6 +729,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/nationgraph-youtube-api-openapi.yml
+  - type: Authentication
+    url: authentication/nationgraph-authentication.yml
+- aid: nationgraph:nationgraph-rfps-api
+  name: NationGraph RF Ps API
+  description: The RFPs API from NationGraph — 5 operation(s) for rfps.
+  humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
+  baseURL: https://api.nationgraph.com
+  tags:
+  - RFPs
+  properties:
+  - type: OpenAPI
+    url: openapi/nationgraph-rfps-api-openapi.yml
   - type: Authentication
     url: authentication/nationgraph-authentication.yml
 maintainers:
