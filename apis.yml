@@ -79,6 +79,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
@@ -272,6 +274,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -396,6 +400,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Intents
+  tags_raw:
   - Intent
   properties:
   - type: OpenAPI
@@ -519,6 +525,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Queues
+  tags_raw:
   - Queue
   properties:
   - type: OpenAPI
@@ -713,6 +721,8 @@ apis:
   humanURL: https://nationgraph.gitbook.io/nationgraph/help-center/
   baseURL: https://api.nationgraph.com
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
