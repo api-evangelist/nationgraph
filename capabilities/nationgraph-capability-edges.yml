@@ -1,0 +1,45 @@
+slug: nationgraph
+provider: NationGraph
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Public Sector & Government
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: CRM Leads
+  spec_file: nationgraph-crm-leads-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.78
+  evidence: '"Create Lead", "Update Lead", "Search Leads", "Convert Lead" (ConvertLeadRequest, LeadResponse)'
+  reason: Lead creation, update, search and conversion is squarely the lead-to-opportunity lifecycle described
+    by Opportunity & Pipeline Management. Slight discount because it operates against a connected CRM
+    rather than owning the pipeline itself.
+- tag: Territories
+  spec_file: nationgraph-territories-api-openapi.yml
+  capability_id: BC-410.10
+  capability_id_l1: BC-410
+  capability_name: Sales Strategy Management
+  confidence: 0.72
+  evidence: POST /api/v3/territories — Create Territory; GET /api/v3/territories/stats — Get Territory
+    Stats; schemas TerritoryListItem, TerritoryAccountItem, TerritoryVisibility
+  reason: Definition, preview and maintenance of sales territories over government institutions with per-territory
+    account statistics — coverage model and sales planning.
+- tag: Meeting Minutes
+  spec_file: nationgraph-meeting-minutes-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.7
+  evidence: POST /api/internal/meeting-minutes/search  Search Meeting Minutes; schema MeetingMinuteSearchFilters
+  reason: Searchable index of government council meeting minutes used by sellers to research target markets
+    and detect buying signals — market/competitive intelligence for the vendor's customers, not the government's
+    own minute-taking process.
