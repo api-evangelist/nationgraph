@@ -1,16 +1,32 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts RAG API
+  title: Nationgraph RAG API
   version: 0.2.36
 tags:
-- name: RAG
+- name: Rag
 paths:
   /api/v3/rag/preprocess:
     post:
       tags:
-      - RAG
+      - Rag
       summary: Preprocess Rag Query
-      description: "Preprocess a RAG query\n\nArgs:\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    Preprocessed query data including extracted keywords and embeddings"
+      description: 'Preprocess a RAG query
+
+
+        Args:
+
+        description: User''s query/prompt
+
+        search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)
+
+        keyword_config: Optional keywords and search logic (AND/OR)
+
+        date_range: Optional date range filter
+
+
+        Returns:
+
+        Preprocessed query data including extracted keywords and embeddings'
       operationId: preprocess_rag_query_api_v3_rag_preprocess_post
       requestBody:
         content:
@@ -36,9 +52,23 @@ paths:
   /api/v3/rag/query:
     post:
       tags:
-      - RAG
+      - Rag
       summary: Query Rag Data
-      description: "Query RAG data\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    preprocessed_data: Output from the /rag/preprocess endpoint\n\nReturns:\n    RAG response with content, citations, and summary"
+      description: 'Query RAG data
+
+
+        Args:
+
+        unique_id: Institution''s unique ID (e.g., "k12_602442")
+
+        search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)
+
+        preprocessed_data: Output from the /rag/preprocess endpoint
+
+
+        Returns:
+
+        RAG response with content, citations, and summary'
       operationId: query_rag_data_api_v3_rag_query_post
       requestBody:
         content:
@@ -64,9 +94,27 @@ paths:
   /api/v3/rag/query-direct:
     post:
       tags:
-      - RAG
+      - Rag
       summary: Query Rag Direct
-      description: "Convenience endpoint - combines preprocess and query\n\nArgs:\n    unique_id: Institution's unique ID (e.g., \"k12_602442\")\n    description: User's query/prompt\n    search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)\n    keyword_config: Optional keywords and search logic (AND/OR)\n    date_range: Optional date range filter\n\nReturns:\n    RAG response with content, citations, and summary"
+      description: 'Convenience endpoint - combines preprocess and query
+
+
+        Args:
+
+        unique_id: Institution''s unique ID (e.g., "k12_602442")
+
+        description: User''s query/prompt
+
+        search_category: Category to search (e.g., meeting_minutes, procurement_guidelines, youtube)
+
+        keyword_config: Optional keywords and search logic (AND/OR)
+
+        date_range: Optional date range filter
+
+
+        Returns:
+
+        RAG response with content, citations, and summary'
       operationId: query_rag_direct_api_v3_rag_query_direct_post
       security:
       - HTTPBearer: []
@@ -109,20 +157,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    app__routes__v3__rag__KeywordConfig:
+    ValidationError:
       properties:
-        logic:
-          $ref: '#/components/schemas/QueryLogic'
-        keywords:
+        loc:
           items:
-            type: string
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Keywords
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - logic
-      - keywords
-      title: KeywordConfig
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -132,45 +192,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    RagPreprocessRequest:
-      properties:
-        description:
-          type: string
-          title: Description
-        search_category:
-          type: string
-          title: Search Category
-        keyword_config:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
-          - type: 'null'
-        date_range:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
-          - type: 'null'
-      type: object
-      required:
-      - description
-      - search_category
-      title: RagPreprocessRequest
-    Body_query_rag_direct_api_v3_rag_query_direct_post:
-      properties:
-        keyword_config:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
-          - type: 'null'
-        date_range:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
-          - type: 'null'
-      type: object
-      title: Body_query_rag_direct_api_v3_rag_query_direct_post
-    QueryLogic:
-      type: string
-      enum:
-      - AND
-      - OR
-      title: QueryLogic
     RagQueryRequest:
       properties:
         unique_id:
@@ -189,6 +210,22 @@ components:
       - search_category
       - preprocessed_data
       title: RagQueryRequest
+    app__routes__v3__rag__DateRange:
+      properties:
+        from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      title: DateRange
     RagQueryResponse:
       properties:
         type:
@@ -217,32 +254,27 @@ components:
       - summary
       - is_starred
       title: RagQueryResponse
-    ValidationError:
+    RagPreprocessRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        description:
           type: string
-          title: Message
-        type:
+          title: Description
+        search_category:
           type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Search Category
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - description
+      - search_category
+      title: RagPreprocessRequest
     RagPreprocessResponse:
       properties:
         preprocessed_data:
@@ -253,22 +285,38 @@ components:
       required:
       - preprocessed_data
       title: RagPreprocessResponse
-    app__routes__v3__rag__DateRange:
+    app__routes__v3__rag__KeywordConfig:
       properties:
-        from:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: From
-        to:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: To
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
       type: object
-      title: DateRange
+      required:
+      - logic
+      - keywords
+      title: KeywordConfig
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
+    Body_query_rag_direct_api_v3_rag_query_direct_post:
+      properties:
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
+      type: object
+      title: Body_query_rag_direct_api_v3_rag_query_direct_post
   securitySchemes:
     HTTPBearer:
       type: http

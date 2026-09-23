@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Press Releases API
+  title: Nationgraph Press Releases API
   version: 0.2.36
 tags:
 - name: Press Releases
@@ -121,176 +121,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PressReleaseSearchFilters:
-      properties:
-        query:
-          anyOf:
-          - type: string
-            maxLength: 2000
-          - type: 'null'
-          title: Query
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-        states:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: States
-        source_tables:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Source Tables
-        date_after:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Date After
-        date_before:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Date Before
-        group_by_document:
-          type: boolean
-          title: Group By Document
-          default: false
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          default: 50
-      type: object
-      title: PressReleaseSearchFilters
-      description: 'Search filters for press release chunks.
-
-
-        The ``query`` field accepts a websearch-style query string evaluated against
-
-        the chunks'' ``search_vector`` column (english config — stemming enabled).
-
-        Same syntax as the other chunk-search endpoints.
-
-
-        At least one of ``institution_ids`` or ``query`` must be supplied — the
-
-        chunks table is large enough that fully unbounded scans are rejected.
-
-        Institution scoping alone (with no query) lists that institution''s chunks
-
-        in reverse-chronological order of the parent press release, useful for
-
-        surveying what we have.'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PressReleaseDocumentResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        date:
-          type: string
-          format: date-time
-          title: Date
-        content:
-          type: string
-          title: Content
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-      type: object
-      required:
-      - id
-      - institution_id
-      - title
-      - url
-      - date
-      - content
-      title: PressReleaseDocumentResponse
-      description: 'Full press release record — returned by GET /documents/{id}.
-
-
-        Use this when you need the entire press release content, not just chunks.'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     PaginatedResponse_PressReleaseChunkResponse_:
       properties:
         results:
@@ -383,6 +213,176 @@ components:
       - document_id
       - text
       title: PressReleaseChunkResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PressReleaseDocumentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        date:
+          type: string
+          format: date-time
+          title: Date
+        content:
+          type: string
+          title: Content
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - institution_id
+      - title
+      - url
+      - date
+      - content
+      title: PressReleaseDocumentResponse
+      description: 'Full press release record — returned by GET /documents/{id}.
+
+
+        Use this when you need the entire press release content, not just chunks.'
+    PressReleaseSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        date_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date After
+        date_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Before
+        group_by_document:
+          type: boolean
+          title: Group By Document
+          default: false
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 50
+      type: object
+      title: PressReleaseSearchFilters
+      description: 'Search filters for press release chunks.
+
+
+        The ``query`` field accepts a websearch-style query string evaluated against
+
+        the chunks'' ``search_vector`` column (english config — stemming enabled).
+
+        Same syntax as the other chunk-search endpoints.
+
+
+        At least one of ``institution_ids`` or ``query`` must be supplied — the
+
+        chunks table is large enough that fully unbounded scans are rejected.
+
+        Institution scoping alone (with no query) lists that institution''s chunks
+
+        in reverse-chronological order of the parent press release, useful for
+
+        surveying what we have.'
   securitySchemes:
     HTTPBearer:
       type: http

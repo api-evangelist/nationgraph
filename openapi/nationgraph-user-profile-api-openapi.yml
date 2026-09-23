@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts User Profile API
+  title: Nationgraph User Profile API
   version: 0.2.36
 tags:
 - name: User Profile
@@ -120,21 +120,64 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    Body_search_user_profile_documents_api_v3_user_profiles_documents_search_post:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        user_id_to_search:
+          type: string
+          title: User Id To Search
       type: object
-      title: HTTPValidationError
-    InstitutionFiltersEnum:
-      type: string
-      enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
+      required:
+      - user_id_to_search
+      title: Body_search_user_profile_documents_api_v3_user_profiles_documents_search_post
+    UserProfileRequest:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+        document_summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Summary
+        filters:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UserProfileInstitutionFilter'
+            type: array
+          - type: 'null'
+          title: Filters
+      type: object
+      title: UserProfileRequest
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
     ValidationError:
       properties:
         loc:
@@ -161,6 +204,21 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
     InstitutionTypePayload:
       properties:
         name:
@@ -218,6 +276,12 @@ components:
           title: Search Query
       type: object
       title: InstitutionTypePayload
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
     InstitutionListPayload:
       properties:
         institution_ids:
@@ -241,70 +305,6 @@ components:
       required:
       - name
       title: InstitutionListPayload
-    Body_search_user_profile_documents_api_v3_user_profiles_documents_search_post:
-      properties:
-        user_id_to_search:
-          type: string
-          title: User Id To Search
-      type: object
-      required:
-      - user_id_to_search
-      title: Body_search_user_profile_documents_api_v3_user_profiles_documents_search_post
-    TerritoryVisibility:
-      type: string
-      enum:
-      - private
-      - organization
-      title: TerritoryVisibility
-    UserProfileInstitutionFilter:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        visibility:
-          $ref: '#/components/schemas/TerritoryVisibility'
-          default: private
-        type:
-          $ref: '#/components/schemas/InstitutionFiltersEnum'
-        payload:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - $ref: '#/components/schemas/InstitutionListPayload'
-          title: Payload
-      type: object
-      required:
-      - type
-      - payload
-      title: UserProfileInstitutionFilter
-    UserProfileRequest:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        role:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role
-        document_summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Summary
-        filters:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UserProfileInstitutionFilter'
-            type: array
-          - type: 'null'
-          title: Filters
-      type: object
-      title: UserProfileRequest
   securitySchemes:
     HTTPBearer:
       type: http

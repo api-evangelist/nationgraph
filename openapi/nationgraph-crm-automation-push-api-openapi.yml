@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts CRM Automation Push API
+  title: Nationgraph CRM Automation Push API
   version: 0.2.36
 tags:
 - name: CRM Automation Push
@@ -171,7 +171,7 @@ paths:
       summary: Get CRM Push History for an Automation
       description: 'Paginated history of every CRM push made by this automation against the
 
-        given integration.  Ordered by `pushed_at` descending.
+        given integration. Ordered by `pushed_at` descending.
 
 
         Each item includes the institution name, the run the push came from, and
@@ -237,7 +237,85 @@ paths:
       tags:
       - CRM Automation Push
       summary: Push Automation Results to CRM
-      description: "Bulk-push automation run results to CRM companies using explicit field mappings.\n\n**How it works:**\n1. Loads all **completed** results for the specified run\n2. If `result_ids` is provided, narrows to only those results\n3. Filters to results whose institutions have a CRM mapping for this integration\n4. Maps each automation column to the specified existing CRM field\n5. Updates each mapped CRM company with the result data\n6. Records which results were pushed for tracking\n\n**Field mappings** are required. Each entry maps an automation column key\n(from the pushable-columns endpoint) to an existing CRM field name\n(from the company-fields endpoint).\n\n**Selective push** — pass `result_ids` to push only specific results\ninstead of the entire run. Results that are not in `completed` status\nare silently excluded.\n\n**Example request (all results):**\n```json\n{\n  \"field_mappings\": [\n    {\"source_field\": \"score\", \"crm_field_name\": \"nationgraph_score\"},\n    {\"source_field\": \"rank\", \"crm_field_name\": \"ng_rank\"}\n  ]\n}\n```\n\n**Example request (selected results only):**\n```json\n{\n  \"field_mappings\": [\n    {\"source_field\": \"score\", \"crm_field_name\": \"nationgraph_score\"}\n  ],\n  \"result_ids\": [\"uuid-1\", \"uuid-2\"]\n}\n```\n\n**Requirements:**\n- Active CRM integration (HubSpot or Salesforce)\n- CRM mappings between institutions and CRM companies\n- Target CRM fields must already exist (use company-fields endpoint to verify)\n- Run must have completed results"
+      description: 'Bulk-push automation run results to CRM companies using explicit field mappings.
+
+
+        **How it works:**
+
+        1. Loads all **completed** results for the specified run
+
+        2. If `result_ids` is provided, narrows to only those results
+
+        3. Filters to results whose institutions have a CRM mapping for this integration
+
+        4. Maps each automation column to the specified existing CRM field
+
+        5. Updates each mapped CRM company with the result data
+
+        6. Records which results were pushed for tracking
+
+
+        **Field mappings** are required. Each entry maps an automation column key
+
+        (from the pushable-columns endpoint) to an existing CRM field name
+
+        (from the company-fields endpoint).
+
+
+        **Selective push** — pass `result_ids` to push only specific results
+
+        instead of the entire run. Results that are not in `completed` status
+
+        are silently excluded.
+
+
+        **Example request (all results):**
+
+        ```json
+
+        {
+
+        "field_mappings": [
+
+        {"source_field": "score", "crm_field_name": "nationgraph_score"},
+
+        {"source_field": "rank", "crm_field_name": "ng_rank"}
+
+        ]
+
+        }
+
+        ```
+
+
+        **Example request (selected results only):**
+
+        ```json
+
+        {
+
+        "field_mappings": [
+
+        {"source_field": "score", "crm_field_name": "nationgraph_score"}
+
+        ],
+
+        "result_ids": ["uuid-1", "uuid-2"]
+
+        }
+
+        ```
+
+
+        **Requirements:**
+
+        - Active CRM integration (HubSpot or Salesforce)
+
+        - CRM mappings between institutions and CRM companies
+
+        - Target CRM fields must already exist (use company-fields endpoint to verify)
+
+        - Run must have completed results'
       operationId: push_automation_results_to_crm_api_v3_crm__integration_id__automations__automation_id__runs__run_id__push_post
       security:
       - HTTPBearer: []
@@ -562,7 +640,33 @@ paths:
       tags:
       - CRM Automation Push
       summary: Create Custom Object Schema
-      description: "Create a custom object schema in the user's CRM workspace.\n\nThe `schema_key` determines which NationGraph schema to create.\nCurrently supported schemas:\n- **`vendor_contract`**: Creates a NationGraph Vendor Contract custom object\n  with fields for vendor, product, ACV, dates, summary, institution,\n  and a link back to NationGraph. Associated with CRM companies/accounts.\n\n**HubSpot**: Creates a custom object schema with all properties and\ncompany associations via the schemas API.\n\n**Salesforce**: Creates a custom object via the Tooling API, then adds\neach custom field individually, including an Account lookup.\n\nThis endpoint is idempotent-safe — call the check endpoint first to\nverify the schema doesn't already exist."
+      description: 'Create a custom object schema in the user''s CRM workspace.
+
+
+        The `schema_key` determines which NationGraph schema to create.
+
+        Currently supported schemas:
+
+        - **`vendor_contract`**: Creates a NationGraph Vendor Contract custom object
+
+        with fields for vendor, product, ACV, dates, summary, institution,
+
+        and a link back to NationGraph. Associated with CRM companies/accounts.
+
+
+        **HubSpot**: Creates a custom object schema with all properties and
+
+        company associations via the schemas API.
+
+
+        **Salesforce**: Creates a custom object via the Tooling API, then adds
+
+        each custom field individually, including an Account lookup.
+
+
+        This endpoint is idempotent-safe — call the check endpoint first to
+
+        verify the schema doesn''t already exist.'
       operationId: create_custom_object_schema_api_v3_crm__integration_id__custom_object_schemas__schema_key__post
       security:
       - HTTPBearer: []
@@ -797,161 +901,43 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    CustomObjectSchemaCreateRequest:
       properties:
-        loc:
+        account_layout_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Layout Name
+          description: Account page layout API name to add the related list to. Use the account-layouts endpoint to discover available layouts. If omitted, the related list is not added to any layout.
+      type: object
+      title: CustomObjectSchemaCreateRequest
+      description: Request body for creating a custom object schema.
+    PushAutomationResultsRequest:
+      properties:
+        field_mappings:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/FieldMapping'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Field Mappings
+          description: Maps each automation column to an existing CRM field. Use the CRM fields endpoint to discover available field names.
+        result_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Result Ids
+          description: Optional list of specific automation result IDs to push. When provided, only these results are pushed instead of all completed results in the run.
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultFilters'
+          - type: 'null'
+          description: Optional filters mirroring the results listing endpoint — when provided (and ``result_ids`` is omitted), only completed results matching these filters are pushed. Ignored when ``result_ids`` is set.
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PushStatusResponse:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: Total completed results in the run
-        pushed_count:
-          type: integer
-          title: Pushed Count
-          description: Results already pushed to this CRM
-        unpushed_count:
-          type: integer
-          title: Unpushed Count
-          description: Results not yet pushed
-        items:
-          items:
-            $ref: '#/components/schemas/PushStatusItem'
-          type: array
-          title: Items
-          description: Per-result push status
-      type: object
-      required:
-      - total_results
-      - pushed_count
-      - unpushed_count
-      title: PushStatusResponse
-      description: Push status for a run+integration pair.
-    CustomObjectSchemaCreateResponse:
-      properties:
-        schema_key:
-          type: string
-          title: Schema Key
-          description: The schema key that was created
-        provider:
-          type: string
-          title: Provider
-          description: CRM provider (hubspot or salesforce)
-        object_type_id:
-          type: string
-          title: Object Type Id
-          description: Provider-specific object type identifier
-        fields_created:
-          type: integer
-          title: Fields Created
-          description: Number of fields created
-      type: object
-      required:
-      - schema_key
-      - provider
-      - object_type_id
-      - fields_created
-      title: CustomObjectSchemaCreateResponse
-      description: Response after creating a custom object schema in the CRM.
-    ContactPushSelector:
-      properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        contact_id:
-          type: string
-          title: Contact Id
-      type: object
-      required:
-      - institution_id
-      - contact_id
-      title: ContactPushSelector
-    PushCustomObjectsResponse:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: Total accounts requested (pushed + error + skipped)
-        linked_count:
-          type: integer
-          title: Linked Count
-          description: Results that had CRM company mappings
-        pushed_count:
-          type: integer
-          title: Pushed Count
-          description: Accounts successfully created as custom objects
-        error_count:
-          type: integer
-          title: Error Count
-          description: Accounts that failed to push to CRM
-        skipped_count:
-          type: integer
-          title: Skipped Count
-          description: Accounts skipped — no CRM mapping, not completed, or no answered questions / data to push
-        errors:
-          items:
-            $ref: '#/components/schemas/PushResultItem'
-          type: array
-          title: Errors
-          description: Details of failed pushes
-      type: object
-      required:
-      - total_results
-      - linked_count
-      - pushed_count
-      - error_count
-      - skipped_count
-      title: PushCustomObjectsResponse
-      description: Summary response from pushing automation results as custom objects.
-    CRMFieldResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: API name of the field
-        label:
-          type: string
-          title: Label
-          description: Human-readable label
-        type:
-          type: string
-          title: Type
-          description: Data type (e.g. 'string', 'number')
-        custom:
-          type: boolean
-          title: Custom
-          description: Whether this is a custom field
-      type: object
-      required:
-      - name
-      - label
-      - type
-      - custom
-      title: CRMFieldResponse
-      description: A single field from the user's CRM.
+      - field_mappings
+      title: PushAutomationResultsRequest
+      description: Request body for pushing automation results to CRM.
     AutomationActivityPushRequest:
       properties:
         action_type:
@@ -999,17 +985,27 @@ components:
       - action_type
       title: AutomationActivityPushRequest
       description: Request to push an automation result as a CRM activity.
-    PushResultItem:
+    SignalPushItem:
       properties:
-        institution_id:
+        signal_id:
           type: string
-          title: Institution Id
-        crm_id:
+          title: Signal Id
+        signal_title:
           type: string
-          title: Crm Id
+          title: Signal Title
         success:
           type: boolean
           title: Success
+        crm_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Crm Id
+        company_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Id
         error:
           anyOf:
           - type: string
@@ -1017,20 +1013,113 @@ components:
           title: Error
       type: object
       required:
-      - institution_id
-      - crm_id
+      - signal_id
+      - signal_title
       - success
-      title: PushResultItem
-      description: Outcome for a single institution push attempt.
-    AutomationExecutionStatus:
+      title: SignalPushItem
+      description: Outcome for a single signal push attempt.
+    SignalSourceType:
       type: string
       enum:
-      - pending
-      - executing
-      - completed
-      - failed
-      - cancelled
-      title: AutomationExecutionStatus
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    CRMAccountLayoutResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Layout API name (pass this to the create endpoint)
+        label:
+          type: string
+          title: Label
+          description: Human-readable label
+      type: object
+      required:
+      - name
+      - label
+      title: CRMAccountLayoutResponse
+      description: A single page layout available on the Account/Company object.
+    PushSignalsRequest:
+      properties:
+        action_type:
+          type: string
+          enum:
+          - note
+          - task
+          title: Action Type
+          description: 'Type of CRM activity to create for each signal: ''note'' or ''task'''
+        task_options:
+          anyOf:
+          - $ref: '#/components/schemas/TaskOptions'
+          - type: 'null'
+          description: Options for task creation (due_date, priority, owner_id). Only used when action_type is 'task'.
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultFilters'
+          - type: 'null'
+          description: Optional filters to narrow which results' signals are pushed. Same filters as the results listing endpoint.
+      type: object
+      required:
+      - action_type
+      title: PushSignalsRequest
+      description: Request to push signals from a ranked automation run to CRM as notes or tasks.
+    PushAutomationResultsResponse:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: Total accounts requested (pushed + error + skipped)
+        linked_count:
+          type: integer
+          title: Linked Count
+          description: Results that had CRM mappings
+        pushed_count:
+          type: integer
+          title: Pushed Count
+          description: Accounts successfully pushed to CRM
+        error_count:
+          type: integer
+          title: Error Count
+          description: Accounts that failed to push to CRM
+        skipped_count:
+          type: integer
+          title: Skipped Count
+          description: Accounts skipped — no CRM mapping, not completed, deduplicated, or no data to push
+        errors:
+          items:
+            $ref: '#/components/schemas/PushResultItem'
+          type: array
+          title: Errors
+          description: Details of failed pushes
+      type: object
+      required:
+      - total_results
+      - linked_count
+      - pushed_count
+      - error_count
+      - skipped_count
+      title: PushAutomationResultsResponse
+      description: Summary response from pushing automation results to CRM.
+    ContactPushSelector:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        contact_id:
+          type: string
+          title: Contact Id
+      type: object
+      required:
+      - institution_id
+      - contact_id
+      title: ContactPushSelector
     CustomObjectSchemaSpecResponse:
       properties:
         schema_key:
@@ -1069,195 +1158,78 @@ components:
       - fields
       title: CustomObjectSchemaSpecResponse
       description: Full, static definition of a custom object for manual setup instructions.
-    CRMAccountLayoutResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Layout API name (pass this to the create endpoint)
-        label:
-          type: string
-          title: Label
-          description: Human-readable label
-      type: object
-      required:
-      - name
-      - label
-      title: CRMAccountLayoutResponse
-      description: A single page layout available on the Account/Company object.
-    PushSignalsResponse:
+    PushCustomObjectsResponse:
       properties:
         total_results:
           type: integer
           title: Total Results
-          description: Total completed results in the run
+          description: Total accounts requested (pushed + error + skipped)
         linked_count:
           type: integer
           title: Linked Count
-          description: Results with CRM mappings
-        skipped_count:
-          type: integer
-          title: Skipped Count
-          description: Results without CRM mappings
-        total_signals:
-          type: integer
-          title: Total Signals
-          description: Total signals across linked results
+          description: Results that had CRM company mappings
         pushed_count:
           type: integer
           title: Pushed Count
-          description: Successfully pushed to CRM
+          description: Accounts successfully created as custom objects
         error_count:
           type: integer
           title: Error Count
-          description: Failed to push to CRM
-        action_type:
-          type: string
-          title: Action Type
-          description: Type of CRM activity created
-        results:
+          description: Accounts that failed to push to CRM
+        skipped_count:
+          type: integer
+          title: Skipped Count
+          description: Accounts skipped — no CRM mapping, not completed, or no answered questions / data to push
+        errors:
           items:
-            $ref: '#/components/schemas/SignalPushItem'
+            $ref: '#/components/schemas/PushResultItem'
           type: array
-          title: Results
-          description: Per-signal push outcomes
+          title: Errors
+          description: Details of failed pushes
       type: object
       required:
       - total_results
       - linked_count
-      - skipped_count
-      - total_signals
       - pushed_count
       - error_count
-      - action_type
-      title: PushSignalsResponse
-      description: Summary response from pushing automation run signals to CRM.
-    PushRunContactsRequest:
+      - skipped_count
+      title: PushCustomObjectsResponse
+      description: Summary response from pushing automation results as custom objects.
+    CRMActionType:
+      type: string
+      enum:
+      - note
+      - task
+      - post
+      - lead
+      title: CRMActionType
+      description: Type of CRM action to perform on a signal.
+    ValidationError:
       properties:
-        contacts:
+        loc:
           items:
-            $ref: '#/components/schemas/ContactPushSelector'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Contacts
-        filters:
-          anyOf:
-          - $ref: '#/components/schemas/AutomationResultFilters'
-          - type: 'null'
-          description: Optional filters (search/roles) narrowing which contacts are pushed. Ignored when specific contacts are selected.
-      type: object
-      title: PushRunContactsRequest
-    PostOptions:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: Custom post title. Defaults to institution name with signal title.
-        body:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Body
-          description: Custom post body/content. Defaults to formatted signal with emojis.
-      type: object
-      title: PostOptions
-      description: Options for creating a post in CRM.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TaskOptions:
-      properties:
-        subject:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Subject
-          description: Custom task subject/title. Defaults to signal title with institution name.
-        body:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Body
-          description: Custom task body/description. Defaults to signal summary and reason.
-        due_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Due Date
-          description: Due date as ISO string or Unix timestamp in ms. Defaults to tomorrow.
-        priority:
-          anyOf:
-          - $ref: '#/components/schemas/TaskPriority'
-          - type: 'null'
-          description: Task priority. Defaults based on signal significance.
-        owner_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Owner Id
-          description: CRM owner ID to assign the task to.
-      type: object
-      title: TaskOptions
-      description: Options for creating a task in CRM.
-    PushAutomationResultsRequest:
-      properties:
-        field_mappings:
-          items:
-            $ref: '#/components/schemas/FieldMapping'
-          type: array
-          title: Field Mappings
-          description: Maps each automation column to an existing CRM field. Use the CRM fields endpoint to discover available field names.
-        result_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Result Ids
-          description: Optional list of specific automation result IDs to push. When provided, only these results are pushed instead of all completed results in the run.
-        filters:
-          anyOf:
-          - $ref: '#/components/schemas/AutomationResultFilters'
-          - type: 'null'
-          description: Optional filters mirroring the results listing endpoint — when provided (and ``result_ids`` is omitted), only completed results matching these filters are pushed. Ignored when ``result_ids`` is set.
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - field_mappings
-      title: PushAutomationResultsRequest
-      description: Request body for pushing automation results to CRM.
-    CustomObjectFieldSpec:
-      properties:
-        internal_name:
-          type: string
-          title: Internal Name
-          description: Exact internal name the property must have
-        label:
-          type: string
-          title: Label
-          description: Human-readable label to type
-        field_type_label:
-          type: string
-          title: Field Type Label
-          description: HubSpot UI wording for the field type
-        is_primary_display:
-          type: boolean
-          title: Is Primary Display
-          description: Whether this property is the object's primary display property
-      type: object
-      required:
-      - internal_name
-      - label
-      - field_type_label
-      - is_primary_display
-      title: CustomObjectFieldSpec
-      description: A single property the user must create when building the object by hand.
+      - loc
+      - msg
+      - type
+      title: ValidationError
     PushableColumnResponse:
       properties:
         key:
@@ -1284,348 +1256,6 @@ components:
       - description
       title: PushableColumnResponse
       description: Describes a single column available for CRM push.
-    TaskPriority:
-      type: string
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      title: TaskPriority
-      description: CRM task priority levels.
-    PushAutomationResultsResponse:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: Total accounts requested (pushed + error + skipped)
-        linked_count:
-          type: integer
-          title: Linked Count
-          description: Results that had CRM mappings
-        pushed_count:
-          type: integer
-          title: Pushed Count
-          description: Accounts successfully pushed to CRM
-        error_count:
-          type: integer
-          title: Error Count
-          description: Accounts that failed to push to CRM
-        skipped_count:
-          type: integer
-          title: Skipped Count
-          description: Accounts skipped — no CRM mapping, not completed, deduplicated, or no data to push
-        errors:
-          items:
-            $ref: '#/components/schemas/PushResultItem'
-          type: array
-          title: Errors
-          description: Details of failed pushes
-      type: object
-      required:
-      - total_results
-      - linked_count
-      - pushed_count
-      - error_count
-      - skipped_count
-      title: PushAutomationResultsResponse
-      description: Summary response from pushing automation results to CRM.
-    CustomObjectSchemaCreateRequest:
-      properties:
-        account_layout_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Account Layout Name
-          description: Account page layout API name to add the related list to. Use the account-layouts endpoint to discover available layouts. If omitted, the related list is not added to any layout.
-      type: object
-      title: CustomObjectSchemaCreateRequest
-      description: Request body for creating a custom object schema.
-    CRMActionResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        action_type:
-          $ref: '#/components/schemas/CRMActionType'
-        crm_id:
-          type: string
-          title: Crm Id
-          description: The created CRM object ID (note, task, post, or lead)
-        company_id:
-          type: string
-          title: Company Id
-          description: The CRM company/account ID. Empty string for lead pushes since leads are not tied to a company.
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - success
-      - action_type
-      - crm_id
-      - company_id
-      - message
-      title: CRMActionResponse
-      description: Response from a CRM action.
-    PushHistoryItem:
-      properties:
-        id:
-          type: string
-          title: Id
-        pushed_at:
-          type: string
-          format: date-time
-          title: Pushed At
-        run_id:
-          type: string
-          title: Run Id
-        automation_result_id:
-          type: string
-          title: Automation Result Id
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          type: string
-          title: Institution Name
-        fields_pushed:
-          additionalProperties: true
-          type: object
-          title: Fields Pushed
-      type: object
-      required:
-      - id
-      - pushed_at
-      - run_id
-      - automation_result_id
-      - institution_id
-      - institution_name
-      title: PushHistoryItem
-      description: A single CRM push event in the per-automation history.
-    CRMActionType:
-      type: string
-      enum:
-      - note
-      - task
-      - post
-      - lead
-      title: CRMActionType
-      description: Type of CRM action to perform on a signal.
-    PushSignalsRequest:
-      properties:
-        action_type:
-          type: string
-          enum:
-          - note
-          - task
-          title: Action Type
-          description: 'Type of CRM activity to create for each signal: ''note'' or ''task'''
-        task_options:
-          anyOf:
-          - $ref: '#/components/schemas/TaskOptions'
-          - type: 'null'
-          description: Options for task creation (due_date, priority, owner_id). Only used when action_type is 'task'.
-        filters:
-          anyOf:
-          - $ref: '#/components/schemas/AutomationResultFilters'
-          - type: 'null'
-          description: Optional filters to narrow which results' signals are pushed. Same filters as the results listing endpoint.
-      type: object
-      required:
-      - action_type
-      title: PushSignalsRequest
-      description: Request to push signals from a ranked automation run to CRM as notes or tasks.
-    FieldMapping:
-      properties:
-        source_field:
-          type: string
-          title: Source Field
-          description: Column key from the automation's pushable columns (e.g. 'rank', 'score')
-        crm_field_name:
-          type: string
-          title: Crm Field Name
-          description: The existing CRM field name to map to. Must already exist on the CRM side.
-        write_mode:
-          type: string
-          enum:
-          - insert
-          - overwrite
-          title: Write Mode
-          description: '''overwrite'' always writes the value (default). ''insert'' only writes if the CRM field is currently empty.'
-          default: overwrite
-      type: object
-      required:
-      - source_field
-      - crm_field_name
-      title: FieldMapping
-      description: Maps a single automation column to an existing CRM field.
-    PushRunContactsResponse:
-      properties:
-        total_contacts:
-          type: integer
-          title: Total Contacts
-          description: Contacts targeted for push
-        pushed_count:
-          type: integer
-          title: Pushed Count
-          description: Contacts created/associated in the CRM
-        skipped_unlinked_count:
-          type: integer
-          title: Skipped Unlinked Count
-          description: Contacts skipped because their institution is not CRM-linked
-        already_pushed_count:
-          type: integer
-          title: Already Pushed Count
-          description: Contacts skipped because already pushed to this integration
-          default: 0
-        error_count:
-          type: integer
-          title: Error Count
-          description: Contacts that failed to push
-        results:
-          items:
-            $ref: '#/components/schemas/PushContactItem'
-          type: array
-          title: Results
-          description: Per-contact push outcomes
-      type: object
-      required:
-      - total_contacts
-      - pushed_count
-      - skipped_unlinked_count
-      - error_count
-      title: PushRunContactsResponse
-    PaginatedResponse_PushHistoryItem_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PushHistoryItem'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[PushHistoryItem]
-    PushContactItem:
-      properties:
-        contact_id:
-          type: string
-          title: Contact Id
-        institution_id:
-          type: string
-          title: Institution Id
-        success:
-          type: boolean
-          title: Success
-        crm_contact_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Crm Contact Id
-        company_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company Id
-        skipped_unlinked:
-          type: boolean
-          title: Skipped Unlinked
-          default: false
-        already_pushed:
-          type: boolean
-          title: Already Pushed
-          default: false
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      type: object
-      required:
-      - contact_id
-      - institution_id
-      - success
-      title: PushContactItem
-    PushCustomObjectsRequest:
-      properties:
-        result_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Result Ids
-          description: Optional list of specific automation result IDs to push. When omitted, all completed results in the run are pushed.
-        filters:
-          anyOf:
-          - $ref: '#/components/schemas/AutomationResultFilters'
-          - type: 'null'
-          description: Optional filters mirroring the results listing endpoint — when provided (and ``result_ids`` is omitted), only completed results matching these filters are pushed. Ignored when ``result_ids`` is set.
-      type: object
-      title: PushCustomObjectsRequest
-      description: Request body for pushing automation results as custom object records.
-    CustomObjectSchemaStatusResponse:
-      properties:
-        exists:
-          type: boolean
-          title: Exists
-          description: Whether the custom object schema exists
-        schema_key:
-          type: string
-          title: Schema Key
-          description: The schema key that was checked
-        provider:
-          type: string
-          title: Provider
-          description: CRM provider (hubspot or salesforce)
-        object_type_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Id
-          description: Provider-specific object type identifier (e.g. HubSpot objectTypeId or Salesforce API name)
-        missing_fields:
-          items:
-            type: string
-          type: array
-          title: Missing Fields
-          description: Schema fields not found on the existing CRM object
-        company_association_exists:
-          type: boolean
-          title: Company Association Exists
-          description: Whether a Company association is defined on the object, defaults to True for providers/schemas where it does not apply.
-          default: true
-      type: object
-      required:
-      - exists
-      - schema_key
-      - provider
-      title: CustomObjectSchemaStatusResponse
-      description: Response describing whether a custom object schema exists in the CRM.
-    SignalSourceType:
-      type: string
-      enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
     AutomationResultFilters:
       properties:
         statuses:
@@ -1737,6 +1367,40 @@ components:
           title: Roles
       type: object
       title: AutomationResultFilters
+    TaskOptions:
+      properties:
+        subject:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subject
+          description: Custom task subject/title. Defaults to signal title with institution name.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom task body/description. Defaults to signal summary and reason.
+        due_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Due Date
+          description: Due date as ISO string or Unix timestamp in ms. Defaults to tomorrow.
+        priority:
+          anyOf:
+          - $ref: '#/components/schemas/TaskPriority'
+          - type: 'null'
+          description: Task priority. Defaults based on signal significance.
+        owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner Id
+          description: CRM owner ID to assign the task to.
+      type: object
+      title: TaskOptions
+      description: Options for creating a task in CRM.
     PushStatusItem:
       properties:
         automation_result_id:
@@ -1768,27 +1432,35 @@ components:
       - pushed
       title: PushStatusItem
       description: Push status for a single automation result.
-    SignalPushItem:
+    PushContactItem:
       properties:
-        signal_id:
+        contact_id:
           type: string
-          title: Signal Id
-        signal_title:
+          title: Contact Id
+        institution_id:
           type: string
-          title: Signal Title
+          title: Institution Id
         success:
           type: boolean
           title: Success
-        crm_id:
+        crm_contact_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Crm Id
+          title: Crm Contact Id
         company_id:
           anyOf:
           - type: string
           - type: 'null'
           title: Company Id
+        skipped_unlinked:
+          type: boolean
+          title: Skipped Unlinked
+          default: false
+        already_pushed:
+          type: boolean
+          title: Already Pushed
+          default: false
         error:
           anyOf:
           - type: string
@@ -1796,11 +1468,443 @@ components:
           title: Error
       type: object
       required:
-      - signal_id
-      - signal_title
+      - contact_id
+      - institution_id
       - success
-      title: SignalPushItem
-      description: Outcome for a single signal push attempt.
+      title: PushContactItem
+    TaskPriority:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      title: TaskPriority
+      description: CRM task priority levels.
+    CustomObjectSchemaCreateResponse:
+      properties:
+        schema_key:
+          type: string
+          title: Schema Key
+          description: The schema key that was created
+        provider:
+          type: string
+          title: Provider
+          description: CRM provider (hubspot or salesforce)
+        object_type_id:
+          type: string
+          title: Object Type Id
+          description: Provider-specific object type identifier
+        fields_created:
+          type: integer
+          title: Fields Created
+          description: Number of fields created
+      type: object
+      required:
+      - schema_key
+      - provider
+      - object_type_id
+      - fields_created
+      title: CustomObjectSchemaCreateResponse
+      description: Response after creating a custom object schema in the CRM.
+    PaginatedResponse_PushHistoryItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PushHistoryItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[PushHistoryItem]
+    CRMFieldResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: API name of the field
+        label:
+          type: string
+          title: Label
+          description: Human-readable label
+        type:
+          type: string
+          title: Type
+          description: Data type (e.g. 'string', 'number')
+        custom:
+          type: boolean
+          title: Custom
+          description: Whether this is a custom field
+      type: object
+      required:
+      - name
+      - label
+      - type
+      - custom
+      title: CRMFieldResponse
+      description: A single field from the user's CRM.
+    AutomationExecutionStatus:
+      type: string
+      enum:
+      - pending
+      - executing
+      - completed
+      - failed
+      - cancelled
+      title: AutomationExecutionStatus
+    FieldMapping:
+      properties:
+        source_field:
+          type: string
+          title: Source Field
+          description: Column key from the automation's pushable columns (e.g. 'rank', 'score')
+        crm_field_name:
+          type: string
+          title: Crm Field Name
+          description: The existing CRM field name to map to. Must already exist on the CRM side.
+        write_mode:
+          type: string
+          enum:
+          - insert
+          - overwrite
+          title: Write Mode
+          description: '''overwrite'' always writes the value (default). ''insert'' only writes if the CRM field is currently empty.'
+          default: overwrite
+      type: object
+      required:
+      - source_field
+      - crm_field_name
+      title: FieldMapping
+      description: Maps a single automation column to an existing CRM field.
+    CustomObjectFieldSpec:
+      properties:
+        internal_name:
+          type: string
+          title: Internal Name
+          description: Exact internal name the property must have
+        label:
+          type: string
+          title: Label
+          description: Human-readable label to type
+        field_type_label:
+          type: string
+          title: Field Type Label
+          description: HubSpot UI wording for the field type
+        is_primary_display:
+          type: boolean
+          title: Is Primary Display
+          description: Whether this property is the object's primary display property
+      type: object
+      required:
+      - internal_name
+      - label
+      - field_type_label
+      - is_primary_display
+      title: CustomObjectFieldSpec
+      description: A single property the user must create when building the object by hand.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CRMActionResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        action_type:
+          $ref: '#/components/schemas/CRMActionType'
+        crm_id:
+          type: string
+          title: Crm Id
+          description: The created CRM object ID (note, task, post, or lead)
+        company_id:
+          type: string
+          title: Company Id
+          description: The CRM company/account ID. Empty string for lead pushes since leads are not tied to a company.
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - action_type
+      - crm_id
+      - company_id
+      - message
+      title: CRMActionResponse
+      description: Response from a CRM action.
+    PushSignalsResponse:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: Total completed results in the run
+        linked_count:
+          type: integer
+          title: Linked Count
+          description: Results with CRM mappings
+        skipped_count:
+          type: integer
+          title: Skipped Count
+          description: Results without CRM mappings
+        total_signals:
+          type: integer
+          title: Total Signals
+          description: Total signals across linked results
+        pushed_count:
+          type: integer
+          title: Pushed Count
+          description: Successfully pushed to CRM
+        error_count:
+          type: integer
+          title: Error Count
+          description: Failed to push to CRM
+        action_type:
+          type: string
+          title: Action Type
+          description: Type of CRM activity created
+        results:
+          items:
+            $ref: '#/components/schemas/SignalPushItem'
+          type: array
+          title: Results
+          description: Per-signal push outcomes
+      type: object
+      required:
+      - total_results
+      - linked_count
+      - skipped_count
+      - total_signals
+      - pushed_count
+      - error_count
+      - action_type
+      title: PushSignalsResponse
+      description: Summary response from pushing automation run signals to CRM.
+    PostOptions:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Custom post title. Defaults to institution name with signal title.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom post body/content. Defaults to formatted signal with emojis.
+      type: object
+      title: PostOptions
+      description: Options for creating a post in CRM.
+    PushHistoryItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        pushed_at:
+          type: string
+          format: date-time
+          title: Pushed At
+        run_id:
+          type: string
+          title: Run Id
+        automation_result_id:
+          type: string
+          title: Automation Result Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          type: string
+          title: Institution Name
+        fields_pushed:
+          additionalProperties: true
+          type: object
+          title: Fields Pushed
+      type: object
+      required:
+      - id
+      - pushed_at
+      - run_id
+      - automation_result_id
+      - institution_id
+      - institution_name
+      title: PushHistoryItem
+      description: A single CRM push event in the per-automation history.
+    CustomObjectSchemaStatusResponse:
+      properties:
+        exists:
+          type: boolean
+          title: Exists
+          description: Whether the custom object schema exists
+        schema_key:
+          type: string
+          title: Schema Key
+          description: The schema key that was checked
+        provider:
+          type: string
+          title: Provider
+          description: CRM provider (hubspot or salesforce)
+        object_type_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Id
+          description: Provider-specific object type identifier (e.g. HubSpot objectTypeId or Salesforce API name)
+        missing_fields:
+          items:
+            type: string
+          type: array
+          title: Missing Fields
+          description: Schema fields not found on the existing CRM object
+        company_association_exists:
+          type: boolean
+          title: Company Association Exists
+          description: Whether a Company association is defined on the object, defaults to True for providers/schemas where it does not apply.
+          default: true
+      type: object
+      required:
+      - exists
+      - schema_key
+      - provider
+      title: CustomObjectSchemaStatusResponse
+      description: Response describing whether a custom object schema exists in the CRM.
+    PushCustomObjectsRequest:
+      properties:
+        result_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Result Ids
+          description: Optional list of specific automation result IDs to push. When omitted, all completed results in the run are pushed.
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultFilters'
+          - type: 'null'
+          description: Optional filters mirroring the results listing endpoint — when provided (and ``result_ids`` is omitted), only completed results matching these filters are pushed. Ignored when ``result_ids`` is set.
+      type: object
+      title: PushCustomObjectsRequest
+      description: Request body for pushing automation results as custom object records.
+    PushStatusResponse:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: Total completed results in the run
+        pushed_count:
+          type: integer
+          title: Pushed Count
+          description: Results already pushed to this CRM
+        unpushed_count:
+          type: integer
+          title: Unpushed Count
+          description: Results not yet pushed
+        items:
+          items:
+            $ref: '#/components/schemas/PushStatusItem'
+          type: array
+          title: Items
+          description: Per-result push status
+      type: object
+      required:
+      - total_results
+      - pushed_count
+      - unpushed_count
+      title: PushStatusResponse
+      description: Push status for a run+integration pair.
+    PushResultItem:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        crm_id:
+          type: string
+          title: Crm Id
+        success:
+          type: boolean
+          title: Success
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - institution_id
+      - crm_id
+      - success
+      title: PushResultItem
+      description: Outcome for a single institution push attempt.
+    PushRunContactsRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/ContactPushSelector'
+          type: array
+          title: Contacts
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationResultFilters'
+          - type: 'null'
+          description: Optional filters (search/roles) narrowing which contacts are pushed. Ignored when specific contacts are selected.
+      type: object
+      title: PushRunContactsRequest
+    PushRunContactsResponse:
+      properties:
+        total_contacts:
+          type: integer
+          title: Total Contacts
+          description: Contacts targeted for push
+        pushed_count:
+          type: integer
+          title: Pushed Count
+          description: Contacts created/associated in the CRM
+        skipped_unlinked_count:
+          type: integer
+          title: Skipped Unlinked Count
+          description: Contacts skipped because their institution is not CRM-linked
+        already_pushed_count:
+          type: integer
+          title: Already Pushed Count
+          description: Contacts skipped because already pushed to this integration
+          default: 0
+        error_count:
+          type: integer
+          title: Error Count
+          description: Contacts that failed to push
+        results:
+          items:
+            $ref: '#/components/schemas/PushContactItem'
+          type: array
+          title: Results
+          description: Per-contact push outcomes
+      type: object
+      required:
+      - total_contacts
+      - pushed_count
+      - skipped_unlinked_count
+      - error_count
+      title: PushRunContactsResponse
   securitySchemes:
     HTTPBearer:
       type: http

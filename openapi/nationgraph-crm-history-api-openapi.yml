@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts CRM History API
+  title: Nationgraph CRM History API
   version: 0.2.36
 tags:
 - name: CRM History
@@ -17,7 +17,7 @@ paths:
 
         CRM provider — link/note/task/post/contact_push — joined with institution
 
-        names.  Ordered by `created_at` descending.'
+        names. Ordered by `created_at` descending.'
       operationId: get_integration_crm_activity_api_v3_crm__integration_id__activity_get
       security:
       - HTTPBearer: []
@@ -86,23 +86,6 @@ components:
       - offset
       - limit
       title: PaginatedResponse[LinkingHistoryItem]
-    CRMType:
-      type: string
-      enum:
-      - hubspot
-      - salesforce
-      - zapier
-      title: CRMType
-      description: Supported CRM integrations for institution mapping
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -129,6 +112,23 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
     LinkingHistoryItem:
       properties:
         id:

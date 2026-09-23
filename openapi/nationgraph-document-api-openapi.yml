@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Document API
+  title: Nationgraph Document API
   version: 0.2.36
 tags:
 - name: Document
@@ -36,6 +36,31 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    PresignItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        method:
+          type: string
+          enum:
+          - put_object
+          - get_object
+          title: Method
+          default: put_object
+        content_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+        expires_in:
+          type: integer
+          title: Expires In
+          default: 60
+      type: object
+      required:
+      - key
+      title: PresignItem
     ValidationError:
       properties:
         loc:
@@ -71,31 +96,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PresignItem:
-      properties:
-        key:
-          type: string
-          title: Key
-        method:
-          type: string
-          enum:
-          - put_object
-          - get_object
-          title: Method
-          default: put_object
-        content_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content Type
-        expires_in:
-          type: integer
-          title: Expires In
-          default: 60
-      type: object
-      required:
-      - key
-      title: PresignItem
   securitySchemes:
     HTTPBearer:
       type: http

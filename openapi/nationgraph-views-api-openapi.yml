@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Views API
+  title: Nationgraph Views API
   version: 0.2.36
 tags:
 - name: Views
@@ -170,15 +170,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -205,23 +196,23 @@ components:
       - msg
       - type
       title: ValidationError
-    ViewUpdateRequest:
+    HTTPValidationError:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 255
-            minLength: 1
-          - type: 'null'
-          title: Name
-        filters:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filters
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: ViewUpdateRequest
+      title: HTTPValidationError
+    ViewType:
+      type: string
+      enum:
+      - accounts
+      - rfp_search
+      - grant_search
+      - automation_results
+      title: ViewType
     ViewResponse:
       properties:
         id:
@@ -265,6 +256,23 @@ components:
       - created_at
       - updated_at
       title: ViewResponse
+    ViewUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Name
+        filters:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Filters
+      type: object
+      title: ViewUpdateRequest
     ViewCreateRequest:
       properties:
         view_type:
@@ -289,14 +297,6 @@ components:
       - view_type
       - name
       title: ViewCreateRequest
-    ViewType:
-      type: string
-      enum:
-      - accounts
-      - rfp_search
-      - grant_search
-      - automation_results
-      title: ViewType
   securitySchemes:
     HTTPBearer:
       type: http

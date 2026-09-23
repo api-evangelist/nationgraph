@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts User API
+  title: Nationgraph User API
   version: 0.2.36
 tags:
 - name: User
@@ -238,89 +238,11 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DeliveryMethod:
+    SubscriptionType:
       type: string
       enum:
-      - email
-      - sms
-      - push
-      - webhook
-      - slack
-      title: DeliveryMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ProviderCapabilities:
-      properties:
-        push:
-          type: boolean
-          title: Push
-          default: false
-        pull:
-          type: boolean
-          title: Pull
-          default: false
-        link:
-          type: boolean
-          title: Link
-          default: false
-        requires:
-          items:
-            type: string
-          type: array
-          title: Requires
-          default: []
-        signal_actions:
-          items:
-            type: string
-            enum:
-            - note
-            - task
-            - post
-            - lead
-          type: array
-          title: Signal Actions
-          default: []
-      type: object
-      title: ProviderCapabilities
-    ProviderStatConfig:
-      properties:
-        key:
-          type: string
-          title: Key
-        label:
-          type: string
-          title: Label
-        type:
-          type: string
-          enum:
-          - text
-          - number
-          - link
-          title: Type
-      type: object
-      required:
-      - key
-      - label
-      - type
-      title: ProviderStatConfig
-    ReplaceUserDocumentsRequest:
-      properties:
-        document_ids:
-          items:
-            type: integer
-          type: array
-          title: Document Ids
-      type: object
-      required:
-      - document_ids
-      title: ReplaceUserDocumentsRequest
+      - signals_digest
+      title: SubscriptionType
     OrganizationIntegrationGroup:
       properties:
         org_id:
@@ -344,11 +266,15 @@ components:
       - org_name
       - integrations
       title: OrganizationIntegrationGroup
-    SubscriptionType:
-      type: string
-      enum:
-      - signals_digest
-      title: SubscriptionType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -375,6 +301,47 @@ components:
       - msg
       - type
       title: ValidationError
+    ReplaceUserDocumentsRequest:
+      properties:
+        document_ids:
+          items:
+            type: integer
+          type: array
+          title: Document Ids
+      type: object
+      required:
+      - document_ids
+      title: ReplaceUserDocumentsRequest
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
+    ProviderStatConfig:
+      properties:
+        key:
+          type: string
+          title: Key
+        label:
+          type: string
+          title: Label
+        type:
+          type: string
+          enum:
+          - text
+          - number
+          - link
+          title: Type
+      type: object
+      required:
+      - key
+      - label
+      - type
+      title: ProviderStatConfig
     IntegrationResponse:
       properties:
         id:
@@ -455,52 +422,6 @@ components:
       - total_count
       - all_done
       title: OnboardingProgressResponse
-    OnboardingCompletedSteps:
-      properties:
-        business_context:
-          type: boolean
-          title: Business Context
-        crm:
-          type: boolean
-          title: Crm
-        territory:
-          type: boolean
-          title: Territory
-        templates:
-          type: boolean
-          title: Templates
-        automation:
-          type: boolean
-          title: Automation
-        invite:
-          type: boolean
-          title: Invite
-      type: object
-      required:
-      - business_context
-      - crm
-      - territory
-      - templates
-      - automation
-      - invite
-      title: OnboardingCompletedSteps
-    UserIntegrationsGroupedResponse:
-      properties:
-        personal:
-          items:
-            $ref: '#/components/schemas/IntegrationResponse'
-          type: array
-          title: Personal
-        organization:
-          items:
-            $ref: '#/components/schemas/OrganizationIntegrationGroup'
-          type: array
-          title: Organization
-      type: object
-      required:
-      - personal
-      - organization
-      title: UserIntegrationsGroupedResponse
     ProviderIntegration:
       properties:
         provider:
@@ -542,6 +463,85 @@ components:
       - enabled
       - capabilities
       title: ProviderIntegration
+    UserIntegrationsGroupedResponse:
+      properties:
+        personal:
+          items:
+            $ref: '#/components/schemas/IntegrationResponse'
+          type: array
+          title: Personal
+        organization:
+          items:
+            $ref: '#/components/schemas/OrganizationIntegrationGroup'
+          type: array
+          title: Organization
+      type: object
+      required:
+      - personal
+      - organization
+      title: UserIntegrationsGroupedResponse
+    OnboardingCompletedSteps:
+      properties:
+        business_context:
+          type: boolean
+          title: Business Context
+        crm:
+          type: boolean
+          title: Crm
+        territory:
+          type: boolean
+          title: Territory
+        templates:
+          type: boolean
+          title: Templates
+        automation:
+          type: boolean
+          title: Automation
+        invite:
+          type: boolean
+          title: Invite
+      type: object
+      required:
+      - business_context
+      - crm
+      - territory
+      - templates
+      - automation
+      - invite
+      title: OnboardingCompletedSteps
+    ProviderCapabilities:
+      properties:
+        push:
+          type: boolean
+          title: Push
+          default: false
+        pull:
+          type: boolean
+          title: Pull
+          default: false
+        link:
+          type: boolean
+          title: Link
+          default: false
+        requires:
+          items:
+            type: string
+          type: array
+          title: Requires
+          default: []
+        signal_actions:
+          items:
+            type: string
+            enum:
+            - note
+            - task
+            - post
+            - lead
+          type: array
+          title: Signal Actions
+          default: []
+      type: object
+      title: ProviderCapabilities
   securitySchemes:
     HTTPBearer:
       type: http

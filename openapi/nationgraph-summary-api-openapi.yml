@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Summary API
+  title: Nationgraph Summary API
   version: 0.2.36
 tags:
 - name: Summary
@@ -125,15 +125,6 @@ paths:
       - Summary
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     app__types__summary__PromptRequest:
       properties:
         prompt:
@@ -147,52 +138,29 @@ components:
       - prompt
       - type
       title: PromptRequest
-    RenderTemplateParam:
+    EmailContextItem:
       properties:
-        id:
-          type: string
-          title: Id
         type:
           type: string
           title: Type
-        raw:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Raw
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
       type: object
       required:
-      - id
       - type
-      title: RenderTemplateParam
-    RenderTemplate:
+      - data
+      title: EmailContextItem
+    HTTPValidationError:
       properties:
-        subject_raw:
-          type: string
-          title: Subject Raw
-        body_raw:
-          type: string
-          title: Body Raw
-        params:
+        detail:
           items:
-            $ref: '#/components/schemas/RenderTemplateParam'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Params
-          default: []
+          title: Detail
       type: object
-      required:
-      - subject_raw
-      - body_raw
-      title: RenderTemplate
-    EmailRenderResponse:
-      properties:
-        render_id:
-          type: string
-          title: Render Id
-      type: object
-      required:
-      - render_id
-      title: EmailRenderResponse
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -219,6 +187,19 @@ components:
       - msg
       - type
       title: ValidationError
+    EmailResponse:
+      properties:
+        subject:
+          type: string
+          title: Subject
+        body:
+          type: string
+          title: Body
+      type: object
+      required:
+      - subject
+      - body
+      title: EmailResponse
     EmailPromptRequest:
       properties:
         institution_id:
@@ -263,6 +244,43 @@ components:
       required:
       - institution_id
       title: EmailPromptRequest
+    RenderTemplateParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          title: Type
+        raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Raw
+      type: object
+      required:
+      - id
+      - type
+      title: RenderTemplateParam
+    RenderTemplate:
+      properties:
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            $ref: '#/components/schemas/RenderTemplateParam'
+          type: array
+          title: Params
+          default: []
+      type: object
+      required:
+      - subject_raw
+      - body_raw
+      title: RenderTemplate
     CallScriptPromptRequest:
       properties:
         institution_id:
@@ -286,6 +304,15 @@ components:
       - insights
       - workspace_id
       title: CallScriptPromptRequest
+    EmailRenderResponse:
+      properties:
+        render_id:
+          type: string
+          title: Render Id
+      type: object
+      required:
+      - render_id
+      title: EmailRenderResponse
     Insights:
       properties:
         id:
@@ -321,33 +348,6 @@ components:
       required:
       - type
       title: Insights
-    EmailContextItem:
-      properties:
-        type:
-          type: string
-          title: Type
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-      type: object
-      required:
-      - type
-      - data
-      title: EmailContextItem
-    EmailResponse:
-      properties:
-        subject:
-          type: string
-          title: Subject
-        body:
-          type: string
-          title: Body
-      type: object
-      required:
-      - subject
-      - body
-      title: EmailResponse
   securitySchemes:
     HTTPBearer:
       type: http

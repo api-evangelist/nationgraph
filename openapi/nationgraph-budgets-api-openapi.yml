@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Budgets API
+  title: Nationgraph Budgets API
   version: 0.2.36
 tags:
 - name: Budgets
@@ -93,15 +93,29 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
+    PaginatedResponse_BudgetChunkResponse_:
       properties:
-        detail:
+        results:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/BudgetChunkResponse'
           type: array
-          title: Detail
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
       type: object
-      title: HTTPValidationError
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[BudgetChunkResponse]
     ValidationError:
       properties:
         loc:
@@ -128,29 +142,15 @@ components:
       - msg
       - type
       title: ValidationError
-    PaginatedResponse_BudgetChunkResponse_:
+    HTTPValidationError:
       properties:
-        results:
+        detail:
           items:
-            $ref: '#/components/schemas/BudgetChunkResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
+          title: Detail
       type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[BudgetChunkResponse]
+      title: HTTPValidationError
     BudgetChunkResponse:
       properties:
         chunk_id:

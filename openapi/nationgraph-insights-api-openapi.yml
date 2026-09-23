@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Insights API
+  title: Nationgraph Insights API
   version: 0.2.36
 tags:
 - name: Insights
@@ -43,6 +43,22 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    InsightRequest:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          title: Content
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - content
+      - id
+      title: InsightRequest
     ValidationError:
       properties:
         loc:
@@ -69,22 +85,6 @@ components:
       - msg
       - type
       title: ValidationError
-    InsightRequest:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - additionalProperties: true
-            type: object
-          title: Content
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - content
-      - id
-      title: InsightRequest
     HTTPValidationError:
       properties:
         detail:

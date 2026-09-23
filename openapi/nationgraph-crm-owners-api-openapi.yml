@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts CRM Owners API
+  title: Nationgraph CRM Owners API
   version: 0.2.36
 tags:
 - name: CRM Owners
@@ -138,25 +138,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TeamResponse:
+    ValidationError:
       properties:
-        id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Id
-        name:
+          title: Message
+        type:
           type: string
-          title: Name
-        primary:
-          type: boolean
-          title: Primary
-          description: Whether this is the owner's primary team
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - id
-      - name
-      - primary
-      title: TeamResponse
-      description: A CRM team.
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     OwnerListResponse:
       properties:
         results:
@@ -185,15 +201,25 @@ components:
       - total
       title: OwnerListResponse
       description: API response for listing owners.
-    HTTPValidationError:
+    TeamResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        primary:
+          type: boolean
+          title: Primary
+          description: Whether this is the owner's primary team
       type: object
-      title: HTTPValidationError
+      required:
+      - id
+      - name
+      - primary
+      title: TeamResponse
+      description: A CRM team.
     OwnerResponse:
       properties:
         id:
@@ -257,32 +283,6 @@ components:
       - full_name
       title: OwnerResponse
       description: API response for a single owner.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

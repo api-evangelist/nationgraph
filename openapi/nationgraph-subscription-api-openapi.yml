@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Subscription API
+  title: Nationgraph Subscription API
   version: 0.2.36
 tags:
 - name: Subscription
@@ -67,47 +67,11 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DeliveryMethod:
+    SubscriptionType:
       type: string
       enum:
-      - email
-      - sms
-      - push
-      - webhook
-      - slack
-      title: DeliveryMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UserSubscriptionCreate:
-      properties:
-        frequency:
-          $ref: '#/components/schemas/NotificationFrequency'
-        subscription_type:
-          $ref: '#/components/schemas/SubscriptionType'
-        delivery_method:
-          $ref: '#/components/schemas/DeliveryMethod'
-        delivery_target:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Delivery Target
-        config:
-          additionalProperties: true
-          type: object
-          title: Config
-      type: object
-      required:
-      - frequency
-      - subscription_type
-      - delivery_method
-      title: UserSubscriptionCreate
+      - signals_digest
+      title: SubscriptionType
     ValidationError:
       properties:
         loc:
@@ -134,15 +98,24 @@ components:
       - msg
       - type
       title: ValidationError
-    NotificationFrequency:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeliveryMethod:
       type: string
       enum:
-      - instant
-      - hourly
-      - daily
-      - weekly
-      - monthly
-      title: NotificationFrequency
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
     UserSubscriptionUpdate:
       properties:
         frequency:
@@ -164,17 +137,44 @@ components:
           title: Config
       type: object
       title: UserSubscriptionUpdate
-    SubscriptionType:
+    NotificationFrequency:
       type: string
       enum:
-      - signals_digest
-      title: SubscriptionType
+      - instant
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      title: NotificationFrequency
     SubscriptionStatus:
       type: string
       enum:
       - active
       - inactive
       title: SubscriptionStatus
+    UserSubscriptionCreate:
+      properties:
+        frequency:
+          $ref: '#/components/schemas/NotificationFrequency'
+        subscription_type:
+          $ref: '#/components/schemas/SubscriptionType'
+        delivery_method:
+          $ref: '#/components/schemas/DeliveryMethod'
+        delivery_target:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Target
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+      type: object
+      required:
+      - frequency
+      - subscription_type
+      - delivery_method
+      title: UserSubscriptionCreate
   securitySchemes:
     HTTPBearer:
       type: http

@@ -2,28 +2,19 @@ generated: '2026-08-14'
 method: probed
 status: live
 source: https://api.nationgraph.com/.well-known/oauth-protected-resource
-note: >-
-  UPGRADED 2026-07-20 (derived candidate) -> 2026-08-14 (probed, live). NationGraph runs a REAL,
-  first-party, remote MCP server. It is not announced anywhere on their public surface — not in
-  the help center, not in llms.txt, not in the blog, not in any search index — and was found only
-  because the API host serves an RFC 9728 protected-resource descriptor that names it. The
-  endpoint answers, and answers correctly: an unauthenticated tools/list gets HTTP 401 with a
-  spec-compliant `WWW-Authenticate: Bearer resource_metadata="..." scope="mcp:read"` challenge
-  that walks a client straight back to the discovery document. That is a properly built MCP
-  deployment, merely an unpublicized one.
+note: 'UPGRADED 2026-07-20 (derived candidate) -> 2026-08-14 (probed, live). NationGraph runs a REAL,
+  first-party, remote MCP server. It is not announced anywhere on their public surface — not in the help
+  center, not in llms.txt, not in the blog, not in any search index — and was found only because the API
+  host serves an RFC 9728 protected-resource descriptor that names it. The endpoint answers, and answers
+  correctly: an unauthenticated tools/list gets HTTP 401 with a spec-compliant `WWW-Authenticate: Bearer
+  resource_metadata="..." scope="mcp:read"` challenge that walks a client straight back to the discovery
+  document. That is a properly built MCP deployment, merely an unpublicized one.'
 deployment:
-  mode: remote
-  endpoint: https://api.nationgraph.com/internal/mcp
-  install: null
-  package: null
-  auth: oauth
-  verified: probed
-  probe: gated
-  checked: '2026-08-14'
-  note: >-
-    remote, not local-stdio. There is no npx/pip package to install — an MCP client POSTs
-    directly to the endpoint above. Nothing is published to npm or PyPI under any NationGraph
-    name (see packages/nationgraph-packages.yml), so a stdio distribution does not exist.
+  mode: none
+  verified: derived
+  tools: 253
+  checked: '2026-08-12'
+  source: catalog MCP census
 server:
   name: NationGraph
   resource_name: NationGraph
@@ -31,7 +22,10 @@ server:
   protocol: MCP (JSON-RPC 2.0 over HTTP, Accept application/json + text/event-stream)
   auth:
     type: oauth2
-    flows: [authorization_code, client_credentials, refresh_token]
+    flows:
+    - authorization_code
+    - client_credentials
+    - refresh_token
     pkce: S256
     required_scope: mcp:read
     authorization_server: https://api.nationgraph.com/auth
@@ -42,39 +36,39 @@ probe:
   method: POST
   body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
   http_status: 401
-  response_body: 'no bearer token'
-  www_authenticate: >-
-    Bearer resource_metadata="https://api.nationgraph.com/.well-known/oauth-protected-resource",
+  response_body: no bearer token
+  www_authenticate: Bearer resource_metadata="https://api.nationgraph.com/.well-known/oauth-protected-resource",
     scope="mcp:read"
-  conclusion: >-
-    Endpoint is live and OAuth-gated. The live tool list, and therefore every real tool
-    inputSchema, requires an authenticated introspection we cannot perform anonymously.
+  conclusion: Endpoint is live and OAuth-gated. The live tool list, and therefore every real tool inputSchema,
+    requires an authenticated introspection we cannot perform anonymously.
   paths_ruled_out:
-  - {path: /mcp, status: 404}
-  - {path: /api/mcp, status: 404}
-  - {path: /v3/mcp, status: 404}
-  - {host: mcp.nationgraph.com, status: NXDOMAIN}
+  - path: /mcp
+    status: 404
+  - path: /api/mcp
+    status: 404
+  - path: /v3/mcp
+    status: 404
+  - host: mcp.nationgraph.com
+    status: NXDOMAIN
 live_tools:
   known: false
   count: null
-  note: >-
-    NOT KNOWN AND NOT GUESSED. tools/list is 401 without an OAuth token, and NationGraph
-    publishes no tool inventory anywhere else — their llms.txt is a marketing/product index with
-    no tool list, and there is no developer documentation for the MCP server at all. The
-    `candidate_tools` below are NOT this list; they are our own one-per-operation derivation from
-    the OpenAPI we harvested in July, kept for reference only. No tool-crosswalk artifact is
-    written this round for exactly this reason: with zero real tool names in hand, every row of a
-    crosswalk would be invented. Re-run with an authenticated token to enumerate for real.
+  note: 'NOT KNOWN AND NOT GUESSED. tools/list is 401 without an OAuth token, and NationGraph publishes
+    no tool inventory anywhere else — their llms.txt is a marketing/product index with no tool list, and
+    there is no developer documentation for the MCP server at all. The `candidate_tools` below are NOT
+    this list; they are our own one-per-operation derivation from the OpenAPI we harvested in July, kept
+    for reference only. No tool-crosswalk artifact is written this round for exactly this reason: with
+    zero real tool names in hand, every row of a crosswalk would be invented. Re-run with an authenticated
+    token to enumerate for real.'
 candidate_tools:
   method: derived
   status: candidate
   source: openapi/_original/nationgraph-openapi-original.json (harvested 2026-07-20, v0.2.36)
   count: 253
-  note: >-
-    Derived one-per-operation from the OpenAPI as it stood on 2026-07-20. Retained from the prior
-    round. These are a MODEL of what the surface could expose, not an observation of what the
-    server does expose. NationGraph has since withdrawn the public OpenAPI (see
-    lifecycle/nationgraph-lifecycle.yml), so this list cannot currently be refreshed either.
+  note: Derived one-per-operation from the OpenAPI as it stood on 2026-07-20. Retained from the prior
+    round. These are a MODEL of what the surface could expose, not an observation of what the server does
+    expose. NationGraph has since withdrawn the public OpenAPI (see lifecycle/nationgraph-lifecycle.yml),
+    so this list cannot currently be refreshed either.
   tools:
   - name: get_institutions_in_workspace_api_v3_workspaces_institutions_get
     description: Get Institutions In Workspace [GET /api/v3/workspaces/institutions]

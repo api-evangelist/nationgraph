@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Classifiers API
+  title: Nationgraph Classifiers API
   version: 0.2.36
 tags:
 - name: Classifiers
@@ -34,31 +34,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    ClassifyRequest:
-      properties:
-        rows:
-          items:
-            $ref: '#/components/schemas/ClassifyRow'
-          type: array
-          title: Rows
-        job_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Job Id
-      type: object
-      required:
-      - rows
-      title: ClassifyRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -85,6 +60,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ClassifyJobEnqueueResponse:
       properties:
         job_id:
@@ -154,6 +138,22 @@ components:
       type: object
       title: ClassifyRow
       description: A single row to classify against institutions.
+    ClassifyRequest:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/ClassifyRow'
+          type: array
+          title: Rows
+        job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Job Id
+      type: object
+      required:
+      - rows
+      title: ClassifyRequest
   securitySchemes:
     HTTPBearer:
       type: http

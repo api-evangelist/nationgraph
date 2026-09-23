@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Scheduling API
+  title: Nationgraph Scheduling API
   version: 0.2.36
 tags:
 - name: Scheduling
@@ -93,15 +93,38 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
+    HostSummary:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        role:
+          type: string
+          title: Role
+          default: ''
+        event_name:
+          type: string
+          title: Event Name
+        duration_minutes:
+          type: integer
+          title: Duration Minutes
+        prep_question:
+          type: string
+          title: Prep Question
+          default: ''
       type: object
-      title: HTTPValidationError
+      required:
+      - id
+      - name
+      - event_name
+      - duration_minutes
+      title: HostSummary
+      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
+
+        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
     BookingRequest:
       properties:
         host_id:
@@ -136,6 +159,56 @@ components:
       - name
       - email
       title: BookingRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AvailabilityResponse:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        slots:
+          items:
+            type: string
+          type: array
+          title: Slots
+      type: object
+      required:
+      - host_id
+      - slots
+      title: AvailabilityResponse
     BookingConfirmation:
       properties:
         status:
@@ -177,32 +250,6 @@ components:
       - cancel_url
       - reschedule_url
       title: BookingConfirmation
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     HostsResponse:
       properties:
         hosts:
@@ -214,53 +261,6 @@ components:
       required:
       - hosts
       title: HostsResponse
-    AvailabilityResponse:
-      properties:
-        host_id:
-          type: string
-          title: Host Id
-        slots:
-          items:
-            type: string
-          type: array
-          title: Slots
-      type: object
-      required:
-      - host_id
-      - slots
-      title: AvailabilityResponse
-    HostSummary:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        role:
-          type: string
-          title: Role
-          default: ''
-        event_name:
-          type: string
-          title: Event Name
-        duration_minutes:
-          type: integer
-          title: Duration Minutes
-        prep_question:
-          type: string
-          title: Prep Question
-          default: ''
-      type: object
-      required:
-      - id
-      - name
-      - event_name
-      - duration_minutes
-      title: HostSummary
-      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
-
-        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
   securitySchemes:
     HTTPBearer:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Metadata API
+  title: Nationgraph Metadata API
   version: 0.2.36
 tags:
 - name: Metadata
@@ -10,7 +10,64 @@ paths:
       tags:
       - Metadata
       summary: Get Entity Metadata
-      description: "Get the metadata for an institution by its entity ID.\n\nArgs:\n    entity_id: The unique identifier for the institution\n\nReturns:\n    Dict containing:\n        - overview: Text description of the institution\n        - homepage_url: URL of the institution's homepage\n        - latitude: Latitude coordinate (float or None)\n        - longitude: Longitude coordinate (float or None)\n        - population: Population count (int or None)\n        - students: Number of students in the district (int or None)\n        - teachers: Number of teachers in the district (int or None)\n        - total_schools: Number of schools in the district (int or None)\n        - district_type: The type of school district we have (string or None)\n        - federal_grants: The amount of money the school district is granted yearly by the federal government\n        - state_grants: The amount of money the school district is granted yearly by the state government\n        - local_grants: The amount of money the school district is granted yearly by the local government\n        - interest_expenditure: The amount of money the school district spends yearly on paying interest\n        - operations_expenditure: The amount of money the school district spends yearly on its operations\n        - instructional_expenditure: The amount of money the school district spends yearly on its instructional costs\n        - administration_expenditure: The amount of money the school district spends yearly on administration\n        - phone_number: A phone number to contact the school district\n        - locale: A short description of the area that the school district is in (suburban, urban, rural, town, etc.)\n        - student_and_staff_support_expenditure: The amount of money the school district spends yearly on student and staff support and resources\n        - total_grants: The total amount of grant money the school district receives yearly\n        - total_expenditures: The total amount of money the school district spends yearly across all expenses\n\nRaises:\n    HTTPException: If there's an error retrieving the data"
+      description: 'Get the metadata for an institution by its entity ID.
+
+
+        Args:
+
+        entity_id: The unique identifier for the institution
+
+
+        Returns:
+
+        Dict containing:
+
+        - overview: Text description of the institution
+
+        - homepage_url: URL of the institution''s homepage
+
+        - latitude: Latitude coordinate (float or None)
+
+        - longitude: Longitude coordinate (float or None)
+
+        - population: Population count (int or None)
+
+        - students: Number of students in the district (int or None)
+
+        - teachers: Number of teachers in the district (int or None)
+
+        - total_schools: Number of schools in the district (int or None)
+
+        - district_type: The type of school district we have (string or None)
+
+        - federal_grants: The amount of money the school district is granted yearly by the federal government
+
+        - state_grants: The amount of money the school district is granted yearly by the state government
+
+        - local_grants: The amount of money the school district is granted yearly by the local government
+
+        - interest_expenditure: The amount of money the school district spends yearly on paying interest
+
+        - operations_expenditure: The amount of money the school district spends yearly on its operations
+
+        - instructional_expenditure: The amount of money the school district spends yearly on its instructional costs
+
+        - administration_expenditure: The amount of money the school district spends yearly on administration
+
+        - phone_number: A phone number to contact the school district
+
+        - locale: A short description of the area that the school district is in (suburban, urban, rural, town, etc.)
+
+        - student_and_staff_support_expenditure: The amount of money the school district spends yearly on student and staff support and resources
+
+        - total_grants: The total amount of grant money the school district receives yearly
+
+        - total_expenditures: The total amount of money the school district spends yearly across all expenses
+
+
+        Raises:
+
+        HTTPException: If there''s an error retrieving the data'
       operationId: get_entity_metadata_api_v3_metadata__entity_id__get
       security:
       - HTTPBearer: []

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Organization API
+  title: Nationgraph Organization API
   version: 0.2.36
 tags:
 - name: Organization
@@ -101,6 +101,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    UploadDocumentRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        path:
+          type: string
+          title: Path
+        organization_id:
+          type: string
+          title: Organization Id
+        user_id:
+          type: string
+          title: User Id
+      type: object
+      required:
+      - name
+      - path
+      - organization_id
+      - user_id
+      title: UploadDocumentRequest
     ValidationError:
       properties:
         loc:
@@ -136,27 +157,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    UploadDocumentRequest:
-      properties:
-        name:
-          type: string
-          title: Name
-        path:
-          type: string
-          title: Path
-        organization_id:
-          type: string
-          title: Organization Id
-        user_id:
-          type: string
-          title: User Id
-      type: object
-      required:
-      - name
-      - path
-      - organization_id
-      - user_id
-      title: UploadDocumentRequest
   securitySchemes:
     HTTPBearer:
       type: http

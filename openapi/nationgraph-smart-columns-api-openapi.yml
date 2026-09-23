@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Smart Columns API
+  title: Nationgraph Smart Columns API
   version: 0.2.36
 tags:
 - name: Smart Columns
@@ -309,43 +309,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    app__routes__v3__smart_columns__PromptRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    app__routes__v3__smart_columns__DateRange:
-      properties:
-        from:
+        prompt:
           type: string
-          format: date-time
-          title: From
-        to:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: To
+          title: Prompt
+        data_source:
+          $ref: '#/components/schemas/DataSource'
       type: object
       required:
-      - from
-      title: DateRange
-    QueryLogic:
-      type: string
-      enum:
-      - AND
-      - OR
-      title: QueryLogic
-    ColumnType:
-      type: string
-      enum:
-      - smart
-      - static
-      title: ColumnType
+      - prompt
+      - data_source
+      title: PromptRequest
     ValidationError:
       properties:
         loc:
@@ -372,6 +347,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     RerunFrequency:
       type: string
       enum:
@@ -380,24 +364,19 @@ components:
       - monthly
       - none
       title: RerunFrequency
-    app__routes__v3__smart_columns__KeywordConfig:
+    IntentFactors:
       properties:
-        logic:
-          $ref: '#/components/schemas/QueryLogic'
-        keywords:
-          items:
-            type: string
-          type: array
-          title: Keywords
-        is_strict:
-          type: boolean
-          title: Is Strict
+        key_factors:
+          type: string
+          title: Key Factors
+        scoring_rubric:
+          type: string
+          title: Scoring Rubric
       type: object
       required:
-      - logic
-      - keywords
-      - is_strict
-      title: KeywordConfig
+      - key_factors
+      - scoring_rubric
+      title: IntentFactors
     SmartColumnPatchRequest:
       properties:
         column_name:
@@ -407,6 +386,28 @@ components:
           title: Column Name
       type: object
       title: SmartColumnPatchRequest
+    app__routes__v3__smart_columns__DateRange:
+      properties:
+        from:
+          type: string
+          format: date-time
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      required:
+      - from
+      title: DateRange
+    ColumnType:
+      type: string
+      enum:
+      - smart
+      - static
+      title: ColumnType
     RerunSmartColumnRequest:
       properties:
         column_version:
@@ -437,18 +438,6 @@ components:
       - signals
       - call_script
       title: DataSource
-    app__routes__v3__smart_columns__PromptRequest:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-        data_source:
-          $ref: '#/components/schemas/DataSource'
-      type: object
-      required:
-      - prompt
-      - data_source
-      title: PromptRequest
     SmartColumnRequest:
       properties:
         column_id:
@@ -503,19 +492,30 @@ components:
       - keyword_config
       - rerun_frequency
       title: SmartColumnRequest
-    IntentFactors:
+    app__routes__v3__smart_columns__KeywordConfig:
       properties:
-        key_factors:
-          type: string
-          title: Key Factors
-        scoring_rubric:
-          type: string
-          title: Scoring Rubric
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        is_strict:
+          type: boolean
+          title: Is Strict
       type: object
       required:
-      - key_factors
-      - scoring_rubric
-      title: IntentFactors
+      - logic
+      - keywords
+      - is_strict
+      title: KeywordConfig
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
   securitySchemes:
     HTTPBearer:
       type: http

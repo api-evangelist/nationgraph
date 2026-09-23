@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Tags API
+  title: Nationgraph Tags API
   version: 0.2.36
 tags:
 - name: Tags
@@ -175,6 +175,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TagItem:
+      properties:
+        label:
+          type: string
+          title: Label
+        hexcode:
+          type: string
+          title: Hexcode
+      type: object
+      required:
+      - label
+      - hexcode
+      title: TagItem
+    CreateTagsRequest:
+      properties:
+        tags:
+          items:
+            $ref: '#/components/schemas/TagItem'
+          type: array
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: CreateTagsRequest
     ValidationError:
       properties:
         loc:
@@ -201,17 +225,6 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateTagsRequest:
-      properties:
-        tags:
-          items:
-            $ref: '#/components/schemas/TagItem'
-          type: array
-          title: Tags
-      type: object
-      required:
-      - tags
-      title: CreateTagsRequest
     HTTPValidationError:
       properties:
         detail:
@@ -221,19 +234,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    TagItem:
-      properties:
-        label:
-          type: string
-          title: Label
-        hexcode:
-          type: string
-          title: Hexcode
-      type: object
-      required:
-      - label
-      - hexcode
-      title: TagItem
   securitySchemes:
     HTTPBearer:
       type: http

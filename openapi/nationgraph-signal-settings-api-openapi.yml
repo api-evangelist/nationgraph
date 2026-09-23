@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Signal Settings API
+  title: Nationgraph Signal Settings API
   version: 0.2.36
 tags:
 - name: Signal Settings
@@ -299,28 +299,44 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SignalSortEnum:
+    SignalSourceType:
       type: string
       enum:
-      - created_at_desc
-      - created_at_asc
-      title: SignalSortEnum
-    InstitutionEnum:
-      type: string
-      enum:
-      - k12_districts
-      - cities
-      - counties
-      - higher_education
-      - federal_agencies
-      - federal_departments
-      - individual_units
-      - k12_schools
-      - police_agencies
-      - usfa_registry
-      - state_agencies
-      - states
-      title: InstitutionEnum
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -330,6 +346,12 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SignalSortEnum:
+      type: string
+      enum:
+      - created_at_desc
+      - created_at_asc
+      title: SignalSortEnum
     Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get:
       properties:
         statuses:
@@ -408,6 +430,30 @@ components:
           title: Exclude Institution Ids
       type: object
       title: Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
     RunSignalSettingRequest:
       properties:
         initial_search:
@@ -417,73 +463,12 @@ components:
       required:
       - initial_search
       title: RunSignalSettingRequest
-    InstitutionSortEnum:
-      type: string
-      enum:
-      - most_signals
-      - most_recent
-      - oldest
-      - most_contacts
-      - account_type
-      title: InstitutionSortEnum
-      description: 'Sort order for institutions in paginated response.
-
-
-        Note: This sorting is applied per-page after signal-level pagination.
-
-        The same institution may appear on multiple pages if its signals span pages.'
     SignalSettingStatus:
       type: string
       enum:
       - active
       - archived
       title: SignalSettingStatus
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SignalStatusEnum:
-      type: string
-      enum:
-      - active
-      - dismissed
-      - pending
-      - acknowledged
-      title: SignalStatusEnum
-    SignalSourceType:
-      type: string
-      enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
     SignalSettingUpdate:
       properties:
         query:
@@ -551,6 +536,21 @@ components:
       - exclude_keywords
       - initial_search_start
       title: SignalSettingCreate
+    InstitutionSortEnum:
+      type: string
+      enum:
+      - most_signals
+      - most_recent
+      - oldest
+      - most_contacts
+      - account_type
+      title: InstitutionSortEnum
+      description: 'Sort order for institutions in paginated response.
+
+
+        Note: This sorting is applied per-page after signal-level pagination.
+
+        The same institution may appear on multiple pages if its signals span pages.'
   securitySchemes:
     HTTPBearer:
       type: http

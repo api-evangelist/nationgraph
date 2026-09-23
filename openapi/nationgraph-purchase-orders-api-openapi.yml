@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Purchase Orders API
+  title: Nationgraph Purchase Orders API
   version: 0.2.36
 tags:
 - name: Purchase Orders
@@ -80,38 +80,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    PaginatedResponse_PurchaseOrderResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PurchaseOrderResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[PurchaseOrderResponse]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -138,6 +106,38 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PaginatedResponse_PurchaseOrderResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PurchaseOrderResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[PurchaseOrderResponse]
     PurchaseOrderSearchFilters:
       properties:
         institution_ids:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Integrations API
+  title: Nationgraph Integrations API
   version: 0.2.36
 tags:
 - name: Integrations
@@ -176,15 +176,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CreateIntegrationRequest:
       properties:
         provider:
@@ -244,22 +235,15 @@ components:
       - msg
       - type
       title: ValidationError
-    IntegrationPatchRequest:
+    HTTPValidationError:
       properties:
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        scopes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Scopes
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: IntegrationPatchRequest
+      title: HTTPValidationError
     IntegrationResponse:
       properties:
         id:
@@ -320,6 +304,22 @@ components:
       - status
       - created_at
       title: IntegrationResponse
+    IntegrationPatchRequest:
+      properties:
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+      type: object
+      title: IntegrationPatchRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -1,14 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts YouTube API
+  title: Nationgraph You Tube API
   version: 0.2.36
 tags:
-- name: YouTube
+- name: Youtube
 paths:
   /api/internal/youtube/search:
     post:
       tags:
-      - YouTube
+      - Youtube
       summary: Search Youtube
       description: 'Search YouTube caption chunks.
 
@@ -59,7 +59,7 @@ paths:
   /api/internal/youtube/chunks/{id}:
     get:
       tags:
-      - YouTube
+      - Youtube
       summary: Get Youtube Chunk
       operationId: get_youtube_chunk_api_internal_youtube_chunks__id__get
       security:
@@ -86,15 +86,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -121,6 +112,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     YouTubeSearchFilters:
       properties:
         query:
@@ -177,6 +177,29 @@ components:
       type: object
       title: YouTubeSearchFilters
       description: "Search filters for YouTube caption chunks.\n\nThe ``query`` field is evaluated against the chunks' ``text_search_fts``\ncolumn via ``websearch_to_tsquery('english', ...)`` — stemming on,\nwebsearch syntax (quoted phrases, OR, leading - to exclude).\n\nInstitution linkage uses BOTH routes signals uses, results unioned:\n  • Channel route: raw.channel_id → youtube_links.channel_id → unique_id\n  • Video route:   raw.video_institution_unique_id (direct per-video tag)\n\nThe signals retriever uses ``phraseto_tsquery`` because its API takes\nprogrammatic keyword groups. Our user-input API uses ``websearch`` to\nmatch the rest of the chunk endpoints. For tight phrase matching,\nconsumers quote the phrase: ``query='\"school board meeting\"'``.\nCover-density ranking (ts_rank_cd) already prefers chunks where query\nterms appear close together.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nchunks table is large and unbounded scans are rejected."
+    PaginatedResponse_YouTubeChunkResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/YouTubeChunkResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[YouTubeChunkResponse]
     YouTubeChunkResponse:
       properties:
         chunk_id:
@@ -266,29 +289,6 @@ components:
       - document_id
       - text
       title: YouTubeChunkResponse
-    PaginatedResponse_YouTubeChunkResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/YouTubeChunkResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[YouTubeChunkResponse]
   securitySchemes:
     HTTPBearer:
       type: http

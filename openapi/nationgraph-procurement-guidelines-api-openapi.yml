@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Procurement Guidelines API
+  title: Nationgraph Procurement Guidelines API
   version: 0.2.36
 tags:
 - name: Procurement Guidelines
@@ -93,15 +93,29 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
+    PaginatedResponse_ProcurementGuidelineChunkResponse_:
       properties:
-        detail:
+        results:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/ProcurementGuidelineChunkResponse'
           type: array
-          title: Detail
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
       type: object
-      title: HTTPValidationError
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[ProcurementGuidelineChunkResponse]
     ValidationError:
       properties:
         loc:
@@ -128,74 +142,15 @@ components:
       - msg
       - type
       title: ValidationError
-    ProcurementGuidelineChunkResponse:
+    HTTPValidationError:
       properties:
-        chunk_id:
-          type: integer
-          title: Chunk Id
-        document_id:
-          type: integer
-          title: Document Id
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        document_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Document Date
-        document_title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Title
-        document_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Url
-        document_created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Document Created At
-        text:
-          type: string
-          title: Text
-        relevance:
-          type: number
-          title: Relevance
-        other_matching_chunks_in_document:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Other Matching Chunks In Document
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - chunk_id
-      - document_id
-      - text
-      - relevance
-      title: ProcurementGuidelineChunkResponse
+      title: HTTPValidationError
     ProcurementGuidelineSearchFilters:
       properties:
         query:
@@ -271,29 +226,74 @@ components:
         At least one of ``institution_ids`` or ``query`` must be supplied — the
 
         chunks table is 140K+ rows and we reject fully unbounded scans.'
-    PaginatedResponse_ProcurementGuidelineChunkResponse_:
+    ProcurementGuidelineChunkResponse:
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/ProcurementGuidelineChunkResponse'
-          type: array
-          title: Results
-        total:
+        chunk_id:
           type: integer
-          title: Total
-        offset:
+          title: Chunk Id
+        document_id:
           type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+        document_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Title
+        document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Url
+        document_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Created At
+        text:
+          type: string
+          title: Text
+        relevance:
+          type: number
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
       type: object
       required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[ProcurementGuidelineChunkResponse]
+      - chunk_id
+      - document_id
+      - text
+      - relevance
+      title: ProcurementGuidelineChunkResponse
   securitySchemes:
     HTTPBearer:
       type: http

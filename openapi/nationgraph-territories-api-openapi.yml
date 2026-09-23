@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Territories API
+  title: Nationgraph Territories API
   version: 0.2.36
 tags:
 - name: Territories
@@ -187,50 +187,50 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TerritoryAccountItem:
+    UserProfileInstitutionFilter:
       properties:
-        unique_id:
-          type: string
-          title: Unique Id
-        name:
+        id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Name
-        city:
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
           anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-        county:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: County
-        population:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Population
-        source_table:
-          type: string
-          title: Source Table
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
       type: object
       required:
-      - unique_id
-      - name
-      - city
-      - state
-      - county
-      - population
-      - source_table
-      title: TerritoryAccountItem
-      description: One institution row in a territory preview sample.
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
+    TerritoryListResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        items:
+          items:
+            $ref: '#/components/schemas/TerritoryListItem'
+          type: array
+          title: Items
+      type: object
+      required:
+      - total
+      - items
+      title: TerritoryListResponse
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
     HTTPValidationError:
       properties:
         detail:
@@ -240,27 +240,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    InstitutionFiltersEnum:
-      type: string
-      enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
-    TerritoryPreviewResponse:
-      properties:
-        count:
-          type: integer
-          title: Count
-        sample:
-          items:
-            $ref: '#/components/schemas/TerritoryAccountItem'
-          type: array
-          title: Sample
-      type: object
-      required:
-      - count
-      - sample
-      title: TerritoryPreviewResponse
     ValidationError:
       properties:
         loc:
@@ -287,21 +266,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TerritoryListResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        items:
-          items:
-            $ref: '#/components/schemas/TerritoryListItem'
-          type: array
-          title: Items
-      type: object
-      required:
-      - total
-      - items
-      title: TerritoryListResponse
     InstitutionTypePayload:
       properties:
         name:
@@ -359,6 +323,56 @@ components:
           title: Search Query
       type: object
       title: InstitutionTypePayload
+    TerritoryAccountItem:
+      properties:
+        unique_id:
+          type: string
+          title: Unique Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        source_table:
+          type: string
+          title: Source Table
+      type: object
+      required:
+      - unique_id
+      - name
+      - city
+      - state
+      - county
+      - population
+      - source_table
+      title: TerritoryAccountItem
+      description: One institution row in a territory preview sample.
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
     InstitutionListPayload:
       properties:
         institution_ids:
@@ -424,35 +438,21 @@ components:
         Visibility column lives in the DB but is intentionally not exposed here —
 
         future-sprint feature per boss; the API stays visibility-blind for now.'
-    TerritoryVisibility:
-      type: string
-      enum:
-      - private
-      - organization
-      title: TerritoryVisibility
-    UserProfileInstitutionFilter:
+    TerritoryPreviewResponse:
       properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        visibility:
-          $ref: '#/components/schemas/TerritoryVisibility'
-          default: private
-        type:
-          $ref: '#/components/schemas/InstitutionFiltersEnum'
-        payload:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - $ref: '#/components/schemas/InstitutionListPayload'
-          title: Payload
+        count:
+          type: integer
+          title: Count
+        sample:
+          items:
+            $ref: '#/components/schemas/TerritoryAccountItem'
+          type: array
+          title: Sample
       type: object
       required:
-      - type
-      - payload
-      title: UserProfileInstitutionFilter
+      - count
+      - sample
+      title: TerritoryPreviewResponse
   securitySchemes:
     HTTPBearer:
       type: http

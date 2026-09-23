@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nationgraph Accounts Export API
+  title: Nationgraph Export API
   version: 0.2.36
 tags:
 - name: Export
@@ -10,7 +10,18 @@ paths:
       tags:
       - Export
       summary: Export Workspace Csv
-      description: "Export workspace data to CSV format.\n\nArgs:\n    workspace_id: The workspace ID to export\n    request: WorkspaceExportRequest object containing filter, sort, search, column_ids, and institution_ids\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+      description: 'Export workspace data to CSV format.
+
+
+        Args:
+
+        workspace_id: The workspace ID to export
+
+        request: WorkspaceExportRequest object containing filter, sort, search, column_ids, and institution_ids
+
+        token_BEARER: Authentication token
+
+        app_session: Database app_session'
       operationId: export_workspace_csv_api_v3_export_workspaces__workspace_id__post
       security:
       - HTTPBearer: []
@@ -44,7 +55,25 @@ paths:
       tags:
       - Export
       summary: Export Single Po Csv
-      description: "Export purchase orders for a specific column and institution as a CSV file.\n\nArgs:\n    column_id: Custom column ID containing purchase order data\n    institution_id: Institution ID\n    is_prev: Whether to use previous content\n    token_BEARER: Authentication token\n    app_session: Database app_session\n\nReturns:\n    CSV file with columns: Supplier, Item, Amount, Date."
+      description: 'Export purchase orders for a specific column and institution as a CSV file.
+
+
+        Args:
+
+        column_id: Custom column ID containing purchase order data
+
+        institution_id: Institution ID
+
+        is_prev: Whether to use previous content
+
+        token_BEARER: Authentication token
+
+        app_session: Database app_session
+
+
+        Returns:
+
+        CSV file with columns: Supplier, Item, Amount, Date.'
       operationId: export_single_po_csv_api_v3_export_institution__institution_id__purchase_orders_column__column_id__get
       security:
       - HTTPBearer: []
@@ -87,7 +116,25 @@ paths:
       tags:
       - Export
       summary: Export Po Csv
-      description: "Export purchase orders from smart columns in a workspace as a CSV file.\nArgs:\n    workspace_id: The workspace ID to export purchase orders from\n    request: PurchaseOrdersExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)\n    Each row is one individual purchase item. Columns: Institution, Supplier, Item, Amount, Date, plus any other selected columns (excluding contacts and purchase_orders columns)."
+      description: 'Export purchase orders from smart columns in a workspace as a CSV file.
+
+        Args:
+
+        workspace_id: The workspace ID to export purchase orders from
+
+        request: PurchaseOrdersExportRequest object containing filter and search parameters
+
+        filter_json: JSON string for filtering institutions
+
+        sort_json: JSON string for sorting institutions
+
+        token_BEARER: Authentication token
+
+        app_session: Database app_session
+
+        request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)
+
+        Each row is one individual purchase item. Columns: Institution, Supplier, Item, Amount, Date, plus any other selected columns (excluding contacts and purchase_orders columns).'
       operationId: export_po_csv_api_v3_export_workspaces__workspace_id__purchase_orders_post
       security:
       - HTTPBearer: []
@@ -137,7 +184,16 @@ paths:
       tags:
       - Export
       summary: Export Rfps Csv
-      description: "Export RFPs to CSV format.\n\nArgs:\n    request: RFPsExportRequest object containing the list of RFPs\n    token_BEARER: Authentication token\n    app_session: Database app_session"
+      description: 'Export RFPs to CSV format.
+
+
+        Args:
+
+        request: RFPsExportRequest object containing the list of RFPs
+
+        token_BEARER: Authentication token
+
+        app_session: Database app_session'
       operationId: export_rfps_csv_api_v3_export_rfps_post
       requestBody:
         content:
@@ -164,7 +220,14 @@ paths:
       tags:
       - Export
       summary: Export Grants Csv
-      description: "Export grants to CSV format.\n\nArgs:\n    request: GrantsExportRequest object containing the list of grants\n    token_BEARER: Authentication token"
+      description: 'Export grants to CSV format.
+
+
+        Args:
+
+        request: GrantsExportRequest object containing the list of grants
+
+        token_BEARER: Authentication token'
       operationId: export_grants_csv_api_v3_export_grants_post
       requestBody:
         content:
@@ -191,7 +254,24 @@ paths:
       tags:
       - Export
       summary: Export Contacts Csv
-      description: "Export contacts from smart columns in a workspace as a CSV file.\n\nArgs:\n    workspace_id: The workspace ID to export contacts from\n    request: ContactsExportRequest object containing filter and search parameters\n    filter_json: JSON string for filtering institutions\n    sort_json: JSON string for sorting institutions\n    token_BEARER: Authentication token\n    app_session: Database app_session\n    request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)"
+      description: 'Export contacts from smart columns in a workspace as a CSV file.
+
+
+        Args:
+
+        workspace_id: The workspace ID to export contacts from
+
+        request: ContactsExportRequest object containing filter and search parameters
+
+        filter_json: JSON string for filtering institutions
+
+        sort_json: JSON string for sorting institutions
+
+        token_BEARER: Authentication token
+
+        app_session: Database app_session
+
+        request.institution_ids: Optional list of workspace institution_ids (WorkspaceInstitution UUIDs) to export (if provided, only these rows are exported)'
       operationId: export_contacts_csv_api_v3_export_workspaces__workspace_id__contacts_post
       security:
       - HTTPBearer: []
@@ -238,6 +318,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    Sort:
+      properties:
+        column:
+          type: string
+          title: Column
+        direction:
+          $ref: '#/components/schemas/SortType'
+      type: object
+      required:
+      - column
+      - direction
+      title: Sort
     RFPs:
       properties:
         id:
@@ -498,48 +590,6 @@ components:
       - id
       title: RFPs
       description: Pydantic model for RFP API responses with full institution data.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WorkspaceExportRequest:
-      properties:
-        filters:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filters
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/Sort'
-          - type: 'null'
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-      type: object
-      title: WorkspaceExportRequest
     ValidationError:
       properties:
         loc:
@@ -566,17 +616,15 @@ components:
       - msg
       - type
       title: ValidationError
-    RFPsExportRequest:
+    HTTPValidationError:
       properties:
-        rfps:
+        detail:
           items:
-            $ref: '#/components/schemas/RFPs'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Rfps
+          title: Detail
       type: object
-      required:
-      - rfps
-      title: RFPsExportRequest
+      title: HTTPValidationError
     ContactsExportRequest:
       properties:
         column_ids:
@@ -613,18 +661,50 @@ components:
           default: false
       type: object
       title: ContactsExportRequest
-    Sort:
+    RFPsExportRequest:
       properties:
-        column:
-          type: string
-          title: Column
-        direction:
-          $ref: '#/components/schemas/SortType'
+        rfps:
+          items:
+            $ref: '#/components/schemas/RFPs'
+          type: array
+          title: Rfps
       type: object
       required:
-      - column
-      - direction
-      title: Sort
+      - rfps
+      title: RFPsExportRequest
+    WorkspaceExportRequest:
+      properties:
+        filters:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filters
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/Sort'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: WorkspaceExportRequest
     GrantResponse-Input:
       properties:
         id:
@@ -732,17 +812,6 @@ components:
       - total_obligated_amount
       - last_modified_date
       title: GrantResponse
-    GrantsExportRequest:
-      properties:
-        grants:
-          items:
-            $ref: '#/components/schemas/GrantResponse-Input'
-          type: array
-          title: Grants
-      type: object
-      required:
-      - grants
-      title: GrantsExportRequest
     PurchaseOrdersExportRequest:
       properties:
         column_ids:
@@ -779,6 +848,17 @@ components:
       - asc
       - desc
       title: SortType
+    GrantsExportRequest:
+      properties:
+        grants:
+          items:
+            $ref: '#/components/schemas/GrantResponse-Input'
+          type: array
+          title: Grants
+      type: object
+      required:
+      - grants
+      title: GrantsExportRequest
   securitySchemes:
     HTTPBearer:
       type: http
