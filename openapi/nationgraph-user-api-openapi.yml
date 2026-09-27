@@ -238,69 +238,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SubscriptionType:
-      type: string
-      enum:
-      - signals_digest
-      title: SubscriptionType
-    OrganizationIntegrationGroup:
-      properties:
-        org_id:
-          type: string
-          title: Org Id
-        org_name:
-          type: string
-          title: Org Name
-        integrations:
-          items:
-            $ref: '#/components/schemas/ProviderIntegration'
-          type: array
-          title: Integrations
-        is_admin:
-          type: boolean
-          title: Is Admin
-          default: false
-      type: object
-      required:
-      - org_id
-      - org_name
-      - integrations
-      title: OrganizationIntegrationGroup
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     ReplaceUserDocumentsRequest:
       properties:
         document_ids:
@@ -312,15 +249,23 @@ components:
       required:
       - document_ids
       title: ReplaceUserDocumentsRequest
-    DeliveryMethod:
-      type: string
-      enum:
-      - email
-      - sms
-      - push
-      - webhook
-      - slack
-      title: DeliveryMethod
+    UserIntegrationsGroupedResponse:
+      properties:
+        personal:
+          items:
+            $ref: '#/components/schemas/IntegrationResponse'
+          type: array
+          title: Personal
+        organization:
+          items:
+            $ref: '#/components/schemas/OrganizationIntegrationGroup'
+          type: array
+          title: Organization
+      type: object
+      required:
+      - personal
+      - organization
+      title: UserIntegrationsGroupedResponse
     ProviderStatConfig:
       properties:
         key:
@@ -342,6 +287,81 @@ components:
       - label
       - type
       title: ProviderStatConfig
+    ProviderIntegration:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        category:
+          type: string
+          title: Category
+        enabled:
+          type: boolean
+          title: Enabled
+        capabilities:
+          additionalProperties:
+            $ref: '#/components/schemas/ProviderCapabilities'
+          type: object
+          title: Capabilities
+        connected_stats:
+          items:
+            $ref: '#/components/schemas/ProviderStatConfig'
+          type: array
+          title: Connected Stats
+          default: []
+        terminology:
+          additionalProperties:
+            type: string
+          type: object
+          title: Terminology
+          default:
+            entity_name: Record
+            entity_name_plural: Records
+        connection:
+          anyOf:
+          - $ref: '#/components/schemas/IntegrationResponse'
+          - type: 'null'
+      type: object
+      required:
+      - provider
+      - category
+      - enabled
+      - capabilities
+      title: ProviderIntegration
+    SubscriptionType:
+      type: string
+      enum:
+      - signals_digest
+      title: SubscriptionType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OnboardingProgressResponse:
+      properties:
+        completed_steps:
+          $ref: '#/components/schemas/OnboardingCompletedSteps'
+        completed_count:
+          type: integer
+          title: Completed Count
+        total_count:
+          type: integer
+          title: Total Count
+        all_done:
+          type: boolean
+          title: All Done
+      type: object
+      required:
+      - completed_steps
+      - completed_count
+      - total_count
+      - all_done
+      title: OnboardingProgressResponse
     IntegrationResponse:
       properties:
         id:
@@ -402,84 +422,32 @@ components:
       - status
       - created_at
       title: IntegrationResponse
-    OnboardingProgressResponse:
+    ValidationError:
       properties:
-        completed_steps:
-          $ref: '#/components/schemas/OnboardingCompletedSteps'
-        completed_count:
-          type: integer
-          title: Completed Count
-        total_count:
-          type: integer
-          title: Total Count
-        all_done:
-          type: boolean
-          title: All Done
-      type: object
-      required:
-      - completed_steps
-      - completed_count
-      - total_count
-      - all_done
-      title: OnboardingProgressResponse
-    ProviderIntegration:
-      properties:
-        provider:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Provider
-        category:
+          title: Message
+        type:
           type: string
-          title: Category
-        enabled:
-          type: boolean
-          title: Enabled
-        capabilities:
-          additionalProperties:
-            $ref: '#/components/schemas/ProviderCapabilities'
+          title: Error Type
+        input:
+          title: Input
+        ctx:
           type: object
-          title: Capabilities
-        connected_stats:
-          items:
-            $ref: '#/components/schemas/ProviderStatConfig'
-          type: array
-          title: Connected Stats
-          default: []
-        terminology:
-          additionalProperties:
-            type: string
-          type: object
-          title: Terminology
-          default:
-            entity_name: Record
-            entity_name_plural: Records
-        connection:
-          anyOf:
-          - $ref: '#/components/schemas/IntegrationResponse'
-          - type: 'null'
+          title: Context
       type: object
       required:
-      - provider
-      - category
-      - enabled
-      - capabilities
-      title: ProviderIntegration
-    UserIntegrationsGroupedResponse:
-      properties:
-        personal:
-          items:
-            $ref: '#/components/schemas/IntegrationResponse'
-          type: array
-          title: Personal
-        organization:
-          items:
-            $ref: '#/components/schemas/OrganizationIntegrationGroup'
-          type: array
-          title: Organization
-      type: object
-      required:
-      - personal
-      - organization
-      title: UserIntegrationsGroupedResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     OnboardingCompletedSteps:
       properties:
         business_context:
@@ -509,6 +477,15 @@ components:
       - automation
       - invite
       title: OnboardingCompletedSteps
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
     ProviderCapabilities:
       properties:
         push:
@@ -542,6 +519,29 @@ components:
           default: []
       type: object
       title: ProviderCapabilities
+    OrganizationIntegrationGroup:
+      properties:
+        org_id:
+          type: string
+          title: Org Id
+        org_name:
+          type: string
+          title: Org Name
+        integrations:
+          items:
+            $ref: '#/components/schemas/ProviderIntegration'
+          type: array
+          title: Integrations
+        is_admin:
+          type: boolean
+          title: Is Admin
+          default: false
+      type: object
+      required:
+      - org_id
+      - org_name
+      - integrations
+      title: OrganizationIntegrationGroup
   securitySchemes:
     HTTPBearer:
       type: http

@@ -299,59 +299,37 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SignalSourceType:
-      type: string
-      enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
-    ValidationError:
+    RunSignalSettingRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        initial_search:
+          type: boolean
+          title: Initial Search
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SignalSortEnum:
+      - initial_search
+      title: RunSignalSettingRequest
+    SignalSettingStatus:
       type: string
       enum:
-      - created_at_desc
-      - created_at_asc
-      title: SignalSortEnum
+      - active
+      - archived
+      title: SignalSettingStatus
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
     Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get:
       properties:
         statuses:
@@ -430,45 +408,51 @@ components:
           title: Exclude Institution Ids
       type: object
       title: Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
-    InstitutionEnum:
-      type: string
-      enum:
-      - k12_districts
-      - cities
-      - counties
-      - higher_education
-      - federal_agencies
-      - federal_departments
-      - individual_units
-      - k12_schools
-      - police_agencies
-      - usfa_registry
-      - state_agencies
-      - states
-      title: InstitutionEnum
-    SignalStatusEnum:
-      type: string
-      enum:
-      - active
-      - dismissed
-      - pending
-      - acknowledged
-      title: SignalStatusEnum
-    RunSignalSettingRequest:
+    SignalSettingCreate:
       properties:
-        initial_search:
-          type: boolean
-          title: Initial Search
+        query:
+          type: string
+          title: Query
+        keywords:
+          items:
+            items:
+              type: string
+            type: array
+          type: array
+          title: Keywords
+        exclude_keywords:
+          items:
+            type: string
+          type: array
+          title: Exclude Keywords
+        initial_search_start:
+          type: string
+          format: date-time
+          title: Initial Search Start
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
       type: object
       required:
-      - initial_search
-      title: RunSignalSettingRequest
-    SignalSettingStatus:
+      - query
+      - keywords
+      - exclude_keywords
+      - initial_search_start
+      title: SignalSettingCreate
+    SignalSourceType:
       type: string
       enum:
-      - active
-      - archived
-      title: SignalSettingStatus
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
     SignalSettingUpdate:
       properties:
         query:
@@ -503,39 +487,49 @@ components:
           title: Name
       type: object
       title: SignalSettingUpdate
-    SignalSettingCreate:
+    HTTPValidationError:
       properties:
-        query:
-          type: string
-          title: Query
-        keywords:
+        detail:
           items:
-            items:
-              type: string
-            type: array
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Keywords
-        exclude_keywords:
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    ValidationError:
+      properties:
+        loc:
           items:
-            type: string
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Exclude Keywords
-        initial_search_start:
+          title: Location
+        msg:
           type: string
-          format: date-time
-          title: Initial Search Start
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - query
-      - keywords
-      - exclude_keywords
-      - initial_search_start
-      title: SignalSettingCreate
+      - loc
+      - msg
+      - type
+      title: ValidationError
     InstitutionSortEnum:
       type: string
       enum:
@@ -551,6 +545,12 @@ components:
         Note: This sorting is applied per-page after signal-level pagination.
 
         The same institution may appear on multiple pages if its signals span pages.'
+    SignalSortEnum:
+      type: string
+      enum:
+      - created_at_desc
+      - created_at_asc
+      title: SignalSortEnum
   securitySchemes:
     HTTPBearer:
       type: http

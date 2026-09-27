@@ -137,20 +137,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    NoteRequest:
+    HTTPValidationError:
       properties:
-        content:
-          type: string
-          title: Content
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - content
-      title: NoteRequest
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -177,15 +172,20 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    NoteRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        content:
+          type: string
+          title: Content
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
       type: object
-      title: HTTPValidationError
+      required:
+      - content
+      title: NoteRequest
   securitySchemes:
     HTTPBearer:
       type: http

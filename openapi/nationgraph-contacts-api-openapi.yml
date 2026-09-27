@@ -79,6 +79,51 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    EmailStatus:
+      type: string
+      enum:
+      - valid
+      - do_not_mail
+      - unknown
+      - risky
+      - not_verified
+      title: EmailStatus
+    ContactSearchCriteria:
+      properties:
+        description:
+          type: string
+          title: Description
+        institution_id:
+          type: string
+          title: Institution Id
+        start_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        search_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Type
+          default: hybrid
+        email_statuses:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EmailStatus'
+            type: array
+          - type: 'null'
+          title: Email Statuses
+      type: object
+      required:
+      - description
+      - institution_id
+      title: ContactSearchCriteria
     app__types__contacts__contact_response__ContactResponse:
       properties:
         id:
@@ -147,6 +192,15 @@ components:
       - title
       - institution_id
       title: ContactResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -173,60 +227,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    EmailStatus:
-      type: string
-      enum:
-      - valid
-      - do_not_mail
-      - unknown
-      - risky
-      - not_verified
-      title: EmailStatus
-    ContactSearchCriteria:
-      properties:
-        description:
-          type: string
-          title: Description
-        institution_id:
-          type: string
-          title: Institution Id
-        start_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End Date
-        search_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search Type
-          default: hybrid
-        email_statuses:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EmailStatus'
-            type: array
-          - type: 'null'
-          title: Email Statuses
-      type: object
-      required:
-      - description
-      - institution_id
-      title: ContactSearchCriteria
     SearchMetadata:
       properties:
         reason:

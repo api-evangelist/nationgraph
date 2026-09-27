@@ -170,6 +170,39 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ViewCreateRequest:
+      properties:
+        view_type:
+          $ref: '#/components/schemas/ViewType'
+        resource_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Resource Id
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+        filters:
+          additionalProperties: true
+          type: object
+          title: Filters
+      type: object
+      required:
+      - view_type
+      - name
+      title: ViewCreateRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -196,23 +229,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ViewType:
-      type: string
-      enum:
-      - accounts
-      - rfp_search
-      - grant_search
-      - automation_results
-      title: ViewType
     ViewResponse:
       properties:
         id:
@@ -256,6 +272,14 @@ components:
       - created_at
       - updated_at
       title: ViewResponse
+    ViewType:
+      type: string
+      enum:
+      - accounts
+      - rfp_search
+      - grant_search
+      - automation_results
+      title: ViewType
     ViewUpdateRequest:
       properties:
         name:
@@ -273,30 +297,6 @@ components:
           title: Filters
       type: object
       title: ViewUpdateRequest
-    ViewCreateRequest:
-      properties:
-        view_type:
-          $ref: '#/components/schemas/ViewType'
-        resource_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Resource Id
-        name:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Name
-        filters:
-          additionalProperties: true
-          type: object
-          title: Filters
-      type: object
-      required:
-      - view_type
-      - name
-      title: ViewCreateRequest
   securitySchemes:
     HTTPBearer:
       type: http

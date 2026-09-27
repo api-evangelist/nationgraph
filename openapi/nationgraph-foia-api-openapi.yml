@@ -34,6 +34,31 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    FoiaWorkerEnqueueRequest:
+      properties:
+        file_path:
+          type: string
+          title: File Path
+        reference_codes:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Reference Codes
+      type: object
+      required:
+      - file_path
+      - reference_codes
+      title: FoiaWorkerEnqueueRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -60,46 +85,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FoiaWorkerEnqueueResponsePayload:
-      properties:
-        file_path:
-          type: string
-          title: File Path
-        reference_codes:
-          items:
-            type: string
-          type: array
-          title: Reference Codes
-      type: object
-      required:
-      - file_path
-      - reference_codes
-      title: FoiaWorkerEnqueueResponsePayload
-    FoiaWorkerEnqueueRequest:
-      properties:
-        file_path:
-          type: string
-          title: File Path
-        reference_codes:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Reference Codes
-      type: object
-      required:
-      - file_path
-      - reference_codes
-      title: FoiaWorkerEnqueueRequest
     FoiaWorkerEnqueueResponse:
       properties:
         accepted:
@@ -120,6 +105,21 @@ components:
       - message_id
       - payload
       title: FoiaWorkerEnqueueResponse
+    FoiaWorkerEnqueueResponsePayload:
+      properties:
+        file_path:
+          type: string
+          title: File Path
+        reference_codes:
+          items:
+            type: string
+          type: array
+          title: Reference Codes
+      type: object
+      required:
+      - file_path
+      - reference_codes
+      title: FoiaWorkerEnqueueResponsePayload
   securitySchemes:
     HTTPBearer:
       type: http

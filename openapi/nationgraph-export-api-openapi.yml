@@ -330,6 +330,131 @@ components:
       - column
       - direction
       title: Sort
+    SortType:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortType
+    ContactsExportRequest:
+      properties:
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        filter_json:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filter Json
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+          default: ''
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        only_direct_matches:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Only Direct Matches
+          default: false
+      type: object
+      title: ContactsExportRequest
+    WorkspaceExportRequest:
+      properties:
+        filters:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filters
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/Sort'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: WorkspaceExportRequest
+    RFPsExportRequest:
+      properties:
+        rfps:
+          items:
+            $ref: '#/components/schemas/RFPs'
+          type: array
+          title: Rfps
+      type: object
+      required:
+      - rfps
+      title: RFPsExportRequest
+    PurchaseOrdersExportRequest:
+      properties:
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        filter_json:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filter Json
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+          default: ''
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: PurchaseOrdersExportRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     RFPs:
       properties:
         id:
@@ -616,95 +741,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ContactsExportRequest:
-      properties:
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        filter_json:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filter Json
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-          default: ''
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-        only_direct_matches:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Only Direct Matches
-          default: false
-      type: object
-      title: ContactsExportRequest
-    RFPsExportRequest:
-      properties:
-        rfps:
-          items:
-            $ref: '#/components/schemas/RFPs'
-          type: array
-          title: Rfps
-      type: object
-      required:
-      - rfps
-      title: RFPsExportRequest
-    WorkspaceExportRequest:
-      properties:
-        filters:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filters
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/Sort'
-          - type: 'null'
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-      type: object
-      title: WorkspaceExportRequest
     GrantResponse-Input:
       properties:
         id:
@@ -812,42 +848,6 @@ components:
       - total_obligated_amount
       - last_modified_date
       title: GrantResponse
-    PurchaseOrdersExportRequest:
-      properties:
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        filter_json:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filter Json
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-          default: ''
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-      type: object
-      title: PurchaseOrdersExportRequest
-    SortType:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortType
     GrantsExportRequest:
       properties:
         grants:

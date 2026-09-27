@@ -415,6 +415,42 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    LeadResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        properties:
+          additionalProperties: true
+          type: object
+          title: Properties
+      type: object
+      required:
+      - id
+      - properties
+      title: LeadResponse
+      description: API response for a single lead.
+    LeadListAPIResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/LeadResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      - has_more
+      title: LeadListAPIResponse
+      description: API response for listing leads.
     CreateLeadRequest:
       properties:
         LastName:
@@ -549,6 +585,80 @@ components:
 
 
         LastName and Company are required. All other fields are optional.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ConvertLeadRequest:
+      properties:
+        accountId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accountid
+          description: Existing Account ID to associate with. If not provided, creates new Account.
+        contactId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Contactid
+          description: Existing Contact ID to associate with. If not provided, creates new Contact.
+        createOpportunity:
+          type: boolean
+          title: Createopportunity
+          description: Whether to create an Opportunity during conversion.
+          default: false
+        opportunityName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Opportunityname
+          description: Name for the new Opportunity (if createOpportunity is True).
+        ownerId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ownerid
+          description: Owner for the created Account, Contact, and Opportunity.
+        sendNotificationEmail:
+          type: boolean
+          title: Sendnotificationemail
+          description: Whether to send notification email to the owner.
+          default: false
+      type: object
+      title: ConvertLeadRequest
+      description: Request to convert a lead to Account, Contact, and optionally Opportunity.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UpdateLeadRequest:
       properties:
         FirstName:
@@ -684,41 +794,6 @@ components:
 
 
         All fields are optional - only include fields you want to update.'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ConvertLeadResponse:
       properties:
         success:
@@ -750,81 +825,6 @@ components:
       - contactId
       title: ConvertLeadResponse
       description: Response from converting a lead.
-    ConvertLeadRequest:
-      properties:
-        accountId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Accountid
-          description: Existing Account ID to associate with. If not provided, creates new Account.
-        contactId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Contactid
-          description: Existing Contact ID to associate with. If not provided, creates new Contact.
-        createOpportunity:
-          type: boolean
-          title: Createopportunity
-          description: Whether to create an Opportunity during conversion.
-          default: false
-        opportunityName:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Opportunityname
-          description: Name for the new Opportunity (if createOpportunity is True).
-        ownerId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ownerid
-          description: Owner for the created Account, Contact, and Opportunity.
-        sendNotificationEmail:
-          type: boolean
-          title: Sendnotificationemail
-          description: Whether to send notification email to the owner.
-          default: false
-      type: object
-      title: ConvertLeadRequest
-      description: Request to convert a lead to Account, Contact, and optionally Opportunity.
-    LeadListAPIResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/LeadResponse'
-          type: array
-          title: Results
-        has_more:
-          type: boolean
-          title: Has More
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - results
-      - has_more
-      title: LeadListAPIResponse
-      description: API response for listing leads.
-    LeadResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        properties:
-          additionalProperties: true
-          type: object
-          title: Properties
-      type: object
-      required:
-      - id
-      - properties
-      title: LeadResponse
-      description: API response for a single lead.
   securitySchemes:
     HTTPBearer:
       type: http

@@ -322,80 +322,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BulkDeleteMappingsResponse:
-      properties:
-        deleted:
-          items:
-            type: string
-          type: array
-          title: Deleted
-          description: CRM IDs that were successfully deleted
-        not_found:
-          items:
-            type: string
-          type: array
-          title: Not Found
-          description: CRM IDs that were not found
-      type: object
-      required:
-      - deleted
-      - not_found
-      title: BulkDeleteMappingsResponse
-      description: Response for bulk mapping deletion.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PushNationGraphIdsRequest:
-      properties:
-        crm_field_name:
-          type: string
-          title: Crm Field Name
-          description: Existing CRM field to write each institution's NationGraph unique_id into (HubSpot Company property name or Salesforce Account field API name). Must already exist — the field is never created. Discover available fields via GET /crm/{integration_id}/company-fields.
-        crm_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Crm Ids
-          description: 'Optional scope: restrict the push to these CRM record IDs.'
-      type: object
-      required:
-      - crm_field_name
-      title: PushNationGraphIdsRequest
-      description: Request to push NationGraph IDs to a chosen CRM field.
     MappingListResponse:
       properties:
         results:
@@ -421,62 +347,26 @@ components:
       - total
       title: MappingListResponse
       description: API response for listing mappings.
-    BulkDeleteMappingsRequest:
+    BulkDeleteMappingsResponse:
       properties:
-        crm_ids:
+        deleted:
           items:
             type: string
           type: array
-          minItems: 1
-          title: Crm Ids
-          description: List of external CRM record IDs to delete
-      type: object
-      required:
-      - crm_ids
-      title: BulkDeleteMappingsRequest
-      description: Request to delete one or more CRM institution mappings.
-    BulkCreateAcceptedResponse:
-      properties:
-        status:
-          type: string
-          title: Status
-          default: accepted
-        total:
-          type: integer
-          title: Total
-      type: object
-      required:
-      - total
-      title: BulkCreateAcceptedResponse
-      description: Response for accepted bulk mapping creation (202).
-    InstitutionContactsResponse:
-      properties:
-        contacts:
+          title: Deleted
+          description: CRM IDs that were successfully deleted
+        not_found:
           items:
-            $ref: '#/components/schemas/CRMContactResponse'
+            type: string
           type: array
-          title: Contacts
-        company_id:
-          type: string
-          title: Company Id
-        total:
-          type: integer
-          title: Total
+          title: Not Found
+          description: CRM IDs that were not found
       type: object
       required:
-      - contacts
-      - company_id
-      - total
-      title: InstitutionContactsResponse
-      description: Response for contacts associated with a CRM company.
-    CRMType:
-      type: string
-      enum:
-      - hubspot
-      - salesforce
-      - zapier
-      title: CRMType
-      description: Supported CRM integrations for institution mapping
+      - deleted
+      - not_found
+      title: BulkDeleteMappingsResponse
+      description: Response for bulk mapping deletion.
     MappingResponse:
       properties:
         id:
@@ -508,6 +398,94 @@ components:
       - created_at
       title: MappingResponse
       description: API response for a CRM institution mapping.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PushNationGraphIdsRequest:
+      properties:
+        crm_field_name:
+          type: string
+          title: Crm Field Name
+          description: Existing CRM field to write each institution's NationGraph unique_id into (HubSpot Company property name or Salesforce Account field API name). Must already exist — the field is never created. Discover available fields via GET /crm/{integration_id}/company-fields.
+        crm_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Crm Ids
+          description: 'Optional scope: restrict the push to these CRM record IDs.'
+      type: object
+      required:
+      - crm_field_name
+      title: PushNationGraphIdsRequest
+      description: Request to push NationGraph IDs to a chosen CRM field.
+    InstitutionContactsResponse:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CRMContactResponse'
+          type: array
+          title: Contacts
+        company_id:
+          type: string
+          title: Company Id
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - contacts
+      - company_id
+      - total
+      title: InstitutionContactsResponse
+      description: Response for contacts associated with a CRM company.
+    BulkDeleteMappingsRequest:
+      properties:
+        crm_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Crm Ids
+          description: List of external CRM record IDs to delete
+      type: object
+      required:
+      - crm_ids
+      title: BulkDeleteMappingsRequest
+      description: Request to delete one or more CRM institution mappings.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CRMContactResponse:
       properties:
         id:
@@ -553,6 +531,28 @@ components:
       - id
       title: CRMContactResponse
       description: A CRM contact.
+    BulkCreateAcceptedResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: accepted
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - total
+      title: BulkCreateAcceptedResponse
+      description: Response for accepted bulk mapping creation (202).
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
   securitySchemes:
     HTTPBearer:
       type: http

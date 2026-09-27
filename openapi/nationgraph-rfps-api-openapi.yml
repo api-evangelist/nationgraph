@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Nationgraph RF Ps API
+  title: Nationgraph RFPs API
   version: 0.2.36
 tags:
 - name: RFPs
@@ -214,6 +214,275 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    RFPResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        rfp_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rfp Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        agency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agency
+        due_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Due Date
+        rfp_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rfp Url
+        source_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Url
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/RFPStatus'
+          - type: 'null'
+        days_until_due:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Days Until Due
+        relevance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance
+      type: object
+      required:
+      - id
+      title: RFPResponse
+      description: Lean RFP response — drops the institution-metadata bloat from the v3 shape.
+    RFPInstitutionOptionsResponse:
+      properties:
+        institutions:
+          items:
+            type: string
+          type: array
+          title: Institutions
+      type: object
+      required:
+      - institutions
+      title: RFPInstitutionOptionsResponse
+    PaginatedResponse_RFPResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/RFPResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[RFPResponse]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RFPRequestFilters:
+      properties:
+        include_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Include Words
+        exclude_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Words
+        keyword_logic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Keyword Logic
+          default: OR
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          default: active
+        start_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+        min_days_remaining:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Days Remaining
+        max_days_remaining:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Days Remaining
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institutions_include:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institutions Include
+        selected_states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Selected States
+        selected_counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Selected Counties
+        selected_cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Selected Cities
+        selected_institution_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Selected Institution Types
+        selected_labels:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Selected Labels
+        min_population:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Population
+        max_population:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Population
+        sort_by:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort By
+          default: due_date
+        sort_order:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort Order
+          default: asc
+        offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Offset
+          default: 0
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          default: 100
+      type: object
+      title: RFPRequestFilters
+      description: Request model for RFP search with all filters.
     RFPs:
       properties:
         id:
@@ -474,32 +743,6 @@ components:
       - id
       title: RFPs
       description: Pydantic model for RFP API responses with full institution data.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     RFPSearchFilters:
       properties:
         query:
@@ -565,26 +808,32 @@ components:
       type: object
       title: RFPSearchFilters
       description: "Search filters for RFPs.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe ``search_vector`` column (covers title + description, tokenized with\nthe ``english`` config — stemming enabled, stop words filtered).\n\nQuery syntax:\n    bare words:    \"content filter\"           AND of both words\n    quoted phrase: '\"content filtering\"'      exact phrase match\n    OR:            \"filter OR cybersecurity\"  literal OR keyword\n    exclude:       \"filter -demo\"             prefix - to exclude\n    combined:      '\"content filter\" -demo -test'\n\nStemming means ``filter`` matches ``filter``, ``filters``, ``filtering``,\n``filtered``. Unlike the PO endpoint (which uses ``simple`` config),\nword boundaries here are at the tokenizer level — phrase syntax handles\nexact matching when needed.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nendpoint rejects requests with both empty."
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RFPInstitutionOptionsResponse:
-      properties:
-        institutions:
-          items:
-            type: string
-          type: array
-          title: Institutions
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - institutions
-      title: RFPInstitutionOptionsResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RFPStatus:
       type: string
       enum:
@@ -592,255 +841,6 @@ components:
       - expired
       - no_due_date
       title: RFPStatus
-    PaginatedResponse_RFPResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/RFPResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[RFPResponse]
-    RFPResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        rfp_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rfp Id
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        agency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agency
-        due_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Due Date
-        rfp_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rfp Url
-        source_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Url
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/RFPStatus'
-          - type: 'null'
-        days_until_due:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Days Until Due
-        relevance:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relevance
-      type: object
-      required:
-      - id
-      title: RFPResponse
-      description: Lean RFP response — drops the institution-metadata bloat from the v3 shape.
-    RFPRequestFilters:
-      properties:
-        include_words:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Include Words
-        exclude_words:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Exclude Words
-        keyword_logic:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Keyword Logic
-          default: OR
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-          default: active
-        start_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-        min_days_remaining:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Min Days Remaining
-        max_days_remaining:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Days Remaining
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institutions_include:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institutions Include
-        selected_states:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Selected States
-        selected_counties:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Selected Counties
-        selected_cities:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Selected Cities
-        selected_institution_types:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Selected Institution Types
-        selected_labels:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Selected Labels
-        min_population:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Min Population
-        max_population:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Population
-        sort_by:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sort By
-          default: due_date
-        sort_order:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sort Order
-          default: asc
-        offset:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Offset
-          default: 0
-        limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Limit
-          default: 100
-      type: object
-      title: RFPRequestFilters
-      description: Request model for RFP search with all filters.
     RFPsResponse:
       properties:
         rfps:

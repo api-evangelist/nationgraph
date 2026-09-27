@@ -447,6 +447,36 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    Body_create_signal_user_action_api_v3_signals__signal_id__actions_post:
+      properties:
+        action:
+          $ref: '#/components/schemas/SignalUserActionEnum'
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - action
+      title: Body_create_signal_user_action_api_v3_signals__signal_id__actions_post
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
     SignalSourceType:
       type: string
       enum:
@@ -459,12 +489,6 @@ components:
       - grants
       - press_releases
       title: SignalSourceType
-    SignalSortEnum:
-      type: string
-      enum:
-      - created_at_desc
-      - created_at_asc
-      title: SignalSortEnum
     HTTPValidationError:
       properties:
         detail:
@@ -474,6 +498,43 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    Body_batch_update_signal_user_status_api_v3_signals_status_patch:
+      properties:
+        signal_ids:
+          items:
+            type: string
+          type: array
+          title: Signal Ids
+        status:
+          $ref: '#/components/schemas/SignalStatusEnum'
+      type: object
+      required:
+      - signal_ids
+      - status
+      title: Body_batch_update_signal_user_status_api_v3_signals_status_patch
+    InstitutionSortEnum:
+      type: string
+      enum:
+      - most_signals
+      - most_recent
+      - oldest
+      - most_contacts
+      - account_type
+      title: InstitutionSortEnum
+      description: 'Sort order for institutions in paginated response.
+
+
+        Note: This sorting is applied per-page after signal-level pagination.
+
+        The same institution may appear on multiple pages if its signals span pages.'
     Body_batch_create_signal_user_actions_api_v3_signals_actions_post:
       properties:
         signal_ids:
@@ -536,44 +597,12 @@ components:
       - shared_by_link
       - pushed_to_crm
       title: SignalUserActionEnum
-    InstitutionEnum:
+    SignalSortEnum:
       type: string
       enum:
-      - k12_districts
-      - cities
-      - counties
-      - higher_education
-      - federal_agencies
-      - federal_departments
-      - individual_units
-      - k12_schools
-      - police_agencies
-      - usfa_registry
-      - state_agencies
-      - states
-      title: InstitutionEnum
-    SignalStatusEnum:
-      type: string
-      enum:
-      - active
-      - dismissed
-      - pending
-      - acknowledged
-      title: SignalStatusEnum
-    Body_create_signal_user_action_api_v3_signals__signal_id__actions_post:
-      properties:
-        action:
-          $ref: '#/components/schemas/SignalUserActionEnum'
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - action
-      title: Body_create_signal_user_action_api_v3_signals__signal_id__actions_post
+      - created_at_desc
+      - created_at_asc
+      title: SignalSortEnum
     SignalFilters:
       properties:
         created_after:
@@ -699,35 +728,6 @@ components:
           title: Query
       type: object
       title: SignalFilters
-    Body_batch_update_signal_user_status_api_v3_signals_status_patch:
-      properties:
-        signal_ids:
-          items:
-            type: string
-          type: array
-          title: Signal Ids
-        status:
-          $ref: '#/components/schemas/SignalStatusEnum'
-      type: object
-      required:
-      - signal_ids
-      - status
-      title: Body_batch_update_signal_user_status_api_v3_signals_status_patch
-    InstitutionSortEnum:
-      type: string
-      enum:
-      - most_signals
-      - most_recent
-      - oldest
-      - most_contacts
-      - account_type
-      title: InstitutionSortEnum
-      description: 'Sort order for institutions in paginated response.
-
-
-        Note: This sorting is applied per-page after signal-level pagination.
-
-        The same institution may appear on multiple pages if its signals span pages.'
   securitySchemes:
     HTTPBearer:
       type: http

@@ -61,9 +61,7 @@
     "nationgraph-workspaces-api-openapi.yml",
     "nationgraph-youtube-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -130,8 +128,7 @@
     "nationgraph-openapi-original.json: declared missing tag: Webhooks",
     "nationgraph-openapi-original.json: declared missing tag: Workspaces",
     "nationgraph-openapi-original.json: declared missing tag: YouTube",
-    "superseded outputs removed: nationgraph-rf-ps-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 56 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "nationgraph-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -174,7 +171,7 @@
     "nationgraph-queue-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nationgraph-rag-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nationgraph-rag-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "nationgraph-rf-ps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nationgraph-rfps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nationgraph-scheduling-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nationgraph-signal-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nationgraph-signals-api-openapi.yml: previously refined output, superseded by openapi/_original/",

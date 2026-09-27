@@ -292,113 +292,183 @@ paths:
       - Workspaces
 components:
   schemas:
-    UiMetadataColumns:
+    Institution:
       properties:
-        columns:
-          additionalProperties:
-            $ref: '#/components/schemas/ColumnMetadata'
-          type: object
-          title: Columns
-        column_order:
-          items:
-            type: string
-          type: array
-          title: Column Order
-        pinned_columns:
+        unique_id:
+          type: string
+          title: Unique Id
+        source_id:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: integer
           - type: 'null'
-          title: Pinned Columns
-          default: []
+          title: Source Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: County
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+        state_county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State County
+        state_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State City
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        source_table:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionEnum'
+          - type: 'null'
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
       type: object
       required:
-      - columns
-      - column_order
-      title: UiMetadataColumns
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PreviewInstitutionsResponse:
+      - unique_id
+      - source_id
+      - name
+      - state
+      - county
+      - city
+      - street
+      - state_county
+      - state_city
+      - population
+      - label
+      title: Institution
+    WorkspaceDetailResponse:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/Institution'
+            additionalProperties: true
+            type: object
           type: array
           title: Data
-        count:
-          type: integer
-          title: Count
-        page:
-          type: integer
-          title: Page
-        page_size:
-          type: integer
-          title: Page Size
-        total_pages:
-          type: integer
-          title: Total Pages
-        should_paginate:
-          type: boolean
-          title: Should Paginate
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        ui_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Ui Metadata
+        smart_columns:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Smart Columns
       type: object
       required:
       - data
-      - count
-      - page
-      - page_size
-      - total_pages
-      - should_paginate
-      title: PreviewInstitutionsResponse
-    InstitutionEnum:
-      type: string
-      enum:
-      - k12_districts
-      - cities
-      - counties
-      - higher_education
-      - federal_agencies
-      - federal_departments
-      - individual_units
-      - k12_schools
-      - police_agencies
-      - usfa_registry
-      - state_agencies
-      - states
-      title: InstitutionEnum
+      - metadata
+      - name
+      - ui_metadata
+      - smart_columns
+      title: WorkspaceDetailResponse
+    Workspace:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        is_starred:
+          type: boolean
+          title: Is Starred
+          default: false
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        user_id:
+          type: string
+          title: User Id
+        payload:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Payload
+        ui_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Ui Metadata
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+          default: false
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+        list_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: List Id
+      type: object
+      required:
+      - modified_at
+      - name
+      - user_id
+      title: Workspace
     WorkspacePreviewRequest:
       properties:
         codes:
@@ -533,6 +603,96 @@ components:
           title: Workspace Setup Choice
       type: object
       title: WorkspacePreviewRequest
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    UiMetadataColumns:
+      properties:
+        columns:
+          additionalProperties:
+            $ref: '#/components/schemas/ColumnMetadata'
+          type: object
+          title: Columns
+        column_order:
+          items:
+            type: string
+          type: array
+          title: Column Order
+        pinned_columns:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Pinned Columns
+          default: []
+      type: object
+      required:
+      - columns
+      - column_order
+      title: UiMetadataColumns
+    PreviewInstitutionsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Institution'
+          type: array
+          title: Data
+        count:
+          type: integer
+          title: Count
+        page:
+          type: integer
+          title: Page
+        page_size:
+          type: integer
+          title: Page Size
+        total_pages:
+          type: integer
+          title: Total Pages
+        should_paginate:
+          type: boolean
+          title: Should Paginate
+      type: object
+      required:
+      - data
+      - count
+      - page
+      - page_size
+      - total_pages
+      - should_paginate
+      title: PreviewInstitutionsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ColumnMetadata:
+      properties:
+        is_visible:
+          type: boolean
+          title: Is Visible
+      type: object
+      required:
+      - is_visible
+      title: ColumnMetadata
     WorkspacesResponse:
       properties:
         data:
@@ -545,192 +705,32 @@ components:
       required:
       - data
       title: WorkspacesResponse
-    Workspace:
+    ValidationError:
       properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        is_starred:
-          type: boolean
-          title: Is Starred
-          default: false
-        modified_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Modified At
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        user_id:
-          type: string
-          title: User Id
-        payload:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Payload
-        ui_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Ui Metadata
-        is_deleted:
-          type: boolean
-          title: Is Deleted
-          default: false
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-        list_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: List Id
-      type: object
-      required:
-      - modified_at
-      - name
-      - user_id
-      title: Workspace
-    ColumnMetadata:
-      properties:
-        is_visible:
-          type: boolean
-          title: Is Visible
-      type: object
-      required:
-      - is_visible
-      title: ColumnMetadata
-    WorkspaceDetailResponse:
-      properties:
-        data:
+        loc:
           items:
-            additionalProperties: true
-            type: object
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Data
-        metadata:
-          additionalProperties: true
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
           type: object
-          title: Metadata
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        ui_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Ui Metadata
-        smart_columns:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Smart Columns
+          title: Context
       type: object
       required:
-      - data
-      - metadata
-      - name
-      - ui_metadata
-      - smart_columns
-      title: WorkspaceDetailResponse
-    Institution:
-      properties:
-        unique_id:
-          type: string
-          title: Unique Id
-        source_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Source Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-        county:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: County
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        street:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Street
-        state_county:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State County
-        state_city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State City
-        population:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Population
-        source_table:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionEnum'
-          - type: 'null'
-        label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Label
-        is_active:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Active
-      type: object
-      required:
-      - unique_id
-      - source_id
-      - name
-      - state
-      - county
-      - city
-      - street
-      - state_county
-      - state_city
-      - population
-      - label
-      title: Institution
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceResponse:
       properties:
         data:

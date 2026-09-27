@@ -176,21 +176,13 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CreateIntegrationRequest:
+    IntegrationPatchRequest:
       properties:
-        provider:
-          type: string
-          const: slack
-          title: Provider
-        subject_type:
-          type: string
-          enum:
-          - user
-          - organization
-          title: Subject Type
-        subject_id:
-          type: string
-          title: Subject Id
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
         scopes:
           anyOf:
           - items:
@@ -198,43 +190,8 @@ components:
             type: array
           - type: 'null'
           title: Scopes
-        provider_data:
-          additionalProperties: true
-          type: object
-          title: Provider Data
       type: object
-      required:
-      - provider
-      - subject_type
-      - subject_id
-      - provider_data
-      title: CreateIntegrationRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: IntegrationPatchRequest
     HTTPValidationError:
       properties:
         detail:
@@ -304,13 +261,47 @@ components:
       - status
       - created_at
       title: IntegrationResponse
-    IntegrationPatchRequest:
+    ValidationError:
       properties:
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateIntegrationRequest:
+      properties:
+        provider:
+          type: string
+          const: slack
+          title: Provider
+        subject_type:
+          type: string
+          enum:
+          - user
+          - organization
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
         scopes:
           anyOf:
           - items:
@@ -318,8 +309,17 @@ components:
             type: array
           - type: 'null'
           title: Scopes
+        provider_data:
+          additionalProperties: true
+          type: object
+          title: Provider Data
       type: object
-      title: IntegrationPatchRequest
+      required:
+      - provider
+      - subject_type
+      - subject_id
+      - provider_data
+      title: CreateIntegrationRequest
   securitySchemes:
     HTTPBearer:
       type: http

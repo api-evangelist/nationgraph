@@ -93,38 +93,21 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HostSummary:
+    AvailabilityResponse:
       properties:
-        id:
+        host_id:
           type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        role:
-          type: string
-          title: Role
-          default: ''
-        event_name:
-          type: string
-          title: Event Name
-        duration_minutes:
-          type: integer
-          title: Duration Minutes
-        prep_question:
-          type: string
-          title: Prep Question
-          default: ''
+          title: Host Id
+        slots:
+          items:
+            type: string
+          type: array
+          title: Slots
       type: object
       required:
-      - id
-      - name
-      - event_name
-      - duration_minutes
-      title: HostSummary
-      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
-
-        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
+      - host_id
+      - slots
+      title: AvailabilityResponse
     BookingRequest:
       properties:
         host_id:
@@ -159,6 +142,26 @@ components:
       - name
       - email
       title: BookingRequest
+    HostsResponse:
+      properties:
+        hosts:
+          items:
+            $ref: '#/components/schemas/HostSummary'
+          type: array
+          title: Hosts
+      type: object
+      required:
+      - hosts
+      title: HostsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -185,30 +188,38 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    HostSummary:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AvailabilityResponse:
-      properties:
-        host_id:
+        id:
           type: string
-          title: Host Id
-        slots:
-          items:
-            type: string
-          type: array
-          title: Slots
+          title: Id
+        name:
+          type: string
+          title: Name
+        role:
+          type: string
+          title: Role
+          default: ''
+        event_name:
+          type: string
+          title: Event Name
+        duration_minutes:
+          type: integer
+          title: Duration Minutes
+        prep_question:
+          type: string
+          title: Prep Question
+          default: ''
       type: object
       required:
-      - host_id
-      - slots
-      title: AvailabilityResponse
+      - id
+      - name
+      - event_name
+      - duration_minutes
+      title: HostSummary
+      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
+
+        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
     BookingConfirmation:
       properties:
         status:
@@ -250,17 +261,6 @@ components:
       - cancel_url
       - reschedule_url
       title: BookingConfirmation
-    HostsResponse:
-      properties:
-        hosts:
-          items:
-            $ref: '#/components/schemas/HostSummary'
-          type: array
-          title: Hosts
-      type: object
-      required:
-      - hosts
-      title: HostsResponse
   securitySchemes:
     HTTPBearer:
       type: http

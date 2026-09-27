@@ -149,41 +149,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CreateEnrichmentsResponse:
       properties:
         data:
@@ -234,31 +199,59 @@ components:
       - institution_county
       - institution_label
       title: EnrichmentInstitutionMetadata
-    EnrichmentRequest:
+    EnrichmentStatsResponse:
       properties:
-        request_text:
-          type: string
-          title: Request Text
-        source_type:
-          type: string
-          title: Source Type
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Id
+        total:
+          type: integer
+          title: Total
+        by_status:
+          additionalProperties:
+            type: integer
+          type: object
+          title: By Status
       type: object
       required:
-      - request_text
-      - source_type
-      - institution_ids
-      title: EnrichmentRequest
+      - total
+      - by_status
+      title: EnrichmentStatsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AllEnrichmentsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/EnrichmentWithInstitution'
+          type: array
+          title: Data
+        limit:
+          type: integer
+          title: Limit
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+        total:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total
+      type: object
+      required:
+      - data
+      - limit
+      title: AllEnrichmentsResponse
     EnrichmentResponse:
       properties:
         id:
@@ -318,35 +311,57 @@ components:
       - created_at
       - modified_at
       title: EnrichmentResponse
-    AllEnrichmentsResponse:
+    ValidationError:
       properties:
-        data:
+        loc:
           items:
-            $ref: '#/components/schemas/EnrichmentWithInstitution'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Data
-        limit:
-          type: integer
-          title: Limit
-        has_more:
-          type: boolean
-          title: Has More
-          default: false
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-        total:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - data
-      - limit
-      title: AllEnrichmentsResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EnrichmentRequest:
+      properties:
+        request_text:
+          type: string
+          title: Request Text
+        source_type:
+          type: string
+          title: Source Type
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      type: object
+      required:
+      - request_text
+      - source_type
+      - institution_ids
+      title: EnrichmentRequest
     EnrichmentWithInstitution:
       properties:
         id:
@@ -415,21 +430,6 @@ components:
       - workspace_id
       - institution_metadata
       title: EnrichmentWithInstitution
-    EnrichmentStatsResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        by_status:
-          additionalProperties:
-            type: integer
-          type: object
-          title: By Status
-      type: object
-      required:
-      - total
-      - by_status
-      title: EnrichmentStatsResponse
   securitySchemes:
     HTTPBearer:
       type: http

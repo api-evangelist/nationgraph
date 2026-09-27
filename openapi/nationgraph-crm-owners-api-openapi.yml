@@ -138,6 +138,34 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TeamResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        primary:
+          type: boolean
+          title: Primary
+          description: Whether this is the owner's primary team
+      type: object
+      required:
+      - id
+      - name
+      - primary
+      title: TeamResponse
+      description: A CRM team.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -164,15 +192,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     OwnerListResponse:
       properties:
         results:
@@ -201,25 +220,6 @@ components:
       - total
       title: OwnerListResponse
       description: API response for listing owners.
-    TeamResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        primary:
-          type: boolean
-          title: Primary
-          description: Whether this is the owner's primary team
-      type: object
-      required:
-      - id
-      - name
-      - primary
-      title: TeamResponse
-      description: A CRM team.
     OwnerResponse:
       properties:
         id:

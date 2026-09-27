@@ -188,17 +188,15 @@ components:
       - label
       - hexcode
       title: TagItem
-    CreateTagsRequest:
+    HTTPValidationError:
       properties:
-        tags:
+        detail:
           items:
-            $ref: '#/components/schemas/TagItem'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Tags
+          title: Detail
       type: object
-      required:
-      - tags
-      title: CreateTagsRequest
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -225,15 +223,17 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    CreateTagsRequest:
       properties:
-        detail:
+        tags:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/TagItem'
           type: array
-          title: Detail
+          title: Tags
       type: object
-      title: HTTPValidationError
+      required:
+      - tags
+      title: CreateTagsRequest
   securitySchemes:
     HTTPBearer:
       type: http

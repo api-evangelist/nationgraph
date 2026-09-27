@@ -146,6 +146,38 @@ components:
       - owner_user_id
       - owner_email
       title: OrgSignalSettingResponse
+    OrgAdminCopyRequest:
+      properties:
+        signal_setting_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Signal Setting Ids
+        recipient_user_ids:
+          items:
+            type: string
+          type: array
+          title: Recipient User Ids
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+      type: object
+      required:
+      - signal_setting_ids
+      - recipient_user_ids
+      title: OrgAdminCopyRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -172,38 +204,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OrgAdminCopyRequest:
-      properties:
-        signal_setting_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Signal Setting Ids
-        recipient_user_ids:
-          items:
-            type: string
-          type: array
-          title: Recipient User Ids
-        org_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Id
-      type: object
-      required:
-      - signal_setting_ids
-      - recipient_user_ids
-      title: OrgAdminCopyRequest
   securitySchemes:
     HTTPBearer:
       type: http

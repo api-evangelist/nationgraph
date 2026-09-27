@@ -213,102 +213,6 @@ components:
       - document_id
       - text
       title: PressReleaseChunkResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PressReleaseDocumentResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-        date:
-          type: string
-          format: date-time
-          title: Date
-        content:
-          type: string
-          title: Content
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-      type: object
-      required:
-      - id
-      - institution_id
-      - title
-      - url
-      - date
-      - content
-      title: PressReleaseDocumentResponse
-      description: 'Full press release record — returned by GET /documents/{id}.
-
-
-        Use this when you need the entire press release content, not just chunks.'
     PressReleaseSearchFilters:
       properties:
         query:
@@ -383,6 +287,102 @@ components:
         in reverse-chronological order of the parent press release, useful for
 
         surveying what we have.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PressReleaseDocumentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+        date:
+          type: string
+          format: date-time
+          title: Date
+        content:
+          type: string
+          title: Content
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - institution_id
+      - title
+      - url
+      - date
+      - content
+      title: PressReleaseDocumentResponse
+      description: 'Full press release record — returned by GET /documents/{id}.
+
+
+        Use this when you need the entire press release content, not just chunks.'
   securitySchemes:
     HTTPBearer:
       type: http

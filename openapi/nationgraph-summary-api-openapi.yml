@@ -125,81 +125,73 @@ paths:
       - Summary
 components:
   schemas:
-    app__types__summary__PromptRequest:
+    EmailRenderResponse:
       properties:
+        render_id:
+          type: string
+          title: Render Id
+      type: object
+      required:
+      - render_id
+      title: EmailRenderResponse
+    CallScriptPromptRequest:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
         prompt:
           type: string
           title: Prompt
-        type:
+        insights:
+          items:
+            $ref: '#/components/schemas/Insights'
+          type: array
+          title: Insights
+        workspace_id:
           type: string
-          title: Type
+          title: Workspace Id
       type: object
       required:
+      - institution_id
       - prompt
-      - type
-      title: PromptRequest
-    EmailContextItem:
+      - insights
+      - workspace_id
+      title: CallScriptPromptRequest
+    Insights:
       properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
         type:
           type: string
           title: Type
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+        supplier_items:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Supplier Items
+        count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Count
       type: object
       required:
       - type
-      - data
-      title: EmailContextItem
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EmailResponse:
-      properties:
-        subject:
-          type: string
-          title: Subject
-        body:
-          type: string
-          title: Body
-      type: object
-      required:
-      - subject
-      - body
-      title: EmailResponse
+      title: Insights
     EmailPromptRequest:
       properties:
         institution_id:
@@ -244,24 +236,67 @@ components:
       required:
       - institution_id
       title: EmailPromptRequest
-    RenderTemplateParam:
+    app__types__summary__PromptRequest:
       properties:
-        id:
+        prompt:
           type: string
-          title: Id
+          title: Prompt
         type:
           type: string
           title: Type
-        raw:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Raw
       type: object
       required:
-      - id
+      - prompt
       - type
-      title: RenderTemplateParam
+      title: PromptRequest
+    EmailResponse:
+      properties:
+        subject:
+          type: string
+          title: Subject
+        body:
+          type: string
+          title: Body
+      type: object
+      required:
+      - subject
+      - body
+      title: EmailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RenderTemplate:
       properties:
         subject_raw:
@@ -281,73 +316,38 @@ components:
       - subject_raw
       - body_raw
       title: RenderTemplate
-    CallScriptPromptRequest:
-      properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        prompt:
-          type: string
-          title: Prompt
-        insights:
-          items:
-            $ref: '#/components/schemas/Insights'
-          type: array
-          title: Insights
-        workspace_id:
-          type: string
-          title: Workspace Id
-      type: object
-      required:
-      - institution_id
-      - prompt
-      - insights
-      - workspace_id
-      title: CallScriptPromptRequest
-    EmailRenderResponse:
-      properties:
-        render_id:
-          type: string
-          title: Render Id
-      type: object
-      required:
-      - render_id
-      title: EmailRenderResponse
-    Insights:
+    RenderTemplateParam:
       properties:
         id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Id
         type:
           type: string
           title: Type
-        content:
+        raw:
           anyOf:
           - type: string
           - type: 'null'
-          title: Content
-        column_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Column Name
-        supplier_items:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Supplier Items
-        count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Count
+          title: Raw
+      type: object
+      required:
+      - id
+      - type
+      title: RenderTemplateParam
+    EmailContextItem:
+      properties:
+        type:
+          type: string
+          title: Type
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
       type: object
       required:
       - type
-      title: Insights
+      - data
+      title: EmailContextItem
   securitySchemes:
     HTTPBearer:
       type: http
