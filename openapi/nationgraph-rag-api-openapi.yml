@@ -157,24 +157,53 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RagQueryRequest:
+    HTTPValidationError:
       properties:
-        unique_id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Unique Id
-        search_category:
+          title: Message
+        type:
           type: string
-          title: Search Category
-        preprocessed_data:
-          additionalProperties: true
+          title: Error Type
+        input:
+          title: Input
+        ctx:
           type: object
-          title: Preprocessed Data
+          title: Context
       type: object
       required:
-      - unique_id
-      - search_category
-      - preprocessed_data
-      title: RagQueryRequest
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_query_rag_direct_api_v3_rag_query_direct_post:
+      properties:
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
+      type: object
+      title: Body_query_rag_direct_api_v3_rag_query_direct_post
     RagPreprocessResponse:
       properties:
         preprocessed_data:
@@ -222,55 +251,6 @@ components:
           title: To
       type: object
       title: DateRange
-    app__routes__v3__rag__KeywordConfig:
-      properties:
-        logic:
-          $ref: '#/components/schemas/QueryLogic'
-        keywords:
-          items:
-            type: string
-          type: array
-          title: Keywords
-      type: object
-      required:
-      - logic
-      - keywords
-      title: KeywordConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     RagQueryResponse:
       properties:
         type:
@@ -299,24 +279,44 @@ components:
       - summary
       - is_starred
       title: RagQueryResponse
-    Body_query_rag_direct_api_v3_rag_query_direct_post:
-      properties:
-        keyword_config:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
-          - type: 'null'
-        date_range:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
-          - type: 'null'
-      type: object
-      title: Body_query_rag_direct_api_v3_rag_query_direct_post
     QueryLogic:
       type: string
       enum:
       - AND
       - OR
       title: QueryLogic
+    RagQueryRequest:
+      properties:
+        unique_id:
+          type: string
+          title: Unique Id
+        search_category:
+          type: string
+          title: Search Category
+        preprocessed_data:
+          additionalProperties: true
+          type: object
+          title: Preprocessed Data
+      type: object
+      required:
+      - unique_id
+      - search_category
+      - preprocessed_data
+      title: RagQueryRequest
+    app__routes__v3__rag__KeywordConfig:
+      properties:
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+      type: object
+      required:
+      - logic
+      - keywords
+      title: KeywordConfig
   securitySchemes:
     HTTPBearer:
       type: http

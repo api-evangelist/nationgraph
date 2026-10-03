@@ -86,6 +86,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     YouTubeChunkResponse:
       properties:
         chunk_id:
@@ -231,15 +266,6 @@ components:
       type: object
       title: YouTubeSearchFilters
       description: "Search filters for YouTube caption chunks.\n\nThe ``query`` field is evaluated against the chunks' ``text_search_fts``\ncolumn via ``websearch_to_tsquery('english', ...)`` — stemming on,\nwebsearch syntax (quoted phrases, OR, leading - to exclude).\n\nInstitution linkage uses BOTH routes signals uses, results unioned:\n  • Channel route: raw.channel_id → youtube_links.channel_id → unique_id\n  • Video route:   raw.video_institution_unique_id (direct per-video tag)\n\nThe signals retriever uses ``phraseto_tsquery`` because its API takes\nprogrammatic keyword groups. Our user-input API uses ``websearch`` to\nmatch the rest of the chunk endpoints. For tight phrase matching,\nconsumers quote the phrase: ``query='\"school board meeting\"'``.\nCover-density ranking (ts_rank_cd) already prefers chunks where query\nterms appear close together.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nchunks table is large and unbounded scans are rejected."
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PaginatedResponse_YouTubeChunkResponse_:
       properties:
         results:
@@ -263,32 +289,6 @@ components:
       - offset
       - limit
       title: PaginatedResponse[YouTubeChunkResponse]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -93,66 +93,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    AvailabilityResponse:
-      properties:
-        host_id:
-          type: string
-          title: Host Id
-        slots:
-          items:
-            type: string
-          type: array
-          title: Slots
-      type: object
-      required:
-      - host_id
-      - slots
-      title: AvailabilityResponse
-    BookingRequest:
-      properties:
-        host_id:
-          type: string
-          title: Host Id
-        start_time:
-          type: string
-          title: Start Time
-        timezone:
-          type: string
-          title: Timezone
-        name:
-          type: string
-          title: Name
-        email:
-          type: string
-          title: Email
-        guests:
-          items:
-            type: string
-          type: array
-          title: Guests
-        prep_answer:
-          type: string
-          title: Prep Answer
-          default: ''
-      type: object
-      required:
-      - host_id
-      - start_time
-      - timezone
-      - name
-      - email
-      title: BookingRequest
-    HostsResponse:
-      properties:
-        hosts:
-          items:
-            $ref: '#/components/schemas/HostSummary'
-          type: array
-          title: Hosts
-      type: object
-      required:
-      - hosts
-      title: HostsResponse
     HTTPValidationError:
       properties:
         detail:
@@ -261,6 +201,66 @@ components:
       - cancel_url
       - reschedule_url
       title: BookingConfirmation
+    HostsResponse:
+      properties:
+        hosts:
+          items:
+            $ref: '#/components/schemas/HostSummary'
+          type: array
+          title: Hosts
+      type: object
+      required:
+      - hosts
+      title: HostsResponse
+    AvailabilityResponse:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        slots:
+          items:
+            type: string
+          type: array
+          title: Slots
+      type: object
+      required:
+      - host_id
+      - slots
+      title: AvailabilityResponse
+    BookingRequest:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        start_time:
+          type: string
+          title: Start Time
+        timezone:
+          type: string
+          title: Timezone
+        name:
+          type: string
+          title: Name
+        email:
+          type: string
+          title: Email
+        guests:
+          items:
+            type: string
+          type: array
+          title: Guests
+        prep_answer:
+          type: string
+          title: Prep Answer
+          default: ''
+      type: object
+      required:
+      - host_id
+      - start_time
+      - timezone
+      - name
+      - email
+      title: BookingRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -415,21 +415,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LeadResponse:
+    HTTPValidationError:
       properties:
-        id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Id
-        properties:
-          additionalProperties: true
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
           type: object
-          title: Properties
+          title: Context
       type: object
       required:
-      - id
-      - properties
-      title: LeadResponse
-      description: API response for a single lead.
+      - loc
+      - msg
+      - type
+      title: ValidationError
     LeadListAPIResponse:
       properties:
         results:
@@ -451,149 +471,6 @@ components:
       - has_more
       title: LeadListAPIResponse
       description: API response for listing leads.
-    CreateLeadRequest:
-      properties:
-        LastName:
-          type: string
-          title: Lastname
-          description: Last name (required)
-        Company:
-          type: string
-          title: Company
-          description: Company name (required)
-        FirstName:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Firstname
-          description: First name
-        Title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: Job title
-        Email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-          description: Email address
-        Phone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phone
-          description: Phone number
-        MobilePhone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mobilephone
-          description: Mobile phone
-        Website:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Website
-          description: Company website
-        Street:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Street
-          description: Street address
-        City:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-          description: City
-        State:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-          description: State/province
-        PostalCode:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Postalcode
-          description: Postal code
-        Country:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country
-          description: Country
-        Industry:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Industry
-          description: Industry
-        NumberOfEmployees:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Numberofemployees
-          description: Number of employees
-        AnnualRevenue:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Annualrevenue
-          description: Annual revenue
-        Status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-          description: Lead status
-        Rating:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rating
-          description: Lead rating
-        LeadSource:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Leadsource
-          description: Lead source
-        Description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: Description
-        OwnerId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ownerid
-          description: Owner user ID
-      additionalProperties: true
-      type: object
-      required:
-      - LastName
-      - Company
-      title: CreateLeadRequest
-      description: 'Request to create a lead in Salesforce.
-
-
-        LastName and Company are required. All other fields are optional.'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ConvertLeadRequest:
       properties:
         accountId:
@@ -633,32 +510,52 @@ components:
       type: object
       title: ConvertLeadRequest
       description: Request to convert a lead to Account, Contact, and optionally Opportunity.
-    ValidationError:
+    LeadResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
+          title: Id
+        properties:
+          additionalProperties: true
           type: object
-          title: Context
+          title: Properties
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - id
+      - properties
+      title: LeadResponse
+      description: API response for a single lead.
+    ConvertLeadResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        leadId:
+          type: string
+          title: Leadid
+          description: The converted Lead ID
+        accountId:
+          type: string
+          title: Accountid
+          description: The created or associated Account ID
+        contactId:
+          type: string
+          title: Contactid
+          description: The created or associated Contact ID
+        opportunityId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Opportunityid
+          description: The created Opportunity ID (if requested)
+      type: object
+      required:
+      - success
+      - leadId
+      - accountId
+      - contactId
+      title: ConvertLeadResponse
+      description: Response from converting a lead.
     UpdateLeadRequest:
       properties:
         FirstName:
@@ -794,37 +691,140 @@ components:
 
 
         All fields are optional - only include fields you want to update.'
-    ConvertLeadResponse:
+    CreateLeadRequest:
       properties:
-        success:
-          type: boolean
-          title: Success
-        leadId:
+        LastName:
           type: string
-          title: Leadid
-          description: The converted Lead ID
-        accountId:
+          title: Lastname
+          description: Last name (required)
+        Company:
           type: string
-          title: Accountid
-          description: The created or associated Account ID
-        contactId:
-          type: string
-          title: Contactid
-          description: The created or associated Contact ID
-        opportunityId:
+          title: Company
+          description: Company name (required)
+        FirstName:
           anyOf:
           - type: string
           - type: 'null'
-          title: Opportunityid
-          description: The created Opportunity ID (if requested)
+          title: Firstname
+          description: First name
+        Title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Job title
+        Email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: Email address
+        Phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+          description: Phone number
+        MobilePhone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mobilephone
+          description: Mobile phone
+        Website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+          description: Company website
+        Street:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street
+          description: Street address
+        City:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City
+        State:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+          description: State/province
+        PostalCode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postalcode
+          description: Postal code
+        Country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: Country
+        Industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+          description: Industry
+        NumberOfEmployees:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numberofemployees
+          description: Number of employees
+        AnnualRevenue:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Annualrevenue
+          description: Annual revenue
+        Status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: Lead status
+        Rating:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rating
+          description: Lead rating
+        LeadSource:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Leadsource
+          description: Lead source
+        Description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description
+        OwnerId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ownerid
+          description: Owner user ID
+      additionalProperties: true
       type: object
       required:
-      - success
-      - leadId
-      - accountId
-      - contactId
-      title: ConvertLeadResponse
-      description: Response from converting a lead.
+      - LastName
+      - Company
+      title: CreateLeadRequest
+      description: 'Request to create a lead in Salesforce.
+
+
+        LastName and Company are required. All other fields are optional.'
   securitySchemes:
     HTTPBearer:
       type: http

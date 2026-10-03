@@ -149,71 +149,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CreateEnrichmentsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/EnrichmentResponse'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: CreateEnrichmentsResponse
-    EnrichmentInstitutionMetadata:
-      properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution City
-        institution_county:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution County
-        institution_label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Label
-      type: object
-      required:
-      - institution_id
-      - institution_name
-      - institution_state
-      - institution_city
-      - institution_county
-      - institution_label
-      title: EnrichmentInstitutionMetadata
-    EnrichmentStatsResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        by_status:
-          additionalProperties:
-            type: integer
-          type: object
-          title: By Status
-      type: object
-      required:
-      - total
-      - by_status
-      title: EnrichmentStatsResponse
     HTTPValidationError:
       properties:
         detail:
@@ -223,6 +158,57 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EnrichmentRequest:
+      properties:
+        request_text:
+          type: string
+          title: Request Text
+        source_type:
+          type: string
+          title: Source Type
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      type: object
+      required:
+      - request_text
+      - source_type
+      - institution_ids
+      title: EnrichmentRequest
     AllEnrichmentsResponse:
       properties:
         data:
@@ -311,57 +297,56 @@ components:
       - created_at
       - modified_at
       title: EnrichmentResponse
-    ValidationError:
+    CreateEnrichmentsResponse:
       properties:
-        loc:
+        data:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/EnrichmentResponse'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Data
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EnrichmentRequest:
+      - data
+      title: CreateEnrichmentsResponse
+    EnrichmentInstitutionMetadata:
       properties:
-        request_text:
+        institution_id:
           type: string
-          title: Request Text
-        source_type:
-          type: string
-          title: Source Type
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        workspace_id:
+          title: Institution Id
+        institution_name:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Workspace Id
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution City
+        institution_county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution County
+        institution_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Label
       type: object
       required:
-      - request_text
-      - source_type
-      - institution_ids
-      title: EnrichmentRequest
+      - institution_id
+      - institution_name
+      - institution_state
+      - institution_city
+      - institution_county
+      - institution_label
+      title: EnrichmentInstitutionMetadata
     EnrichmentWithInstitution:
       properties:
         id:
@@ -430,6 +415,21 @@ components:
       - workspace_id
       - institution_metadata
       title: EnrichmentWithInstitution
+    EnrichmentStatsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        by_status:
+          additionalProperties:
+            type: integer
+          type: object
+          title: By Status
+      type: object
+      required:
+      - total
+      - by_status
+      title: EnrichmentStatsResponse
   securitySchemes:
     HTTPBearer:
       type: http

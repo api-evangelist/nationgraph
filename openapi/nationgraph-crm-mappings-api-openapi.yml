@@ -322,6 +322,75 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    BulkCreateAcceptedResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: accepted
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - total
+      title: BulkCreateAcceptedResponse
+      description: Response for accepted bulk mapping creation (202).
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BulkDeleteMappingsResponse:
+      properties:
+        deleted:
+          items:
+            type: string
+          type: array
+          title: Deleted
+          description: CRM IDs that were successfully deleted
+        not_found:
+          items:
+            type: string
+          type: array
+          title: Not Found
+          description: CRM IDs that were not found
+      type: object
+      required:
+      - deleted
+      - not_found
+      title: BulkDeleteMappingsResponse
+      description: Response for bulk mapping deletion.
     MappingListResponse:
       properties:
         results:
@@ -347,66 +416,14 @@ components:
       - total
       title: MappingListResponse
       description: API response for listing mappings.
-    BulkDeleteMappingsResponse:
-      properties:
-        deleted:
-          items:
-            type: string
-          type: array
-          title: Deleted
-          description: CRM IDs that were successfully deleted
-        not_found:
-          items:
-            type: string
-          type: array
-          title: Not Found
-          description: CRM IDs that were not found
-      type: object
-      required:
-      - deleted
-      - not_found
-      title: BulkDeleteMappingsResponse
-      description: Response for bulk mapping deletion.
-    MappingResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        crm_type:
-          $ref: '#/components/schemas/CRMType'
-        crm_id:
-          type: string
-          title: Crm Id
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        created_at:
-          type: string
-          title: Created At
-      type: object
-      required:
-      - id
-      - crm_type
-      - crm_id
-      - institution_id
-      - created_at
-      title: MappingResponse
-      description: API response for a CRM institution mapping.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
     PushNationGraphIdsRequest:
       properties:
         crm_field_name:
@@ -460,32 +477,6 @@ components:
       - crm_ids
       title: BulkDeleteMappingsRequest
       description: Request to delete one or more CRM institution mappings.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     CRMContactResponse:
       properties:
         id:
@@ -531,28 +522,37 @@ components:
       - id
       title: CRMContactResponse
       description: A CRM contact.
-    BulkCreateAcceptedResponse:
+    MappingResponse:
       properties:
-        status:
+        id:
           type: string
-          title: Status
-          default: accepted
-        total:
-          type: integer
-          title: Total
+          format: uuid
+          title: Id
+        crm_type:
+          $ref: '#/components/schemas/CRMType'
+        crm_id:
+          type: string
+          title: Crm Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        created_at:
+          type: string
+          title: Created At
       type: object
       required:
-      - total
-      title: BulkCreateAcceptedResponse
-      description: Response for accepted bulk mapping creation (202).
-    CRMType:
-      type: string
-      enum:
-      - hubspot
-      - salesforce
-      - zapier
-      title: CRMType
-      description: Supported CRM integrations for institution mapping
+      - id
+      - crm_type
+      - crm_id
+      - institution_id
+      - created_at
+      title: MappingResponse
+      description: API response for a CRM institution mapping.
   securitySchemes:
     HTTPBearer:
       type: http

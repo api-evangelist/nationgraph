@@ -309,12 +309,153 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ColumnType:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SmartColumnPatchRequest:
+      properties:
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+      type: object
+      title: SmartColumnPatchRequest
+    app__routes__v3__smart_columns__KeywordConfig:
+      properties:
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        is_strict:
+          type: boolean
+          title: Is Strict
+      type: object
+      required:
+      - logic
+      - keywords
+      - is_strict
+      title: KeywordConfig
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RerunSmartColumnRequest:
+      properties:
+        column_version:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Column Version
+      type: object
+      title: RerunSmartColumnRequest
+    app__routes__v3__smart_columns__DateRange:
+      properties:
+        from:
+          type: string
+          format: date-time
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      required:
+      - from
+      title: DateRange
+    IntentFactors:
+      properties:
+        key_factors:
+          type: string
+          title: Key Factors
+        scoring_rubric:
+          type: string
+          title: Scoring Rubric
+      type: object
+      required:
+      - key_factors
+      - scoring_rubric
+      title: IntentFactors
+    DataSource:
       type: string
       enum:
-      - smart
-      - static
-      title: ColumnType
+      - meeting_minutes
+      - purchase_orders
+      - online_research
+      - strategic_plans
+      - contacts
+      - annual_budgets
+      - procurement_guidelines
+      - news
+      - rfps
+      - legislation
+      - grants
+      - intent
+      - email
+      - google_search
+      - summary
+      - signals
+      - call_script
+      title: DataSource
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
+    RerunFrequency:
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - none
+      title: RerunFrequency
+    app__routes__v3__smart_columns__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        data_source:
+          $ref: '#/components/schemas/DataSource'
+      type: object
+      required:
+      - prompt
+      - data_source
+      title: PromptRequest
     SmartColumnRequest:
       properties:
         column_id:
@@ -369,153 +510,12 @@ components:
       - keyword_config
       - rerun_frequency
       title: SmartColumnRequest
-    app__routes__v3__smart_columns__KeywordConfig:
-      properties:
-        logic:
-          $ref: '#/components/schemas/QueryLogic'
-        keywords:
-          items:
-            type: string
-          type: array
-          title: Keywords
-        is_strict:
-          type: boolean
-          title: Is Strict
-      type: object
-      required:
-      - logic
-      - keywords
-      - is_strict
-      title: KeywordConfig
-    IntentFactors:
-      properties:
-        key_factors:
-          type: string
-          title: Key Factors
-        scoring_rubric:
-          type: string
-          title: Scoring Rubric
-      type: object
-      required:
-      - key_factors
-      - scoring_rubric
-      title: IntentFactors
-    app__routes__v3__smart_columns__PromptRequest:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-        data_source:
-          $ref: '#/components/schemas/DataSource'
-      type: object
-      required:
-      - prompt
-      - data_source
-      title: PromptRequest
-    RerunFrequency:
+    ColumnType:
       type: string
       enum:
-      - daily
-      - weekly
-      - monthly
-      - none
-      title: RerunFrequency
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SmartColumnPatchRequest:
-      properties:
-        column_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Column Name
-      type: object
-      title: SmartColumnPatchRequest
-    app__routes__v3__smart_columns__DateRange:
-      properties:
-        from:
-          type: string
-          format: date-time
-          title: From
-        to:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: To
-      type: object
-      required:
-      - from
-      title: DateRange
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DataSource:
-      type: string
-      enum:
-      - meeting_minutes
-      - purchase_orders
-      - online_research
-      - strategic_plans
-      - contacts
-      - annual_budgets
-      - procurement_guidelines
-      - news
-      - rfps
-      - legislation
-      - grants
-      - intent
-      - email
-      - google_search
-      - summary
-      - signals
-      - call_script
-      title: DataSource
-    QueryLogic:
-      type: string
-      enum:
-      - AND
-      - OR
-      title: QueryLogic
-    RerunSmartColumnRequest:
-      properties:
-        column_version:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Column Version
-      type: object
-      title: RerunSmartColumnRequest
+      - smart
+      - static
+      title: ColumnType
   securitySchemes:
     HTTPBearer:
       type: http

@@ -95,74 +95,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    MeetingMinuteChunkResponse:
-      properties:
-        chunk_id:
-          type: integer
-          title: Chunk Id
-        document_id:
-          type: integer
-          title: Document Id
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        meeting_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Meeting Date
-        document_title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Title
-        document_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Url
-        document_created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Document Created At
-        text:
-          type: string
-          title: Text
-        relevance:
-          type: number
-          title: Relevance
-        other_matching_chunks_in_document:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Other Matching Chunks In Document
-      type: object
-      required:
-      - chunk_id
-      - document_id
-      - text
-      - relevance
-      title: MeetingMinuteChunkResponse
     HTTPValidationError:
       properties:
         detail:
@@ -300,6 +232,74 @@ components:
         scoping alone (with no query) lists that institution''s chunks in
 
         reverse-chronological order, useful for surveying what we have.'
+    MeetingMinuteChunkResponse:
+      properties:
+        chunk_id:
+          type: integer
+          title: Chunk Id
+        document_id:
+          type: integer
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        meeting_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Meeting Date
+        document_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Title
+        document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Url
+        document_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Created At
+        text:
+          type: string
+          title: Text
+        relevance:
+          type: number
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
+      type: object
+      required:
+      - chunk_id
+      - document_id
+      - text
+      - relevance
+      title: MeetingMinuteChunkResponse
   securitySchemes:
     HTTPBearer:
       type: http

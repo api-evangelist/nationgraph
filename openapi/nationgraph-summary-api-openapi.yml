@@ -125,15 +125,15 @@ paths:
       - Summary
 components:
   schemas:
-    EmailRenderResponse:
+    HTTPValidationError:
       properties:
-        render_id:
-          type: string
-          title: Render Id
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - render_id
-      title: EmailRenderResponse
+      title: HTTPValidationError
     CallScriptPromptRequest:
       properties:
         institution_id:
@@ -157,6 +157,50 @@ components:
       - insights
       - workspace_id
       title: CallScriptPromptRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RenderTemplateParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          title: Type
+        raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Raw
+      type: object
+      required:
+      - id
+      - type
+      title: RenderTemplateParam
     Insights:
       properties:
         id:
@@ -192,6 +236,74 @@ components:
       required:
       - type
       title: Insights
+    EmailResponse:
+      properties:
+        subject:
+          type: string
+          title: Subject
+        body:
+          type: string
+          title: Body
+      type: object
+      required:
+      - subject
+      - body
+      title: EmailResponse
+    RenderTemplate:
+      properties:
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            $ref: '#/components/schemas/RenderTemplateParam'
+          type: array
+          title: Params
+          default: []
+      type: object
+      required:
+      - subject_raw
+      - body_raw
+      title: RenderTemplate
+    EmailRenderResponse:
+      properties:
+        render_id:
+          type: string
+          title: Render Id
+      type: object
+      required:
+      - render_id
+      title: EmailRenderResponse
+    EmailContextItem:
+      properties:
+        type:
+          type: string
+          title: Type
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+      type: object
+      required:
+      - type
+      - data
+      title: EmailContextItem
+    app__types__summary__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - prompt
+      - type
+      title: PromptRequest
     EmailPromptRequest:
       properties:
         institution_id:
@@ -236,118 +348,6 @@ components:
       required:
       - institution_id
       title: EmailPromptRequest
-    app__types__summary__PromptRequest:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-        type:
-          type: string
-          title: Type
-      type: object
-      required:
-      - prompt
-      - type
-      title: PromptRequest
-    EmailResponse:
-      properties:
-        subject:
-          type: string
-          title: Subject
-        body:
-          type: string
-          title: Body
-      type: object
-      required:
-      - subject
-      - body
-      title: EmailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    RenderTemplate:
-      properties:
-        subject_raw:
-          type: string
-          title: Subject Raw
-        body_raw:
-          type: string
-          title: Body Raw
-        params:
-          items:
-            $ref: '#/components/schemas/RenderTemplateParam'
-          type: array
-          title: Params
-          default: []
-      type: object
-      required:
-      - subject_raw
-      - body_raw
-      title: RenderTemplate
-    RenderTemplateParam:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          title: Type
-        raw:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Raw
-      type: object
-      required:
-      - id
-      - type
-      title: RenderTemplateParam
-    EmailContextItem:
-      properties:
-        type:
-          type: string
-          title: Type
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-      type: object
-      required:
-      - type
-      - data
-      title: EmailContextItem
   securitySchemes:
     HTTPBearer:
       type: http

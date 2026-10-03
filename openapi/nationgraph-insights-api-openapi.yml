@@ -52,6 +52,22 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    InsightRequest:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          title: Content
+        id:
+          type: string
+          title: Id
+      type: object
+      required:
+      - content
+      - id
+      title: InsightRequest
     ValidationError:
       properties:
         loc:
@@ -78,22 +94,6 @@ components:
       - msg
       - type
       title: ValidationError
-    InsightRequest:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - additionalProperties: true
-            type: object
-          title: Content
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - content
-      - id
-      title: InsightRequest
   securitySchemes:
     HTTPBearer:
       type: http

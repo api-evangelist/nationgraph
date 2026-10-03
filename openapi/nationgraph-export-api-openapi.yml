@@ -318,18 +318,181 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Sort:
+    HTTPValidationError:
       properties:
-        column:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Column
-        direction:
-          $ref: '#/components/schemas/SortType'
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - column
-      - direction
-      title: Sort
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GrantResponse-Input:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        funding_agency:
+          type: string
+          title: Funding Agency
+        awardee_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Awardee Name
+        total_obligated_amount:
+          type: number
+          title: Total Obligated Amount
+        period_of_performance_start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance Start Date
+        period_of_performance_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance End Date
+        last_modified_date:
+          type: string
+          format: date
+          title: Last Modified Date
+        grant_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Link
+        outlayed_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outlayed Amount
+        external_grant_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Grant Id
+        transaction_count:
+          type: integer
+          title: Transaction Count
+          default: 1
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        relevance_rank:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Rank
+        score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Score
+        relevance_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Score
+        decay_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Decay Score
+      type: object
+      required:
+      - id
+      - title
+      - funding_agency
+      - total_obligated_amount
+      - last_modified_date
+      title: GrantResponse
+    WorkspaceExportRequest:
+      properties:
+        filters:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filters
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/Sort'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+      type: object
+      title: WorkspaceExportRequest
     SortType:
       type: string
       enum:
@@ -372,39 +535,6 @@ components:
           default: false
       type: object
       title: ContactsExportRequest
-    WorkspaceExportRequest:
-      properties:
-        filters:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filters
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/Sort'
-          - type: 'null'
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-      type: object
-      title: WorkspaceExportRequest
     RFPsExportRequest:
       properties:
         rfps:
@@ -446,15 +576,18 @@ components:
           title: Institution Ids
       type: object
       title: PurchaseOrdersExportRequest
-    HTTPValidationError:
+    Sort:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        column:
+          type: string
+          title: Column
+        direction:
+          $ref: '#/components/schemas/SortType'
       type: object
-      title: HTTPValidationError
+      required:
+      - column
+      - direction
+      title: Sort
     RFPs:
       properties:
         id:
@@ -715,139 +848,6 @@ components:
       - id
       title: RFPs
       description: Pydantic model for RFP API responses with full institution data.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GrantResponse-Input:
-      properties:
-        id:
-          type: string
-          title: Id
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        funding_agency:
-          type: string
-          title: Funding Agency
-        awardee_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Awardee Name
-        total_obligated_amount:
-          type: number
-          title: Total Obligated Amount
-        period_of_performance_start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance Start Date
-        period_of_performance_end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance End Date
-        last_modified_date:
-          type: string
-          format: date
-          title: Last Modified Date
-        grant_link:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Grant Link
-        outlayed_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Outlayed Amount
-        external_grant_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External Grant Id
-        transaction_count:
-          type: integer
-          title: Transaction Count
-          default: 1
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        relevance_rank:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relevance Rank
-        score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Score
-        relevance_score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relevance Score
-        decay_score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Decay Score
-      type: object
-      required:
-      - id
-      - title
-      - funding_agency
-      - total_obligated_amount
-      - last_modified_date
-      title: GrantResponse
     GrantsExportRequest:
       properties:
         grants:

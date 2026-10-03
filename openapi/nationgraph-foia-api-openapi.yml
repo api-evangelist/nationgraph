@@ -34,22 +34,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    FoiaWorkerEnqueueRequest:
-      properties:
-        file_path:
-          type: string
-          title: File Path
-        reference_codes:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Reference Codes
-      type: object
-      required:
-      - file_path
-      - reference_codes
-      title: FoiaWorkerEnqueueRequest
     HTTPValidationError:
       properties:
         detail:
@@ -85,6 +69,22 @@ components:
       - msg
       - type
       title: ValidationError
+    FoiaWorkerEnqueueRequest:
+      properties:
+        file_path:
+          type: string
+          title: File Path
+        reference_codes:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Reference Codes
+      type: object
+      required:
+      - file_path
+      - reference_codes
+      title: FoiaWorkerEnqueueRequest
     FoiaWorkerEnqueueResponse:
       properties:
         accepted:

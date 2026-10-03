@@ -120,61 +120,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    InstitutionListPayload:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        name:
-          type: string
-          title: Name
-        original_filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Filename
-        original_filter:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      title: InstitutionListPayload
-    UserProfileRequest:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        role:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role
-        document_summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Summary
-        filters:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UserProfileInstitutionFilter'
-            type: array
-          - type: 'null'
-          title: Filters
-      type: object
-      title: UserProfileRequest
-    TerritoryVisibility:
-      type: string
-      enum:
-      - private
-      - organization
-      title: TerritoryVisibility
     HTTPValidationError:
       properties:
         detail:
@@ -184,12 +129,29 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    InstitutionFiltersEnum:
-      type: string
-      enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
     InstitutionTypePayload:
       properties:
         name:
@@ -282,29 +244,67 @@ components:
       - msg
       - type
       title: ValidationError
-    UserProfileInstitutionFilter:
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    UserProfileRequest:
       properties:
-        id:
+        user_id:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Id
-        visibility:
-          $ref: '#/components/schemas/TerritoryVisibility'
-          default: private
-        type:
-          $ref: '#/components/schemas/InstitutionFiltersEnum'
-        payload:
+          title: User Id
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+        document_summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Summary
+        filters:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UserProfileInstitutionFilter'
+            type: array
+          - type: 'null'
+          title: Filters
+      type: object
+      title: UserProfileRequest
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
           anyOf:
           - $ref: '#/components/schemas/InstitutionTypePayload'
-          - $ref: '#/components/schemas/InstitutionListPayload'
-          title: Payload
+          - type: 'null'
       type: object
       required:
-      - type
-      - payload
-      title: UserProfileInstitutionFilter
+      - name
+      title: InstitutionListPayload
   securitySchemes:
     HTTPBearer:
       type: http

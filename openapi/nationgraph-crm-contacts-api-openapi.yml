@@ -594,6 +594,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     UpdateContactRequest:
       properties:
         email:
@@ -679,25 +688,78 @@ components:
       type: object
       title: UpdateContactRequest
       description: Request to update a contact in HubSpot.
-    app__routes__v3__crm_contacts__BatchCreateRequest:
+    ValidationError:
       properties:
-        contacts:
+        loc:
           items:
-            $ref: '#/components/schemas/CreateContactRequest'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Contacts
-          description: List of contacts to create
-        company_id:
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ContactListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
+          type: array
+          title: Results
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
           anyOf:
           - type: string
           - type: 'null'
-          title: Company Id
-          description: CRM company/account ID to associate all contacts with
+          title: Next Cursor
       type: object
       required:
-      - contacts
-      title: BatchCreateRequest
-      description: Request for batch creating contacts.
+      - results
+      title: ContactListResponse
+      description: API response for listing contacts.
+    app__routes__v3__crm_contacts__ContactResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        properties:
+          additionalProperties: true
+          type: object
+          title: Properties
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - id
+      - properties
+      title: ContactResponse
+      description: API response for a single contact.
     app__routes__v3__crm_contacts__BatchGetRequest:
       properties:
         ids:
@@ -725,25 +787,6 @@ components:
       - ids
       title: BatchGetRequest
       description: Request for batch getting contacts.
-    app__routes__v3__crm_contacts__BatchUpdateRequest:
-      properties:
-        contacts:
-          items:
-            $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchUpdateItem'
-          type: array
-          title: Contacts
-          description: List of contacts to update
-        id_property:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id Property
-          description: Set to 'email' to update by email
-      type: object
-      required:
-      - contacts
-      title: BatchUpdateRequest
-      description: Request for batch updating contacts.
     app__routes__v3__crm_contacts__BatchUpdateItem:
       properties:
         id:
@@ -759,15 +802,6 @@ components:
       - properties
       title: BatchUpdateItem
       description: Single item in batch update request.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ContactSearchResponse:
       properties:
         total:
@@ -793,6 +827,44 @@ components:
       - results
       title: ContactSearchResponse
       description: API response for searching contacts.
+    app__routes__v3__crm_contacts__BatchUpdateRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/app__routes__v3__crm_contacts__BatchUpdateItem'
+          type: array
+          title: Contacts
+          description: List of contacts to update
+        id_property:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id Property
+          description: Set to 'email' to update by email
+      type: object
+      required:
+      - contacts
+      title: BatchUpdateRequest
+      description: Request for batch updating contacts.
+    app__routes__v3__crm_contacts__BatchCreateRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CreateContactRequest'
+          type: array
+          title: Contacts
+          description: List of contacts to create
+        company_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Id
+          description: CRM company/account ID to associate all contacts with
+      type: object
+      required:
+      - contacts
+      title: BatchCreateRequest
+      description: Request for batch creating contacts.
     CreateContactRequest:
       properties:
         email:
@@ -878,53 +950,6 @@ components:
       type: object
       title: CreateContactRequest
       description: Request to create a contact in HubSpot.
-    ContactListResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/app__routes__v3__crm_contacts__ContactResponse'
-          type: array
-          title: Results
-        has_more:
-          type: boolean
-          title: Has More
-          default: false
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - results
-      title: ContactListResponse
-      description: API response for listing contacts.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     PropertyInfo:
       properties:
         name:
@@ -957,31 +982,6 @@ components:
       - fieldType
       title: PropertyInfo
       description: Information about a CRM property.
-    app__routes__v3__crm_contacts__ContactResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        properties:
-          additionalProperties: true
-          type: object
-          title: Properties
-        created_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Updated At
-      type: object
-      required:
-      - id
-      - properties
-      title: ContactResponse
-      description: API response for a single contact.
   securitySchemes:
     HTTPBearer:
       type: http

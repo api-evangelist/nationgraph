@@ -520,23 +520,52 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PostOptions:
+    HTTPValidationError:
       properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: Custom post title. Defaults to institution name with signal title.
-        body:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Body
-          description: Custom post body/content. Defaults to formatted signal with emojis.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: PostOptions
-      description: Options for creating a post in CRM.
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ContactPushRequest:
+      properties:
+        subscription_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subscription Id
+          description: Target workflow subscription (Zap) chosen by the user. Only used for workflow providers like Zapier.
+      type: object
+      title: ContactPushRequest
+      description: Request to push a contact to CRM/workflow.
     CRMActionRequest:
       properties:
         action_type:
@@ -568,6 +597,76 @@ components:
       - action_type
       title: CRMActionRequest
       description: Request to push a signal to CRM.
+    CRMDisconnectResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - message
+      title: CRMDisconnectResponse
+      description: Response model for CRM disconnect.
+    ContactPushResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        contact_id:
+          type: string
+          title: Contact Id
+          description: The CRM contact ID
+        company_id:
+          type: string
+          title: Company Id
+          description: The CRM company/account ID
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - success
+      - contact_id
+      - company_id
+      - message
+      title: ContactPushResponse
+      description: Response from pushing a contact to CRM.
+    ZapierConnectResponse:
+      properties:
+        integration_id:
+          type: string
+          format: uuid
+          title: Integration Id
+          description: The created integration ID
+        provider:
+          type: string
+          title: Provider
+          default: zapier
+      type: object
+      required:
+      - integration_id
+      title: ZapierConnectResponse
+    TaskPriority:
+      type: string
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      title: TaskPriority
+      description: CRM task priority levels.
+    CRMActionType:
+      type: string
+      enum:
+      - note
+      - task
+      - post
+      - lead
+      title: CRMActionType
+      description: Type of CRM action to perform on a signal.
     CRMAuthResponse:
       properties:
         authorization_url:
@@ -578,6 +677,40 @@ components:
       - authorization_url
       title: CRMAuthResponse
       description: Response model for CRM auth initiation.
+    TaskOptions:
+      properties:
+        subject:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subject
+          description: Custom task subject/title. Defaults to signal title with institution name.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom task body/description. Defaults to signal summary and reason.
+        due_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Due Date
+          description: Due date as ISO string or Unix timestamp in ms. Defaults to tomorrow.
+        priority:
+          anyOf:
+          - $ref: '#/components/schemas/TaskPriority'
+          - type: 'null'
+          description: Task priority. Defaults based on signal significance.
+        owner_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner Id
+          description: CRM owner ID to assign the task to.
+      type: object
+      title: TaskOptions
+      description: Options for creating a task in CRM.
     CRMIntegrationStatus:
       properties:
         integration_id:
@@ -630,20 +763,23 @@ components:
         holds `hub_id` and `external_team_name` holds `hub_domain`; for Salesforce
 
         they hold the org id and instance URL respectively.'
-    CRMDisconnectResponse:
+    PostOptions:
       properties:
-        success:
-          type: boolean
-          title: Success
-        message:
-          type: string
-          title: Message
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Custom post title. Defaults to institution name with signal title.
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: Custom post body/content. Defaults to formatted signal with emojis.
       type: object
-      required:
-      - success
-      - message
-      title: CRMDisconnectResponse
-      description: Response model for CRM disconnect.
+      title: PostOptions
+      description: Options for creating a post in CRM.
     LeadOptions:
       properties:
         last_name:
@@ -714,51 +850,6 @@ components:
       - company
       title: LeadOptions
       description: Options for creating a lead in CRM. Currently Salesforce-only.
-    TaskOptions:
-      properties:
-        subject:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Subject
-          description: Custom task subject/title. Defaults to signal title with institution name.
-        body:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Body
-          description: Custom task body/description. Defaults to signal summary and reason.
-        due_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Due Date
-          description: Due date as ISO string or Unix timestamp in ms. Defaults to tomorrow.
-        priority:
-          anyOf:
-          - $ref: '#/components/schemas/TaskPriority'
-          - type: 'null'
-          description: Task priority. Defaults based on signal significance.
-        owner_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Owner Id
-          description: CRM owner ID to assign the task to.
-      type: object
-      title: TaskOptions
-      description: Options for creating a task in CRM.
-    ContactPushRequest:
-      properties:
-        subscription_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Subscription Id
-          description: Target workflow subscription (Zap) chosen by the user. Only used for workflow providers like Zapier.
-      type: object
-      title: ContactPushRequest
-      description: Request to push a contact to CRM/workflow.
     WebhookDeliveryRequest:
       properties:
         subscription_id:
@@ -776,56 +867,6 @@ components:
       - payload
       title: WebhookDeliveryRequest
       description: Deliver a frontend-assembled payload to a chosen workflow subscription.
-    ZapierConnectResponse:
-      properties:
-        integration_id:
-          type: string
-          format: uuid
-          title: Integration Id
-          description: The created integration ID
-        provider:
-          type: string
-          title: Provider
-          default: zapier
-      type: object
-      required:
-      - integration_id
-      title: ZapierConnectResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     CRMActionResponse:
       properties:
         success:
@@ -853,47 +894,6 @@ components:
       - message
       title: CRMActionResponse
       description: Response from a CRM action.
-    CRMActionType:
-      type: string
-      enum:
-      - note
-      - task
-      - post
-      - lead
-      title: CRMActionType
-      description: Type of CRM action to perform on a signal.
-    TaskPriority:
-      type: string
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      title: TaskPriority
-      description: CRM task priority levels.
-    ContactPushResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        contact_id:
-          type: string
-          title: Contact Id
-          description: The CRM contact ID
-        company_id:
-          type: string
-          title: Company Id
-          description: The CRM company/account ID
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - success
-      - contact_id
-      - company_id
-      - message
-      title: ContactPushResponse
-      description: Response from pushing a contact to CRM.
   securitySchemes:
     HTTPBearer:
       type: http

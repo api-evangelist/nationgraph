@@ -93,74 +93,41 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    ProcurementGuidelineChunkResponse:
+    HTTPValidationError:
       properties:
-        chunk_id:
-          type: integer
-          title: Chunk Id
-        document_id:
-          type: integer
-          title: Document Id
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        document_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Document Date
-        document_title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Title
-        document_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Document Url
-        document_created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Document Created At
-        text:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Text
-        relevance:
-          type: number
-          title: Relevance
-        other_matching_chunks_in_document:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Other Matching Chunks In Document
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - chunk_id
-      - document_id
-      - text
-      - relevance
-      title: ProcurementGuidelineChunkResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ProcurementGuidelineSearchFilters:
       properties:
         query:
@@ -236,41 +203,6 @@ components:
         At least one of ``institution_ids`` or ``query`` must be supplied — the
 
         chunks table is 140K+ rows and we reject fully unbounded scans.'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     PaginatedResponse_ProcurementGuidelineChunkResponse_:
       properties:
         results:
@@ -294,6 +226,74 @@ components:
       - offset
       - limit
       title: PaginatedResponse[ProcurementGuidelineChunkResponse]
+    ProcurementGuidelineChunkResponse:
+      properties:
+        chunk_id:
+          type: integer
+          title: Chunk Id
+        document_id:
+          type: integer
+          title: Document Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+        document_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Title
+        document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Document Url
+        document_created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Document Created At
+        text:
+          type: string
+          title: Text
+        relevance:
+          type: number
+          title: Relevance
+        other_matching_chunks_in_document:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Other Matching Chunks In Document
+      type: object
+      required:
+      - chunk_id
+      - document_id
+      - text
+      - relevance
+      title: ProcurementGuidelineChunkResponse
   securitySchemes:
     HTTPBearer:
       type: http

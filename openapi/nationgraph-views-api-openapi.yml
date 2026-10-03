@@ -170,30 +170,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ViewCreateRequest:
-      properties:
-        view_type:
-          $ref: '#/components/schemas/ViewType'
-        resource_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Resource Id
-        name:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Name
-        filters:
-          additionalProperties: true
-          type: object
-          title: Filters
-      type: object
-      required:
-      - view_type
-      - name
-      title: ViewCreateRequest
     HTTPValidationError:
       properties:
         detail:
@@ -272,6 +248,30 @@ components:
       - created_at
       - updated_at
       title: ViewResponse
+    ViewCreateRequest:
+      properties:
+        view_type:
+          $ref: '#/components/schemas/ViewType'
+        resource_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Resource Id
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+        filters:
+          additionalProperties: true
+          type: object
+          title: Filters
+      type: object
+      required:
+      - view_type
+      - name
+      title: ViewCreateRequest
     ViewType:
       type: string
       enum:

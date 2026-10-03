@@ -78,6 +78,41 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ContractResponse:
       properties:
         id:
@@ -269,41 +304,6 @@ components:
       type: object
       title: ContractSearchFilters
       description: "Search filters for contracts (retool.contract_data).\n\nThe vendor + product columns have been removed from contract_data —\nthey now live in sibling tables (``retool.vendors``,\n``retool.vendor_products``). The endpoint currently searches **only**\nthe prose column (``text_search_prose``) over ``raw_text``.\n\nQuery syntax (websearch_to_tsquery, english config — stemming on):\n\n    bare words:    \"granicus laserfiche\"        implicit AND\n    quoted phrase: '\"early termination\"'         exact phrase\n    OR:            \"granicus OR tyler\"           literal OR keyword\n    exclude:       \"granicus -laserfiche\"        prefix - to exclude\n\nAll filters are optional. ~7K rows is small enough to permit unbounded\nscans, but supplying at least a query or institution scope is\nrecommended.\n\nVendor / product search will be re-added when the new ``retool.vendors``\nand ``retool.vendor_products`` tables are integrated into the endpoint."
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

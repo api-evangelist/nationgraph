@@ -34,6 +34,15 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ClassifyRequest:
       properties:
         rows:
@@ -50,23 +59,32 @@ components:
       required:
       - rows
       title: ClassifyRequest
-    ClassifyJobEnqueueResponse:
+    ValidationError:
       properties:
-        job_id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Job Id
-        rows_to_process:
-          type: integer
-          title: Rows To Process
-        skipped_row_count:
-          type: integer
-          title: Skipped Row Count
-          default: 0
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - job_id
-      - rows_to_process
-      title: ClassifyJobEnqueueResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ClassifyRow:
       properties:
         name:
@@ -119,41 +137,23 @@ components:
       type: object
       title: ClassifyRow
       description: A single row to classify against institutions.
-    HTTPValidationError:
+    ClassifyJobEnqueueResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        job_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Job Id
+        rows_to_process:
+          type: integer
+          title: Rows To Process
+        skipped_row_count:
+          type: integer
+          title: Skipped Row Count
+          default: 0
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - job_id
+      - rows_to_process
+      title: ClassifyJobEnqueueResponse
   securitySchemes:
     HTTPBearer:
       type: http

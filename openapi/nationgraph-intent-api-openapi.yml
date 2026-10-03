@@ -56,15 +56,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    IntentInfoRequest:
-      properties:
-        company_website:
-          type: string
-          title: Company Website
-      type: object
-      required:
-      - company_website
-      title: IntentInfoRequest
     ValidationError:
       properties:
         loc:
@@ -91,6 +82,15 @@ components:
       - msg
       - type
       title: ValidationError
+    IntentInfoRequest:
+      properties:
+        company_website:
+          type: string
+          title: Company Website
+      type: object
+      required:
+      - company_website
+      title: IntentInfoRequest
   securitySchemes:
     HTTPBearer:
       type: http

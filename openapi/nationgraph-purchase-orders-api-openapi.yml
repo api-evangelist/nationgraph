@@ -80,6 +80,15 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PurchaseOrderResponse:
       properties:
         id:
@@ -140,15 +149,6 @@ components:
       required:
       - id
       title: PurchaseOrderResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -175,6 +175,29 @@ components:
       - msg
       - type
       title: ValidationError
+    PaginatedResponse_PurchaseOrderResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PurchaseOrderResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[PurchaseOrderResponse]
     PurchaseOrderSearchFilters:
       properties:
         institution_ids:
@@ -244,29 +267,6 @@ components:
       type: object
       title: PurchaseOrderSearchFilters
       description: "Search filters for purchase orders.\n\nThe ``query`` field accepts a Postgres tsquery expression evaluated against\nthe ``search_vector`` column (which covers both supplier_name and\nitem_description, tokenized with the ``simple`` config — no stemming, no\nstop-word filtering, automatic word-boundary matching).\n\nOperators:\n    & (AND), | (OR), ! (NOT), parens for grouping\n\nTokens with multiple words must be combined explicitly — there's no\nimplicit AND. Hyphenated words tokenize both as the full string and the\nparts (CDW-G becomes cdw-g, cdw, g — any of those will match).\n\nExamples:\n    \"lightspeed\"\n        Match the word lightspeed in either field.\n\n    \"lightspeed & systems\"\n        Both words must appear (any order, either field).\n\n    \"lightspeed | securly | goguardian\"\n        Any of the three.\n\n    \"(lightspeed | securly) & !pos & !demo\"\n        Either competitor, but exclude POS systems and demo POs.\n\n    \"((cdw & cisco) | (amazon & networking)) & 2026\"\n        Reseller-aware nested query.\n\nMalformed queries return HTTP 400 with the Postgres syntax error.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nendpoint rejects requests with both empty to prevent unbounded scans."
-    PaginatedResponse_PurchaseOrderResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PurchaseOrderResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[PurchaseOrderResponse]
   securitySchemes:
     HTTPBearer:
       type: http

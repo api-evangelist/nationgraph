@@ -299,21 +299,101 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RunSignalSettingRequest:
+    HTTPValidationError:
       properties:
-        initial_search:
-          type: boolean
-          title: Initial Search
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - initial_search
-      title: RunSignalSettingRequest
-    SignalSettingStatus:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SignalSettingCreate:
+      properties:
+        query:
+          type: string
+          title: Query
+        keywords:
+          items:
+            items:
+              type: string
+            type: array
+          type: array
+          title: Keywords
+        exclude_keywords:
+          items:
+            type: string
+          type: array
+          title: Exclude Keywords
+        initial_search_start:
+          type: string
+          format: date-time
+          title: Initial Search Start
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      type: object
+      required:
+      - query
+      - keywords
+      - exclude_keywords
+      - initial_search_start
+      title: SignalSettingCreate
+    InstitutionSortEnum:
       type: string
       enum:
-      - active
-      - archived
-      title: SignalSettingStatus
+      - most_signals
+      - most_recent
+      - oldest
+      - most_contacts
+      - account_type
+      title: InstitutionSortEnum
+      description: 'Sort order for institutions in paginated response.
+
+
+        Note: This sorting is applied per-page after signal-level pagination.
+
+        The same institution may appear on multiple pages if its signals span pages.'
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
     InstitutionEnum:
       type: string
       enum:
@@ -330,6 +410,14 @@ components:
       - state_agencies
       - states
       title: InstitutionEnum
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
     Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get:
       properties:
         statuses:
@@ -408,51 +496,12 @@ components:
           title: Exclude Institution Ids
       type: object
       title: Body_get_signal_stats_for_user_api_v3_signal_settings_users__user_id__stats_get
-    SignalSettingCreate:
-      properties:
-        query:
-          type: string
-          title: Query
-        keywords:
-          items:
-            items:
-              type: string
-            type: array
-          type: array
-          title: Keywords
-        exclude_keywords:
-          items:
-            type: string
-          type: array
-          title: Exclude Keywords
-        initial_search_start:
-          type: string
-          format: date-time
-          title: Initial Search Start
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-      type: object
-      required:
-      - query
-      - keywords
-      - exclude_keywords
-      - initial_search_start
-      title: SignalSettingCreate
-    SignalSourceType:
+    SignalSettingStatus:
       type: string
       enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
+      - active
+      - archived
+      title: SignalSettingStatus
     SignalSettingUpdate:
       properties:
         query:
@@ -487,64 +536,15 @@ components:
           title: Name
       type: object
       title: SignalSettingUpdate
-    HTTPValidationError:
+    RunSignalSettingRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SignalStatusEnum:
-      type: string
-      enum:
-      - active
-      - dismissed
-      - pending
-      - acknowledged
-      title: SignalStatusEnum
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        initial_search:
+          type: boolean
+          title: Initial Search
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    InstitutionSortEnum:
-      type: string
-      enum:
-      - most_signals
-      - most_recent
-      - oldest
-      - most_contacts
-      - account_type
-      title: InstitutionSortEnum
-      description: 'Sort order for institutions in paginated response.
-
-
-        Note: This sorting is applied per-page after signal-level pagination.
-
-        The same institution may appear on multiple pages if its signals span pages.'
+      - initial_search
+      title: RunSignalSettingRequest
     SignalSortEnum:
       type: string
       enum:

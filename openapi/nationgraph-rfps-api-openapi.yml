@@ -214,6 +214,48 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RFPStatus:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_due_date
+      title: RFPStatus
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RFPResponse:
       properties:
         id:
@@ -317,38 +359,6 @@ components:
       required:
       - institutions
       title: RFPInstitutionOptionsResponse
-    PaginatedResponse_RFPResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/RFPResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[RFPResponse]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     RFPRequestFilters:
       properties:
         include_words:
@@ -483,6 +493,111 @@ components:
       type: object
       title: RFPRequestFilters
       description: Request model for RFP search with all filters.
+    RFPSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/RFPStatus'
+          - type: 'null'
+        due_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Due After
+        due_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Due Before
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        sort:
+          type: string
+          enum:
+          - due_date_asc
+          - due_date_desc
+          - updated_desc
+          - relevance
+          title: Sort
+          default: due_date_asc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+      type: object
+      title: RFPSearchFilters
+      description: "Search filters for RFPs.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe ``search_vector`` column (covers title + description, tokenized with\nthe ``english`` config — stemming enabled, stop words filtered).\n\nQuery syntax:\n    bare words:    \"content filter\"           AND of both words\n    quoted phrase: '\"content filtering\"'      exact phrase match\n    OR:            \"filter OR cybersecurity\"  literal OR keyword\n    exclude:       \"filter -demo\"             prefix - to exclude\n    combined:      '\"content filter\" -demo -test'\n\nStemming means ``filter`` matches ``filter``, ``filters``, ``filtering``,\n``filtered``. Unlike the PO endpoint (which uses ``simple`` config),\nword boundaries here are at the tokenizer level — phrase syntax handles\nexact matching when needed.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nendpoint rejects requests with both empty."
+    PaginatedResponse_RFPResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/RFPResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[RFPResponse]
+    RFPsResponse:
+      properties:
+        rfps:
+          items:
+            $ref: '#/components/schemas/RFPs'
+          type: array
+          title: Rfps
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+      type: object
+      required:
+      - rfps
+      title: RFPsResponse
+      description: Response model for RFP search endpoints
     RFPs:
       properties:
         id:
@@ -743,121 +858,6 @@ components:
       - id
       title: RFPs
       description: Pydantic model for RFP API responses with full institution data.
-    RFPSearchFilters:
-      properties:
-        query:
-          anyOf:
-          - type: string
-            maxLength: 2000
-          - type: 'null'
-          title: Query
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/RFPStatus'
-          - type: 'null'
-        due_after:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Due After
-        due_before:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Due Before
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-        states:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: States
-        source_tables:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Source Tables
-        sort:
-          type: string
-          enum:
-          - due_date_asc
-          - due_date_desc
-          - updated_desc
-          - relevance
-          title: Sort
-          default: due_date_asc
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          default: 100
-      type: object
-      title: RFPSearchFilters
-      description: "Search filters for RFPs.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe ``search_vector`` column (covers title + description, tokenized with\nthe ``english`` config — stemming enabled, stop words filtered).\n\nQuery syntax:\n    bare words:    \"content filter\"           AND of both words\n    quoted phrase: '\"content filtering\"'      exact phrase match\n    OR:            \"filter OR cybersecurity\"  literal OR keyword\n    exclude:       \"filter -demo\"             prefix - to exclude\n    combined:      '\"content filter\" -demo -test'\n\nStemming means ``filter`` matches ``filter``, ``filters``, ``filtering``,\n``filtered``. Unlike the PO endpoint (which uses ``simple`` config),\nword boundaries here are at the tokenizer level — phrase syntax handles\nexact matching when needed.\n\nAt least one of ``institution_ids`` or ``query`` must be supplied — the\nendpoint rejects requests with both empty."
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    RFPStatus:
-      type: string
-      enum:
-      - active
-      - expired
-      - no_due_date
-      title: RFPStatus
-    RFPsResponse:
-      properties:
-        rfps:
-          items:
-            $ref: '#/components/schemas/RFPs'
-          type: array
-          title: Rfps
-        total_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Count
-      type: object
-      required:
-      - rfps
-      title: RFPsResponse
-      description: Response model for RFP search endpoints
   securitySchemes:
     HTTPBearer:
       type: http

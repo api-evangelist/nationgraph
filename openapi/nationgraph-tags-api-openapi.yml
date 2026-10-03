@@ -175,19 +175,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TagItem:
-      properties:
-        label:
-          type: string
-          title: Label
-        hexcode:
-          type: string
-          title: Hexcode
-      type: object
-      required:
-      - label
-      - hexcode
-      title: TagItem
     HTTPValidationError:
       properties:
         detail:
@@ -223,6 +210,19 @@ components:
       - msg
       - type
       title: ValidationError
+    TagItem:
+      properties:
+        label:
+          type: string
+          title: Label
+        hexcode:
+          type: string
+          title: Hexcode
+      type: object
+      required:
+      - label
+      - hexcode
+      title: TagItem
     CreateTagsRequest:
       properties:
         tags:

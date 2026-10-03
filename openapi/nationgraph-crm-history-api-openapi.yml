@@ -63,40 +63,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LinkingHistoryItem:
-      properties:
-        id:
-          type: string
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        crm_type:
-          $ref: '#/components/schemas/CRMType'
-        crm_id:
-          type: string
-          title: Crm Id
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          type: string
-          title: Institution Name
-        action_type:
-          type: string
-          title: Action Type
-          default: link
-      type: object
-      required:
-      - id
-      - created_at
-      - crm_type
-      - crm_id
-      - institution_id
-      - institution_name
-      title: LinkingHistoryItem
-      description: A single CRM activity event (linking, note, task, post, or contact push).
     HTTPValidationError:
       properties:
         detail:
@@ -163,6 +129,40 @@ components:
       - offset
       - limit
       title: PaginatedResponse[LinkingHistoryItem]
+    LinkingHistoryItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        crm_type:
+          $ref: '#/components/schemas/CRMType'
+        crm_id:
+          type: string
+          title: Crm Id
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          type: string
+          title: Institution Name
+        action_type:
+          type: string
+          title: Action Type
+          default: link
+      type: object
+      required:
+      - id
+      - created_at
+      - crm_type
+      - crm_id
+      - institution_id
+      - institution_name
+      title: LinkingHistoryItem
+      description: A single CRM activity event (linking, note, task, post, or contact push).
   securitySchemes:
     HTTPBearer:
       type: http

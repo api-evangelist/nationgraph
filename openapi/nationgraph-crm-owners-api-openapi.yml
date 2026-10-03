@@ -138,25 +138,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TeamResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        primary:
-          type: boolean
-          title: Primary
-          description: Whether this is the owner's primary team
-      type: object
-      required:
-      - id
-      - name
-      - primary
-      title: TeamResponse
-      description: A CRM team.
     HTTPValidationError:
       properties:
         detail:
@@ -283,6 +264,25 @@ components:
       - full_name
       title: OwnerResponse
       description: API response for a single owner.
+    TeamResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        primary:
+          type: boolean
+          title: Primary
+          description: Whether this is the owner's primary team
+      type: object
+      required:
+      - id
+      - name
+      - primary
+      title: TeamResponse
+      description: A CRM team.
   securitySchemes:
     HTTPBearer:
       type: http

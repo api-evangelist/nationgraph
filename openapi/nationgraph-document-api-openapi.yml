@@ -45,31 +45,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PresignItem:
-      properties:
-        key:
-          type: string
-          title: Key
-        method:
-          type: string
-          enum:
-          - put_object
-          - get_object
-          title: Method
-          default: put_object
-        content_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content Type
-        expires_in:
-          type: integer
-          title: Expires In
-          default: 60
-      type: object
-      required:
-      - key
-      title: PresignItem
     ValidationError:
       properties:
         loc:
@@ -96,6 +71,31 @@ components:
       - msg
       - type
       title: ValidationError
+    PresignItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        method:
+          type: string
+          enum:
+          - put_object
+          - get_object
+          title: Method
+          default: put_object
+        content_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+        expires_in:
+          type: integer
+          title: Expires In
+          default: 60
+      type: object
+      required:
+      - key
+      title: PresignItem
   securitySchemes:
     HTTPBearer:
       type: http
