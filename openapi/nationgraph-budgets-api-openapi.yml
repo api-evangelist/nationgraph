@@ -93,15 +93,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -128,6 +119,38 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PaginatedResponse_BudgetChunkResponse_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/BudgetChunkResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[BudgetChunkResponse]
     BudgetChunkResponse:
       properties:
         chunk_id:
@@ -275,29 +298,6 @@ components:
         scoping alone (with no query) lists that institution''s chunks in
 
         reverse-chronological order, useful for surveying budget documents.'
-    PaginatedResponse_BudgetChunkResponse_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/BudgetChunkResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[BudgetChunkResponse]
   securitySchemes:
     HTTPBearer:
       type: http

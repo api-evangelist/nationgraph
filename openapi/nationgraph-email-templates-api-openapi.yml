@@ -129,15 +129,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -164,6 +155,42 @@ components:
       - msg
       - type
       title: ValidationError
+    CreateEmailTemplateRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Params
+          default: []
+        status:
+          $ref: '#/components/schemas/EmailResourceStatus'
+          default: draft
+      type: object
+      required:
+      - name
+      - subject_raw
+      - body_raw
+      title: CreateEmailTemplateRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     EmailTemplateResponse:
       properties:
         id:
@@ -251,33 +278,6 @@ components:
       - active
       - archived
       title: EmailResourceStatus
-    CreateEmailTemplateRequest:
-      properties:
-        name:
-          type: string
-          title: Name
-        subject_raw:
-          type: string
-          title: Subject Raw
-        body_raw:
-          type: string
-          title: Body Raw
-        params:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Params
-          default: []
-        status:
-          $ref: '#/components/schemas/EmailResourceStatus'
-          default: draft
-      type: object
-      required:
-      - name
-      - subject_raw
-      - body_raw
-      title: CreateEmailTemplateRequest
   securitySchemes:
     HTTPBearer:
       type: http

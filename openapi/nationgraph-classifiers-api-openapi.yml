@@ -34,31 +34,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ClassifyRequest:
-      properties:
-        rows:
-          items:
-            $ref: '#/components/schemas/ClassifyRow'
-          type: array
-          title: Rows
-        job_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Job Id
-      type: object
-      required:
-      - rows
-      title: ClassifyRequest
     ValidationError:
       properties:
         loc:
@@ -85,6 +60,48 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ClassifyJobEnqueueResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        rows_to_process:
+          type: integer
+          title: Rows To Process
+        skipped_row_count:
+          type: integer
+          title: Skipped Row Count
+          default: 0
+      type: object
+      required:
+      - job_id
+      - rows_to_process
+      title: ClassifyJobEnqueueResponse
+    ClassifyRequest:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/ClassifyRow'
+          type: array
+          title: Rows
+        job_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Job Id
+      type: object
+      required:
+      - rows
+      title: ClassifyRequest
     ClassifyRow:
       properties:
         name:
@@ -137,23 +154,6 @@ components:
       type: object
       title: ClassifyRow
       description: A single row to classify against institutions.
-    ClassifyJobEnqueueResponse:
-      properties:
-        job_id:
-          type: string
-          title: Job Id
-        rows_to_process:
-          type: integer
-          title: Rows To Process
-        skipped_row_count:
-          type: integer
-          title: Skipped Row Count
-          default: 0
-      type: object
-      required:
-      - job_id
-      - rows_to_process
-      title: ClassifyJobEnqueueResponse
   securitySchemes:
     HTTPBearer:
       type: http

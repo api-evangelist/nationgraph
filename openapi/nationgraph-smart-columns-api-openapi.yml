@@ -309,42 +309,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SmartColumnPatchRequest:
-      properties:
-        column_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Column Name
-      type: object
-      title: SmartColumnPatchRequest
-    app__routes__v3__smart_columns__KeywordConfig:
-      properties:
-        logic:
-          $ref: '#/components/schemas/QueryLogic'
-        keywords:
-          items:
-            type: string
-          type: array
-          title: Keywords
-        is_strict:
-          type: boolean
-          title: Is Strict
-      type: object
-      required:
-      - logic
-      - keywords
-      - is_strict
-      title: KeywordConfig
     ValidationError:
       properties:
         loc:
@@ -371,6 +335,41 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
+    RerunFrequency:
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - none
+      title: RerunFrequency
+    app__routes__v3__smart_columns__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        data_source:
+          $ref: '#/components/schemas/DataSource'
+      type: object
+      required:
+      - prompt
+      - data_source
+      title: PromptRequest
     RerunSmartColumnRequest:
       properties:
         column_version:
@@ -380,6 +379,24 @@ components:
           title: Column Version
       type: object
       title: RerunSmartColumnRequest
+    app__routes__v3__smart_columns__KeywordConfig:
+      properties:
+        logic:
+          $ref: '#/components/schemas/QueryLogic'
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        is_strict:
+          type: boolean
+          title: Is Strict
+      type: object
+      required:
+      - logic
+      - keywords
+      - is_strict
+      title: KeywordConfig
     app__routes__v3__smart_columns__DateRange:
       properties:
         from:
@@ -409,53 +426,6 @@ components:
       - key_factors
       - scoring_rubric
       title: IntentFactors
-    DataSource:
-      type: string
-      enum:
-      - meeting_minutes
-      - purchase_orders
-      - online_research
-      - strategic_plans
-      - contacts
-      - annual_budgets
-      - procurement_guidelines
-      - news
-      - rfps
-      - legislation
-      - grants
-      - intent
-      - email
-      - google_search
-      - summary
-      - signals
-      - call_script
-      title: DataSource
-    QueryLogic:
-      type: string
-      enum:
-      - AND
-      - OR
-      title: QueryLogic
-    RerunFrequency:
-      type: string
-      enum:
-      - daily
-      - weekly
-      - monthly
-      - none
-      title: RerunFrequency
-    app__routes__v3__smart_columns__PromptRequest:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-        data_source:
-          $ref: '#/components/schemas/DataSource'
-      type: object
-      required:
-      - prompt
-      - data_source
-      title: PromptRequest
     SmartColumnRequest:
       properties:
         column_id:
@@ -516,6 +486,36 @@ components:
       - smart
       - static
       title: ColumnType
+    DataSource:
+      type: string
+      enum:
+      - meeting_minutes
+      - purchase_orders
+      - online_research
+      - strategic_plans
+      - contacts
+      - annual_budgets
+      - procurement_guidelines
+      - news
+      - rfps
+      - legislation
+      - grants
+      - intent
+      - email
+      - google_search
+      - summary
+      - signals
+      - call_script
+      title: DataSource
+    SmartColumnPatchRequest:
+      properties:
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+      type: object
+      title: SmartColumnPatchRequest
   securitySchemes:
     HTTPBearer:
       type: http

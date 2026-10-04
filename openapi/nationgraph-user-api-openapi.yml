@@ -238,15 +238,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -273,29 +264,35 @@ components:
       - msg
       - type
       title: ValidationError
-    OrganizationIntegrationGroup:
+    OnboardingProgressResponse:
       properties:
-        org_id:
-          type: string
-          title: Org Id
-        org_name:
-          type: string
-          title: Org Name
-        integrations:
-          items:
-            $ref: '#/components/schemas/ProviderIntegration'
-          type: array
-          title: Integrations
-        is_admin:
+        completed_steps:
+          $ref: '#/components/schemas/OnboardingCompletedSteps'
+        completed_count:
+          type: integer
+          title: Completed Count
+        total_count:
+          type: integer
+          title: Total Count
+        all_done:
           type: boolean
-          title: Is Admin
-          default: false
+          title: All Done
       type: object
       required:
-      - org_id
-      - org_name
-      - integrations
-      title: OrganizationIntegrationGroup
+      - completed_steps
+      - completed_count
+      - total_count
+      - all_done
+      title: OnboardingProgressResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ProviderIntegration:
       properties:
         provider:
@@ -348,97 +345,6 @@ components:
       required:
       - document_ids
       title: ReplaceUserDocumentsRequest
-    DeliveryMethod:
-      type: string
-      enum:
-      - email
-      - sms
-      - push
-      - webhook
-      - slack
-      title: DeliveryMethod
-    SubscriptionType:
-      type: string
-      enum:
-      - signals_digest
-      title: SubscriptionType
-    UserIntegrationsGroupedResponse:
-      properties:
-        personal:
-          items:
-            $ref: '#/components/schemas/IntegrationResponse'
-          type: array
-          title: Personal
-        organization:
-          items:
-            $ref: '#/components/schemas/OrganizationIntegrationGroup'
-          type: array
-          title: Organization
-      type: object
-      required:
-      - personal
-      - organization
-      title: UserIntegrationsGroupedResponse
-    IntegrationResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        subject_type:
-          type: string
-          title: Subject Type
-        subject_id:
-          type: string
-          title: Subject Id
-        provider:
-          type: string
-          title: Provider
-        external_team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External Team Id
-        external_team_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External Team Name
-        external_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External User Id
-        scopes:
-          items:
-            type: string
-          type: array
-          title: Scopes
-        status:
-          type: string
-          title: Status
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        warning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Warning
-      type: object
-      required:
-      - id
-      - subject_type
-      - subject_id
-      - provider
-      - external_team_id
-      - external_team_name
-      - external_user_id
-      - scopes
-      - status
-      - created_at
-      title: IntegrationResponse
     OnboardingCompletedSteps:
       properties:
         business_context:
@@ -501,26 +407,51 @@ components:
           default: []
       type: object
       title: ProviderCapabilities
-    OnboardingProgressResponse:
+    UserIntegrationsGroupedResponse:
       properties:
-        completed_steps:
-          $ref: '#/components/schemas/OnboardingCompletedSteps'
-        completed_count:
-          type: integer
-          title: Completed Count
-        total_count:
-          type: integer
-          title: Total Count
-        all_done:
-          type: boolean
-          title: All Done
+        personal:
+          items:
+            $ref: '#/components/schemas/IntegrationResponse'
+          type: array
+          title: Personal
+        organization:
+          items:
+            $ref: '#/components/schemas/OrganizationIntegrationGroup'
+          type: array
+          title: Organization
       type: object
       required:
-      - completed_steps
-      - completed_count
-      - total_count
-      - all_done
-      title: OnboardingProgressResponse
+      - personal
+      - organization
+      title: UserIntegrationsGroupedResponse
+    OrganizationIntegrationGroup:
+      properties:
+        org_id:
+          type: string
+          title: Org Id
+        org_name:
+          type: string
+          title: Org Name
+        integrations:
+          items:
+            $ref: '#/components/schemas/ProviderIntegration'
+          type: array
+          title: Integrations
+        is_admin:
+          type: boolean
+          title: Is Admin
+          default: false
+      type: object
+      required:
+      - org_id
+      - org_name
+      - integrations
+      title: OrganizationIntegrationGroup
+    SubscriptionType:
+      type: string
+      enum:
+      - signals_digest
+      title: SubscriptionType
     ProviderStatConfig:
       properties:
         key:
@@ -542,6 +473,75 @@ components:
       - label
       - type
       title: ProviderStatConfig
+    IntegrationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        subject_type:
+          type: string
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
+        provider:
+          type: string
+          title: Provider
+        external_team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Id
+        external_team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Team Name
+        external_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External User Id
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+        status:
+          type: string
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
+      type: object
+      required:
+      - id
+      - subject_type
+      - subject_id
+      - provider
+      - external_team_id
+      - external_team_name
+      - external_user_id
+      - scopes
+      - status
+      - created_at
+      title: IntegrationResponse
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
   securitySchemes:
     HTTPBearer:
       type: http

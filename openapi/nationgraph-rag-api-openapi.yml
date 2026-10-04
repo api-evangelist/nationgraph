@@ -157,15 +157,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -192,28 +183,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_query_rag_direct_api_v3_rag_query_direct_post:
-      properties:
-        keyword_config:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
-          - type: 'null'
-        date_range:
-          anyOf:
-          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
-          - type: 'null'
-      type: object
-      title: Body_query_rag_direct_api_v3_rag_query_direct_post
-    RagPreprocessResponse:
-      properties:
-        preprocessed_data:
-          additionalProperties: true
-          type: object
-          title: Preprocessed Data
-      type: object
-      required:
-      - preprocessed_data
-      title: RagPreprocessResponse
     RagPreprocessRequest:
       properties:
         description:
@@ -235,22 +204,39 @@ components:
       - description
       - search_category
       title: RagPreprocessRequest
-    app__routes__v3__rag__DateRange:
+    RagQueryRequest:
       properties:
-        from:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: From
-        to:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: To
+        unique_id:
+          type: string
+          title: Unique Id
+        search_category:
+          type: string
+          title: Search Category
+        preprocessed_data:
+          additionalProperties: true
+          type: object
+          title: Preprocessed Data
       type: object
-      title: DateRange
+      required:
+      - unique_id
+      - search_category
+      - preprocessed_data
+      title: RagQueryRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    QueryLogic:
+      type: string
+      enum:
+      - AND
+      - OR
+      title: QueryLogic
     RagQueryResponse:
       properties:
         type:
@@ -279,30 +265,34 @@ components:
       - summary
       - is_starred
       title: RagQueryResponse
-    QueryLogic:
-      type: string
-      enum:
-      - AND
-      - OR
-      title: QueryLogic
-    RagQueryRequest:
+    Body_query_rag_direct_api_v3_rag_query_direct_post:
       properties:
-        unique_id:
-          type: string
-          title: Unique Id
-        search_category:
-          type: string
-          title: Search Category
-        preprocessed_data:
-          additionalProperties: true
-          type: object
-          title: Preprocessed Data
+        keyword_config:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__KeywordConfig'
+          - type: 'null'
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/app__routes__v3__rag__DateRange'
+          - type: 'null'
       type: object
-      required:
-      - unique_id
-      - search_category
-      - preprocessed_data
-      title: RagQueryRequest
+      title: Body_query_rag_direct_api_v3_rag_query_direct_post
+    app__routes__v3__rag__DateRange:
+      properties:
+        from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: From
+        to:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: To
+      type: object
+      title: DateRange
     app__routes__v3__rag__KeywordConfig:
       properties:
         logic:
@@ -317,6 +307,16 @@ components:
       - logic
       - keywords
       title: KeywordConfig
+    RagPreprocessResponse:
+      properties:
+        preprocessed_data:
+          additionalProperties: true
+          type: object
+          title: Preprocessed Data
+      type: object
+      required:
+      - preprocessed_data
+      title: RagPreprocessResponse
   securitySchemes:
     HTTPBearer:
       type: http

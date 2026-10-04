@@ -125,38 +125,6 @@ paths:
       - Summary
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CallScriptPromptRequest:
-      properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        prompt:
-          type: string
-          title: Prompt
-        insights:
-          items:
-            $ref: '#/components/schemas/Insights'
-          type: array
-          title: Insights
-        workspace_id:
-          type: string
-          title: Workspace Id
-      type: object
-      required:
-      - institution_id
-      - prompt
-      - insights
-      - workspace_id
-      title: CallScriptPromptRequest
     ValidationError:
       properties:
         loc:
@@ -183,59 +151,6 @@ components:
       - msg
       - type
       title: ValidationError
-    RenderTemplateParam:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          type: string
-          title: Type
-        raw:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Raw
-      type: object
-      required:
-      - id
-      - type
-      title: RenderTemplateParam
-    Insights:
-      properties:
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        type:
-          type: string
-          title: Type
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-        column_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Column Name
-        supplier_items:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Supplier Items
-        count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Count
-      type: object
-      required:
-      - type
-      title: Insights
     EmailResponse:
       properties:
         subject:
@@ -249,61 +164,15 @@ components:
       - subject
       - body
       title: EmailResponse
-    RenderTemplate:
+    HTTPValidationError:
       properties:
-        subject_raw:
-          type: string
-          title: Subject Raw
-        body_raw:
-          type: string
-          title: Body Raw
-        params:
+        detail:
           items:
-            $ref: '#/components/schemas/RenderTemplateParam'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Params
-          default: []
+          title: Detail
       type: object
-      required:
-      - subject_raw
-      - body_raw
-      title: RenderTemplate
-    EmailRenderResponse:
-      properties:
-        render_id:
-          type: string
-          title: Render Id
-      type: object
-      required:
-      - render_id
-      title: EmailRenderResponse
-    EmailContextItem:
-      properties:
-        type:
-          type: string
-          title: Type
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-      type: object
-      required:
-      - type
-      - data
-      title: EmailContextItem
-    app__types__summary__PromptRequest:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-        type:
-          type: string
-          title: Type
-      type: object
-      required:
-      - prompt
-      - type
-      title: PromptRequest
+      title: HTTPValidationError
     EmailPromptRequest:
       properties:
         institution_id:
@@ -348,6 +217,137 @@ components:
       required:
       - institution_id
       title: EmailPromptRequest
+    Insights:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        type:
+          type: string
+          title: Type
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        column_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Column Name
+        supplier_items:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Supplier Items
+        count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Count
+      type: object
+      required:
+      - type
+      title: Insights
+    RenderTemplate:
+      properties:
+        subject_raw:
+          type: string
+          title: Subject Raw
+        body_raw:
+          type: string
+          title: Body Raw
+        params:
+          items:
+            $ref: '#/components/schemas/RenderTemplateParam'
+          type: array
+          title: Params
+          default: []
+      type: object
+      required:
+      - subject_raw
+      - body_raw
+      title: RenderTemplate
+    EmailRenderResponse:
+      properties:
+        render_id:
+          type: string
+          title: Render Id
+      type: object
+      required:
+      - render_id
+      title: EmailRenderResponse
+    RenderTemplateParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          type: string
+          title: Type
+        raw:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Raw
+      type: object
+      required:
+      - id
+      - type
+      title: RenderTemplateParam
+    CallScriptPromptRequest:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        prompt:
+          type: string
+          title: Prompt
+        insights:
+          items:
+            $ref: '#/components/schemas/Insights'
+          type: array
+          title: Insights
+        workspace_id:
+          type: string
+          title: Workspace Id
+      type: object
+      required:
+      - institution_id
+      - prompt
+      - insights
+      - workspace_id
+      title: CallScriptPromptRequest
+    app__types__summary__PromptRequest:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - prompt
+      - type
+      title: PromptRequest
+    EmailContextItem:
+      properties:
+        type:
+          type: string
+          title: Type
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+      type: object
+      required:
+      - type
+      - data
+      title: EmailContextItem
   securitySchemes:
     HTTPBearer:
       type: http

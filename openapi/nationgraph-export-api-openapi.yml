@@ -318,15 +318,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -353,6 +344,37 @@ components:
       - msg
       - type
       title: ValidationError
+    RFPsExportRequest:
+      properties:
+        rfps:
+          items:
+            $ref: '#/components/schemas/RFPs'
+          type: array
+          title: Rfps
+      type: object
+      required:
+      - rfps
+      title: RFPsExportRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GrantsExportRequest:
+      properties:
+        grants:
+          items:
+            $ref: '#/components/schemas/GrantResponse-Input'
+          type: array
+          title: Grants
+      type: object
+      required:
+      - grants
+      title: GrantsExportRequest
     GrantResponse-Input:
       properties:
         id:
@@ -460,45 +482,6 @@ components:
       - total_obligated_amount
       - last_modified_date
       title: GrantResponse
-    WorkspaceExportRequest:
-      properties:
-        filters:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filters
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/Sort'
-          - type: 'null'
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-        column_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Column Ids
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-      type: object
-      title: WorkspaceExportRequest
-    SortType:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortType
     ContactsExportRequest:
       properties:
         column_ids:
@@ -535,19 +518,29 @@ components:
           default: false
       type: object
       title: ContactsExportRequest
-    RFPsExportRequest:
+    SortType:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortType
+    WorkspaceExportRequest:
       properties:
-        rfps:
-          items:
-            $ref: '#/components/schemas/RFPs'
-          type: array
-          title: Rfps
-      type: object
-      required:
-      - rfps
-      title: RFPsExportRequest
-    PurchaseOrdersExportRequest:
-      properties:
+        filters:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filters
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/Sort'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
         column_ids:
           anyOf:
           - items:
@@ -555,18 +548,6 @@ components:
             type: array
           - type: 'null'
           title: Column Ids
-        filter_json:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Filter Json
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-          default: ''
         institution_ids:
           anyOf:
           - items:
@@ -575,7 +556,7 @@ components:
           - type: 'null'
           title: Institution Ids
       type: object
-      title: PurchaseOrdersExportRequest
+      title: WorkspaceExportRequest
     Sort:
       properties:
         column:
@@ -848,17 +829,36 @@ components:
       - id
       title: RFPs
       description: Pydantic model for RFP API responses with full institution data.
-    GrantsExportRequest:
+    PurchaseOrdersExportRequest:
       properties:
-        grants:
-          items:
-            $ref: '#/components/schemas/GrantResponse-Input'
-          type: array
-          title: Grants
+        column_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Column Ids
+        filter_json:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Filter Json
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+          default: ''
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
       type: object
-      required:
-      - grants
-      title: GrantsExportRequest
+      title: PurchaseOrdersExportRequest
   securitySchemes:
     HTTPBearer:
       type: http

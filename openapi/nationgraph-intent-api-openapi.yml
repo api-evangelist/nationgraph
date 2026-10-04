@@ -47,15 +47,15 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
+    IntentInfoRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        company_website:
+          type: string
+          title: Company Website
       type: object
-      title: HTTPValidationError
+      required:
+      - company_website
+      title: IntentInfoRequest
     ValidationError:
       properties:
         loc:
@@ -82,15 +82,15 @@ components:
       - msg
       - type
       title: ValidationError
-    IntentInfoRequest:
+    HTTPValidationError:
       properties:
-        company_website:
-          type: string
-          title: Company Website
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - company_website
-      title: IntentInfoRequest
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

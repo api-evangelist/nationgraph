@@ -176,15 +176,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -211,6 +202,64 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    IntegrationPatchRequest:
+      properties:
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+      type: object
+      title: IntegrationPatchRequest
+    CreateIntegrationRequest:
+      properties:
+        provider:
+          type: string
+          const: slack
+          title: Provider
+        subject_type:
+          type: string
+          enum:
+          - user
+          - organization
+          title: Subject Type
+        subject_id:
+          type: string
+          title: Subject Id
+        scopes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Scopes
+        provider_data:
+          additionalProperties: true
+          type: object
+          title: Provider Data
+      type: object
+      required:
+      - provider
+      - subject_type
+      - subject_id
+      - provider_data
+      title: CreateIntegrationRequest
     IntegrationResponse:
       properties:
         id:
@@ -271,55 +320,6 @@ components:
       - status
       - created_at
       title: IntegrationResponse
-    IntegrationPatchRequest:
-      properties:
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        scopes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Scopes
-      type: object
-      title: IntegrationPatchRequest
-    CreateIntegrationRequest:
-      properties:
-        provider:
-          type: string
-          const: slack
-          title: Provider
-        subject_type:
-          type: string
-          enum:
-          - user
-          - organization
-          title: Subject Type
-        subject_id:
-          type: string
-          title: Subject Id
-        scopes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Scopes
-        provider_data:
-          additionalProperties: true
-          type: object
-          title: Provider Data
-      type: object
-      required:
-      - provider
-      - subject_type
-      - subject_id
-      - provider_data
-      title: CreateIntegrationRequest
   securitySchemes:
     HTTPBearer:
       type: http

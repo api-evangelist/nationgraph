@@ -359,106 +359,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UserProfileInstitutionFilter:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        visibility:
-          $ref: '#/components/schemas/TerritoryVisibility'
-          default: private
-        type:
-          $ref: '#/components/schemas/InstitutionFiltersEnum'
-        payload:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - $ref: '#/components/schemas/InstitutionListPayload'
-          title: Payload
-      type: object
-      required:
-      - type
-      - payload
-      title: UserProfileInstitutionFilter
-    InstitutionTypePayload:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        account_types:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Account Types
-        states:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: States
-        counties:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Counties
-        cities:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Cities
-        population_min:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Population Min
-        population_max:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Population Max
-        search_query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search Query
-      type: object
-      title: InstitutionTypePayload
-    CreateInstitutionsRequest:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-      type: object
-      required:
-      - institution_ids
-      title: CreateInstitutionsRequest
     ValidationError:
       properties:
         loc:
@@ -485,12 +385,82 @@ components:
       - msg
       - type
       title: ValidationError
-    TerritoryVisibility:
+    UserProfileInstitutionFilter:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        visibility:
+          $ref: '#/components/schemas/TerritoryVisibility'
+          default: private
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - $ref: '#/components/schemas/InstitutionListPayload'
+          title: Payload
+      type: object
+      required:
+      - type
+      - payload
+      title: UserProfileInstitutionFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
       type: string
       enum:
-      - private
-      - organization
-      title: TerritoryVisibility
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
+    InstitutionsRequest:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        prepend:
+          type: boolean
+          title: Prepend
+          default: false
+      type: object
+      required:
+      - institution_ids
+      title: InstitutionsRequest
     InstitutionFilter:
       properties:
         ids:
@@ -567,6 +537,107 @@ components:
       type: object
       title: InstitutionFilter
       description: Query parameters for filtering institutions.
+    InstitutionTypePayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        account_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Account Types
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        counties:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Counties
+        cities:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Cities
+        population_min:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Min
+        population_max:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Population Max
+        search_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Query
+      type: object
+      title: InstitutionTypePayload
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      title: SignalSourceType
+    TerritoryVisibility:
+      type: string
+      enum:
+      - private
+      - organization
+      title: TerritoryVisibility
+    InstitutionCountRequest:
+      properties:
+        institution_filters:
+          items:
+            $ref: '#/components/schemas/UserProfileInstitutionFilter'
+          type: array
+          title: Institution Filters
+        signal_filters:
+          $ref: '#/components/schemas/InstitutionSignalFilters'
+      type: object
+      required:
+      - institution_filters
+      - signal_filters
+      title: InstitutionCountRequest
+      description: Request for the filtered institution count endpoint.
+    CreateInstitutionsRequest:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+      type: object
+      required:
+      - institution_ids
+      title: CreateInstitutionsRequest
     InstitutionSignalFilters:
       properties:
         signal_setting_ids:
@@ -598,18 +669,6 @@ components:
           title: Created Before
       type: object
       title: InstitutionSignalFilters
-    SignalSourceType:
-      type: string
-      enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
     InstitutionCountsRequest:
       properties:
         filters:
@@ -656,65 +715,6 @@ components:
             states: []
       type: object
       title: InstitutionCountsRequest
-    InstitutionsRequest:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        prepend:
-          type: boolean
-          title: Prepend
-          default: false
-      type: object
-      required:
-      - institution_ids
-      title: InstitutionsRequest
-    InstitutionFiltersEnum:
-      type: string
-      enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
-    InstitutionCountRequest:
-      properties:
-        institution_filters:
-          items:
-            $ref: '#/components/schemas/UserProfileInstitutionFilter'
-          type: array
-          title: Institution Filters
-        signal_filters:
-          $ref: '#/components/schemas/InstitutionSignalFilters'
-      type: object
-      required:
-      - institution_filters
-      - signal_filters
-      title: InstitutionCountRequest
-      description: Request for the filtered institution count endpoint.
-    InstitutionListPayload:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        name:
-          type: string
-          title: Name
-        original_filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Filename
-        original_filter:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      title: InstitutionListPayload
   securitySchemes:
     HTTPBearer:
       type: http

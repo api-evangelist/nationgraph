@@ -372,27 +372,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    FundingStatusEnum:
-      type: string
-      enum:
-      - active
-      - expired
-      - no_funding_period
-      title: FundingStatusEnum
-    ActivitySort:
-      type: string
-      enum:
-      - newest_first
-      - oldest_first
-      title: ActivitySort
-    CRMType:
-      type: string
-      enum:
-      - hubspot
-      - salesforce
-      - zapier
-      title: CRMType
-      description: Supported CRM integrations for institution mapping
     InstitutionLogosRequest:
       properties:
         institution_ids:
@@ -406,107 +385,6 @@ components:
       required:
       - institution_ids
       title: InstitutionLogosRequest
-    AccountRFPStatus:
-      type: string
-      enum:
-      - active
-      - expired
-      - no_due_date
-      title: AccountRFPStatus
-    SignalStatusEnum:
-      type: string
-      enum:
-      - active
-      - dismissed
-      - pending
-      - acknowledged
-      title: SignalStatusEnum
-    PaginatedResponse_AccountActivityItem_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AccountActivityItem'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[AccountActivityItem]
-    PaginatedResponse_AccountRFPItem_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AccountRFPItem'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[AccountRFPItem]
-    AccountGrantItem:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        funding_agency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Funding Agency
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/FundingStatusEnum'
-          - type: 'null'
-        total_obligated_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Total Obligated Amount
-        period_end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period End Date
-        grant_link:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Grant Link
-      type: object
-      required:
-      - id
-      title: AccountGrantItem
     AccountListSort:
       properties:
         field:
@@ -517,28 +395,6 @@ components:
           default: asc
       type: object
       title: AccountListSort
-    SignalInstitution:
-      properties:
-        name:
-          type: string
-          title: Name
-        state:
-          type: string
-          title: State
-        type:
-          $ref: '#/components/schemas/InstitutionEnum'
-        linked_providers:
-          items:
-            $ref: '#/components/schemas/CRMType'
-          type: array
-          title: Linked Providers
-          default: []
-      type: object
-      required:
-      - name
-      - state
-      - type
-      title: SignalInstitution
     AccountListSortField:
       type: string
       enum:
@@ -546,57 +402,13 @@ components:
       - population
       - signals
       title: AccountListSortField
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AccountRFPItem:
-      properties:
-        id:
-          type: integer
-          title: Id
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/AccountRFPStatus'
-          - type: 'null'
-        posted_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Posted Date
-        completed_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Completed Date
-      type: object
-      required:
-      - id
-      title: AccountRFPItem
-    SignalSourceType:
+    AccountRFPStatus:
       type: string
       enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
-      - grants
-      - press_releases
-      title: SignalSourceType
+      - active
+      - expired
+      - no_due_date
+      title: AccountRFPStatus
     AccountSummaryResponse:
       properties:
         status:
@@ -624,29 +436,6 @@ components:
       required:
       - status
       title: AccountSummaryResponse
-    PaginatedResponse_AccountGrantItem_:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AccountGrantItem'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        offset:
-          type: integer
-          title: Offset
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - results
-      - total
-      - offset
-      - limit
-      title: PaginatedResponse[AccountGrantItem]
     EnrichedSignal:
       properties:
         id:
@@ -729,30 +518,22 @@ components:
       - status
       - source_type
       title: EnrichedSignal
-    AccountListRequest:
-      properties:
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 50
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-        sort:
-          $ref: '#/components/schemas/AccountListSort'
-        filters:
-          $ref: '#/components/schemas/AccountListFilters'
-      type: object
-      title: AccountListRequest
+    SummaryStatus:
+      type: string
+      enum:
+      - none
+      - generating
+      - ready
+      - failed
+      title: SummaryStatus
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
     SignalSignificance:
       type: string
       enum:
@@ -760,92 +541,56 @@ components:
       - medium
       - high
       title: SignalSignificance
-    AccountListItem:
+    PaginatedResponse_AccountActivityItem_:
       properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        account_type:
-          type: string
-          title: Account Type
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-        population:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Population
-        signal_count:
+        results:
+          items:
+            $ref: '#/components/schemas/AccountActivityItem'
+          type: array
+          title: Results
+        total:
           type: integer
-          title: Signal Count
-          default: 0
-        contact_count:
+          title: Total
+        offset:
           type: integer
-          title: Contact Count
-          default: 0
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountActivityItem]
+    InstitutionStatsResponse:
+      properties:
+        signals:
+          type: integer
+          title: Signals
+        rfps:
+          type: integer
+          title: Rfps
+        grants:
+          type: integer
+          title: Grants
         contacts:
-          items:
-            $ref: '#/components/schemas/AccountContactPreview'
-          type: array
+          type: integer
           title: Contacts
-        territories:
+        linked_providers:
           items:
-            $ref: '#/components/schemas/AccountTerritoryResponse'
+            $ref: '#/components/schemas/CRMType'
           type: array
-          title: Territories
-        crms:
-          items:
-            $ref: '#/components/schemas/AccountCRMResponse'
-          type: array
-          title: Crms
+          title: Linked Providers
+          default: []
       type: object
       required:
-      - institution_id
-      - name
-      - account_type
-      - city
-      - state
-      - population
-      title: AccountListItem
-    AccountCRMResponse:
-      properties:
-        crm_type:
-          type: string
-          title: Crm Type
-        crm_id:
-          type: string
-          title: Crm Id
-      type: object
-      required:
-      - crm_type
-      - crm_id
-      title: AccountCRMResponse
-    ActivityType:
-      type: string
-      enum:
-      - purchase_order
-      - meeting_minutes
-      - annual_budgets
-      - procurement_guidelines
-      - youtube
-      - rfp
+      - signals
+      - rfps
       - grants
-      - press_releases
-      - automation_ran
-      title: ActivityType
+      - contacts
+      title: InstitutionStatsResponse
     ValidationError:
       properties:
         loc:
@@ -872,149 +617,6 @@ components:
       - msg
       - type
       title: ValidationError
-    InstitutionLogosResponse:
-      properties:
-        logos:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - type: 'null'
-          type: object
-          title: Logos
-      type: object
-      required:
-      - logos
-      title: InstitutionLogosResponse
-    InstitutionEnum:
-      type: string
-      enum:
-      - k12_districts
-      - cities
-      - counties
-      - higher_education
-      - federal_agencies
-      - federal_departments
-      - individual_units
-      - k12_schools
-      - police_agencies
-      - usfa_registry
-      - state_agencies
-      - states
-      title: InstitutionEnum
-    ActivityDateRange:
-      type: string
-      enum:
-      - all_time
-      - last_week
-      - last_30_days
-      - last_90_days
-      - last_year
-      title: ActivityDateRange
-    AccountListSortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: AccountListSortDirection
-    AccountListResponse:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/AccountListItem'
-          type: array
-          title: Items
-        total:
-          type: integer
-          title: Total
-        has_more:
-          type: boolean
-          title: Has More
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - items
-      - total
-      - has_more
-      title: AccountListResponse
-    AccountContactPreview:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-      type: object
-      required:
-      - id
-      title: AccountContactPreview
-    AccountActivityItem:
-      properties:
-        id:
-          type: string
-          title: Id
-        type:
-          $ref: '#/components/schemas/ActivityType'
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Summary
-        keywords:
-          items:
-            type: string
-          type: array
-          title: Keywords
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        document_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Document Date
-      type: object
-      required:
-      - id
-      - type
-      - created_at
-      title: AccountActivityItem
-    SummaryStatus:
-      type: string
-      enum:
-      - none
-      - generating
-      - ready
-      - failed
-      title: SummaryStatus
-    AccountTerritoryResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - id
-      - name
-      title: AccountTerritoryResponse
     AccountListFilters:
       properties:
         territory_ids:
@@ -1080,33 +682,224 @@ components:
           title: Has Signals
       type: object
       title: AccountListFilters
-    InstitutionStatsResponse:
+    PaginatedResponse_AccountRFPItem_:
       properties:
-        signals:
-          type: integer
-          title: Signals
-        rfps:
-          type: integer
-          title: Rfps
-        grants:
-          type: integer
-          title: Grants
-        contacts:
-          type: integer
-          title: Contacts
-        linked_providers:
+        results:
           items:
-            $ref: '#/components/schemas/CRMType'
+            $ref: '#/components/schemas/AccountRFPItem'
           type: array
-          title: Linked Providers
-          default: []
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
       type: object
       required:
-      - signals
-      - rfps
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountRFPItem]
+    PaginatedResponse_AccountGrantItem_:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AccountGrantItem'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        offset:
+          type: integer
+          title: Offset
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - results
+      - total
+      - offset
+      - limit
+      title: PaginatedResponse[AccountGrantItem]
+    SignalSourceType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
       - grants
-      - contacts
-      title: InstitutionStatsResponse
+      - press_releases
+      title: SignalSourceType
+    AccountTerritoryResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - name
+      title: AccountTerritoryResponse
+    AccountCRMResponse:
+      properties:
+        crm_type:
+          type: string
+          title: Crm Type
+        crm_id:
+          type: string
+          title: Crm Id
+      type: object
+      required:
+      - crm_type
+      - crm_id
+      title: AccountCRMResponse
+    ActivityType:
+      type: string
+      enum:
+      - purchase_order
+      - meeting_minutes
+      - annual_budgets
+      - procurement_guidelines
+      - youtube
+      - rfp
+      - grants
+      - press_releases
+      - automation_ran
+      title: ActivityType
+    AccountListSortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: AccountListSortDirection
+    AccountActivityItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        type:
+          $ref: '#/components/schemas/ActivityType'
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        document_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Document Date
+      type: object
+      required:
+      - id
+      - type
+      - created_at
+      title: AccountActivityItem
+    ActivityDateRange:
+      type: string
+      enum:
+      - all_time
+      - last_week
+      - last_30_days
+      - last_90_days
+      - last_year
+      title: ActivityDateRange
+    AccountListItem:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        account_type:
+          type: string
+          title: Account Type
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        population:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Population
+        signal_count:
+          type: integer
+          title: Signal Count
+          default: 0
+        contact_count:
+          type: integer
+          title: Contact Count
+          default: 0
+        contacts:
+          items:
+            $ref: '#/components/schemas/AccountContactPreview'
+          type: array
+          title: Contacts
+        territories:
+          items:
+            $ref: '#/components/schemas/AccountTerritoryResponse'
+          type: array
+          title: Territories
+        crms:
+          items:
+            $ref: '#/components/schemas/AccountCRMResponse'
+          type: array
+          title: Crms
+      type: object
+      required:
+      - institution_id
+      - name
+      - account_type
+      - city
+      - state
+      - population
+      title: AccountListItem
+    FundingStatusEnum:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_funding_period
+      title: FundingStatusEnum
     PaginatedResponse_EnrichedSignal_:
       properties:
         results:
@@ -1130,6 +923,213 @@ components:
       - offset
       - limit
       title: PaginatedResponse[EnrichedSignal]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionLogosResponse:
+      properties:
+        logos:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: 'null'
+          type: object
+          title: Logos
+      type: object
+      required:
+      - logos
+      title: InstitutionLogosResponse
+    SignalInstitution:
+      properties:
+        name:
+          type: string
+          title: Name
+        state:
+          type: string
+          title: State
+        type:
+          $ref: '#/components/schemas/InstitutionEnum'
+        linked_providers:
+          items:
+            $ref: '#/components/schemas/CRMType'
+          type: array
+          title: Linked Providers
+          default: []
+      type: object
+      required:
+      - name
+      - state
+      - type
+      title: SignalInstitution
+    InstitutionEnum:
+      type: string
+      enum:
+      - k12_districts
+      - cities
+      - counties
+      - higher_education
+      - federal_agencies
+      - federal_departments
+      - individual_units
+      - k12_schools
+      - police_agencies
+      - usfa_registry
+      - state_agencies
+      - states
+      title: InstitutionEnum
+    AccountListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AccountListItem'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        has_more:
+          type: boolean
+          title: Has More
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      - total
+      - has_more
+      title: AccountListResponse
+    AccountGrantItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        funding_agency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Funding Agency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/FundingStatusEnum'
+          - type: 'null'
+        total_obligated_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Obligated Amount
+        period_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period End Date
+        grant_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Link
+      type: object
+      required:
+      - id
+      title: AccountGrantItem
+    AccountContactPreview:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - id
+      title: AccountContactPreview
+    AccountListRequest:
+      properties:
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 50
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+        sort:
+          $ref: '#/components/schemas/AccountListSort'
+        filters:
+          $ref: '#/components/schemas/AccountListFilters'
+      type: object
+      title: AccountListRequest
+    ActivitySort:
+      type: string
+      enum:
+      - newest_first
+      - oldest_first
+      title: ActivitySort
+    SignalStatusEnum:
+      type: string
+      enum:
+      - active
+      - dismissed
+      - pending
+      - acknowledged
+      title: SignalStatusEnum
+    AccountRFPItem:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRFPStatus'
+          - type: 'null'
+        posted_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Posted Date
+        completed_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Completed Date
+      type: object
+      required:
+      - id
+      title: AccountRFPItem
   securitySchemes:
     HTTPBearer:
       type: http

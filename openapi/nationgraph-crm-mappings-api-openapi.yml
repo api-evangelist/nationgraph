@@ -322,29 +322,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BulkCreateAcceptedResponse:
-      properties:
-        status:
-          type: string
-          title: Status
-          default: accepted
-        total:
-          type: integer
-          title: Total
-      type: object
-      required:
-      - total
-      title: BulkCreateAcceptedResponse
-      description: Response for accepted bulk mapping creation (202).
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -371,112 +348,6 @@ components:
       - msg
       - type
       title: ValidationError
-    BulkDeleteMappingsResponse:
-      properties:
-        deleted:
-          items:
-            type: string
-          type: array
-          title: Deleted
-          description: CRM IDs that were successfully deleted
-        not_found:
-          items:
-            type: string
-          type: array
-          title: Not Found
-          description: CRM IDs that were not found
-      type: object
-      required:
-      - deleted
-      - not_found
-      title: BulkDeleteMappingsResponse
-      description: Response for bulk mapping deletion.
-    MappingListResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/MappingResponse'
-          type: array
-          title: Results
-        total:
-          type: integer
-          title: Total
-        has_more:
-          type: boolean
-          title: Has More
-          default: false
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - results
-      - total
-      title: MappingListResponse
-      description: API response for listing mappings.
-    CRMType:
-      type: string
-      enum:
-      - hubspot
-      - salesforce
-      - zapier
-      title: CRMType
-      description: Supported CRM integrations for institution mapping
-    PushNationGraphIdsRequest:
-      properties:
-        crm_field_name:
-          type: string
-          title: Crm Field Name
-          description: Existing CRM field to write each institution's NationGraph unique_id into (HubSpot Company property name or Salesforce Account field API name). Must already exist — the field is never created. Discover available fields via GET /crm/{integration_id}/company-fields.
-        crm_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Crm Ids
-          description: 'Optional scope: restrict the push to these CRM record IDs.'
-      type: object
-      required:
-      - crm_field_name
-      title: PushNationGraphIdsRequest
-      description: Request to push NationGraph IDs to a chosen CRM field.
-    InstitutionContactsResponse:
-      properties:
-        contacts:
-          items:
-            $ref: '#/components/schemas/CRMContactResponse'
-          type: array
-          title: Contacts
-        company_id:
-          type: string
-          title: Company Id
-        total:
-          type: integer
-          title: Total
-      type: object
-      required:
-      - contacts
-      - company_id
-      - total
-      title: InstitutionContactsResponse
-      description: Response for contacts associated with a CRM company.
-    BulkDeleteMappingsRequest:
-      properties:
-        crm_ids:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Crm Ids
-          description: List of external CRM record IDs to delete
-      type: object
-      required:
-      - crm_ids
-      title: BulkDeleteMappingsRequest
-      description: Request to delete one or more CRM institution mappings.
     CRMContactResponse:
       properties:
         id:
@@ -522,6 +393,31 @@ components:
       - id
       title: CRMContactResponse
       description: A CRM contact.
+    MappingListResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/MappingResponse'
+          type: array
+          title: Results
+        total:
+          type: integer
+          title: Total
+        has_more:
+          type: boolean
+          title: Has More
+          default: false
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      - total
+      title: MappingListResponse
+      description: API response for listing mappings.
     MappingResponse:
       properties:
         id:
@@ -553,6 +449,110 @@ components:
       - created_at
       title: MappingResponse
       description: API response for a CRM institution mapping.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PushNationGraphIdsRequest:
+      properties:
+        crm_field_name:
+          type: string
+          title: Crm Field Name
+          description: Existing CRM field to write each institution's NationGraph unique_id into (HubSpot Company property name or Salesforce Account field API name). Must already exist — the field is never created. Discover available fields via GET /crm/{integration_id}/company-fields.
+        crm_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Crm Ids
+          description: 'Optional scope: restrict the push to these CRM record IDs.'
+      type: object
+      required:
+      - crm_field_name
+      title: PushNationGraphIdsRequest
+      description: Request to push NationGraph IDs to a chosen CRM field.
+    BulkCreateAcceptedResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: accepted
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - total
+      title: BulkCreateAcceptedResponse
+      description: Response for accepted bulk mapping creation (202).
+    CRMType:
+      type: string
+      enum:
+      - hubspot
+      - salesforce
+      - zapier
+      title: CRMType
+      description: Supported CRM integrations for institution mapping
+    BulkDeleteMappingsRequest:
+      properties:
+        crm_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Crm Ids
+          description: List of external CRM record IDs to delete
+      type: object
+      required:
+      - crm_ids
+      title: BulkDeleteMappingsRequest
+      description: Request to delete one or more CRM institution mappings.
+    InstitutionContactsResponse:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CRMContactResponse'
+          type: array
+          title: Contacts
+        company_id:
+          type: string
+          title: Company Id
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - contacts
+      - company_id
+      - total
+      title: InstitutionContactsResponse
+      description: Response for contacts associated with a CRM company.
+    BulkDeleteMappingsResponse:
+      properties:
+        deleted:
+          items:
+            type: string
+          type: array
+          title: Deleted
+          description: CRM IDs that were successfully deleted
+        not_found:
+          items:
+            type: string
+          type: array
+          title: Not Found
+          description: CRM IDs that were not found
+      type: object
+      required:
+      - deleted
+      - not_found
+      title: BulkDeleteMappingsResponse
+      description: Response for bulk mapping deletion.
   securitySchemes:
     HTTPBearer:
       type: http

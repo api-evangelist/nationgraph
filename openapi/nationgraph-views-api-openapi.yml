@@ -170,15 +170,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -205,6 +196,56 @@ components:
       - msg
       - type
       title: ValidationError
+    ViewUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Name
+        filters:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Filters
+      type: object
+      title: ViewUpdateRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ViewCreateRequest:
+      properties:
+        view_type:
+          $ref: '#/components/schemas/ViewType'
+        resource_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Resource Id
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+        filters:
+          additionalProperties: true
+          type: object
+          title: Filters
+      type: object
+      required:
+      - view_type
+      - name
+      title: ViewCreateRequest
     ViewResponse:
       properties:
         id:
@@ -248,30 +289,6 @@ components:
       - created_at
       - updated_at
       title: ViewResponse
-    ViewCreateRequest:
-      properties:
-        view_type:
-          $ref: '#/components/schemas/ViewType'
-        resource_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Resource Id
-        name:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Name
-        filters:
-          additionalProperties: true
-          type: object
-          title: Filters
-      type: object
-      required:
-      - view_type
-      - name
-      title: ViewCreateRequest
     ViewType:
       type: string
       enum:
@@ -280,23 +297,6 @@ components:
       - grant_search
       - automation_results
       title: ViewType
-    ViewUpdateRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 255
-            minLength: 1
-          - type: 'null'
-          title: Name
-        filters:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filters
-      type: object
-      title: ViewUpdateRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -129,15 +129,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -164,6 +155,43 @@ components:
       - msg
       - type
       title: ValidationError
+    EmailSequenceConfig:
+      properties:
+        template_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Template Ids
+          default: []
+      type: object
+      title: EmailSequenceConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EmailSequenceUpdates:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/EmailSequenceConfig'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/EmailResourceStatus'
+          - type: 'null'
+      type: object
+      title: EmailSequenceUpdates
     EmailSequenceResponse:
       properties:
         id:
@@ -199,23 +227,13 @@ components:
       - created_at
       - updated_at
       title: EmailSequenceResponse
-    EmailSequenceUpdates:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/EmailSequenceConfig'
-          - type: 'null'
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/EmailResourceStatus'
-          - type: 'null'
-      type: object
-      title: EmailSequenceUpdates
+    EmailResourceStatus:
+      type: string
+      enum:
+      - draft
+      - active
+      - archived
+      title: EmailResourceStatus
     CreateEmailSequenceRequest:
       properties:
         name:
@@ -232,24 +250,6 @@ components:
       required:
       - name
       title: CreateEmailSequenceRequest
-    EmailSequenceConfig:
-      properties:
-        template_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Template Ids
-          default: []
-      type: object
-      title: EmailSequenceConfig
-    EmailResourceStatus:
-      type: string
-      enum:
-      - draft
-      - active
-      - archived
-      title: EmailResourceStatus
   securitySchemes:
     HTTPBearer:
       type: http

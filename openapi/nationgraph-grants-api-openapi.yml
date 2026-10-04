@@ -209,338 +209,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    FundingStatusEnum:
-      type: string
-      enum:
-      - active
-      - expired
-      - no_funding_period
-      title: FundingStatusEnum
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GrantMetadataResponse:
-      properties:
-        funding_agencies:
-          items:
-            type: string
-          type: array
-          title: Funding Agencies
-      type: object
-      required:
-      - funding_agencies
-      title: GrantMetadataResponse
-    GrantStatus:
-      type: string
-      enum:
-      - active
-      - expired
-      - no_period
-      title: GrantStatus
-    GrantDetailResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        funding_agency:
-          type: string
-          title: Funding Agency
-        awardee_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Awardee Name
-        total_obligated_amount:
-          type: number
-          title: Total Obligated Amount
-        period_of_performance_start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance Start Date
-        period_of_performance_end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance End Date
-        last_modified_date:
-          type: string
-          format: date
-          title: Last Modified Date
-        grant_link:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Grant Link
-        outlayed_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Outlayed Amount
-        external_grant_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External Grant Id
-        transaction_count:
-          type: integer
-          title: Transaction Count
-          default: 1
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Type
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        relevance_rank:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relevance Rank
-        score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Score
-        relevance_score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relevance Score
-        decay_score:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Decay Score
-        transactions:
-          items:
-            $ref: '#/components/schemas/GrantTransactionResponse'
-          type: array
-          title: Transactions
-          default: []
-      type: object
-      required:
-      - id
-      - title
-      - funding_agency
-      - total_obligated_amount
-      - last_modified_date
-      title: GrantDetailResponse
-    GrantTransactionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        total_obligated_amount:
-          type: number
-          title: Total Obligated Amount
-        outlayed_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Outlayed Amount
-        period_of_performance_start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance Start Date
-        period_of_performance_end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Of Performance End Date
-        last_modified_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Modified Date
-        source_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Url
-        action_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Type
-        action_type_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Type Description
-        awardee_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Awardee Name
-      type: object
-      required:
-      - id
-      - institution_id
-      - total_obligated_amount
-      - outlayed_amount
-      - period_of_performance_start_date
-      - period_of_performance_end_date
-      - last_modified_date
-      - source_url
-      - action_type
-      - action_type_description
-      title: GrantTransactionResponse
-    app__internal__types__grant__GrantSearchFilters:
-      properties:
-        query:
-          anyOf:
-          - type: string
-            maxLength: 2000
-          - type: 'null'
-          title: Query
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/GrantStatus'
-          - type: 'null'
-        period_start_after:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period Start After
-        period_end_before:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Period End Before
-        min_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Min Amount
-        max_amount:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max Amount
-        funding_agencies:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Funding Agencies
-        exclude_funding_agencies:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Exclude Funding Agencies
-        institution_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Institution Ids
-        states:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: States
-        source_tables:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Source Tables
-        sort:
-          type: string
-          enum:
-          - last_modified_desc
-          - period_end_asc
-          - period_end_desc
-          - amount_desc
-          - relevance
-          title: Sort
-          default: last_modified_desc
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          default: 100
-      type: object
-      title: GrantSearchFilters
-      description: "Search filters for grants.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe ``search_vector`` column (title + description, english config — stemming\nenabled). Same syntax as RFPs:\n\n    bare words:    \"cybersecurity grant\"        implicit AND\n    quoted phrase: '\"emergency connectivity\"'   exact phrase\n    OR:            \"ESSER OR ARP\"               literal OR keyword\n    exclude:       \"covid -relief\"              prefix - to exclude\n    combined:      '\"emergency connectivity\" OR \"school safety\"'\n\nAll filters are optional. The grants table is ~1.27M rows; fully unbounded\nqueries are fine for browsing."
     app__types__grant__GrantSearchFilters:
       properties:
         include_words:
@@ -641,11 +309,37 @@ components:
           default: 100
       type: object
       title: GrantSearchFilters
-    PaginatedResponse_GrantDetailResponse_:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_GrantResponse_:
       properties:
         results:
           items:
-            $ref: '#/components/schemas/GrantDetailResponse'
+            $ref: '#/components/schemas/app__internal__types__grant__GrantResponse'
           type: array
           title: Results
         total:
@@ -663,7 +357,192 @@ components:
       - total
       - offset
       - limit
-      title: PaginatedResponse[GrantDetailResponse]
+      title: PaginatedResponse[GrantResponse]
+    app__types__grant__GrantResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        funding_agency:
+          type: string
+          title: Funding Agency
+        awardee_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Awardee Name
+        total_obligated_amount:
+          type: number
+          title: Total Obligated Amount
+        period_of_performance_start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance Start Date
+        period_of_performance_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance End Date
+        last_modified_date:
+          type: string
+          format: date
+          title: Last Modified Date
+        grant_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Link
+        outlayed_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outlayed Amount
+        external_grant_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Grant Id
+        transaction_count:
+          type: integer
+          title: Transaction Count
+          default: 1
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Type
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        relevance_rank:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Rank
+        score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Score
+        relevance_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relevance Score
+        decay_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Decay Score
+      type: object
+      required:
+      - id
+      - title
+      - funding_agency
+      - total_obligated_amount
+      - last_modified_date
+      title: GrantResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GrantTransactionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        total_obligated_amount:
+          type: number
+          title: Total Obligated Amount
+        outlayed_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outlayed Amount
+        period_of_performance_start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance Start Date
+        period_of_performance_end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Of Performance End Date
+        last_modified_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Modified Date
+        source_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Url
+        action_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Type
+        action_type_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Type Description
+        awardee_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Awardee Name
+      type: object
+      required:
+      - id
+      - institution_id
+      - total_obligated_amount
+      - outlayed_amount
+      - period_of_performance_start_date
+      - period_of_performance_end_date
+      - last_modified_date
+      - source_url
+      - action_type
+      - action_type_description
+      title: GrantTransactionResponse
     app__internal__types__grant__GrantResponse:
       properties:
         id:
@@ -804,11 +683,11 @@ components:
       required:
       - institutions
       title: GrantInstitutionOptionsResponse
-    PaginatedResponse_GrantResponse_:
+    PaginatedResponse_GrantDetailResponse_:
       properties:
         results:
           items:
-            $ref: '#/components/schemas/app__internal__types__grant__GrantResponse'
+            $ref: '#/components/schemas/GrantDetailResponse'
           type: array
           title: Results
         total:
@@ -826,8 +705,109 @@ components:
       - total
       - offset
       - limit
-      title: PaginatedResponse[GrantResponse]
-    app__types__grant__GrantResponse:
+      title: PaginatedResponse[GrantDetailResponse]
+    app__internal__types__grant__GrantSearchFilters:
+      properties:
+        query:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Query
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/GrantStatus'
+          - type: 'null'
+        period_start_after:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period Start After
+        period_end_before:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Period End Before
+        min_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Amount
+        max_amount:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max Amount
+        funding_agencies:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Funding Agencies
+        exclude_funding_agencies:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Funding Agencies
+        institution_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Institution Ids
+        states:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: States
+        source_tables:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Source Tables
+        sort:
+          type: string
+          enum:
+          - last_modified_desc
+          - period_end_asc
+          - period_end_desc
+          - amount_desc
+          - relevance
+          title: Sort
+          default: last_modified_desc
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          default: 100
+      type: object
+      title: GrantSearchFilters
+      description: "Search filters for grants.\n\nThe ``query`` field accepts a websearch-style query string evaluated against\nthe ``search_vector`` column (title + description, english config — stemming\nenabled). Same syntax as RFPs:\n\n    bare words:    \"cybersecurity grant\"        implicit AND\n    quoted phrase: '\"emergency connectivity\"'   exact phrase\n    OR:            \"ESSER OR ARP\"               literal OR keyword\n    exclude:       \"covid -relief\"              prefix - to exclude\n    combined:      '\"emergency connectivity\" OR \"school safety\"'\n\nAll filters are optional. The grants table is ~1.27M rows; fully unbounded\nqueries are fine for browsing."
+    GrantMetadataResponse:
+      properties:
+        funding_agencies:
+          items:
+            type: string
+          type: array
+          title: Funding Agencies
+      type: object
+      required:
+      - funding_agencies
+      title: GrantMetadataResponse
+    GrantDetailResponse:
       properties:
         id:
           type: string
@@ -926,6 +906,12 @@ components:
           - type: number
           - type: 'null'
           title: Decay Score
+        transactions:
+          items:
+            $ref: '#/components/schemas/GrantTransactionResponse'
+          type: array
+          title: Transactions
+          default: []
       type: object
       required:
       - id
@@ -933,7 +919,21 @@ components:
       - funding_agency
       - total_obligated_amount
       - last_modified_date
-      title: GrantResponse
+      title: GrantDetailResponse
+    GrantStatus:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_period
+      title: GrantStatus
+    FundingStatusEnum:
+      type: string
+      enum:
+      - active
+      - expired
+      - no_funding_period
+      title: FundingStatusEnum
   securitySchemes:
     HTTPBearer:
       type: http

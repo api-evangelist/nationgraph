@@ -93,15 +93,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -128,38 +119,75 @@ components:
       - msg
       - type
       title: ValidationError
-    HostSummary:
+    HTTPValidationError:
       properties:
-        id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BookingRequest:
+      properties:
+        host_id:
           type: string
-          title: Id
+          title: Host Id
+        start_time:
+          type: string
+          title: Start Time
+        timezone:
+          type: string
+          title: Timezone
         name:
           type: string
           title: Name
-        role:
+        email:
           type: string
-          title: Role
-          default: ''
-        event_name:
+          title: Email
+        guests:
+          items:
+            type: string
+          type: array
+          title: Guests
+        prep_answer:
           type: string
-          title: Event Name
-        duration_minutes:
-          type: integer
-          title: Duration Minutes
-        prep_question:
-          type: string
-          title: Prep Question
+          title: Prep Answer
           default: ''
       type: object
       required:
-      - id
+      - host_id
+      - start_time
+      - timezone
       - name
-      - event_name
-      - duration_minutes
-      title: HostSummary
-      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
-
-        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
+      - email
+      title: BookingRequest
+    AvailabilityResponse:
+      properties:
+        host_id:
+          type: string
+          title: Host Id
+        slots:
+          items:
+            type: string
+          type: array
+          title: Slots
+      type: object
+      required:
+      - host_id
+      - slots
+      title: AvailabilityResponse
+    HostsResponse:
+      properties:
+        hosts:
+          items:
+            $ref: '#/components/schemas/HostSummary'
+          type: array
+          title: Hosts
+      type: object
+      required:
+      - hosts
+      title: HostsResponse
     BookingConfirmation:
       properties:
         status:
@@ -201,66 +229,38 @@ components:
       - cancel_url
       - reschedule_url
       title: BookingConfirmation
-    HostsResponse:
+    HostSummary:
       properties:
-        hosts:
-          items:
-            $ref: '#/components/schemas/HostSummary'
-          type: array
-          title: Hosts
-      type: object
-      required:
-      - hosts
-      title: HostsResponse
-    AvailabilityResponse:
-      properties:
-        host_id:
+        id:
           type: string
-          title: Host Id
-        slots:
-          items:
-            type: string
-          type: array
-          title: Slots
-      type: object
-      required:
-      - host_id
-      - slots
-      title: AvailabilityResponse
-    BookingRequest:
-      properties:
-        host_id:
-          type: string
-          title: Host Id
-        start_time:
-          type: string
-          title: Start Time
-        timezone:
-          type: string
-          title: Timezone
+          title: Id
         name:
           type: string
           title: Name
-        email:
+        role:
           type: string
-          title: Email
-        guests:
-          items:
-            type: string
-          type: array
-          title: Guests
-        prep_answer:
+          title: Role
+          default: ''
+        event_name:
           type: string
-          title: Prep Answer
+          title: Event Name
+        duration_minutes:
+          type: integer
+          title: Duration Minutes
+        prep_question:
+          type: string
+          title: Prep Question
           default: ''
       type: object
       required:
-      - host_id
-      - start_time
-      - timezone
+      - id
       - name
-      - email
-      title: BookingRequest
+      - event_name
+      - duration_minutes
+      title: HostSummary
+      description: 'A bookable Account Manager. id is the stable slug used as the dropdown
+
+        value and as host_id everywhere else; no Calendly URI is ever exposed here.'
   securitySchemes:
     HTTPBearer:
       type: http

@@ -138,15 +138,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -173,34 +164,34 @@ components:
       - msg
       - type
       title: ValidationError
-    OwnerListResponse:
+    TeamResponse:
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/OwnerResponse'
-          type: array
-          title: Results
-        has_more:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        primary:
           type: boolean
-          title: Has More
-          description: Whether there are more results to fetch
-          default: false
-        nextCursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Nextcursor
-          description: Cursor for fetching next page
-        total:
-          type: integer
-          title: Total
-          description: Number of owners in this response
+          title: Primary
+          description: Whether this is the owner's primary team
       type: object
       required:
-      - results
-      - total
-      title: OwnerListResponse
-      description: API response for listing owners.
+      - id
+      - name
+      - primary
+      title: TeamResponse
+      description: A CRM team.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     OwnerResponse:
       properties:
         id:
@@ -264,25 +255,34 @@ components:
       - full_name
       title: OwnerResponse
       description: API response for a single owner.
-    TeamResponse:
+    OwnerListResponse:
       properties:
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-        primary:
+        results:
+          items:
+            $ref: '#/components/schemas/OwnerResponse'
+          type: array
+          title: Results
+        has_more:
           type: boolean
-          title: Primary
-          description: Whether this is the owner's primary team
+          title: Has More
+          description: Whether there are more results to fetch
+          default: false
+        nextCursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nextcursor
+          description: Cursor for fetching next page
+        total:
+          type: integer
+          title: Total
+          description: Number of owners in this response
       type: object
       required:
-      - id
-      - name
-      - primary
-      title: TeamResponse
-      description: A CRM team.
+      - results
+      - total
+      title: OwnerListResponse
+      description: API response for listing owners.
   securitySchemes:
     HTTPBearer:
       type: http

@@ -34,15 +34,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -69,22 +60,15 @@ components:
       - msg
       - type
       title: ValidationError
-    FoiaWorkerEnqueueRequest:
+    HTTPValidationError:
       properties:
-        file_path:
-          type: string
-          title: File Path
-        reference_codes:
+        detail:
           items:
-            type: string
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          minItems: 1
-          title: Reference Codes
+          title: Detail
       type: object
-      required:
-      - file_path
-      - reference_codes
-      title: FoiaWorkerEnqueueRequest
+      title: HTTPValidationError
     FoiaWorkerEnqueueResponse:
       properties:
         accepted:
@@ -105,6 +89,22 @@ components:
       - message_id
       - payload
       title: FoiaWorkerEnqueueResponse
+    FoiaWorkerEnqueueRequest:
+      properties:
+        file_path:
+          type: string
+          title: File Path
+        reference_codes:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Reference Codes
+      type: object
+      required:
+      - file_path
+      - reference_codes
+      title: FoiaWorkerEnqueueRequest
     FoiaWorkerEnqueueResponsePayload:
       properties:
         file_path:

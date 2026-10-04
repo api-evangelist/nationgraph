@@ -79,15 +79,32 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     app__types__contacts__contact_response__ContactResponse:
       properties:
         id:
@@ -156,6 +173,15 @@ components:
       - title
       - institution_id
       title: ContactResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     EmailStatus:
       type: string
       enum:
@@ -165,32 +191,30 @@ components:
       - risky
       - not_verified
       title: EmailStatus
-    ValidationError:
+    SearchMetadata:
       properties:
-        loc:
+        reason:
+          type: string
+          title: Reason
+        citations:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Citations
+        direct_match:
+          type: boolean
+          title: Direct Match
+        verified:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Verified
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - reason
+      - citations
+      - direct_match
+      title: SearchMetadata
     ContactSearchCriteria:
       properties:
         description:
@@ -227,30 +251,6 @@ components:
       - description
       - institution_id
       title: ContactSearchCriteria
-    SearchMetadata:
-      properties:
-        reason:
-          type: string
-          title: Reason
-        citations:
-          items:
-            type: string
-          type: array
-          title: Citations
-        direct_match:
-          type: boolean
-          title: Direct Match
-        verified:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Verified
-      type: object
-      required:
-      - reason
-      - citations
-      - direct_match
-      title: SearchMetadata
   securitySchemes:
     HTTPBearer:
       type: http

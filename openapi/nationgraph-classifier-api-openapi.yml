@@ -34,26 +34,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    EntityIdsResponse:
-      properties:
-        entity_ids:
-          items:
-            type: string
-          type: array
-          title: Entity Ids
-      type: object
-      required:
-      - entity_ids
-      title: EntityIdsResponse
     ValidationError:
       properties:
         loc:
@@ -80,6 +60,26 @@ components:
       - msg
       - type
       title: ValidationError
+    EntityIdsResponse:
+      properties:
+        entity_ids:
+          items:
+            type: string
+          type: array
+          title: Entity Ids
+      type: object
+      required:
+      - entity_ids
+      title: EntityIdsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     EntityIdRequest:
       properties:
         names:

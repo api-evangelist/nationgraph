@@ -187,15 +187,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UserProfileInstitutionFilter:
       properties:
         id:
@@ -219,6 +236,86 @@ components:
       - type
       - payload
       title: UserProfileInstitutionFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
+    TerritoryListItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/InstitutionFiltersEnum'
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+        account_count:
+          type: integer
+          title: Account Count
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - payload
+      - account_count
+      - created_at
+      - updated_at
+      title: TerritoryListItem
+      description: 'One row in the `GET /territories` list response.
+
+
+        Visibility column lives in the DB but is intentionally not exposed here —
+
+        future-sprint feature per boss; the API stays visibility-blind for now.'
     InstitutionTypePayload:
       properties:
         name:
@@ -276,80 +373,6 @@ components:
           title: Search Query
       type: object
       title: InstitutionTypePayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TerritoryVisibility:
-      type: string
-      enum:
-      - private
-      - organization
-      title: TerritoryVisibility
-    TerritoryListItem:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-        type:
-          $ref: '#/components/schemas/InstitutionFiltersEnum'
-        payload:
-          additionalProperties: true
-          type: object
-          title: Payload
-        account_count:
-          type: integer
-          title: Account Count
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-      - id
-      - name
-      - type
-      - payload
-      - account_count
-      - created_at
-      - updated_at
-      title: TerritoryListItem
-      description: 'One row in the `GET /territories` list response.
-
-
-        Visibility column lives in the DB but is intentionally not exposed here —
-
-        future-sprint feature per boss; the API stays visibility-blind for now.'
     TerritoryPreviewResponse:
       properties:
         count:
@@ -365,35 +388,12 @@ components:
       - count
       - sample
       title: TerritoryPreviewResponse
-    InstitutionFiltersEnum:
+    TerritoryVisibility:
       type: string
       enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
-    InstitutionListPayload:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        name:
-          type: string
-          title: Name
-        original_filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Filename
-        original_filter:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      title: InstitutionListPayload
+      - private
+      - organization
+      title: TerritoryVisibility
     TerritoryListResponse:
       properties:
         total:

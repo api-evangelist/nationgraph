@@ -67,15 +67,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -102,20 +93,15 @@ components:
       - msg
       - type
       title: ValidationError
-    SubscriptionType:
-      type: string
-      enum:
-      - signals_digest
-      title: SubscriptionType
-    DeliveryMethod:
-      type: string
-      enum:
-      - email
-      - sms
-      - push
-      - webhook
-      - slack
-      title: DeliveryMethod
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     NotificationFrequency:
       type: string
       enum:
@@ -125,33 +111,6 @@ components:
       - weekly
       - monthly
       title: NotificationFrequency
-    UserSubscriptionUpdate:
-      properties:
-        frequency:
-          anyOf:
-          - $ref: '#/components/schemas/NotificationFrequency'
-          - type: 'null'
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/SubscriptionStatus'
-          - type: 'null'
-        delivery_target:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Delivery Target
-        config:
-          additionalProperties: true
-          type: object
-          title: Config
-      type: object
-      title: UserSubscriptionUpdate
-    SubscriptionStatus:
-      type: string
-      enum:
-      - active
-      - inactive
-      title: SubscriptionStatus
     UserSubscriptionCreate:
       properties:
         frequency:
@@ -175,6 +134,47 @@ components:
       - subscription_type
       - delivery_method
       title: UserSubscriptionCreate
+    SubscriptionStatus:
+      type: string
+      enum:
+      - active
+      - inactive
+      title: SubscriptionStatus
+    SubscriptionType:
+      type: string
+      enum:
+      - signals_digest
+      title: SubscriptionType
+    UserSubscriptionUpdate:
+      properties:
+        frequency:
+          anyOf:
+          - $ref: '#/components/schemas/NotificationFrequency'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+        delivery_target:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Target
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+      type: object
+      title: UserSubscriptionUpdate
+    DeliveryMethod:
+      type: string
+      enum:
+      - email
+      - sms
+      - push
+      - webhook
+      - slack
+      title: DeliveryMethod
   securitySchemes:
     HTTPBearer:
       type: http

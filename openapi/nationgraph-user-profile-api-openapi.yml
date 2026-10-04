@@ -120,15 +120,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UserProfileInstitutionFilter:
       properties:
         id:
@@ -152,6 +169,44 @@ components:
       - type
       - payload
       title: UserProfileInstitutionFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InstitutionFiltersEnum:
+      type: string
+      enum:
+      - institution_type
+      - institution_list
+      title: InstitutionFiltersEnum
+    InstitutionListPayload:
+      properties:
+        institution_ids:
+          items:
+            type: string
+          type: array
+          title: Institution Ids
+        name:
+          type: string
+          title: Name
+        original_filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Filename
+        original_filter:
+          anyOf:
+          - $ref: '#/components/schemas/InstitutionTypePayload'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: InstitutionListPayload
     InstitutionTypePayload:
       properties:
         name:
@@ -218,44 +273,12 @@ components:
       required:
       - user_id_to_search
       title: Body_search_user_profile_documents_api_v3_user_profiles_documents_search_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     TerritoryVisibility:
       type: string
       enum:
       - private
       - organization
       title: TerritoryVisibility
-    InstitutionFiltersEnum:
-      type: string
-      enum:
-      - institution_type
-      - institution_list
-      title: InstitutionFiltersEnum
     UserProfileRequest:
       properties:
         user_id:
@@ -282,29 +305,6 @@ components:
           title: Filters
       type: object
       title: UserProfileRequest
-    InstitutionListPayload:
-      properties:
-        institution_ids:
-          items:
-            type: string
-          type: array
-          title: Institution Ids
-        name:
-          type: string
-          title: Name
-        original_filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Filename
-        original_filter:
-          anyOf:
-          - $ref: '#/components/schemas/InstitutionTypePayload'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      title: InstitutionListPayload
   securitySchemes:
     HTTPBearer:
       type: http

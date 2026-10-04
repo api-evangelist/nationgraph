@@ -149,15 +149,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    EnrichmentStatsResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        total:
+          type: integer
+          title: Total
+        by_status:
+          additionalProperties:
+            type: integer
+          type: object
+          title: By Status
       type: object
-      title: HTTPValidationError
+      required:
+      - total
+      - by_status
+      title: EnrichmentStatsResponse
     ValidationError:
       properties:
         loc:
@@ -209,6 +215,54 @@ components:
       - source_type
       - institution_ids
       title: EnrichmentRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EnrichmentInstitutionMetadata:
+      properties:
+        institution_id:
+          type: string
+          title: Institution Id
+        institution_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Name
+        institution_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution State
+        institution_city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution City
+        institution_county:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution County
+        institution_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Label
+      type: object
+      required:
+      - institution_id
+      - institution_name
+      - institution_state
+      - institution_city
+      - institution_county
+      - institution_label
+      title: EnrichmentInstitutionMetadata
     AllEnrichmentsResponse:
       properties:
         data:
@@ -238,6 +292,74 @@ components:
       - data
       - limit
       title: AllEnrichmentsResponse
+    EnrichmentWithInstitution:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        request_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Text
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+        institution_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution Id
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        institution_metadata:
+          $ref: '#/components/schemas/EnrichmentInstitutionMetadata'
+      type: object
+      required:
+      - id
+      - user_email
+      - type
+      - status
+      - created_at
+      - modified_at
+      - request_text
+      - result
+      - institution_id
+      - workspace_id
+      - institution_metadata
+      title: EnrichmentWithInstitution
     EnrichmentResponse:
       properties:
         id:
@@ -308,128 +430,6 @@ components:
       required:
       - data
       title: CreateEnrichmentsResponse
-    EnrichmentInstitutionMetadata:
-      properties:
-        institution_id:
-          type: string
-          title: Institution Id
-        institution_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Name
-        institution_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution State
-        institution_city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution City
-        institution_county:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution County
-        institution_label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Label
-      type: object
-      required:
-      - institution_id
-      - institution_name
-      - institution_state
-      - institution_city
-      - institution_county
-      - institution_label
-      title: EnrichmentInstitutionMetadata
-    EnrichmentWithInstitution:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        user_email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Email
-        type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Type
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Modified At
-        request_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Text
-        result:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Result
-        institution_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Institution Id
-        workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Id
-        institution_metadata:
-          $ref: '#/components/schemas/EnrichmentInstitutionMetadata'
-      type: object
-      required:
-      - id
-      - user_email
-      - type
-      - status
-      - created_at
-      - modified_at
-      - request_text
-      - result
-      - institution_id
-      - workspace_id
-      - institution_metadata
-      title: EnrichmentWithInstitution
-    EnrichmentStatsResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        by_status:
-          additionalProperties:
-            type: integer
-          type: object
-          title: By Status
-      type: object
-      required:
-      - total
-      - by_status
-      title: EnrichmentStatsResponse
   securitySchemes:
     HTTPBearer:
       type: http
